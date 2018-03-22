@@ -5358,7 +5358,7 @@
         <ownedAttribute xmi:id="_R6ddwiuhEeiQZPt0ftwT5Q" name="statement"/>
         <ownedAttribute xmi:id="_R6ddwyuhEeiQZPt0ftwT5Q" name="resultSet"/>
         <ownedAttribute xmi:id="_R6ddxCuhEeiQZPt0ftwT5Q" name="connection"/>
-        <ownedAttribute xmi:id="_HgE-0S3sEeijMMO3JUNPcg" name="yo" type="_HJN-AC3sEeijMMO3JUNPcg"/>
+        <ownedAttribute xmi:id="_HgE-0S3sEeijMMO3JUNPcg" name="baba" type="_HJN-AC3sEeijMMO3JUNPcg"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Collaboration" xmi:id="_jgCs0Ct_EeiFnfYbmhT65Q" name="drop">
         <ownedBehavior xmi:type="uml:Interaction" xmi:id="_jgLPsCt_EeiFnfYbmhT65Q" name="drop">
