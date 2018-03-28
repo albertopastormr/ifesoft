@@ -1,5 +1,7 @@
 package Negocio;
 
+import Integracion.Feria.DAOFeria;
+
 public abstract class IFDAO {
     private static IFDAO instance;
 

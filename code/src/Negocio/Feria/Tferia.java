@@ -3,38 +3,45 @@ package Negocio.Feria;
 import java.sql.*;
 
 public class Tferia {
+
+    private int id;
     private String name;
     private String description;
-    private Time iniTime;
-    private Time endTime;
+    private Date iniDate;
+    private Date endDate;
     private Boolean active;
 
     public Tferia() {
         name = null;
         description = null;
-        iniTime = null;
-        endTime = null;
+        iniDate = null;
+        endDate = null;
         active = false;
     }
 
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
+	public Tferia(int id, String name, String description, Date iniDate, Date endDate, Boolean active) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.iniDate = iniDate;
+		this.endDate = endDate;
+		this.active = active;
+	}
 
-    public void setNombre(String name) {
-        this.name = name;
+	public Tferia(String name, String description, Date iniDate, Date endDate, Boolean active) {
+		this.name = name;
+		this.description = description;
+		this.iniDate = iniDate;
+		this.endDate = endDate;
+		this.active = active;
+	}
+
+	public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public void setFecha_ini(Time iniTime) {
-        this.iniTime = iniTime;
-    }
-
-    public void setFecha_fin(Time endTime) {
-        this.endTime = endTime;
     }
 
     public String getName() {
@@ -45,16 +52,35 @@ public class Tferia {
         return description;
     }
 
-    public Time getIniTime() {
-        return iniTime;
+    public Date getIniDate() {
+        return iniDate;
     }
 
-    public Time getEndTime() {
-        return endTime;
+    public Date getEndDate() {
+        return endDate;
     }
 
     public Boolean getActive() {
         return active;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setIniDate(Date iniDate) {
+        this.iniDate = iniDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
 }
