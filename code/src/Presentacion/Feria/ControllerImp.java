@@ -1,25 +1,31 @@
 package Presentacion.Feria;
 
-
 import Negocio.Feria.ASferia;
+import Presentacion.Feria.views.ViewsHalfCreate;
 
 public class ControllerImp implements Controller  {
 
     private ASferia asFeria;
-    private UI gui;
+    private UIimp gui;
 
     @Override
     public void execute(int event, Object data) {
 
         switch (event){
-            case Event.INSERT_FERIA:
+            case Event.HOME:
 
                 // Lanzamos lo que sea de modelo
                 break;
-            case Event.DROP_FERIA:
+            case Event.CREATE_HALF:
+                new ViewsHalfCreate();
+                break;
+            case Event.MODIFY_HALF:
 
                 break;
-            case Event.WRITE_DATA_FERIA:
+            case Event.SHOW_HALF:
+
+                break;
+            case Event.DROP_HALF:
 
                 break;
         }
