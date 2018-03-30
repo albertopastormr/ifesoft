@@ -1,5 +1,8 @@
 package Presentacion.Feria.views;
 
+import Presentacion.Feria.Event;
+import Presentacion.Feria.UIimp;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -10,7 +13,7 @@ public class ViewsHalfCreate extends JFrame {
     private JPanel dialogPane;
     private JPanel contentPanel;
     private JLabel JlabelTitle;
-    private JComboBox comboBox1;
+    private JComboBox<String> comboBox;
     private JPanel buttonBar;
     private JButton NextButton;
     private JButton backButton;
@@ -22,20 +25,48 @@ public class ViewsHalfCreate extends JFrame {
         this.setVisible(true);
     }
 
-    private void NextButtonActionPerformed(ActionEvent e) {
+    private void NextButtonActionPerformed() {
+
+        switch (String.valueOf(comboBox.getSelectedItem())){
+            case "Feria":
+                this.setVisible(false);
+                UIimp.getInstance().execute(Event.INSERT_FORM_FERIA, null);
+                break;
+            case "Pabellon":
+                UIimp.getInstance().execute(Event.CREATE_HALF, null);
+                break;
+            case "Stand":
+                UIimp.getInstance().execute(Event.CREATE_HALF, null);
+                break;
+            case "Participante":
+                UIimp.getInstance().execute(Event.CREATE_HALF, null);
+                break;
+            case "Asignacion":
+                UIimp.getInstance().execute(Event.CREATE_HALF, null);
+                break;
+            case "Participacion":
+                UIimp.getInstance().execute(Event.CREATE_HALF, null);
+                break;
+
+        }
+
+
     }
 
-    private void backButtonActionPerformed(ActionEvent e) {
+    private void backButtonActionPerformed() {
+        this.setVisible(false);
+        UIimp.getInstance().execute(Event.CREATE_HALF, null);
+        // Volver a mostrar la primera
     }
 
-    private void helpButtonHalfCreateActionPerformed(ActionEvent e) {
+    private void helpButtonHalfCreateActionPerformed() {
     }
 
     private void initComponents() {
         dialogPane = new JPanel();
         contentPanel = new JPanel();
         JlabelTitle = new JLabel();
-        comboBox1 = new JComboBox();
+        comboBox = new JComboBox<String>();
         buttonBar = new JPanel();
         NextButton = new JButton();
         backButton = new JButton();
@@ -55,7 +86,7 @@ public class ViewsHalfCreate extends JFrame {
                     "", javax.swing.border.TitledBorder.CENTER,
                     javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
                     java.awt.Color.red), dialogPane.getBorder()));
-            
+
             dialogPane.addPropertyChangeListener(new java.beans.PropertyChangeListener(){
                 public void propertyChange(java.beans.PropertyChangeEvent e){
                     if("border".equals(e.getPropertyName()))
@@ -65,6 +96,15 @@ public class ViewsHalfCreate extends JFrame {
 
             dialogPane.setLayout(new BoxLayout(dialogPane, BoxLayout.Y_AXIS));
 
+            //======== ComboBox =========
+
+            comboBox.addItem("Pabellon");
+            comboBox.addItem("Feria");
+            comboBox.addItem("Stand");
+            comboBox.addItem("Participante");
+            comboBox.addItem("Asignacion");
+            comboBox.addItem("Praticipacion");
+
             //======== contentPanel ========
             {
                 contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
@@ -73,7 +113,7 @@ public class ViewsHalfCreate extends JFrame {
                 JlabelTitle.setText("IFESOFT SOFTWATE");
                 JlabelTitle.setFont(JlabelTitle.getFont().deriveFont(JlabelTitle.getFont().getSize() + 7f));
                 contentPanel.add(JlabelTitle);
-                contentPanel.add(comboBox1);
+                contentPanel.add(comboBox);
             }
             dialogPane.add(contentPanel);
 
@@ -89,7 +129,7 @@ public class ViewsHalfCreate extends JFrame {
                 NextButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        NextButtonActionPerformed(e);
+                        NextButtonActionPerformed();
                     }
                 });
                 buttonBar.add(NextButton, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
@@ -101,7 +141,7 @@ public class ViewsHalfCreate extends JFrame {
                 backButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        backButtonActionPerformed(e);
+                        backButtonActionPerformed();
                     }
                 });
                 buttonBar.add(backButton, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
@@ -113,7 +153,7 @@ public class ViewsHalfCreate extends JFrame {
                 helpButtonHalfCreate.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        helpButtonHalfCreateActionPerformed(e);
+                        helpButtonHalfCreateActionPerformed();
                     }
                 });
                 buttonBar.add(helpButtonHalfCreate, new GridBagConstraints(3, 0, 1, 1, 0.0, 0.0,

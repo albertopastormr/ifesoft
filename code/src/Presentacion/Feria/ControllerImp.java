@@ -1,6 +1,7 @@
 package Presentacion.Feria;
 
 import Negocio.Feria.ASferia;
+import Presentacion.Feria.views.ViewsFormCreateFeria;
 import Presentacion.Feria.views.ViewsHalfCreate;
 
 public class ControllerImp implements Controller  {
@@ -27,6 +28,9 @@ public class ControllerImp implements Controller  {
                 break;
             case Event.DROP_HALF:
 
+                break;
+            case Event.INSERT_FORM_FERIA:
+                new ViewsFormCreateFeria();
                 break;
         }
     }
