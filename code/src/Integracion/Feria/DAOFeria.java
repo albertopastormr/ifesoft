@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 public interface DAOFeria {
-	 Integer create(Tferia tUsuario) throws SQLException, DAOException;
+	 Integer create(Tferia tUsuario) throws SQLException, DAOException, ClassNotFoundException;
 	 Collection<Tferia> readAll() throws DAOException;
 	 Tferia readByName(String nombre) throws DAOException;
 	 Integer update(Tferia tUsuario) throws DAOException;

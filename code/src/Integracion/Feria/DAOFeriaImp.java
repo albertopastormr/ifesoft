@@ -9,12 +9,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class DAOFeriaImp implements DAOFeria{
-	public Integer create(Tferia tFeria) throws DAOException {
+	public Integer create(Tferia tFeria) throws DAOException,ClassNotFoundException {
 		int id = -1;
-
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String conectionChain = "jdbc:mysql://localhost:3306/ifesoft_bd";
 		Connection connec = null;
 		try { // Conexion db
-			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft_bd","root","");
+			connec = DriverManager.getConnection(conectionChain,"root","");
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'create' Name Feria "+ tFeria.getName() +" no logrado\n");
 		}
