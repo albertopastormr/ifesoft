@@ -8,7 +8,7 @@ import javax.swing.event.*;
 
 public class ViewsFormCreateFeria extends JFrame {
 
-    private JPanel dialogPane;
+    private JPanel dialogPanel;
     private JPanel contentPanel;
     private JPanel contentPanel2;
     private JLabel label1;
@@ -46,7 +46,7 @@ public class ViewsFormCreateFeria extends JFrame {
     }
 
     private void initComponents() {
-        dialogPane = new JPanel();
+        dialogPanel = new JPanel();
         contentPanel = new JPanel();
         contentPanel2 = new JPanel();
         label1 = new JLabel();
@@ -66,21 +66,21 @@ public class ViewsFormCreateFeria extends JFrame {
         helpButton = new JButton();
 
         //======== this ========
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BorderLayout());
+        Container contentPanel = getContentPanel();
+        contentPanel.setLayout(new BorderLayout());
 
         //======== dialogPane ========
         {
-            dialogPane.setBorder(new EmptyBorder(12, 12, 12, 12));
+            dialogPanel.setBorder(new EmptyBorder(12, 12, 12, 12));
 
             // JFormDesigner evaluation mark
-            dialogPane.setBorder(new javax.swing.border.CompoundBorder(
+            dialogPanel.setBorder(new javax.swing.border.CompoundBorder(
                 new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
                     "", javax.swing.border.TitledBorder.CENTER,
                     javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
                     java.awt.Color.red), dialogPane.getBorder())); dialogPane.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
-            dialogPane.setLayout(new BorderLayout());
+            dialogPanel.setLayout(new BorderLayout());
 
             //======== contentPanel ========
             {
@@ -130,7 +130,7 @@ public class ViewsFormCreateFeria extends JFrame {
                 }
                 contentPanel.add(contentPanel5);
             }
-            dialogPane.add(contentPanel, BorderLayout.CENTER);
+            dialogPanel.add(contentPanel, BorderLayout.CENTER);
 
             //======== buttonBar ========
             {
@@ -175,9 +175,9 @@ public class ViewsFormCreateFeria extends JFrame {
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 0, 0), 0, 0));
             }
-            dialogPane.add(buttonBar, BorderLayout.SOUTH);
+            dialogPanel.add(buttonBar, BorderLayout.SOUTH);
         }
-        contentPane.add(dialogPane, BorderLayout.CENTER);
+        contentPanel.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
     }

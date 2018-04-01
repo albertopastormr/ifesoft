@@ -61,7 +61,7 @@ public class UIimp extends JFrame {
     }
 
     private void initComponents() {
-        dialogPane = new JPanel();
+        dialogPanel = new JPanel();
         contentPanel = new JPanel();
         JlabelTitle = new JLabel();
         buttonBar2 = new JPanel();
@@ -75,28 +75,28 @@ public class UIimp extends JFrame {
 
         //======== this ========
         setTitle("IFESOFT ");
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BorderLayout());
+        Container contentPanel = getContentPanel();
+        contentPanel.setLayout(new BorderLayout());
 
         //======== Panel ========
         {
-            dialogPane.setBorder(new EmptyBorder(12, 12, 12, 12));
+            dialogPanel.setBorder(new EmptyBorder(12, 12, 12, 12));
 
             // JFormDesigner evaluation mark
-            dialogPane.setBorder(new javax.swing.border.CompoundBorder(
+            dialogPanel.setBorder(new javax.swing.border.CompoundBorder(
                 new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
                     "", javax.swing.border.TitledBorder.CENTER,
                     javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                    java.awt.Color.red), dialogPane.getBorder())); dialogPane.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+                    java.awt.Color.red), dialogPanel.getBorder())); dialogPanel.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
-            dialogPane.setLayout(new BorderLayout());
+            dialogPanel.setLayout(new BorderLayout());
 
             //======== contentPanel ========
             {
                 contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 
                 //---- JlabelTitle ----
-                JlabelTitle.setText("IFESOFT SOFTWATE");
+                JlabelTitle.setText("IFESOFT SOFTWARE");
                 JlabelTitle.setFont(JlabelTitle.getFont().deriveFont(JlabelTitle.getFont().getSize() + 7f));
                 contentPanel.add(JlabelTitle);
 
@@ -180,9 +180,9 @@ public class UIimp extends JFrame {
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 0, 0), 0, 0));
             }
-            dialogPane.add(buttonBar, BorderLayout.SOUTH);
+            dialogPanel.add(buttonBar, BorderLayout.SOUTH);
         }
-        contentPane.add(dialogPane, BorderLayout.CENTER);
+        contentPanel.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
     }

@@ -8,18 +8,18 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class ViewsHalfCreate extends JFrame {
+public class ViewsHalfDrop extends JFrame {
 
-    private JPanel dialogPane;
+    private JPanel dialogPanel;
     private JPanel contentPanel;
     private JLabel JlabelTitle;
     private JComboBox<String> comboBox;
     private JPanel buttonBar;
     private JButton NextButton;
     private JButton backButton;
-    private JButton helpButtonHalfCreate;
+    private JButton helpButtonHalfDrop;
 
-    public ViewsHalfCreate() {
+    public ViewsHalfDrop() {
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
@@ -30,22 +30,22 @@ public class ViewsHalfCreate extends JFrame {
         switch (String.valueOf(comboBox.getSelectedItem())){
             case "Feria":
                 this.setVisible(false);
-                UIimp.getInstance().execute(Event.INSERT_FORM_FERIA, null);
+                UIimp.getInstance().execute(Event.DROP_FORM_FERIA, null);
                 break;
             case "Pabellon":
-                UIimp.getInstance().execute(Event.CREATE_HALF, null);
+                UIimp.getInstance().execute(Event.DROP_HALF, null);
                 break;
             case "Stand":
-                UIimp.getInstance().execute(Event.CREATE_HALF, null);
+                UIimp.getInstance().execute(Event.DROP_HALF, null);
                 break;
             case "Participante":
-                UIimp.getInstance().execute(Event.CREATE_HALF, null);
+                UIimp.getInstance().execute(Event.DROP_HALF, null);
                 break;
             case "Asignacion":
-                UIimp.getInstance().execute(Event.CREATE_HALF, null);
+                UIimp.getInstance().execute(Event.DROP_HALF, null);
                 break;
             case "Participacion":
-                UIimp.getInstance().execute(Event.CREATE_HALF, null);
+                UIimp.getInstance().execute(Event.DROP_HALF, null);
                 break;
 
         }
@@ -55,11 +55,11 @@ public class ViewsHalfCreate extends JFrame {
 
     private void backButtonActionPerformed() {
         this.setVisible(false);
-        UIimp.getInstance().execute(Event.CREATE_HALF, null);
+        UIimp.getInstance().execute(Event.DROP_HALF, null);
         // Volver a mostrar la primera
     }
 
-    private void helpButtonHalfCreateActionPerformed() {
+    private void helpButtonHalfDropActionPerformed() {
     }
 
     private void initComponents() {
@@ -70,18 +70,18 @@ public class ViewsHalfCreate extends JFrame {
         buttonBar = new JPanel();
         NextButton = new JButton();
         backButton = new JButton();
-        helpButtonHalfCreate = new JButton();
+        helpButtonHalfDrop = new JButton();
 
         //======== this ========
         Container contentPane = getContentPane();
-        contentPanel.setLayout(new BorderLayout());
+        contentPane.setLayout(new BorderLayout());
 
         //======== dialogPanel ========
         {
             dialogPanel.setBorder(new EmptyBorder(12, 12, 12, 12));
 
             // JFormDesigner evaluation mark
-            dialogPane.setBorder(new javax.swing.border.CompoundBorder(
+            dialogPanel.setBorder(new javax.swing.border.CompoundBorder(
                 new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
                     "", javax.swing.border.TitledBorder.CENTER,
                     javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
@@ -148,15 +148,15 @@ public class ViewsHalfCreate extends JFrame {
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 5, 5), 0, 0));
 
-                //---- helpButtonHalfCreate ----
-                helpButtonHalfCreate.setText("Help");
-                helpButtonHalfCreate.addActionListener(new ActionListener() {
+                //---- helpButtonHalfDrop ----
+                helpButtonHalfDrop.setText("Help");
+                helpButtonHalfDrop.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        helpButtonHalfCreateActionPerformed();
+                        helpButtonHalfDropActionPerformed();
                     }
                 });
-                buttonBar.add(helpButtonHalfCreate, new GridBagConstraints(3, 0, 1, 1, 0.0, 0.0,
+                buttonBar.add(helpButtonHalfDrop, new GridBagConstraints(3, 0, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 5, 0), 0, 0));
             }
