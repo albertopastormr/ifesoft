@@ -1,8 +1,7 @@
 package Presentacion.Feria;
 
 import Negocio.Feria.ASferia;
-import Presentacion.Feria.views.ViewsFormCreateFeria;
-import Presentacion.Feria.views.ViewsHalfCreate;
+import Presentacion.Feria.views.*;
 
 public class ControllerImp implements Controller  {
 
@@ -21,13 +20,13 @@ public class ControllerImp implements Controller  {
                 new ViewsHalfCreate();
                 break;
             case Event.MODIFY_HALF:
-
+                new ViewHalfModify();
                 break;
             case Event.SHOW_HALF:
-
+                new ViewHalfShow();
                 break;
             case Event.DROP_HALF:
-                new ViewsHalfDrop();
+                new ViewHalfDrop();
                 break;
             case Event.INSERT_FORM_FERIA:
                 new ViewsFormCreateFeria();

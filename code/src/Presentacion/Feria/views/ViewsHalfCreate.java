@@ -10,7 +10,7 @@ import javax.swing.border.*;
 
 public class ViewsHalfCreate extends JFrame {
 
-    private JPanel dialogPane;
+    private JPanel dialogPanel;
     private JPanel contentPanel;
     private JLabel JlabelTitle;
     private JComboBox<String> comboBox;
@@ -74,14 +74,14 @@ public class ViewsHalfCreate extends JFrame {
 
         //======== this ========
         Container contentPane = getContentPane();
-        contentPanel.setLayout(new BorderLayout());
+        contentPane.setLayout(new BorderLayout());
 
         //======== dialogPanel ========
         {
             dialogPanel.setBorder(new EmptyBorder(12, 12, 12, 12));
 
             // JFormDesigner evaluation mark
-            dialogPane.setBorder(new javax.swing.border.CompoundBorder(
+            dialogPanel.setBorder(new javax.swing.border.CompoundBorder(
                 new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
                     "", javax.swing.border.TitledBorder.CENTER,
                     javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
@@ -162,7 +162,7 @@ public class ViewsHalfCreate extends JFrame {
             }
             dialogPanel.add(buttonBar);
         }
-        contentPanel.add(dialogPanel, BorderLayout.CENTER);
+        contentPane.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
     }

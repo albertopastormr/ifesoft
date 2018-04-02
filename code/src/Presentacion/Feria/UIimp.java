@@ -2,6 +2,8 @@ package Presentacion.Feria;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -61,7 +63,7 @@ public class UIimp extends JFrame {
     }
 
     private void initComponents() {
-        dialogPanel = new JPanel();
+        dialogPane = new JPanel();
         contentPanel = new JPanel();
         JlabelTitle = new JLabel();
         buttonBar2 = new JPanel();
@@ -74,22 +76,21 @@ public class UIimp extends JFrame {
         helpButton = new JButton();
 
         //======== this ========
-        setTitle("IFESOFT ");
-        Container contentPanel = getContentPanel();
-        contentPanel.setLayout(new BorderLayout());
+        Container contentPane = getContentPane();
+        contentPane.setLayout(new BorderLayout());
 
         //======== Panel ========
         {
-            dialogPanel.setBorder(new EmptyBorder(12, 12, 12, 12));
+            dialogPane.setBorder(new EmptyBorder(12, 12, 12, 12));
 
             // JFormDesigner evaluation mark
-            dialogPanel.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                    java.awt.Color.red), dialogPanel.getBorder())); dialogPanel.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+            dialogPane.setBorder(new CompoundBorder(
+                new TitledBorder(new EmptyBorder(0, 0, 0, 0),
+                    "", TitledBorder.CENTER,
+                    TitledBorder.BOTTOM, new Font("Dialog", Font.BOLD, 12),
+                    Color.red), dialogPane.getBorder())); dialogPane.addPropertyChangeListener(new PropertyChangeListener(){public void propertyChange(PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
-            dialogPanel.setLayout(new BorderLayout());
+            dialogPane.setLayout(new BorderLayout());
 
             //======== contentPanel ========
             {
@@ -180,9 +181,10 @@ public class UIimp extends JFrame {
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 0, 0), 0, 0));
             }
-            dialogPanel.add(buttonBar, BorderLayout.SOUTH);
+            dialogPane.add(buttonBar, BorderLayout.SOUTH);
         }
-        contentPanel.add(dialogPanel, BorderLayout.CENTER);
+
+        contentPane.add(dialogPane, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
     }
