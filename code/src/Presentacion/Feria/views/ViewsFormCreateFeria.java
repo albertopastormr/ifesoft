@@ -69,7 +69,7 @@ public class ViewsFormCreateFeria extends JFrame {
         Container contentPanel = getContentPane();
         contentPanel.setLayout(new BorderLayout());
 
-        //======== dialogPane ========
+        //======== dialogPanel ========
         {
             dialogPanel.setBorder(new EmptyBorder(12, 12, 12, 12));
 
@@ -177,7 +177,7 @@ public class ViewsFormCreateFeria extends JFrame {
             }
             dialogPanel.add(buttonBar, BorderLayout.SOUTH);
         }
-        contentPane.add(dialogPanel, BorderLayout.CENTER);
+        contentPanel.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
     }

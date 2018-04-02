@@ -26,7 +26,7 @@ public class ControllerImp implements Controller  {
                 new ViewHalfShow();
                 break;
             case Event.DROP_HALF:
-                new ViewHalfDrop();
+                new ViewHalfDrop();  //half o solo drop???
                 break;
             case Event.INSERT_FORM_FERIA:
                 new ViewsFormCreateFeria();

@@ -9,7 +9,7 @@ import javax.swing.border.*;
 
 public class ViewHalfDrop extends JFrame {
 
-    private JPanel dialogPane;
+    private JPanel dialogPanel;
     private JPanel contentPanel;
     private JLabel labelTitle;
     private JComboBox<String> comboBoxDrop;
@@ -40,7 +40,7 @@ public class ViewHalfDrop extends JFrame {
     }
 
     private void initComponents() {
-        dialogPane = new JPanel();
+        dialogPanel = new JPanel();
         contentPanel = new JPanel();
         labelTitle = new JLabel();
         comboBoxDrop = new JComboBox<String>();
@@ -53,21 +53,21 @@ public class ViewHalfDrop extends JFrame {
         helpButton = new JButton();
 
         //======== this ========
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BorderLayout());
+        Container contentPanel = getContentPanel();
+        contentPanel.setLayout(new BorderLayout());
 
-        //======== dialogPane ========
+        //======== dialogPanel ========
         {
-            dialogPane.setBorder(new EmptyBorder(12, 12, 12, 12));
+            dialogPanel.setBorder(new EmptyBorder(12, 12, 12, 12));
 
             // JFormDesigner evaluation mark
-            dialogPane.setBorder(new CompoundBorder(
+            dialogPanel.setBorder(new CompoundBorder(
                 new TitledBorder(new EmptyBorder(0, 0, 0, 0),
                     "", TitledBorder.CENTER,
                     TitledBorder.BOTTOM, new Font("Dialog", Font.BOLD, 12),
-                    Color.red), dialogPane.getBorder())); dialogPane.addPropertyChangeListener(new PropertyChangeListener(){public void propertyChange(PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+                    Color.red), dialogPanel.getBorder())); dialogPanel.addPropertyChangeListener(new PropertyChangeListener(){public void propertyChange(PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
-            dialogPane.setLayout(new BorderLayout());
+            dialogPanel.setLayout(new BorderLayout());
 
             comboBoxDrop.addItem("Pabellon");
             comboBoxDrop.addItem("Feria");
@@ -96,7 +96,7 @@ public class ViewHalfDrop extends JFrame {
                 }
                 contentPanel.add(contentPanel2);
             }
-            dialogPane.add(contentPanel, BorderLayout.CENTER);
+            dialogPanel.add(contentPanel, BorderLayout.CENTER);
 
             //======== buttonBar ========
             {
@@ -141,9 +141,9 @@ public class ViewHalfDrop extends JFrame {
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 0, 0), 0, 0));
             }
-            dialogPane.add(buttonBar, BorderLayout.SOUTH);
+            dialogPanel.add(buttonBar, BorderLayout.SOUTH);
         }
-        contentPane.add(dialogPane, BorderLayout.CENTER);
+        contentPanel.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
     }

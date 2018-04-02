@@ -73,8 +73,8 @@ public class ViewsHalfCreate extends JFrame {
         helpButtonHalfCreate = new JButton();
 
         //======== this ========
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BorderLayout());
+        Container contentPanel = getContentPanel();
+        contentPanel.setLayout(new BorderLayout());
 
         //======== dialogPanel ========
         {
@@ -162,7 +162,7 @@ public class ViewsHalfCreate extends JFrame {
             }
             dialogPanel.add(buttonBar);
         }
-        contentPane.add(dialogPanel, BorderLayout.CENTER);
+        contentPanel.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
     }
