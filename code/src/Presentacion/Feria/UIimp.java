@@ -23,14 +23,22 @@ public class UIimp extends JFrame {
     private JButton cancelButton;
     private JButton helpButton;
 
+    private Color colorButton;
+    private Font propFont;
+    private Font propButtonOption;
+
     public UIimp() {
         super("IFESOFT SOFTWARE");
 
         // Se le da un valor a controller
         control = new ControllerImp();
 
+        this.colorButton = new Color(65,65,65);
+        this.propFont = new Font(Font.MONOSPACED, Font.PLAIN, 60);
+        this.propButtonOption = new Font(Font.MONOSPACED, Font.PLAIN, 30);
+
         initComponents();
-        this.setBounds(100,100, 800,800);
+        this.setBounds(100,100, 1200,1200);
         this.setVisible(true);
     }
 
@@ -75,6 +83,8 @@ public class UIimp extends JFrame {
         cancelButton = new JButton();
         helpButton = new JButton();
 
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
         //======== this ========
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
@@ -97,17 +107,23 @@ public class UIimp extends JFrame {
                 contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 
                 //---- JlabelTitle ----
+
                 JlabelTitle.setText("IFESOFT SOFTWARE");
-                JlabelTitle.setFont(JlabelTitle.getFont().deriveFont(JlabelTitle.getFont().getSize() + 7f));
+                JlabelTitle.setHorizontalAlignment(SwingConstants.CENTER);
+                JlabelTitle.setFont(propFont);
+
                 contentPanel.add(JlabelTitle);
 
                 //======== button ========
                 {
                     buttonBar2.setBorder(new EmptyBorder(12, 0, 0, 0));
-                    buttonBar2.setLayout(new GridLayout(2, 2));
+                    buttonBar2.setLayout(new GridLayout(2, 2, 50, 80));
 
                     //---- buttonCreateHome ----
                     buttonCreateHome.setText("CREATE");
+                    buttonCreateHome.setFont(propFont);
+                    buttonCreateHome.setBackground(colorButton);
+                    buttonCreateHome.setForeground(Color.WHITE);
                     buttonCreateHome.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -118,6 +134,9 @@ public class UIimp extends JFrame {
 
                     //---- buttonShowHome ----
                     buttonShowHome.setText("SHOW");
+                    buttonShowHome.setFont(propFont);
+                    buttonShowHome.setBackground(colorButton);
+                    buttonShowHome.setForeground(Color.WHITE);
                     buttonShowHome.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -128,6 +147,9 @@ public class UIimp extends JFrame {
 
                     //---- buttonDropHome ----
                     buttonDropHome.setText("DROP");
+                    buttonDropHome.setFont(propFont);
+                    buttonDropHome.setBackground(colorButton);
+                    buttonDropHome.setForeground(Color.WHITE);
                     buttonDropHome.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -138,6 +160,9 @@ public class UIimp extends JFrame {
 
                     //---- buttonModifyHome ----
                     buttonModifyHome.setText("MODIFY");
+                    buttonModifyHome.setFont(propFont);
+                    buttonModifyHome.setBackground(colorButton);
+                    buttonModifyHome.setForeground(Color.WHITE);
                     buttonModifyHome.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -159,6 +184,9 @@ public class UIimp extends JFrame {
 
                 //---- cancelButton ----
                 cancelButton.setText("Exit");
+                cancelButton.setForeground(Color.WHITE);
+                cancelButton.setBackground(new Color(147, 28, 0));
+                cancelButton.setFont(propButtonOption);
                 cancelButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -171,6 +199,9 @@ public class UIimp extends JFrame {
 
                 //---- helpButton ----
                 helpButton.setText("Help");
+                helpButton.setBackground(new Color(49, 85, 133));
+                helpButton.setFont(propButtonOption);
+                helpButton.setForeground(Color.WHITE);
                 helpButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -211,5 +242,18 @@ public class UIimp extends JFrame {
         if (control == null)
             control = new ControllerImp();
         return control;
+    }
+
+    public void drawCenteredString(Graphics g, String text, Rectangle rect, Font font) {
+        // Get the FontMetrics
+        FontMetrics metrics = g.getFontMetrics(font);
+        // Determine the X coordinate for the text
+        int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
+        // Determine the Y coordinate for the text (note we add the ascent, as in java 2d 0 is top of the screen)
+        int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
+        // Set the font
+        g.setFont(font);
+        // Draw the String
+        g.drawString(text, x, y);
     }
 }
