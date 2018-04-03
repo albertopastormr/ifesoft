@@ -9,21 +9,26 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 public class ASFeriaImp implements ASferia {
-    public Integer create(Tferia feria) throws ASException, SQLException, DAOException {
+    public Integer create(Tferia feria) throws ASException, SQLException, DAOException, ClassNotFoundException {
         int id = -1;
         DAOFeria daoFeria = IFDAO.getInstance().generateDAOferia();
         if (feria != null) {
             Tferia read = daoFeria.readByName(feria.getName());
-            if (read == null)
-                id = daoFeria.create(feria);
-            else{
-                if (!feria.getActive()){
-                	feria.setActive(true);
-					id = daoFeria.update(feria);
+            try {
+				if (read == null)
+				    id = daoFeria.create(feria);
+				else{
+				    if (!feria.getActive()){
+				    	feria.setActive(true);
+						id = daoFeria.update(feria);
+					}
+				    else
+				        throw new ASException("ERROR: Feria Name " + feria.getName() + "ya existente\n");
 				}
-                else
-                    throw new ASException("ERROR: Feria Name " + feria.getName() + "ya existente\n");
-            }
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
         }
         return id;
