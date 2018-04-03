@@ -16,7 +16,7 @@ ifesoft is the name of the database.
 this imports an existing database with a valid structure for ifesoft.
 ## Authors
 The development team consists in a class-group of seven students:
-  - Alberto Pastor Moreno @albertopastormr
+  - [Alberto Pastor Moreno](https://github.com/albertopastormr/) @albertopastormr
   - Iván Fernandez Mena
   - Rubén García
   - Pablo López 
