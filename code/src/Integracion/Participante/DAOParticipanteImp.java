@@ -9,12 +9,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class DAOParticipanteImp implements DAOParticipante {
+	protected static final String connectionChain = "jdbc:mysql://localhost:3306/ifesoft_bd";
 	public Integer create(Tparticipante tParticipante) throws DAOException {
 		int id = -1;
 
 		Connection connec = null;
 		try { // Conexion db
-			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft","manager","manager-if"); // Datos de acceso a la db: user//manager pw//manager-if
+			connec = DriverManager.getConnection(connectionChain,"manager","manager-if"); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'create' Name Participante "+ tParticipante.getName() +" no logrado\n");
 		}
@@ -50,7 +51,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 		ArrayList<Tparticipante> readParticipanteList = new ArrayList<>();
 		Connection connec = null;
 		try { // Conexion db
-			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft","manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readAll' no logrado\n");
 		}
@@ -83,7 +84,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 
 		Connection connec = null;
 		try { // Conexion db
-			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft","manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' Name Participante "+ name +" no logrado\n");
 		}
@@ -117,7 +118,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 
 		Connection connec = null;
 		try { // Conexion db
-			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft","manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'update' Name Participante "+ tParticipante.getName() +" no logrado\n");
 		}
@@ -156,7 +157,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 	public boolean delete (Integer id) throws DAOException {
 		Connection connec = null;
 		try { // Conexion db
-			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft","manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion para 'delete' ID Participante "+ id +" no logrado\n");
 		}

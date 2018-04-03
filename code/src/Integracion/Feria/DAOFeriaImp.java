@@ -9,9 +9,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class DAOFeriaImp implements DAOFeria{
-
+	protected static final String connectionChain = "jdbc:mysql://localhost:3306/ifesoft";
 	public DAOFeriaImp(){}
-
 	public Integer create(Tferia tFeria) throws DAOException {
 		int id = -1;
 		try {
@@ -19,14 +18,12 @@ public class DAOFeriaImp implements DAOFeria{
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		}
-		String conectionChain = "jdbc:mysql://localhost:3306/ifesoft_bd";
 		Connection connec = null;
 		try { // Conexion db
-			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft","manager","manager-if"); // Datos de acceso a la db: user//manager pw//manager-if
+			connec = DriverManager.getConnection(connectionChain,"manager","manager-if"); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'create' Name Feria "+ tFeria.getName() +" no logrado\n");
 		}
-
 		try { // Tratamiento db
 			PreparedStatement ps;
 			ps = connec.prepareStatement("INSERT INTO feria(name, description, initDate, endDate, active) VALUES (?,?,?,?,?)");
@@ -64,10 +61,9 @@ public class DAOFeriaImp implements DAOFeria{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		String conectionChain = "jdbc:mysql://localhost:3306/ifesoft_bd";
 		Connection connec = null;
 		try { // Conexion db
-			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft","manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readAll' no logrado\n");
 		}
@@ -101,10 +97,9 @@ public class DAOFeriaImp implements DAOFeria{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		String conectionChain = "jdbc:mysql://localhost:3306/ifesoft_bd";
 		Connection connec = null;
 		try { // Conexion db
-			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft","manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' Name Feria "+ name +" no logrado\n");
 		}
@@ -141,10 +136,9 @@ public class DAOFeriaImp implements DAOFeria{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		String conectionChain = "jdbc:mysql://localhost:3306/ifesoft_bd";
 		Connection connec = null;
 		try { // Conexion db
-			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft","manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'update' Name Feria "+ tFeria.getName() +" no logrado\n");
 		}
@@ -190,9 +184,8 @@ public class DAOFeriaImp implements DAOFeria{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		String conectionChain = "jdbc:mysql://localhost:3306/ifesoft_bd";
 		try { // Conexion db
-			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft","manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion para 'delete' ID Feria "+ id +" no logrado\n");
 		}

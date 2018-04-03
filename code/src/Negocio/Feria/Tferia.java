@@ -36,6 +36,13 @@ public class Tferia {
 		this.active = active;
 	}
 
+	public Tferia(String name, String description, Date iniDate, Date endDate) { //usado en DAOFeriaImp.create()
+		this.name = name;
+		this.description = description;
+		this.iniDate = iniDate;
+		this.endDate = endDate;
+	}
+
 	public void setActive(Boolean active) {
         this.active = active;
     }

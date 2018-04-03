@@ -10,12 +10,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class DAOParticipacionImp implements DAOParticipacion {
+	protected static final String connectionChain = "jdbc:mysql://localhost:3306/ifesoft_bd";
 	public Integer create(Tparticipacion tParticipacion) throws DAOException {
 		int id = -1;
 
 		Connection connec = null;
 		try { // Conexion db
-			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft","manager","manager-if"); // Datos de acceso a la db: user//manager pw//manager-if
+			connec = DriverManager.getConnection(connectionChain,"manager","manager-if"); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'create' Participacion con ID Feria "+ tParticipacion.getFair_id() + " ID Pabellon " + tParticipacion.getClient_id() + " ID Stand " + tParticipacion.getStand_id()+" no logrado\n");
 		}
@@ -52,7 +53,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 		ArrayList<Tparticipacion> readParticipacionList = new ArrayList<>();
 		Connection connec = null;
 		try { // Conexion db
-			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft","manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readAll' no logrado\n");
 		}
@@ -85,7 +86,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 
 		Connection connec = null;
 		try { // Conexion db
-			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft","manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' Fair Name "+ name +" no logrado\n");
 		}
@@ -119,7 +120,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 
 		Connection connec = null;
 		try { // Conexion db
-			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft","manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' Client Name "+ name +" no logrado\n");
 		}
@@ -154,7 +155,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 
 		Connection connec = null;
 		try { // Conexion db
-			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft","manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'update' Participacion con ID Feria "+ tParticipacion.getFair_id() + " ID Pabellon " + tParticipacion.getClient_id() + " ID Stand " + tParticipacion.getStand_id()+" no logrado\n");
 		}
@@ -188,7 +189,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 	public boolean delete (Integer fair_id, Integer client_id, Integer stand_id) throws DAOException {
 		Connection connec = null;
 		try { // Conexion db
-			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft","manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion para 'delete' Participacion con ID Feria "+ fair_id + " ID Participante " + client_id + " ID Stand " + stand_id +" no logrado\n");
 		}
