@@ -9,12 +9,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class DAOFeriaImp implements DAOFeria{
+
+	public DAOFeriaImp(){}
+
 	public Integer create(Tferia tFeria) throws DAOException {
 		int id = -1;
 
 		Connection connec = null;
 		try { // Conexion db
-			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft_bd","root","");
+			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft","manager","manager-if"); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'create' Name Feria "+ tFeria.getName() +" no logrado\n");
 		}
@@ -29,7 +32,7 @@ public class DAOFeriaImp implements DAOFeria{
 			ps.setBoolean(5, true);
 			ps.execute();
 
-			ps = connec.prepareStatement("SELECT LAST_INSERT_ID() FROM FERIA");
+			ps = connec.prepareStatement("SELECT LAST_INSERT_ID() FROM feria");
 
 			ResultSet rs = ps.executeQuery();
 			if (rs.next())
@@ -52,7 +55,7 @@ public class DAOFeriaImp implements DAOFeria{
 		ArrayList<Tferia> readFeriaList = new ArrayList<>();
 		Connection connec = null;
 		try { // Conexion db
-			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft_bd","root","");
+			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft","manager","manager-if");
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readAll' no logrado\n");
 		}
@@ -62,7 +65,7 @@ public class DAOFeriaImp implements DAOFeria{
 		try { // Tratamiento db
 			PreparedStatement ps;
 
-			ps = connec.prepareStatement("SELECT * FROM FERIA WHERE active = true");
+			ps = connec.prepareStatement("SELECT * FROM feria WHERE active = true");
 
 			ResultSet rs = ps.executeQuery();
 			while (rs.next())
@@ -85,7 +88,7 @@ public class DAOFeriaImp implements DAOFeria{
 
 		Connection connec = null;
 		try { // Conexion db
-			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft_bd","root","");
+			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft","manager","manager-if");
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' Name Feria "+ name +" no logrado\n");
 		}
@@ -93,7 +96,7 @@ public class DAOFeriaImp implements DAOFeria{
 		try { // Tratamiento db
 			PreparedStatement ps;
 
-			ps = connec.prepareStatement("SELECT * FROM FERIA WHERE name = ?");
+			ps = connec.prepareStatement("SELECT * FROM feria WHERE name = ?");
 			ps.setString(1, name);
 			ResultSet rs = ps.executeQuery();
 
@@ -119,7 +122,7 @@ public class DAOFeriaImp implements DAOFeria{
 
 		Connection connec = null;
 		try { // Conexion db
-			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft_bd","root","");
+			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft","manager","manager-if");
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'update' Name Feria "+ tFeria.getName() +" no logrado\n");
 		}
@@ -134,7 +137,7 @@ public class DAOFeriaImp implements DAOFeria{
 			ps.setBoolean(5, true);
 			ps.execute();
 
-			ps = connec.prepareStatement("SELECT id FROM FERIA WHERE name = ?");
+			ps = connec.prepareStatement("SELECT id FROM feria WHERE name = ?");
 			ps.setString(1, tFeria.getName());
 			ResultSet rs = ps.executeQuery();
 
@@ -157,12 +160,12 @@ public class DAOFeriaImp implements DAOFeria{
 	}
 
 
-	public boolean drop (Integer id) throws DAOException {
+	public boolean delete (Integer id) throws DAOException {
 		Connection connec = null;
 		try { // Conexion db
-			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft_bd","root","");
+			connec = DriverManager.getConnection("jdbc:mysql://localhost:3306/ifesoft","manager","manager-if");
 		} catch (SQLException e) {
-			throw new DAOException("ERROR: acceso a la conexion para 'drop' ID Feria "+ id +" no logrado\n");
+			throw new DAOException("ERROR: acceso a la conexion para 'delete' ID Feria "+ id +" no logrado\n");
 		}
 
 
@@ -173,14 +176,14 @@ public class DAOFeriaImp implements DAOFeria{
 			ps.execute();
 		}
 		catch (SQLException e){
-			throw new DAOException("ERROR: tratamiento para 'drop' ID Feria "+ id +" no logrado\n");
+			throw new DAOException("ERROR: tratamiento para 'delete' ID Feria "+ id +" no logrado\n");
 		}
 
 
 		try { // Desconexion db
 			connec.close();
 		} catch (SQLException e) {
-			throw new DAOException("ERROR: cerrando conexion a DB para 'drop' ID Feria "+ id +" no logrado\n");
+			throw new DAOException("ERROR: cerrando conexion a DB para 'delete' ID Feria "+ id +" no logrado\n");
 		}
 		return true;
 	}
