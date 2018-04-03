@@ -9,7 +9,7 @@ import javax.swing.event.*;
 public class ViewsFormCreateFeria extends JFrame {
 
     private JPanel dialogPanel;
-    private JPanel contentPane;
+    private JPanel contentPanel;
     private JPanel contentPanel2;
     private JLabel label1;
     private JTextField textField1;
@@ -47,7 +47,7 @@ public class ViewsFormCreateFeria extends JFrame {
 
     private void initComponents() {
         dialogPanel = new JPanel();
-        contentPane = new JPanel();
+        contentPanel = new JPanel();
         contentPanel2 = new JPanel();
         label1 = new JLabel();
         textField1 = new JTextField();
@@ -66,8 +66,8 @@ public class ViewsFormCreateFeria extends JFrame {
         helpButton = new JButton();
 
         //======== this ========
-        Container contentPanel = getContentPane();
-        contentPanel.setLayout(new BorderLayout());
+        Container contentPane = getContentPane();
+        contentPane.setLayout(new BorderLayout());
 
         //======== dialogPanel ========
         {
@@ -177,7 +177,7 @@ public class ViewsFormCreateFeria extends JFrame {
             }
             dialogPanel.add(buttonBar, BorderLayout.SOUTH);
         }
-        contentPanel.add(dialogPanel, BorderLayout.CENTER);
+        contentPane.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
     }

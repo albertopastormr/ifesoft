@@ -55,7 +55,7 @@ public class ViewsHalfCreate extends JFrame {
 
     private void backButtonActionPerformed() {
         this.setVisible(false);
-        UIimp.getInstance().execute(Event.CREATE_HALF, null);
+        UIimp.getInstance().execute(Event.BACK_CREATE_HALF_FERIA, null);
         // Volver a mostrar la primera
     }
 
@@ -73,8 +73,8 @@ public class ViewsHalfCreate extends JFrame {
         helpButtonHalfCreate = new JButton();
 
         //======== this ========
-        Container contentPanel = getContentPanel();
-        contentPanel.setLayout(new BorderLayout());
+        Container contentPane = getContentPane();
+        contentPane.setLayout(new BorderLayout());
 
         //======== dialogPanel ========
         {
@@ -162,7 +162,7 @@ public class ViewsHalfCreate extends JFrame {
             }
             dialogPanel.add(buttonBar);
         }
-        contentPanel.add(dialogPanel, BorderLayout.CENTER);
+        contentPane.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
     }

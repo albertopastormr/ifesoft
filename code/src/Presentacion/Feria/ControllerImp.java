@@ -13,7 +13,8 @@ public class ControllerImp implements Controller  {
 
         switch (event){
             case Event.HOME:
-
+            case Event.BACK_CREATE_HALF_FERIA:
+                new UIimp();
                 // Lanzamos lo que sea de modelo
                 break;
             case Event.CREATE_HALF:
@@ -26,10 +27,13 @@ public class ControllerImp implements Controller  {
                 new ViewHalfShow();
                 break;
             case Event.DROP_HALF:
-                new ViewHalfDrop();  //half o solo drop???
+                new ViewHalfDrop();
                 break;
             case Event.INSERT_FORM_FERIA:
                 new ViewsFormCreateFeria();
+                break;
+            case Event.DROP_HALF_FERIA:
+                new ViewDropVerificate();
                 break;
         }
     }

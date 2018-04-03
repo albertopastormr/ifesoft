@@ -51,8 +51,8 @@ public class ViewHalfModify extends JFrame {
         helpButton = new JButton();
 
         //======== this ========
-        Container contentPanel = getContentPanel();
-        contentPanel.setLayout(new BorderLayout());
+        Container contentPane = getContentPane();
+        contentPane.setLayout(new BorderLayout());
 
         //======== dialogPanel ========
         {
@@ -141,7 +141,7 @@ public class ViewHalfModify extends JFrame {
             }
             dialogPanel.add(buttonBar, BorderLayout.SOUTH);
         }
-        contentPanel.add(dialogPanel, BorderLayout.CENTER);
+        contentPane.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
     }
