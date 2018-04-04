@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f8053487-9e1a-4e49-86e6-c63f939813ef" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Presentacion/Feria/views/forms/ViewsFormPabellon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/code/Integracion/Feria/DAOFeriaImp.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/code/Negocio/Feria/Tferia.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/code/Negocio/Feria/Tferia.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Presentacion/Feria/views/forms/ViewsFormEmpresa.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Presentacion/Feria/views/forms/ViewsFormStand.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,15 +15,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ViewDropVerificate.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Presentacion/Feria/views/ViewDropVerificate.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ViewsFormFeria.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Presentacion/Feria/views/forms/ViewsFormFeria.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -35,11 +24,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ViewsFormPabellon.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ViewsFormPabellon.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Presentacion/Feria/views/forms/ViewsFormPabellon.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-536">
-              <caret line="122" column="48" selection-start-line="122" selection-start-column="48" selection-end-line="122" selection-end-column="48" />
+              <caret line="122" column="48" selection-end-line="176" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3237#3409#0" expanded="true" />
@@ -50,6 +39,46 @@
                 <element signature="e#6705#6706#0" expanded="true" />
                 <element signature="e#7059#7269#0" expanded="true" />
                 <element signature="e#7268#7269#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ViewsFormStand.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Presentacion/Feria/views/forms/ViewsFormStand.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="334">
+              <caret line="176" lean-forward="true" selection-start-line="176" selection-end-line="176" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2911#3083#0" expanded="true" />
+                <element signature="e#3082#3083#0" expanded="true" />
+                <element signature="e#5182#5398#0" expanded="true" />
+                <element signature="e#5397#5398#0" expanded="true" />
+                <element signature="e#5763#5969#0" expanded="true" />
+                <element signature="e#5968#5969#0" expanded="true" />
+                <element signature="e#6322#6532#0" expanded="true" />
+                <element signature="e#6531#6532#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ViewsFormEmpresa.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Presentacion/Feria/views/forms/ViewsFormEmpresa.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="334">
+              <caret line="176" lean-forward="true" selection-start-line="176" selection-end-line="176" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2911#3083#0" expanded="true" />
+                <element signature="e#3082#3083#0" expanded="true" />
+                <element signature="e#5182#5398#0" expanded="true" />
+                <element signature="e#5397#5398#0" expanded="true" />
+                <element signature="e#5763#5969#0" expanded="true" />
+                <element signature="e#5968#5969#0" expanded="true" />
+                <element signature="e#6322#6532#0" expanded="true" />
+                <element signature="e#6531#6532#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -108,15 +137,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="30">
               <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ViewHalfDrop.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Presentacion/Feria/views/ViewHalfDrop.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -190,6 +210,8 @@
         <option value="$PROJECT_DIR$/src/Presentacion/Feria/views/forms/ViewsFormFeria.java" />
         <option value="$PROJECT_DIR$/src/Negocio/Feria/Tferia.java" />
         <option value="$PROJECT_DIR$/src/Presentacion/Feria/views/forms/ViewsFormPabellon.java" />
+        <option value="$PROJECT_DIR$/src/Presentacion/Feria/views/forms/ViewsFormStand.java" />
+        <option value="$PROJECT_DIR$/src/Presentacion/Feria/views/forms/ViewsFormEmpresa.java" />
       </list>
     </option>
   </component>
@@ -545,14 +567,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Exceptions/ASException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Integracion/ConnectionImp.java" />
     <entry file="file://$PROJECT_DIR$/src/Presentacion/UI.java" />
     <entry file="file://$PROJECT_DIR$/src/Negocio/Feria/ASferia.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -871,7 +885,7 @@
     <entry file="file://$PROJECT_DIR$/src/Presentacion/Feria/views/forms/ViewsFormPabellon.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-536">
-          <caret line="122" column="48" selection-start-line="122" selection-start-column="48" selection-end-line="122" selection-end-column="48" />
+          <caret line="122" column="48" selection-end-line="176" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3237#3409#0" expanded="true" />
@@ -882,6 +896,42 @@
             <element signature="e#6705#6706#0" expanded="true" />
             <element signature="e#7059#7269#0" expanded="true" />
             <element signature="e#7268#7269#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Presentacion/Feria/views/forms/ViewsFormStand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="176" lean-forward="true" selection-start-line="176" selection-end-line="176" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2911#3083#0" expanded="true" />
+            <element signature="e#3082#3083#0" expanded="true" />
+            <element signature="e#5182#5398#0" expanded="true" />
+            <element signature="e#5397#5398#0" expanded="true" />
+            <element signature="e#5763#5969#0" expanded="true" />
+            <element signature="e#5968#5969#0" expanded="true" />
+            <element signature="e#6322#6532#0" expanded="true" />
+            <element signature="e#6531#6532#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Presentacion/Feria/views/forms/ViewsFormEmpresa.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="176" lean-forward="true" selection-start-line="176" selection-end-line="176" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2911#3083#0" expanded="true" />
+            <element signature="e#3082#3083#0" expanded="true" />
+            <element signature="e#5182#5398#0" expanded="true" />
+            <element signature="e#5397#5398#0" expanded="true" />
+            <element signature="e#5763#5969#0" expanded="true" />
+            <element signature="e#5968#5969#0" expanded="true" />
+            <element signature="e#6322#6532#0" expanded="true" />
+            <element signature="e#6531#6532#0" expanded="true" />
           </folding>
         </state>
       </provider>
