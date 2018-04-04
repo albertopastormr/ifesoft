@@ -1,8 +1,9 @@
 package Presentacion.Feria;
 
 import Negocio.Feria.ASferia;
+import Negocio.Feria.Tferia;
 import Presentacion.Feria.views.*;
-import Presentacion.Feria.views.forms.ViewsFormCreateFeria;
+import Presentacion.Feria.views.forms.ViewsFormFeria;
 
 public class ControllerImp implements Controller  {
 
@@ -13,11 +14,17 @@ public class ControllerImp implements Controller  {
     public void execute(int event, Object data) {
 
         switch (event){
+
+            /** Main Views*/
+
             case Event.HOME:
             case Event.BACK_CREATE_HALF_FERIA:
                 new UIimp();
-                // Lanzamos lo que sea de modelo
                 break;
+
+
+            /** Half Views*/
+
             case Event.CREATE_HALF:
                 new ViewsHalfCreate();
                 break;
@@ -30,11 +37,21 @@ public class ControllerImp implements Controller  {
             case Event.DROP_HALF:
                 new ViewHalfDrop();
                 break;
-            case Event.INSERT_FORM_FERIA:
-                new ViewsFormCreateFeria();
-                break;
             case Event.DROP_HALF_FERIA:
                 new ViewDropVerificate();
+                break;
+
+
+            /** Form Views*/
+
+            case Event.INSERT_FORM_FERIA:
+                new ViewsFormFeria();
+                break;
+            case Event.INSERT_FERIA:
+
+                // HACER
+
+                new ViewsFormFeria();
                 break;
         }
     }

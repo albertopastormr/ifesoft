@@ -1,40 +1,48 @@
 package Presentacion.Feria.views.forms;
 
+import Negocio.Feria.Tferia;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Date;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
 
-public class ViewsFormCreateFeria extends JFrame {
+public class ViewsFormFeria extends JFrame {
 
     private JPanel dialogPanel;
     private JPanel contentPanel;
     private JPanel contentPanel2;
     private JLabel label1;
-    private JTextField textField1;
+    private JTextField textFieldNombre;
     private JPanel contentPanel3;
     private JLabel label2;
-    private JTextField textField2;
+    private JTextField textFieldDescripcion;
     private JPanel contentPanel4;
     private JLabel label3;
-    private JTextField textField3;
+    private JTextField textFieldFechaIni;
     private JPanel contentPanel5;
     private JLabel label4;
-    private JTextField textField4;
+    private JTextField textFieldFechaFin;
     private JPanel buttonBar;
     private JButton createButtonForm;
     private JButton cancelButton;
     private JButton helpButton;
 
-    public ViewsFormCreateFeria() {
+    public ViewsFormFeria() {
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
     private void createButtonFormActionPerformed() {
-
+        setVisible(false);
+        String name = textFieldNombre.getText();
+        String descrip = textFieldNombre.getText();
+        String fecha_ini = textFieldFechaIni.getText();
+        String fecha_fin = textFieldFechaFin.getText();
+        Tferia tFeria = new Tferia(name, descrip, new Date(fecha_ini), new Date(fecha_fin));
     }
 
     private void cancelButtonStateChanged() {
@@ -50,16 +58,16 @@ public class ViewsFormCreateFeria extends JFrame {
         contentPanel = new JPanel();
         contentPanel2 = new JPanel();
         label1 = new JLabel();
-        textField1 = new JTextField();
+        textFieldNombre = new JTextField();
         contentPanel3 = new JPanel();
         label2 = new JLabel();
-        textField2 = new JTextField();
+        textFieldDescripcion = new JTextField();
         contentPanel4 = new JPanel();
         label3 = new JLabel();
-        textField3 = new JTextField();
+        textFieldFechaIni = new JTextField();
         contentPanel5 = new JPanel();
         label4 = new JLabel();
-        textField4 = new JTextField();
+        textFieldFechaFin = new JTextField();
         buttonBar = new JPanel();
         createButtonForm = new JButton();
         cancelButton = new JButton();
@@ -93,7 +101,7 @@ public class ViewsFormCreateFeria extends JFrame {
                     //---- label1 ----
                     label1.setText("Nombre");
                     contentPanel2.add(label1);
-                    contentPanel2.add(textField1);
+                    contentPanel2.add(textFieldNombre);
                 }
                 contentPanel.add(contentPanel2);
 
@@ -104,7 +112,7 @@ public class ViewsFormCreateFeria extends JFrame {
                     //---- label2 ----
                     label2.setText("Descripcion");
                     contentPanel3.add(label2);
-                    contentPanel3.add(textField2);
+                    contentPanel3.add(textFieldDescripcion);
                 }
                 contentPanel.add(contentPanel3);
 
@@ -115,7 +123,7 @@ public class ViewsFormCreateFeria extends JFrame {
                     //---- label3 ----
                     label3.setText("Fecha inicio");
                     contentPanel4.add(label3);
-                    contentPanel4.add(textField3);
+                    contentPanel4.add(textFieldFechaIni);
                 }
                 contentPanel.add(contentPanel4);
 
@@ -126,7 +134,7 @@ public class ViewsFormCreateFeria extends JFrame {
                     //---- label4 ----
                     label4.setText("Fecha fin");
                     contentPanel5.add(label4);
-                    contentPanel5.add(textField4);
+                    contentPanel5.add(textFieldFechaFin);
                 }
                 contentPanel.add(contentPanel5);
             }
