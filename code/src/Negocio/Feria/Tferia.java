@@ -1,6 +1,6 @@
 package Negocio.Feria;
 
-import java.sql.*;
+import java.util.Date;
 
 public class Tferia {
 

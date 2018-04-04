@@ -4,7 +4,7 @@ import Negocio.Feria.Tferia;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.Date;
+import java.util.Date;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
@@ -40,9 +40,11 @@ public class ViewsFormFeria extends JFrame {
         setVisible(false);
         String name = textFieldNombre.getText();
         String descrip = textFieldNombre.getText();
-        String fecha_ini = textFieldFechaIni.getText();
+        String a_fecha_ini = textFieldFechaIni.getText();
+        String m_fecha_ini = textFieldFechaFin.getText();
+        String d_fecha_ini = textFieldFechaFin.getText();
         String fecha_fin = textFieldFechaFin.getText();
-        Tferia tFeria = new Tferia(name, descrip, new Date(fecha_ini), new Date(fecha_fin));
+        Tferia tFeria = new Tferia(name, descrip, new Date(Integer.parseInt(a_fecha_ini), Integer.parseInt(m_fecha_ini), Integer.parseInt(d_fecha_ini)), new Date(Integer.parseInt(fecha_fin)));
     }
 
     private void cancelButtonStateChanged() {
