@@ -1,19 +1,16 @@
-package TestIntegracion.Feria;
-
-import static org.junit.Assert.assertEquals;
-
-import java.sql.Date;
-import org.junit.Test;
+package Integracion.Feria;
 
 import Exceptions.DAOException;
-import Integracion.Feria.DAOFeriaImp;
 import Negocio.Feria.Tferia;
+import org.junit.Test;
 
+import java.sql.Date;
 
-public class TestDAOFeriaImp {
+import static org.junit.Assert.*;
 
-	@Test 
-	public void exitoCreate() {
+public class DAOFeriaImpTest {
+	@Test
+	public void create() throws Exception {
 		Date ini = new Date(2017,4,3);
 		Date fin = new Date(2017,5,3);
 		Tferia in = new Tferia("FITUR","Feria internacional de turismo",ini,fin);
@@ -25,6 +22,22 @@ public class TestDAOFeriaImp {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
 	}
+
+	@Test
+	public void readAll() throws Exception {
+	}
+
+	@Test
+	public void readByName() throws Exception {
+	}
+
+	@Test
+	public void update() throws Exception {
+	}
+
+	@Test
+	public void delete() throws Exception {
+	}
+
 }
