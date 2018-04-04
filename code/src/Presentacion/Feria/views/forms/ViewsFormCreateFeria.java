@@ -1,4 +1,4 @@
-package Presentacion.Feria.views;
+package Presentacion.Feria.views.forms;
 
 import java.awt.*;
 import java.awt.event.*;
