@@ -16,7 +16,7 @@ public class DAOFeriaImp implements DAOFeria{
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
+			throw new DAOException("ERROR: acceso a la conexion a DB para 'create' Name Feria "+ tFeria.getName() +" no logrado\n");
 		}
 		Connection connec = null;
 		try { // Conexion db

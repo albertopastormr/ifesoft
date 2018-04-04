@@ -22,7 +22,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 
 		try { // Tratamiento db
 			PreparedStatement ps;
-			ps = connec.prepareStatement("INSERT INTO participante(name, description, initDate, endDate, active) VALUES (?,?,?,?,?)");
+			ps = connec.prepareStatement("INSERT INTO participante(name, phone, active) VALUES (?,?,?,?,?)");
 			ps.setString(1, tParticipante.getName());
 			ps.setLong(2, tParticipante.getPhone());
 			ps.setBoolean(3, true);
