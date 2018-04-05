@@ -1,6 +1,8 @@
 package Presentacion.Feria.views.forms;
 
 import Negocio.Feria.Tferia;
+import Presentacion.Feria.views.events.Event;
+import Presentacion.Feria.UIimp;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -45,10 +47,12 @@ public class ViewsFormFeria extends JFrame {
         String d_fecha_ini = textFieldFechaFin.getText();
         String fecha_fin = textFieldFechaFin.getText();
         Tferia tFeria = new Tferia(name, descrip, new Date(Integer.parseInt(a_fecha_ini), Integer.parseInt(m_fecha_ini), Integer.parseInt(d_fecha_ini)), new Date(Integer.parseInt(fecha_fin)));
+        UIimp.getInstance().execute(Event.INSERT_FERIA, tFeria);
     }
 
     private void cancelButtonStateChanged() {
-
+        this.setVisible(false);
+        UIimp.getInstance().execute(Event.CREATE_HALF, null);
     }
 
     private void helpButtonActionPerformed() {
@@ -163,9 +167,9 @@ public class ViewsFormFeria extends JFrame {
 
                 //---- cancelButton ----
                 cancelButton.setText("Cancel");
-                cancelButton.addChangeListener(new ChangeListener() {
+                cancelButton.addActionListener(new ActionListener() {
                     @Override
-                    public void stateChanged(ChangeEvent e) {
+                    public void actionPerformed(ActionEvent e) {
                         cancelButtonStateChanged();
                     }
                 });

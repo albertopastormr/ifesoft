@@ -9,6 +9,13 @@ public class Tparticipacion {
 	private int stand_id;
 	private Boolean active;
 
+	public Tparticipacion() {
+		this.fair_id = -1;
+		this.client_id = -1;
+		this.stand_id = -1;
+		this.active = null;
+	}
+
 	public Tparticipacion(int fair_id, int client_id, int stand_id, Boolean active) {
 		this.fair_id = fair_id;
 		this.client_id = client_id;

@@ -1,6 +1,4 @@
-package Presentacion.Pabellon.views.forms;
-
-import Negocio.Pabellon.Tpabellon;
+package Presentacion.Feria.views.forms;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -39,7 +37,7 @@ public class ViewsFormPabellon extends JFrame {
                                                     // Creo la segunda visto el getText()
         String m2_utiles = textFieldM2Utiles.getText();
         String m2_totales = textFieldM2Tot.getText();
-        Tpabellon tPabellon = new Tpabellon(Integer.parseInt(aforo), Integer.parseInt(m2_utiles), Integer.parseInt(m2_totales));
+        //Tpabellon tPabellon = new Tpabellon(Integer.parseInt(aforo), Integer.parseInt(m2_utiles), Integer.parseInt(m2_totales));
     }
 
     private void cancelButtonStateChanged() {

@@ -1,14 +1,20 @@
 package Presentacion.Feria;
 
+import Exceptions.ASException;
+import Exceptions.DAOException;
 import Negocio.Feria.ASferia;
 import Negocio.Feria.Tferia;
 import Presentacion.Feria.views.*;
+import Presentacion.Feria.views.events.Event;
+import Presentacion.Feria.views.events.EventGUI;
 import Presentacion.Feria.views.forms.ViewsFormFeria;
+
+import java.sql.SQLException;
 
 public class ControllerImp implements Controller  {
 
     private ASferia asFeria;
-    private UIimp gui;
+    private UI gui;
 
     @Override
     public void execute(int event, Object data) {
@@ -29,6 +35,9 @@ public class ControllerImp implements Controller  {
                 new ViewsHalfCreate();
                 break;
             case Event.MODIFY_HALF:
+
+
+
                 new ViewHalfModify();
                 break;
             case Event.SHOW_HALF:
@@ -48,10 +57,15 @@ public class ControllerImp implements Controller  {
                 new ViewsFormFeria();
                 break;
             case Event.INSERT_FERIA:
+                Tferia tFeria = (Tferia) data;
+                try {
+                    int res = asFeria.create(tFeria);
+                    if (res>0) gui.update(EventGUI.UPDATE_CREATE_FERIA_OK, res);
+                    else gui.update(EventGUI.UPDATE_CREATE_FERIA_FAIL, null);
 
-                // HACER
-
-                new ViewsFormFeria();
+                } catch (ASException | ClassNotFoundException | DAOException | SQLException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }

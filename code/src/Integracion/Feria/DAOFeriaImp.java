@@ -5,6 +5,7 @@ import Exceptions.DAOException;
 import Negocio.Feria.Tferia;
 
 import java.sql.*;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -29,8 +30,8 @@ public class DAOFeriaImp implements DAOFeria{
 			ps = connec.prepareStatement("INSERT INTO feria(name, description, initDate, endDate, active) VALUES (?,?,?,?,?)");
 			ps.setString(1, tFeria.getName());
 			ps.setString(2, tFeria.getDescription());
-			ps.setDate(3, tFeria.getIniDate());
-			ps.setDate(4, tFeria.getEndDate());
+			ps.setDate(3, (new java.sql.Date(tFeria.getIniDate().getYear(), tFeria.getIniDate().getMonth(), tFeria.getIniDate().getDay())));
+			ps.setDate(4, (new java.sql.Date(tFeria.getEndDate().getYear(), tFeria.getEndDate().getMonth(), tFeria.getEndDate().getDay())));
 			ps.setBoolean(5, true);
 			ps.execute();
 
@@ -148,8 +149,8 @@ public class DAOFeriaImp implements DAOFeria{
 			ps = connec.prepareStatement("UPDATE feria SET (name, description, initDate, endDate, active) VALUES (?,?,?,?,?)");
 			ps.setString(1, tFeria.getName());
 			ps.setString(2, tFeria.getDescription());
-			ps.setDate(3, tFeria.getIniDate());
-			ps.setDate(4, tFeria.getEndDate());
+			ps.setDate(3, (new java.sql.Date(tFeria.getIniDate().getYear(), tFeria.getIniDate().getMonth(), tFeria.getIniDate().getDay())));
+			ps.setDate(4, (new java.sql.Date(tFeria.getEndDate().getYear(), tFeria.getEndDate().getMonth(), tFeria.getEndDate().getDay())));
 			ps.setBoolean(5, true);
 			ps.execute();
 

@@ -11,9 +11,15 @@ public class Tstand {
     private Boolean active;
 
 	public Tstand() {
+		this.id = -1;
+		this.num_at_fair = -1;
+		this.cost = -1;
+		this.total_m2 = -1;
+		this.active = null;
 	}
 
 	public Tstand(int num_at_fair, double cost, int total_m2, Boolean active) {
+		this.id = -1;
 		this.num_at_fair = num_at_fair;
 		this.cost = cost;
 		this.total_m2 = total_m2;

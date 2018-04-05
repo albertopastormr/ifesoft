@@ -1,4 +1,4 @@
-package Presentacion.Asignacion.views.forms;
+package Presentacion.Feria.views.forms;
 
 import Negocio.Asignacion.Tasignacion;
 
@@ -29,7 +29,7 @@ public class ViewsFormAsignacion extends JFrame {
     private void createButtonFormActionPerformed() {
         setVisible(false);
         String m_usados = textFieldMUsados.getText();
-        Tasignacion tAsignacion = new Tasignacion(Integer.parseInt(m_usados));
+        //Tasignacion tAsignacion = new Tasignacion(Integer.parseInt(m_usados));
     }
 
     private void cancelButtonStateChanged() {

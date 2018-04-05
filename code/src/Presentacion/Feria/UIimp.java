@@ -1,5 +1,8 @@
 package Presentacion.Feria;
 
+import Presentacion.Feria.views.events.Event;
+import Presentacion.Feria.views.events.EventGUI;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
@@ -7,7 +10,7 @@ import java.beans.PropertyChangeListener;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class UIimp extends JFrame {
+public class UIimp extends JFrame implements UI{
 
     private static ControllerImp control;
 
@@ -37,9 +40,28 @@ public class UIimp extends JFrame {
         this.propFont = new Font(Font.MONOSPACED, Font.PLAIN, 60);
         this.propButtonOption = new Font(Font.MONOSPACED, Font.PLAIN, 30);
 
-        initComponents();
+        start();
         this.setBounds(100,100, 1200,1200);
         this.setVisible(true);
+    }
+
+    @Override
+    public void update(int event, Object object) {
+        switch (event){
+            case EventGUI.UPDATE_CREATE_FERIA_OK:
+
+                break;
+            case EventGUI.UPDATE_CREATE_FERIA_FAIL:
+
+                break;
+
+            // .....
+        }
+    }
+
+    @Override
+    public void start() {
+        initComponents();
     }
 
     private void buttonCreateHomeActionPerformed() {

@@ -10,7 +10,13 @@ public class Tpabellon {
     private int util_m2;
     private Boolean active;
 
-	public Tpabellon() {}
+	public Tpabellon() {
+		this.id = -1;
+		this.capacity = -1;
+		this.total_m2 = -1;
+		this.util_m2 = -1;
+		this.active = null;
+	}
 
 	public Tpabellon(int id, int capacity, int total_m2, int util_m2, Boolean active) {
 		this.id = id;
@@ -21,6 +27,7 @@ public class Tpabellon {
 	}
 
 	public Tpabellon(int capacity, int total_m2, int util_m2, Boolean active) {
+		this.id = -1;
 		this.capacity = capacity;
 		this.total_m2 = total_m2;
 		this.util_m2 = util_m2;

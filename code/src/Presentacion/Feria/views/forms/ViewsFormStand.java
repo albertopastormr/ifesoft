@@ -37,7 +37,7 @@ public class ViewsFormStand extends JFrame {
         String coste = textFieldCoste.getText();
         String m_usados = textFieldMUsados.getText();
         String numero = textFieldNumero.getText();
-        Tstand tStand = new Tstand(Integer.parseInt(coste), Integer.parseInt(m_usados), Integer.parseInt(numero));
+        //Tstand tStand = new Tstand(Integer.parseInt(coste), Integer.parseInt(m_usados), Integer.parseInt(numero));
     }
 
     private void cancelButtonStateChanged() {

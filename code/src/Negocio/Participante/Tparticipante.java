@@ -10,6 +10,7 @@ public class Tparticipante {
     private Boolean active;
 
     public Tparticipante() {
+    	id = -1;
         name = null;
         phone = -1;
         active = false;
@@ -23,6 +24,7 @@ public class Tparticipante {
 	}
 
 	public Tparticipante(String name, long phone,  Boolean active) {
+		id = -1;
 		this.name = name;
 		this.phone = phone;
 		this.active = active;

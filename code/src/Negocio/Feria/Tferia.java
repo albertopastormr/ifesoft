@@ -12,6 +12,7 @@ public class Tferia {
     private Boolean active;
 
     public Tferia() {
+        id = -1;
         name = null;
         description = null;
         iniDate = null;
@@ -29,6 +30,7 @@ public class Tferia {
 	}
 
 	public Tferia(String name, String description, Date iniDate, Date endDate, Boolean active) {
+        this.id = -1;
 		this.name = name;
 		this.description = description;
 		this.iniDate = iniDate;

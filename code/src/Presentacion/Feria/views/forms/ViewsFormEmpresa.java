@@ -1,6 +1,4 @@
-package Presentacion.Empresa.views.forms;
-
-import Negocio.Empresa.Tempresa;
+package Presentacion.Feria.views.forms;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -37,7 +35,7 @@ public class ViewsFormEmpresa extends JFrame {
         String nombre = textFieldNombre.getText();
         String telefono = textFieldTelefono.getText();
         String especializacion = textFieldEspecializacion.getText();
-        Tempresa tEmpresa = new Tempresa(nombre, Integer.parseInt(telefono), especializacion);
+        //Tparticipante tEmpresa = new Tparticipante(nombre, Integer.parseInt(telefono), especializacion);
     }
 
     private void cancelButtonStateChanged() {

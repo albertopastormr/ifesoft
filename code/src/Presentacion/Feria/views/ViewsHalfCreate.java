@@ -1,10 +1,13 @@
 package Presentacion.Feria.views;
 
-import Presentacion.Feria.Event;
+import Negocio.Feria.Tferia;
+import Presentacion.Feria.Controller;
+import Presentacion.Feria.views.events.Event;
 import Presentacion.Feria.UIimp;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Date;
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -30,7 +33,11 @@ public class ViewsHalfCreate extends JFrame {
         switch (String.valueOf(comboBox.getSelectedItem())){
             case "Feria":
                 this.setVisible(false);
-                UIimp.getInstance().execute(Event.INSERT_FORM_FERIA, null);
+
+                // Nos traemos los datos a poder modificar
+                Tferia tFeria = new Tferia();
+                UIimp.getInstance().execute(Event.INSERT_FORM_FERIA, tFeria);
+
                 break;
             case "Pabellon":
                 UIimp.getInstance().execute(Event.CREATE_HALF, null);

@@ -10,7 +10,13 @@ public class Tasignacion {
     private int used_m2;
     private Boolean active;
 
-	public Tasignacion() { }
+	public Tasignacion() {
+		this.fair_id = -1;
+		this.pavilion_id = -1;
+		this.stand_id = -1;
+		this.used_m2 = -1;
+		this.active = null;
+	}
 
 	public Tasignacion(int fair_id, int pavilion_id, int stand_id, int used_m2, Boolean active) {
 		this.fair_id = fair_id;
