@@ -1,6 +1,6 @@
-package Presentacion.Stand.views.forms;
+package Presentacion.Asignacion.views.forms;
 
-import Negocio.Stand.Tstand;
+import Negocio.Asignacion.Tasignacion;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -8,25 +8,19 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
 
-public class ViewsFormStand extends JFrame {
+public class ViewsFormAsignacion extends JFrame {
 
     private JPanel dialogPanel;
     private JPanel contentPanel;
     private JPanel contentPanel2;
     private JLabel label1;
-    private JTextField textFieldCoste;
-    private JPanel contentPanel3;
-    private JLabel label2;
     private JTextField textFieldMUsados;
-    private JPanel contentPanel4;
-    private JLabel label3;
-    private JTextField textFieldNumero;
     private JPanel buttonBar;
     private JButton createButtonForm;
     private JButton cancelButton;
     private JButton helpButton;
 
-    public ViewsFormStand() {
+    public ViewsFormAsignacion() {
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
@@ -34,10 +28,8 @@ public class ViewsFormStand extends JFrame {
 
     private void createButtonFormActionPerformed() {
         setVisible(false);
-        String coste = textFieldCoste.getText();
         String m_usados = textFieldMUsados.getText();
-        String numero = textFieldNumero.getText();
-        Tstand tStand = new Tstand(Integer.parseInt(coste), Integer.parseInt(m_usados), Integer.parseInt(numero));
+        Tasignacion tAsignacion = new Tasignacion(Integer.parseInt(m_usados));
     }
 
     private void cancelButtonStateChanged() {
@@ -53,13 +45,7 @@ public class ViewsFormStand extends JFrame {
         contentPanel = new JPanel();
         contentPanel2 = new JPanel();
         label1 = new JLabel();
-        textFieldCoste = new JTextField();
-        contentPanel3 = new JPanel();
-        label2 = new JLabel();
         textFieldMUsados = new JTextField();
-        contentPanel4 = new JPanel();
-        label3 = new JLabel();
-        textFieldNumero = new JTextField();
         buttonBar = new JPanel();
         createButtonForm = new JButton();
         cancelButton = new JButton();
@@ -91,33 +77,11 @@ public class ViewsFormStand extends JFrame {
                     contentPanel2.setLayout(new BoxLayout(contentPanel2, BoxLayout.X_AXIS));
 
                     //---- label1 ----
-                    label1.setText("Coste");
+                    label1.setText("Metros usados");
                     contentPanel2.add(label1);
-                    contentPanel2.add(textFieldCoste);
+                    contentPanel2.add(textFieldMUsados);
                 }
                 contentPanel.add(contentPanel2);
-
-                //======== contentPanel3 ========
-                {
-                    contentPanel3.setLayout(new BoxLayout(contentPanel3, BoxLayout.X_AXIS));
-
-                    //---- label2 ----
-                    label2.setText("Metros usados");
-                    contentPanel3.add(label2);
-                    contentPanel3.add(textFieldMUsados);
-                }
-                contentPanel.add(contentPanel3);
-
-                //======== contentPanel4 ========
-                {
-                    contentPanel4.setLayout(new BoxLayout(contentPanel4, BoxLayout.X_AXIS));
-
-                    //---- label3 ----
-                    label3.setText("Numero");
-                    contentPanel4.add(label3);
-                    contentPanel4.add(textFieldNumero);
-                }
-                contentPanel.add(contentPanel4);
             }
             dialogPanel.add(contentPanel, BorderLayout.CENTER);
 

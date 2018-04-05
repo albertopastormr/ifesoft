@@ -4,7 +4,6 @@ import Negocio.Pabellon.Tpabellon;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Date;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
@@ -35,12 +34,12 @@ public class ViewsFormPabellon extends JFrame {
 
     private void createButtonFormActionPerformed() {
         setVisible(false);
-        String aforo = textFieldNombre.getText();  //!!!!!! Ivàn, esto lo ponemos directamente int o
+        String aforo = textFieldAforo.getText();  //!!!!!! Ivàn, esto lo ponemos directamente int o
                                                     // lo cogemos String del negocio y lo parseamos como con la fecha de feria?
                                                     // Creo la segunda visto el getText()
-        String m2_utiles = textFieldNombre.getText();
-        String m2_totales = textFieldNombre.getText();
-        Tpabellon tPabellon = new Tpabellon(aforo, m2_utiles, m2_totales);
+        String m2_utiles = textFieldM2Utiles.getText();
+        String m2_totales = textFieldM2Tot.getText();
+        Tpabellon tPabellon = new Tpabellon(Integer.parseInt(aforo), Integer.parseInt(m2_utiles), Integer.parseInt(m2_totales));
     }
 
     private void cancelButtonStateChanged() {

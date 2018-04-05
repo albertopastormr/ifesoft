@@ -1,33 +1,32 @@
-package Presentacion.Pabellon.views.forms;
+package Presentacion.Empresa.views.forms;
 
-import Negocio.Pabellon.Tpabellon;
+import Negocio.Empresa.Tempresa;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Date;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
 
-public class ViewsFormPabellon extends JFrame {
+public class ViewsFormEmpresa extends JFrame {
 
     private JPanel dialogPanel;
     private JPanel contentPanel;
     private JPanel contentPanel2;
     private JLabel label1;
-    private JTextField textFieldAforo;
+    private JTextField textFieldNombre;
     private JPanel contentPanel3;
     private JLabel label2;
-    private JTextField textFieldM2Utiles;
+    private JTextField textFieldTelefono;
     private JPanel contentPanel4;
     private JLabel label3;
-    private JTextField textFieldM2Tot;
+    private JTextField textFieldEspecializacion;
     private JPanel buttonBar;
     private JButton createButtonForm;
     private JButton cancelButton;
     private JButton helpButton;
 
-    public ViewsFormPabellon() {
+    public ViewsFormEmpresa() {
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
@@ -35,12 +34,10 @@ public class ViewsFormPabellon extends JFrame {
 
     private void createButtonFormActionPerformed() {
         setVisible(false);
-        String aforo = textFieldNombre.getText();  //!!!!!! Ivàn, esto lo ponemos directamente int o
-        // lo cogemos String del negocio y lo parseamos como con la fecha de feria?
-        // Creo la segunda visto el getText()
-        String m2_utiles = textFieldNombre.getText();
-        String m2_totales = textFieldNombre.getText();
-        Tpabellon tPabellon = new Tpabellon(aforo, m2_utiles, m2_totales);
+        String nombre = textFieldNombre.getText();
+        String telefono = textFieldTelefono.getText();
+        String especializacion = textFieldEspecializacion.getText();
+        Tempresa tEmpresa = new Tempresa(nombre, Integer.parseInt(telefono), especializacion);
     }
 
     private void cancelButtonStateChanged() {
@@ -56,13 +53,13 @@ public class ViewsFormPabellon extends JFrame {
         contentPanel = new JPanel();
         contentPanel2 = new JPanel();
         label1 = new JLabel();
-        textFieldAforo = new JTextField();
+        textFieldNombre = new JTextField();
         contentPanel3 = new JPanel();
         label2 = new JLabel();
-        textFieldM2Utiles = new JTextField();
+        textFieldTelefono = new JTextField();
         contentPanel4 = new JPanel();
         label3 = new JLabel();
-        textFieldM2Tot = new JTextField();
+        textFieldEspecializacion = new JTextField();
         buttonBar = new JPanel();
         createButtonForm = new JButton();
         cancelButton = new JButton();
@@ -94,9 +91,9 @@ public class ViewsFormPabellon extends JFrame {
                     contentPanel2.setLayout(new BoxLayout(contentPanel2, BoxLayout.X_AXIS));
 
                     //---- label1 ----
-                    label1.setText("Aforo");
+                    label1.setText("Nombre");
                     contentPanel2.add(label1);
-                    contentPanel2.add(textFieldAforo);
+                    contentPanel2.add(textFieldNombre);
                 }
                 contentPanel.add(contentPanel2);
 
@@ -105,9 +102,9 @@ public class ViewsFormPabellon extends JFrame {
                     contentPanel3.setLayout(new BoxLayout(contentPanel3, BoxLayout.X_AXIS));
 
                     //---- label2 ----
-                    label2.setText("Metros cuadros utiles");
+                    label2.setText("Telefono");
                     contentPanel3.add(label2);
-                    contentPanel3.add(textFieldM2Utiles);
+                    contentPanel3.add(textFieldTelefono);
                 }
                 contentPanel.add(contentPanel3);
 
@@ -116,9 +113,9 @@ public class ViewsFormPabellon extends JFrame {
                     contentPanel4.setLayout(new BoxLayout(contentPanel4, BoxLayout.X_AXIS));
 
                     //---- label3 ----
-                    label3.setText("Metros cuadros totales");
+                    label3.setText("Especialización");
                     contentPanel4.add(label3);
-                    contentPanel4.add(textFieldM2Tot);
+                    contentPanel4.add(textFieldEspecializacion);
                 }
                 contentPanel.add(contentPanel4);
             }
