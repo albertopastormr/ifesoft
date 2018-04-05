@@ -14,11 +14,7 @@ public class DAOFeriaImp implements DAOFeria{
 	public DAOFeriaImp(){}
 	public Integer create(Tferia tFeria) throws DAOException {
 		int id = -1;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e1) {
-			throw new DAOException("ERROR: acceso a la conexion a DB para 'create' Name Feria "+ tFeria.getName() +" no logrado\n");
-		}
+		
 		Connection connec = null;
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if"); // Datos de acceso a la db: user//manager pw//manager-if
@@ -92,12 +88,12 @@ public class DAOFeriaImp implements DAOFeria{
 	}
 	public Tferia readByName(String name) throws DAOException {
 		Tferia readFeria = null;
-		try {
+		/*try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
+		}*/
 		Connection connec = null;
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");

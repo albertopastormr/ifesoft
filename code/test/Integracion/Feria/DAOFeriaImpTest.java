@@ -2,26 +2,25 @@ package Integracion.Feria;
 
 import Exceptions.DAOException;
 import Negocio.Feria.Tferia;
-import org.junit.Test;
+
 
 import java.sql.Date;
+
+import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class DAOFeriaImpTest {
 	@Test
-	public void create() throws Exception {
-		Date ini = new Date(2017,4,3);
-		Date fin = new Date(2017,5,3);
-		Tferia in = new Tferia("FITUR","Feria internacional de turismo",ini,fin);
+	public void create() throws Exception { //ya conecta con la BD, 1er problema el id es auto incremental 
+										    //asiq cada vez que hacemos un test aumenta y para reiniciar es un jaque mate
+											// 2º el date sale raro, hay que saber como funciona
+		Date ini = new Date(2017,04,04);
+		Date fin = new Date(2017,05,04);
+		Tferia tf = new Tferia("FITUR","Feria internacional turismo",ini,fin);
 		DAOFeriaImp dao = new DAOFeriaImp();
-		try {
-			int a = dao.create(in);
-			assertEquals(1,a);
-		} catch (DAOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		int a = dao.create(tf);
+		assertEquals(1,a);
 	}
 
 	@Test
@@ -29,7 +28,14 @@ public class DAOFeriaImpTest {
 	}
 
 	@Test
-	public void readByName() throws Exception {
+	public void readByName() throws Exception { //Test correcto, pero hay que revisar los constructores 
+												//de Tferia pq sospecho que pueden dar algun error de retorno con el id	
+		DAOFeriaImp dao = new DAOFeriaImp();
+		Date ini = new Date(2017,4,4);
+		Date fin = new Date(2017,5,4);
+		Tferia tf = new Tferia("FITUR","Feria internacional turismo",ini,fin,true);
+		Tferia out = dao.readByName("FITUR");
+		assertEquals(out.getId(),tf.getId());
 	}
 
 	@Test
