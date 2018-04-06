@@ -194,7 +194,7 @@ public class DAOFeriaImp implements DAOFeria{
 			if (rs.next())
 				id = rs.getInt("id");
 			else
-				throw new DAOException("Tferia" + tFeria.getName() + " does not exist (id not defined) in ifesoft database\n");
+				throw new DAOException("Tferia " + tFeria.getName() + " does not exist (id not defined) in ifesoft database\n");
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'update' Name Feria "+ tFeria.getName() +" no logrado\n");
@@ -211,6 +211,7 @@ public class DAOFeriaImp implements DAOFeria{
 
 
 	public boolean delete (Integer id) throws DAOException {
+		boolean deleteResult;
 		Connection connec = null;
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
@@ -228,7 +229,7 @@ public class DAOFeriaImp implements DAOFeria{
 			PreparedStatement ps;
 			ps = connec.prepareStatement("DELETE FROM feria WHERE id = ?");
 			ps.setInt(1, id);
-			ps.execute();
+			deleteResult= ps.execute();
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento para 'delete' ID Feria "+ id +" no logrado\n");
@@ -240,7 +241,36 @@ public class DAOFeriaImp implements DAOFeria{
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: cerrando conexion a DB para 'delete' ID Feria "+ id +" no logrado\n");
 		}
-		return true;
+		return deleteResult;
+	}
+	public void deleteAll() throws DAOException {
+		Connection connec = null;
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+		} catch (ClassNotFoundException ex) {
+			throw new DAOException("Error al registrar el driver de mariadb: " + ex);
+		}
+		try { // Conexion db
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
+		} catch (SQLException e) {
+			throw new DAOException("ERROR: acceso a la conexion para 'deleteAll' no logrado\n");
+		}
+
+
+		try { // Tratamiento db
+			PreparedStatement ps;
+			ps = connec.prepareStatement("TRUNCATE TABLE feria");
+		}
+		catch (SQLException e){
+			throw new DAOException("ERROR: deleteAll Tferia no logrado\n");
+		}
+
+
+		try { // Desconexion db
+			connec.close();
+		} catch (SQLException e) {
+			throw new DAOException("ERROR: cerrando conexion a DB para 'deleteAll' no logrado\n");
+		}
 	}
 
 }
