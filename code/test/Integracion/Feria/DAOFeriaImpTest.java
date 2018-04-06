@@ -11,16 +11,23 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class DAOFeriaImpTest {
+
+	private static Tferia tferiaTest1 = new Tferia("FITUR","Feria internacional turismo",new Date(2017,4,4),new Date(2017,5,4),true);
+	private static Tferia tferiaTest2 = new Tferia("VINECT","Feria internacional vinos",new Date(2017,9,28),new Date(2017,10,4),true);
+
+
 	@Test
-	public void create() throws Exception { //ya conecta con la BD, 1er problema el id es auto incremental 
-										    //asiq cada vez que hacemos un test aumenta y para reiniciar es un jaque mate
-											// 2º el date sale raro, hay que saber como funciona
-		Date ini = new Date(2017,04,04);
-		Date fin = new Date(2017,05,04);
-		Tferia tf = new Tferia("FITUR","Feria internacional turismo",ini,fin);
+	public void create() throws Exception {
+
 		DAOFeriaImp dao = new DAOFeriaImp();
-		int a = dao.create(tf);
-		assertEquals(1,a);
+		int out_id = dao.create(tferiaTest1);
+		assertNotEquals(-1, out_id);
+
+		Tferia read = dao.readByName(tferiaTest1.getName());
+
+		tferiaEquals(read, tferiaTest1);
+
+		dao.delete(out_id);
 	}
 
 	@Test
@@ -28,22 +35,46 @@ public class DAOFeriaImpTest {
 	}
 
 	@Test
-	public void readByName() throws Exception { //Test correcto, pero hay que revisar los constructores 
-												//de Tferia pq sospecho que pueden dar algun error de retorno con el id	
+	public void readByName() throws Exception {
+
 		DAOFeriaImp dao = new DAOFeriaImp();
-		Date ini = new Date(2017,4,4);
-		Date fin = new Date(2017,5,4);
-		Tferia tf = new Tferia("FITUR","Feria internacional turismo",ini,fin,true);
-		Tferia out = dao.readByName("FITUR");
-		assertEquals(out.getId(),tf.getId());
+
+		int out_id = dao.create(tferiaTest1);
+		Tferia read = dao.readByName(tferiaTest1.getName());
+
+		tferiaEquals(read, tferiaTest1);
+
+		dao.delete(out_id);
 	}
 
 	@Test
 	public void update() throws Exception {
+		DAOFeriaImp dao = new DAOFeriaImp();
+
+		int out_id_create = dao.create(tferiaTest1);
+		int out_id_update = dao.update(tferiaTest2);
+
+		assertEquals(out_id_create, out_id_update);
+
+		Tferia read = dao.readByName(tferiaTest1.getName());
+
+		tferiaEquals(read, tferiaTest2);
+
+		dao.delete(out_id_update);
 	}
 
 	@Test
 	public void delete() throws Exception {
+		DAOFeriaImp dao = new DAOFeriaImp();
+		int out_id_create = dao.create(tferiaTest1);
+		assert dao.delete(out_id_create);
 	}
 
+
+	private void tferiaEquals(Tferia first, Tferia second){
+		assertEquals(first.getName(),second.getName());
+		assertEquals(first.getDescription(),second.getDescription());
+		assertEquals(first.getIniDate(),second.getIniDate());
+		assertEquals(first.getEndDate(),second.getEndDate());
+	}
 }

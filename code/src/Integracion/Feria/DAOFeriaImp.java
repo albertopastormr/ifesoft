@@ -9,15 +9,18 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 public class DAOFeriaImp implements DAOFeria{
-	protected static final String connectionChain = "jdbc:mysql://localhost:3306/ifesoft";
+	protected static final String connectionChain = "jdbc:mariadb://localhost:3306/ifesoft?user=manager&password=manager-if";
 	public DAOFeriaImp(){}
 	public Integer create(Tferia tFeria) throws DAOException {
 		int id = -1;
 		
 		Connection connec = null;
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if"); // Datos de acceso a la db: user//manager pw//manager-if
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'create' Name Feria "+ tFeria.getName() +" no logrado\n");
 		}
