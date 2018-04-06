@@ -33,11 +33,7 @@ public class ViewsHalfCreate extends JFrame {
         switch (String.valueOf(comboBox.getSelectedItem())){
             case "Feria":
                 this.setVisible(false);
-
-                // Nos traemos los datos a poder modificar
-                Tferia tFeria = new Tferia();
-                UIimp.getInstance().execute(Event.INSERT_FORM_FERIA, tFeria);
-
+                UIimp.getInstance().execute(Event.INSERT_FORM_FERIA, null);
                 break;
             case "Pabellon":
                 UIimp.getInstance().execute(Event.CREATE_HALF, null);

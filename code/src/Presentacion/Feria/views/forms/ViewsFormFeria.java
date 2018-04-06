@@ -32,22 +32,47 @@ public class ViewsFormFeria extends JFrame {
     private JButton cancelButton;
     private JButton helpButton;
 
+    private Tferia tferiaModify;
+    private boolean controlOption;
+
     public ViewsFormFeria() {
         initComponents();
+        controlOption = true;
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
+    public ViewsFormFeria(Tferia tferia) {
+        initComponents();
+
+        controlOption = false;
+        this.tferiaModify = tferia;
+
+        initComponentsModify();
+        this.setBounds(100,100, 800,800);
+        this.setVisible(true);
+    }
+
+    private void initComponentsModify() {
+        textFieldNombre.setText(tferiaModify.getName());
+        textFieldDescripcion.setText(tferiaModify.getDescription());
+        textFieldFechaIni.setText(String.valueOf(tferiaModify.getIniDate()));
+        textFieldFechaFin.setText(String.valueOf(tferiaModify.getEndDate()));
+    }
+
     private void createButtonFormActionPerformed() {
-        setVisible(false);
+        this.setVisible(false);
         String name = textFieldNombre.getText();
         String descrip = textFieldNombre.getText();
         String a_fecha_ini = textFieldFechaIni.getText();
         String m_fecha_ini = textFieldFechaFin.getText();
         String d_fecha_ini = textFieldFechaFin.getText();
         String fecha_fin = textFieldFechaFin.getText();
+
         Tferia tFeria = new Tferia(name, descrip, new Date(Integer.parseInt(a_fecha_ini), Integer.parseInt(m_fecha_ini), Integer.parseInt(d_fecha_ini)), new Date(Integer.parseInt(fecha_fin)));
-        UIimp.getInstance().execute(Event.INSERT_FERIA, tFeria);
+
+        if (controlOption)  UIimp.getInstance().execute(Event.INSERT_FERIA, tFeria);
+        else UIimp.getInstance().execute(Event.MODIFY_FERIA, tFeria);
     }
 
     private void cancelButtonStateChanged() {

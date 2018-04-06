@@ -27,7 +27,9 @@ public class Event {
 
     /** PAGINAS MAS ESPECIFICAS DE CADA ACCION */
     public static final int INSERT_FORM_FERIA = 10;
-    public static final int INSERT_FERIA = 11;
+    public static final int MODIFY_FORM_FERIA = 11;
+    public static final int INSERT_FERIA = 12;
+    public static final int MODIFY_FERIA = 15;
 
 
 

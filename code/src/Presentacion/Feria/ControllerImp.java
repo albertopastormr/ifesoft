@@ -19,6 +19,8 @@ public class ControllerImp implements Controller  {
     @Override
     public void execute(int event, Object data) {
 
+        Tferia tFeria = null;
+
         switch (event){
 
             /** Main Views*/
@@ -35,9 +37,6 @@ public class ControllerImp implements Controller  {
                 new ViewsHalfCreate();
                 break;
             case Event.MODIFY_HALF:
-
-
-
                 new ViewHalfModify();
                 break;
             case Event.SHOW_HALF:
@@ -56,8 +55,17 @@ public class ControllerImp implements Controller  {
             case Event.INSERT_FORM_FERIA:
                 new ViewsFormFeria();
                 break;
+            case Event.MODIFY_FORM_FERIA:
+                try {
+                    tFeria = asFeria.show((Tferia) data);
+                    new ViewsFormFeria(tFeria);
+
+                } catch (ASException | DAOException e) {
+                    e.printStackTrace();
+                }
+                break;
             case Event.INSERT_FERIA:
-                Tferia tFeria = (Tferia) data;
+                tFeria = (Tferia) data;
                 try {
                     int res = asFeria.create(tFeria);
                     if (res>0) gui.update(EventGUI.UPDATE_CREATE_FERIA_OK, res);

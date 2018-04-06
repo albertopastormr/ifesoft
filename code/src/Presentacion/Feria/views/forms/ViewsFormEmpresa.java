@@ -1,5 +1,7 @@
 package Presentacion.Feria.views.forms;
 
+import Negocio.Participante.Tparticipante;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -35,7 +37,7 @@ public class ViewsFormEmpresa extends JFrame {
         String nombre = textFieldNombre.getText();
         String telefono = textFieldTelefono.getText();
         String especializacion = textFieldEspecializacion.getText();
-        //Tparticipante tEmpresa = new Tparticipante(nombre, Integer.parseInt(telefono), especializacion);
+        Tparticipante tEmpresa = new Tparticipante(nombre, Integer.parseInt(telefono), Boolean.parseBoolean(especializacion));
     }
 
     private void cancelButtonStateChanged() {

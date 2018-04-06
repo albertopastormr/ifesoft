@@ -1,5 +1,9 @@
 package Presentacion.Feria.views;
 
+import Negocio.Feria.Tferia;
+import Presentacion.Feria.UIimp;
+import Presentacion.Feria.views.events.Event;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -26,6 +30,39 @@ public class ViewHalfModify extends JFrame {
     }
 
     private void okButtonActionPerformed(ActionEvent e) {
+
+        switch (String.valueOf(comboBoxModify.getSelectedItem())){
+            case "Feria":
+                this.setVisible(false);
+
+                int idFeria = Integer.parseInt(textID.getText());
+
+                // Nos traemos los datos a poder modificar
+                Tferia tFeria = new Tferia();
+                tFeria.setId(idFeria);
+
+                UIimp.getInstance().execute(Presentacion.Feria.views.events.Event.INSERT_FORM_FERIA, tFeria);
+
+                break;
+            case "Pabellon":
+                UIimp.getInstance().execute(Presentacion.Feria.views.events.Event.CREATE_HALF, null);
+                break;
+            case "Stand":
+                UIimp.getInstance().execute(Presentacion.Feria.views.events.Event.CREATE_HALF, null);
+                break;
+            case "Participante":
+                UIimp.getInstance().execute(Presentacion.Feria.views.events.Event.CREATE_HALF, null);
+                break;
+            case "Asignacion":
+                UIimp.getInstance().execute(Presentacion.Feria.views.events.Event.CREATE_HALF, null);
+                break;
+            case "Participacion":
+                UIimp.getInstance().execute(Event.CREATE_HALF, null);
+                break;
+
+        }
+
+
 
     }
 
