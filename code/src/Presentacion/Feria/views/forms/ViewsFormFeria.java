@@ -9,7 +9,6 @@ import java.awt.event.*;
 import java.util.Date;
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.event.*;
 
 public class ViewsFormFeria extends JFrame {
 
@@ -33,11 +32,11 @@ public class ViewsFormFeria extends JFrame {
     private JButton helpButton;
 
     private Tferia tferiaModify;
-    private boolean controlOption;
+    private boolean isOptionCreate;
 
     public ViewsFormFeria() {
         initComponents();
-        controlOption = true;
+        isOptionCreate = true;
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
@@ -45,7 +44,7 @@ public class ViewsFormFeria extends JFrame {
     public ViewsFormFeria(Tferia tferia) {
         initComponents();
 
-        controlOption = false;
+        isOptionCreate = false;
         this.tferiaModify = tferia;
 
         initComponentsModify();
@@ -71,13 +70,14 @@ public class ViewsFormFeria extends JFrame {
 
         Tferia tFeria = new Tferia(name, descrip, new Date(Integer.parseInt(a_fecha_ini), Integer.parseInt(m_fecha_ini), Integer.parseInt(d_fecha_ini)), new Date(Integer.parseInt(fecha_fin)));
 
-        if (controlOption)  UIimp.getInstance().execute(Event.INSERT_FERIA, tFeria);
-        else UIimp.getInstance().execute(Event.MODIFY_FERIA, tFeria);
+        if (isOptionCreate)  UIimp.getInstance().execute(Event.INSERT_FAIR, tFeria);
+        else UIimp.getInstance().execute(Event.MODIFY_FAIR ,tFeria);
     }
 
     private void cancelButtonStateChanged() {
         this.setVisible(false);
-        UIimp.getInstance().execute(Event.CREATE_HALF, null);
+        if (isOptionCreate) UIimp.getInstance().execute(Event.CREATE_HALF, null);
+        else UIimp.getInstance().execute(Event.MODIFY_HALF, null);
     }
 
     private void helpButtonActionPerformed() {
@@ -103,6 +103,8 @@ public class ViewsFormFeria extends JFrame {
         createButtonForm = new JButton();
         cancelButton = new JButton();
         helpButton = new JButton();
+
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         //======== this ========
         Container contentPane = getContentPane();

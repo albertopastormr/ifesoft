@@ -1,5 +1,7 @@
 package Presentacion.Feria.views.forms;
 
+import Negocio.Pabellon.Tpabellon;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -24,20 +26,32 @@ public class ViewsFormPabellon extends JFrame {
     private JButton cancelButton;
     private JButton helpButton;
 
+    private Tpabellon tpabellonModify;
+    private boolean isOptionCreate;
+
     public ViewsFormPabellon() {
         initComponents();
+        isOptionCreate = true;
+        this.setBounds(100,100, 800,800);
+        this.setVisible(true);
+    }
+
+    public ViewsFormPabellon(Tpabellon tpabellon) {
+        initComponents();
+
+        isOptionCreate = false;
+        this.tpabellonModify = tpabellon;
+
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
     private void createButtonFormActionPerformed() {
         setVisible(false);
-        String aforo = textFieldAforo.getText();  //!!!!!! Ivàn, esto lo ponemos directamente int o
-                                                    // lo cogemos String del negocio y lo parseamos como con la fecha de feria?
-                                                    // Creo la segunda visto el getText()
+        String aforo = textFieldAforo.getText();
         String m2_utiles = textFieldM2Utiles.getText();
         String m2_totales = textFieldM2Tot.getText();
-        //Tpabellon tPabellon = new Tpabellon(Integer.parseInt(aforo), Integer.parseInt(m2_utiles), Integer.parseInt(m2_totales));
+        Tpabellon tPabellon = new Tpabellon(Integer.parseInt(aforo), Integer.parseInt(m2_utiles), Integer.parseInt(m2_totales), true);
     }
 
     private void cancelButtonStateChanged() {

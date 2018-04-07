@@ -1,7 +1,5 @@
 package Negocio.Asignacion;
 
-import java.sql.Date;
-
 public class Tasignacion {
 
     private int fair_id; // Fair ==> Feria
