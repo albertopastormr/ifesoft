@@ -11,15 +11,6 @@ public class Tferia {
     private Date endDate;
     private Boolean active;
 
-    public Tferia() {
-        id = -1;
-        name = null;
-        description = null;
-        iniDate = null;
-        endDate = null;
-        active = false;
-    }
-
 	public Tferia(int id, String name, String description, Date iniDate, Date endDate, Boolean active) {
 		this.id = id;
 		this.name = name;
@@ -39,10 +30,12 @@ public class Tferia {
 	}
 
 	public Tferia(String name, String description, Date iniDate, Date endDate) { //usado en DAOFeriaImp.create()
+	    this.id = -1;
 		this.name = name;
 		this.description = description;
 		this.iniDate = iniDate;
 		this.endDate = endDate;
+		this.active = true;
 	}
 
 	public void setActive(Boolean active) {
@@ -91,5 +84,9 @@ public class Tferia {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public boolean equals(Tferia feria){
+	    return name.equals(feria.name) && iniDate == feria.iniDate && endDate == feria.endDate;
     }
 }

@@ -1,6 +1,8 @@
 package Presentacion.Feria.views.forms;
 
 import Negocio.Pabellon.Tpabellon;
+import Presentacion.Feria.UIimp;
+import Presentacion.Feria.views.events.Event;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -26,7 +28,7 @@ public class ViewsFormPabellon extends JFrame {
     private JButton cancelButton;
     private JButton helpButton;
 
-    private Tpabellon tpabellonModify;
+    private Tpabellon tpavilionModify;
     private boolean isOptionCreate;
 
     public ViewsFormPabellon() {
@@ -40,10 +42,17 @@ public class ViewsFormPabellon extends JFrame {
         initComponents();
 
         isOptionCreate = false;
-        this.tpabellonModify = tpabellon;
+        this.tpavilionModify = tpabellon;
 
+        initComponentsModify();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
+    }
+
+    private void initComponentsModify() {
+        textFieldAforo.setText(String.valueOf(tpavilionModify.getCapacity()));
+        textFieldM2Tot.setText(String.valueOf(tpavilionModify.getTotal_m2()));
+        textFieldM2Utiles.setText(String.valueOf(tpavilionModify.getUtil_m2()));
     }
 
     private void createButtonFormActionPerformed() {
@@ -52,10 +61,15 @@ public class ViewsFormPabellon extends JFrame {
         String m2_utiles = textFieldM2Utiles.getText();
         String m2_totales = textFieldM2Tot.getText();
         Tpabellon tPabellon = new Tpabellon(Integer.parseInt(aforo), Integer.parseInt(m2_utiles), Integer.parseInt(m2_totales), true);
+
+        if (isOptionCreate)  UIimp.getInstance().execute(Event.INSERT_PAVILION, tPabellon);
+        else UIimp.getInstance().execute(Event.MODIFY_PAVILION, tPabellon);
     }
 
     private void cancelButtonStateChanged() {
-
+        this.setVisible(false);
+        if (isOptionCreate) UIimp.getInstance().execute(Event.CREATE_HALF, null);
+        else UIimp.getInstance().execute(Event.MODIFY_HALF, null);
     }
 
     private void helpButtonActionPerformed() {
