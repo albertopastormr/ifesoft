@@ -36,14 +36,21 @@ public class Event {
     public static final int MODIFY_FORM_PARTICIPACION = 11123123;
     public static final int INSERT_FORM_STAND = 1011334;
     public static final int MODIFY_FORM_STAND = 119899;
-    public static final int INSERT_FORM_PARTICIPANTE = 10;
-    public static final int MODIFY_FORM_PARTICIPANTE = 11;
+    public static final int INSERT_FORM_PARTICIPANTE = 3242324;
+    public static final int MODIFY_FORM_PARTICIPANTE = 98349;
 
     public static final int INSERT_FAIR = 12;
     public static final int MODIFY_FAIR = 15;
     public static final int INSERT_CLIENT = 200;
     public static final int MODIFY_CLIENT = 240;
-
+    public static final int INSERT_PAVILION = 234234;
+    public static final int MODIFY_PAVILION = 32523;
+    public static final int INSERT_ASIGNACION = 234234;
+    public static final int MODIFY_ASIGNACION = 32523;
+    public static final int INSERT_STAND = 23455234;
+    public static final int MODIFY_STAND = 3432523;
+    public static final int INSERT_PARTICIPACION = 23455234;
+    public static final int MODIFY_PARTICIPACION = 3432523;
 
 
 

@@ -1,6 +1,8 @@
 package Presentacion.Feria.views.forms;
 
 import Negocio.Stand.Tstand;
+import Presentacion.Feria.UIimp;
+import Presentacion.Feria.views.events.Event;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -26,10 +28,33 @@ public class ViewsFormStand extends JFrame {
     private JButton cancelButton;
     private JButton helpButton;
 
+    private Tstand tStandModify;
+    private boolean isOptionCreate;
+
     public ViewsFormStand() {
         initComponents();
+
+        isOptionCreate = true;
+
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
+    }
+
+    public ViewsFormStand(Tstand tstand) {
+        initComponents();
+
+        isOptionCreate = false;
+        this.tStandModify = tstand;
+
+        initComponentsModify();
+        this.setBounds(100,100, 800,800);
+        this.setVisible(true);
+    }
+
+    private void initComponentsModify() {
+        textFieldCoste.setText(String.valueOf(tStandModify.getCost()));
+        textFieldMUsados.setText(String.valueOf(tStandModify.getTotal_m2()));
+        textFieldNumero.setText(String.valueOf(tStandModify.getNum_at_fair()));
     }
 
     private void createButtonFormActionPerformed() {
@@ -37,11 +62,16 @@ public class ViewsFormStand extends JFrame {
         String coste = textFieldCoste.getText();
         String m_usados = textFieldMUsados.getText();
         String numero = textFieldNumero.getText();
-        //Tstand tStand = new Tstand(Integer.parseInt(coste), Integer.parseInt(m_usados), Integer.parseInt(numero));
+        Tstand tStand = new Tstand(Integer.parseInt(coste), Integer.parseInt(m_usados), Integer.parseInt(numero), true);
+
+        if (isOptionCreate)  UIimp.getInstance().execute(Presentacion.Feria.views.events.Event.INSERT_STAND, tStand);
+        else UIimp.getInstance().execute(Event.MODIFY_STAND,tStand);
     }
 
     private void cancelButtonStateChanged() {
-
+        this.setVisible(false);
+        if (isOptionCreate) UIimp.getInstance().execute(Event.CREATE_HALF, null);
+        else UIimp.getInstance().execute(Event.MODIFY_HALF, null);
     }
 
     private void helpButtonActionPerformed() {
