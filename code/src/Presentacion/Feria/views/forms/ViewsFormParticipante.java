@@ -1,6 +1,8 @@
 package Presentacion.Feria.views.forms;
 
 import Negocio.Participante.Tparticipante;
+import Presentacion.Feria.UIimp;
+import Presentacion.Feria.views.events.Event;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -8,7 +10,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
 
-public class ViewsFormEmpresa extends JFrame {
+public class ViewsFormParticipante extends JFrame {
 
     private JPanel dialogPanel;
     private JPanel contentPanel;
@@ -26,22 +28,52 @@ public class ViewsFormEmpresa extends JFrame {
     private JButton cancelButton;
     private JButton helpButton;
 
-    public ViewsFormEmpresa() {
+    private Tparticipante tparticipanteModify;
+    private boolean isOptionCreate;
+
+    // CONSTRUCTOR OPTION CREATE
+    public ViewsFormParticipante() {
         initComponents();
+
+        this.isOptionCreate = true;
+
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
+    // CONSTRUCTOR OPTION MODIFY
+    public ViewsFormParticipante(Tparticipante tparticipante) {
+        initComponents();
+
+        this.isOptionCreate = true;
+        this.tparticipanteModify = tparticipante;
+
+        initComponentsModify();
+        this.setBounds(100,100, 800,800);
+        this.setVisible(true);
+    }
+
+    private void initComponentsModify() {
+        textFieldNombre.setText(String.valueOf(tparticipanteModify.getName()));
+       // textFieldEspecializacion.setText(String.valueOf(tparticipanteModify.getEspecializacion()));
+        textFieldTelefono.setText(String.valueOf(tparticipanteModify.getPhone()));
+    }
+
     private void createButtonFormActionPerformed() {
         setVisible(false);
-        String nombre = textFieldNombre.getText();
-        String telefono = textFieldTelefono.getText();
-        String especializacion = textFieldEspecializacion.getText();
-        Tparticipante tEmpresa = new Tparticipante(nombre, Integer.parseInt(telefono), Boolean.parseBoolean(especializacion));
+        String name = textFieldNombre.getText();
+        String numPhone = textFieldTelefono.getText();
+        String specialization = textFieldEspecializacion.getText();
+        Tparticipante tParticipante = new Tparticipante(name, Integer.parseInt(numPhone), Boolean.parseBoolean(specialization));
+
+        if (isOptionCreate)  UIimp.getInstance().execute(Presentacion.Feria.views.events.Event.INSERT_CLIENT, tParticipante);
+        else UIimp.getInstance().execute(Event.MODIFY_CLIENT, tParticipante);
     }
 
     private void cancelButtonStateChanged() {
-
+        this.setVisible(false);
+        if (isOptionCreate) UIimp.getInstance().execute(Event.CREATE_HALF, null);
+        else UIimp.getInstance().execute(Event.MODIFY_HALF, null);
     }
 
     private void helpButtonActionPerformed() {

@@ -28,8 +28,21 @@ public class Event {
     /** PAGINAS MAS ESPECIFICAS DE CADA ACCION */
     public static final int INSERT_FORM_FERIA = 10;
     public static final int MODIFY_FORM_FERIA = 11;
-    public static final int INSERT_FERIA = 12;
-    public static final int MODIFY_FERIA = 15;
+    public static final int INSERT_FORM_ASIGNACION = 100;
+    public static final int MODIFY_FORM_ASIGNACION = 1123;
+    public static final int INSERT_FORM_PABELLON = 102141;
+    public static final int MODIFY_FORM_PABELLON= 114324;
+    public static final int INSERT_FORM_PARTICIPACION = 103463;
+    public static final int MODIFY_FORM_PARTICIPACION = 11123123;
+    public static final int INSERT_FORM_STAND = 1011334;
+    public static final int MODIFY_FORM_STAND = 119899;
+    public static final int INSERT_FORM_PARTICIPANTE = 10;
+    public static final int MODIFY_FORM_PARTICIPANTE = 11;
+
+    public static final int INSERT_FAIR = 12;
+    public static final int MODIFY_FAIR = 15;
+    public static final int INSERT_CLIENT = 200;
+    public static final int MODIFY_CLIENT = 240;
 
 
 

@@ -36,19 +36,19 @@ public class ViewsHalfCreate extends JFrame {
                 UIimp.getInstance().execute(Event.INSERT_FORM_FERIA, null);
                 break;
             case "Pabellon":
-                UIimp.getInstance().execute(Event.CREATE_HALF, null);
+                UIimp.getInstance().execute(Event.INSERT_FORM_PABELLON, null);
                 break;
             case "Stand":
-                UIimp.getInstance().execute(Event.CREATE_HALF, null);
+                UIimp.getInstance().execute(Event.INSERT_FORM_STAND, null);
                 break;
             case "Participante":
-                UIimp.getInstance().execute(Event.CREATE_HALF, null);
+                UIimp.getInstance().execute(Event.INSERT_FORM_PARTICIPANTE, null);
                 break;
             case "Asignacion":
-                UIimp.getInstance().execute(Event.CREATE_HALF, null);
+                UIimp.getInstance().execute(Event.INSERT_FORM_ASIGNACION, null);
                 break;
             case "Participacion":
-                UIimp.getInstance().execute(Event.CREATE_HALF, null);
+                UIimp.getInstance().execute(Event.INSERT_FORM_PARTICIPANTE, null);
                 break;
 
         }

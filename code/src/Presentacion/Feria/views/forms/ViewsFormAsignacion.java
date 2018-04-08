@@ -1,6 +1,8 @@
 package Presentacion.Feria.views.forms;
 
 import Negocio.Asignacion.Tasignacion;
+import Presentacion.Feria.UIimp;
+import Presentacion.Feria.views.events.Event;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -14,26 +16,63 @@ public class ViewsFormAsignacion extends JFrame {
     private JPanel contentPanel;
     private JPanel contentPanel2;
     private JLabel label1;
-    private JTextField textFieldMUsados;
+    private JTextField textFieldMUsed;
+    private JTextField textFieldIdFair;
+    private JTextField textFieldIdPavilion;
+    private JTextField textFieldIdStand;
     private JPanel buttonBar;
     private JButton createButtonForm;
     private JButton cancelButton;
     private JButton helpButton;
 
+    private Tasignacion tAsignacionModify;
+    private boolean isOptionCreate;
+
     public ViewsFormAsignacion() {
         initComponents();
+
+        isOptionCreate = true;
+
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
+
+    public ViewsFormAsignacion(Tasignacion tAsigancion) {
+        initComponents();
+
+        isOptionCreate = false;
+        this.tAsignacionModify = tAsigancion;
+
+        initComponentsModify();
+        this.setBounds(100,100, 800,800);
+        this.setVisible(true);
+    }
+
+    private void initComponentsModify() {
+        textFieldIdFair.setText(String.valueOf(tAsignacionModify.getFair_id()));
+        textFieldIdPavilion.setText(String.valueOf(tAsignacionModify.getPavilion_id()));
+        textFieldIdStand.setText(String.valueOf(tAsignacionModify.getStand_id()));
+        textFieldMUsed.setText(String.valueOf(tAsignacionModify.getUsed_m2()));
+    }
+
     private void createButtonFormActionPerformed() {
-        setVisible(false);
-        String m_usados = textFieldMUsados.getText();
-        //Tasignacion tAsignacion = new Tasignacion(Integer.parseInt(m_usados));
+        this.setVisible(false);
+        int mUsed = Integer.valueOf(textFieldMUsed.getText());
+        int idFair = Integer.valueOf(textFieldIdFair.getText());
+        int idPavilion = Integer.valueOf(textFieldIdPavilion.getText());
+        int idStand = Integer.valueOf(textFieldIdStand.getText());
+
+        Tasignacion tasignacion = new Tasignacion(idFair, idPavilion, idStand, mUsed, true);
+
+        if (isOptionCreate)  UIimp.getInstance().execute(Event.INSERT_FAIR, tasignacion);
+        else UIimp.getInstance().execute(Event.MODIFY_FAIR, tasignacion);
     }
 
     private void cancelButtonStateChanged() {
-
+        this.setVisible(false);
+        if (isOptionCreate) UIimp.getInstance().execute(Event.CREATE_HALF, null);
+        else UIimp.getInstance().execute(Event.MODIFY_HALF, null);
     }
 
     private void helpButtonActionPerformed() {
@@ -45,11 +84,16 @@ public class ViewsFormAsignacion extends JFrame {
         contentPanel = new JPanel();
         contentPanel2 = new JPanel();
         label1 = new JLabel();
-        textFieldMUsados = new JTextField();
+        textFieldMUsed = new JTextField();
+        textFieldIdFair = new JTextField();
+        textFieldIdPavilion = new JTextField();
+        textFieldIdStand = new JTextField();
         buttonBar = new JPanel();
         createButtonForm = new JButton();
         cancelButton = new JButton();
         helpButton = new JButton();
+
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         //======== this ========
         Container contentPane = getContentPane();
@@ -79,7 +123,7 @@ public class ViewsFormAsignacion extends JFrame {
                     //---- label1 ----
                     label1.setText("Metros usados");
                     contentPanel2.add(label1);
-                    contentPanel2.add(textFieldMUsados);
+                    contentPanel2.add(textFieldMUsed);
                 }
                 contentPanel.add(contentPanel2);
             }

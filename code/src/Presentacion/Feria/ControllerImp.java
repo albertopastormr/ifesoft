@@ -64,7 +64,7 @@ public class ControllerImp implements Controller  {
                     e.printStackTrace();
                 }
                 break;
-            case Event.INSERT_FERIA:
+            case Event.INSERT_FAIR:
                 tFeria = (Tferia) data;
                 try {
                     int res = asFeria.create(tFeria);
