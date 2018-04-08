@@ -14,27 +14,27 @@ import static org.junit.Assert.*;
 
 public class DAOFeriaImpTest {
 
-	private static Tferia tferiaTest1 = new Tferia("FITUR","Feria internacional turismo",new Date(117,0,4),new Date(117,0,4),true);
-	private static Tferia tferiaTest2 = new Tferia("VINECT","Feria internacional vinos",new Date(117,9,28),new Date(117,10,4),true);
+	private static Tferia tferiaTest1 = new Tferia("FITUR","Feria internacional turismo",new Date(2017,4,4),new Date(2017,5,4),true);
+	private static Tferia tferiaTest2 = new Tferia("VINECT","Feria internacional vinos",new Date(2017,9,28),new Date(2017,10,4),true);
 
-	/*@Before
+	@Before
 	public  void setUp() throws Exception {
 		DAOFeriaImp dao = new DAOFeriaImp();
 		dao.deleteAll();
 	}
-*/
+
 	@Test
 	public void create() throws Exception {
 
 		DAOFeriaImp dao = new DAOFeriaImp();
 		int out_id = dao.create(tferiaTest1);
 		assertNotEquals(-1, out_id);
-		assertEquals(1,out_id);
-		int out_id2 = dao.create(tferiaTest2);
-		assertNotEquals(-1, out_id2);
-		assertEquals(2,out_id2);
+
+		Tferia read = dao.readByName(tferiaTest1.getName());
+
+		tferiaEquals(tferiaTest1, read);
+
 		dao.delete(out_id);
-		dao.delete(out_id2);
 	}
 
 	@Test
@@ -59,11 +59,18 @@ public class DAOFeriaImpTest {
 		DAOFeriaImp dao = new DAOFeriaImp();
 
 		int out_id_create = dao.create(tferiaTest1);
-		tferiaTest1.setName("fit");
-		tferiaTest1.setId(1);
-		int out_id_update = dao.update(tferiaTest1);
+		int save_id = tferiaTest2.getId();
+		tferiaTest2.setId(out_id_create);
+		int out_id_update = dao.update(tferiaTest2);
+		tferiaTest2.setId(save_id);
 
 		assertEquals(out_id_create, out_id_update);
+
+		Tferia read = dao.readByName(tferiaTest1.getName());
+
+		tferiaEquals(tferiaTest2, read);
+
+
 		dao.delete(out_id_update);
 	}
 

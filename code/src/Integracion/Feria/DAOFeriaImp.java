@@ -42,12 +42,13 @@ public class DAOFeriaImp implements DAOFeria{
 			ps = connec.prepareStatement("INSERT INTO feria(name, description, initDate, endDate, active) VALUES (?,?,?,?,?)");
 			ps.setString(1, tFeria.getName());
 			ps.setString(2, tFeria.getDescription());
-			ps.setDate(3, new java.sql.Date (tFeria.getIniDate().getTime()));
-			ps.setDate(4, new java.sql.Date (tFeria.getEndDate().getTime()));
+			ps.setDate(3, (new java.sql.Date(tFeria.getIniDate().getYear(), tFeria.getIniDate().getMonth(), tFeria.getIniDate().getDay())));
+			ps.setDate(4, (new java.sql.Date(tFeria.getEndDate().getYear(), tFeria.getEndDate().getMonth(), tFeria.getEndDate().getDay())));
 			ps.setBoolean(5, true);
 			ps.execute();
-			ps.close();
+
 			ps = connec.prepareStatement("SELECT LAST_INSERT_ID() FROM feria");
+
 			ResultSet rs = ps.executeQuery();
 			if (rs.next())
 				id = rs.getInt("LAST_INSERT_ID()");
@@ -93,7 +94,7 @@ public class DAOFeriaImp implements DAOFeria{
 			ResultSet rs = ps.executeQuery();
 			while (rs.next())
 				readFeriaList.add( new Tferia( rs.getString("name"),rs.getString("description"),rs.getDate("initDate"),rs.getDate("endDate"),rs.getBoolean("active") ) );
-			ps.close();
+
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'readAll' no logrado\n");
@@ -137,7 +138,6 @@ public class DAOFeriaImp implements DAOFeria{
 
 			if (rs.next()){
 				readFeria = new Tferia( rs.getString("name"),rs.getString("description"),rs.getDate("initDate"),rs.getDate("endDate"),rs.getBoolean("active") ) ;
-			ps.close();	 
 			}
 			else
 				throw new DAOException("Tferia" + name + " does not exist in ifesoft database\n");
@@ -181,12 +181,12 @@ public class DAOFeriaImp implements DAOFeria{
 			ps = connec.prepareStatement("UPDATE feria SET name = ?, description = ?, initDate = ?, endDate = ?, active = ? WHERE id = ?");
 			ps.setString(1, tFeria.getName());
 			ps.setString(2, tFeria.getDescription());
-			ps.setDate(3, new java.sql.Date (tFeria.getIniDate().getTime()));
-			ps.setDate(4, new java.sql.Date (tFeria.getEndDate().getTime()));
+			ps.setDate(3, (new java.sql.Date(tFeria.getIniDate().getYear(), tFeria.getIniDate().getMonth(), tFeria.getIniDate().getDay())));
+			ps.setDate(4, (new java.sql.Date(tFeria.getEndDate().getYear(), tFeria.getEndDate().getMonth(), tFeria.getEndDate().getDay())));
 			ps.setBoolean(5, true);
 			ps.setInt(6, tFeria.getId());
 			ps.execute();
-			ps.close();
+
 			ps = connec.prepareStatement("SELECT id FROM feria WHERE name = ?");
 			ps.setString(1, tFeria.getName());
 			ResultSet rs = ps.executeQuery();
@@ -195,7 +195,6 @@ public class DAOFeriaImp implements DAOFeria{
 				id = rs.getInt("id");
 			else
 				throw new DAOException("Tferia " + tFeria.getName() + " does not exist (id not defined) in ifesoft database\n");
-			ps.close();
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'update' Name Feria "+ tFeria.getName() +" no logrado\n");
@@ -231,7 +230,6 @@ public class DAOFeriaImp implements DAOFeria{
 			ps = connec.prepareStatement("DELETE FROM feria WHERE id = ?");
 			ps.setInt(1, id);
 			deleteResult= ps.execute();
-			ps.close();
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento para 'delete' ID Feria "+ id +" no logrado\n");
@@ -260,8 +258,8 @@ public class DAOFeriaImp implements DAOFeria{
 
 
 		try { // Tratamiento db
-			 PreparedStatement ps = connec.prepareStatement("TRUNCATE TABLE feria");
-			 ps.close();
+			PreparedStatement ps;
+			ps = connec.prepareStatement("TRUNCATE TABLE feria");
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: deleteAll Tferia no logrado\n");
