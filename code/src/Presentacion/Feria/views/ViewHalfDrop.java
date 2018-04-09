@@ -30,9 +30,9 @@ public class ViewHalfDrop extends JFrame {
     private Font fLabelSubId = new Font(Font.DIALOG, Font.PLAIN, 30);
     private Font fTextField = new Font(Font.DIALOG, Font.PLAIN, 30);
 
-    private Color cOkButton = new Color(66,35,146);
-    private Color cHelpButton = new Color(146, 35, 59);
-    private Color cCancelButton = new Color(26, 184, 59);
+    private Color cHelpButton = new Color(66,35,146);
+    private Color cCancelButton = new Color(146, 35, 59);
+    private Color cOkButton = new Color(26, 184, 59);
     private Color cComboBoxActive = new Color(207, 216, 220);
     private Color cComboBoxInactive = new Color(187, 196, 200);
     private Color cComboBoxFont = new Color(84, 91, 94);
@@ -220,7 +220,7 @@ public class ViewHalfDrop extends JFrame {
             Container contentPane = getContentPane();
             contentPane.setLayout(new BorderLayout());
 
-            ImageIcon img = new ImageIcon("C:\\Users\\artes\\Documents\\GitHub\\ifesoft\\Icon.png");
+            ImageIcon img = new ImageIcon("Icon.png");
             this.setIconImage(img.getImage());
 
             //======== dialogPanel ========
