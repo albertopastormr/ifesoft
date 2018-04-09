@@ -5,6 +5,7 @@ import Negocio.Feria.Tferia;
 
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -36,10 +37,23 @@ public class DAOFeriaImpTest {
 		dao.delete(out_id);
 		dao.delete(out_id2);
 	}
-
+	
 	@Test
 	public void readAll() throws Exception {
+			ArrayList<Tferia> out_list = new ArrayList<Tferia>();
+			ArrayList<Tferia> testList = new ArrayList<Tferia>();
+			DAOFeriaImp dao = new DAOFeriaImp();
+			dao.create(tferiaTest1);
+			dao.create(tferiaTest2);
+			out_list = (ArrayList<Tferia>) dao.readAll();
+			testList.add(tferiaTest1);
+			testList.add(tferiaTest2);
+			for(int i = 0; i < testList.size();++i)
+				tferiaEquals(testList.get(i),out_list.get(i));
+			dao.deleteAll();
 	}
+
+	
 
 	@Test
 	public void readByName() throws Exception {
