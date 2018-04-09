@@ -2,149 +2,264 @@ package Presentacion.Feria.views;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.plaf.ColorUIResource;
 
 public class ViewHalfDrop extends JFrame {
 
-    private JPanel dialogPane;
-    private JPanel contentPanel;
-    private JLabel labelTitle;
-    private JComboBox<String> comboBoxDrop;
-    private JPanel contentPanel2;
-    private JLabel labelID;
-    private JTextField textField1;
+    private Dimension minScreenSize = new Dimension(1600, 1000);
+
+    private JPanel dialogPanel;
+    private JPanel centerPanel;
     private JPanel buttonBar;
+    private JLabel title;
+    private JLabel labelSubID;
+    private JComboBox<String> comboBoxDrop;
+    private JRadioButton radioButtonIndividual;
+    private JRadioButton radioButtonList;
     private JButton okButton;
     private JButton cancelButton;
     private JButton helpButton;
+    private JTextField textID;
+
+    private Font fComboBox = new Font(Font.DIALOG, Font.PLAIN, 40);
+    private Font fTitle  = new Font(Font.MONOSPACED, Font.BOLD, 80);
+    private Font fRadioButton = new Font(Font.DIALOG, Font.PLAIN, 35);
+    private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
+    private Font fLabelSubId = new Font(Font.DIALOG, Font.PLAIN, 30);
+    private Font fTextField = new Font(Font.DIALOG, Font.PLAIN, 30);
+
+    private Color cOkButton = new Color(66,35,146);
+    private Color cHelpButton = new Color(146, 35, 59);
+    private Color cCancelButton = new Color(26, 184, 59);
+    private Color cComboBoxActive = new Color(207, 216, 220);
+    private Color cComboBoxInactive = new Color(187, 196, 200);
+    private Color cComboBoxFont = new Color(84, 91, 94);
+    private Color cComboBoxSelectedFont = new Color(52, 56, 58);
+    private Color cTextFieldBG = new Color(243,243,243);
+
 
     public ViewHalfDrop() {
+        super("Drop");
+
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
-    private void okButtonActionPerformed(ActionEvent e) {
-        // TODO add your code here
-    }
+        private void okButtonActionPerformed(ActionEvent e) {
 
-    private void cancelButtonActionPerformed(ActionEvent e) {
-        // TODO add your code here
-    }
+        }
 
-    private void helpButtonActionPerformed(ActionEvent e) {
-        // TODO add your code here
-    }
+        private void cancelButtonActionPerformed(ActionEvent e) {
 
-    private void initComponents() {
-        dialogPane = new JPanel();
-        contentPanel = new JPanel();
-        labelTitle = new JLabel();
-        comboBoxDrop = new JComboBox<String>();
-        contentPanel2 = new JPanel();
-        labelID = new JLabel();
-        textField1 = new JTextField();
-        buttonBar = new JPanel();
-        okButton = new JButton();
-        cancelButton = new JButton();
-        helpButton = new JButton();
+        }
 
-        //======== this ========
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BorderLayout());
+        private void helpButtonActionPerformed(ActionEvent e) {
 
-        //======== dialogPanel ========
-        {
-            dialogPane.setBorder(new EmptyBorder(12, 12, 12, 12));
+        }
+
+
+
+        private void setUpTitle(){
+
+            title = new JLabel();
+            title .setText("Drop");
+            title .setFont(fTitle);
+            title .setHorizontalAlignment(JLabel.CENTER);
+            title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
+
+        }
+
+        private void setUpCenter(){
+
+            centerPanel = new JPanel();
+            BoxLayout centerLayout = new BoxLayout(centerPanel, BoxLayout.Y_AXIS);
+            centerPanel.setLayout(centerLayout);
+
+            //===== JComboBox =====
+
+            UIManager.put("JTextField.background", new ColorUIResource(cComboBoxInactive));
+            UIManager.put("ComboBox.selectionBackground", new ColorUIResource(cComboBoxActive));
+            UIManager.put("ComboBox.selectionForeground", new ColorUIResource(cComboBoxSelectedFont));
+            UIManager.put("ComboBox.disabledBackground", new ColorUIResource(cComboBoxInactive));
+            UIManager.put("ComboBox.disabledForeground", new ColorUIResource(cComboBoxFont));
+
+
+            comboBoxDrop = new JComboBox<>();
+            comboBoxDrop.getEditor().getEditorComponent().setBackground(cComboBoxActive);
+            comboBoxDrop.setFont(fComboBox);
+            comboBoxDrop.setForeground(cComboBoxFont);
+            comboBoxDrop.setMinimumSize(new Dimension(200, 50));
+            comboBoxDrop.setMaximumSize(new Dimension(800, 50));
+
+            comboBoxDrop.addItem("Assignation");
+            comboBoxDrop.addItem("Fair");
+            comboBoxDrop.addItem("Participant");
+            comboBoxDrop.addItem("Pavilion");
+            comboBoxDrop.addItem("Participation");
+            comboBoxDrop.addItem("Stand");
+
+            comboBoxDrop.setBorder(BorderFactory.createEmptyBorder(0,0, 20, 0));
+            centerPanel.add(comboBoxDrop);
+
+            //===== RadioButtonPanel =====
+
+            JPanel radioButtonPanel = new JPanel(new FlowLayout());
+
+            //---- radioButtonIndividual ----
+            radioButtonIndividual = new JRadioButton();
+            radioButtonIndividual.setText("Individual");
+            radioButtonIndividual.setFont(fRadioButton);
+
+            //---- radioButtonList ----
+            radioButtonList = new JRadioButton();
+            radioButtonList.setText("List");
+            radioButtonList.setFont(fRadioButton);
+
+            ButtonGroup radioButtons = new ButtonGroup();
+            radioButtons.add(radioButtonIndividual);
+            radioButtons.add(radioButtonList);
+
+            radioButtonPanel.add(radioButtonIndividual);
+            radioButtonPanel.add(radioButtonList);
+
+            centerPanel.add(radioButtonPanel);
+
+            //===== TextField =====
+
+            JPanel textFieldPanel = new JPanel();
+            FlowLayout textFieldPanelLayout = new FlowLayout();
+            textFieldPanel.setLayout(textFieldPanelLayout);
+
+            labelSubID = new JLabel();
+            labelSubID.setText("ID");
+            labelSubID.setFont(fLabelSubId);
+
+            textFieldPanel.add(labelSubID);
+
+            textID = new JTextField();
+            textID.setFont(fTextField);
+            textID.setBackground(cTextFieldBG);
+            textID.setMinimumSize(new Dimension(200, 50));
+            textID.setPreferredSize(new Dimension(400, 50));
+            textID.setMaximumSize(new Dimension(400, 50));
+
+            textFieldPanel.add(textID);
+
+            centerPanel.add(textFieldPanel);
+
+
+        }
+
+        private void setUpButtonBar(){
+
+            Dimension buttonDim = new Dimension(150, 80);
+
+            //---- cancelButton ----
+            cancelButton = new JButton();
+            cancelButton.setText("Cancel");
+            cancelButton.setFont(fButton);
+            cancelButton.setBackground(cCancelButton);
+            cancelButton.setForeground(Color.WHITE);
+            cancelButton.setPreferredSize(buttonDim);
+            cancelButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    cancelButtonActionPerformed(e);
+                }
+            });
+
+
+            //---- helpButton ----
+            helpButton = new JButton();
+            helpButton.setText("Help");
+            helpButton.setFont(fButton);
+            helpButton.setBackground(cHelpButton);
+            helpButton.setForeground(Color.WHITE);
+            helpButton.setPreferredSize(buttonDim);
+            helpButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    helpButtonActionPerformed(e);
+                }
+            });
+
+
+            //---- okButton ----
+            okButton = new JButton();
+            okButton.setText("Drop");
+            okButton.setFont(fButton);
+            okButton.setBackground(cOkButton);
+            okButton.setForeground(Color.WHITE);
+            okButton.setPreferredSize(buttonDim);
+            okButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    okButtonActionPerformed(e);
+                }
+            });
+
+            buttonBar = new JPanel();
+            FlowLayout layout = new FlowLayout();
+            layout.setHgap(25);
+            buttonBar.setLayout(layout);
+            buttonBar.add(cancelButton);
+            buttonBar.add(helpButton);
+            buttonBar.add(Box.createHorizontalStrut(500));
+            buttonBar.add(okButton);
+
+
+
+        }
+
+        private void initComponents() {
+
+            //======== this ========
+            Container contentPane = getContentPane();
+            contentPane.setLayout(new BorderLayout());
+
+            ImageIcon img = new ImageIcon("C:\\Users\\artes\\Documents\\GitHub\\ifesoft\\Icon.png");
+            this.setIconImage(img.getImage());
+
+            //======== dialogPanel ========
+
+            dialogPanel = new JPanel();
+            dialogPanel.setBorder(new LineBorder(Color.BLUE));
+            dialogPanel.setBorder(new EmptyBorder(50, 50, 80, 50));
+            this.setMinimumSize(minScreenSize);
 
             // JFormDesigner evaluation mark
-            dialogPane.setBorder(new CompoundBorder(
-                new TitledBorder(new EmptyBorder(0, 0, 0, 0),
-                    "", TitledBorder.CENTER,
-                    TitledBorder.BOTTOM, new Font("Dialog", Font.BOLD, 12),
-                    Color.red), dialogPane.getBorder())); dialogPane.addPropertyChangeListener(new PropertyChangeListener(){public void propertyChange(PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+            dialogPanel.setBorder(new javax.swing.border.CompoundBorder(
+                    new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                            "", javax.swing.border.TitledBorder.CENTER,
+                            javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font(Font.DIALOG, java.awt.Font.BOLD, 12),
+                            java.awt.Color.red), dialogPanel.getBorder()));
+            dialogPanel.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+                public void propertyChange(java.beans.PropertyChangeEvent e) {
+                    if ("border".equals(e.getPropertyName())) throw new RuntimeException();
+                }
+            });
 
-            dialogPane.setLayout(new BorderLayout());
+            dialogPanel.setLayout(new BorderLayout());
 
-            comboBoxDrop.addItem("Pabellon");
-            comboBoxDrop.addItem("Feria");
-            comboBoxDrop.addItem("Stand");
-            comboBoxDrop.addItem("Participante");
-            comboBoxDrop.addItem("Asignacion");
-            comboBoxDrop.addItem("Praticipacion");
+            //======== Title ========
+            setUpTitle();
+            dialogPanel.add(title, BorderLayout.PAGE_START);
 
             //======== contentPanel ========
-            {
-                contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 
-                //---- labelTitle ----
-                labelTitle.setText("DROP");
-                contentPanel.add(labelTitle);
-                contentPanel.add(comboBoxDrop);
+            setUpCenter();
+            dialogPanel.add(centerPanel, BorderLayout.CENTER);
 
-                //======== contentPanel2 ========
-                {
-                    contentPanel2.setLayout(new BoxLayout(contentPanel2, BoxLayout.X_AXIS));
+            //========= ButtonBar ========
 
-                    //---- labelID ----
-                    labelID.setText("ID:");
-                    contentPanel2.add(labelID);
-                    contentPanel2.add(textField1);
-                }
-                contentPanel.add(contentPanel2);
-            }
-            dialogPane.add(contentPanel, BorderLayout.CENTER);
+            setUpButtonBar();
+            dialogPanel.add(buttonBar, BorderLayout.PAGE_END);
 
-            //======== buttonBar ========
-            {
-                buttonBar.setBorder(new EmptyBorder(12, 0, 0, 0));
-                buttonBar.setLayout(new GridBagLayout());
-                ((GridBagLayout)buttonBar.getLayout()).columnWidths = new int[] {0, 85, 85, 80};
-                ((GridBagLayout)buttonBar.getLayout()).columnWeights = new double[] {1.0, 0.0, 0.0, 0.0};
-
-                //---- okButton ----
-                okButton.setText("Drop");
-                okButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        okButtonActionPerformed(e);
-                    }
-                });
-                buttonBar.add(okButton, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
-                        GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                        new Insets(0, 0, 0, 5), 0, 0));
-
-                //---- cancelButton ----
-                cancelButton.setText("Cancel");
-                cancelButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        cancelButtonActionPerformed(e);
-                    }
-                });
-                buttonBar.add(cancelButton, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
-                        GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                        new Insets(0, 0, 0, 5), 0, 0));
-
-                //---- helpButton ----
-                helpButton.setText("Help");
-                helpButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        helpButtonActionPerformed(e);
-                    }
-                });
-                buttonBar.add(helpButton, new GridBagConstraints(3, 0, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 0, 0), 0, 0));
-            }
-            dialogPane.add(buttonBar, BorderLayout.SOUTH);
+            contentPane.add(dialogPanel, BorderLayout.CENTER);
+            pack();
+            setLocationRelativeTo(getOwner());
         }
-        contentPane.add(dialogPane, BorderLayout.CENTER);
-        pack();
-        setLocationRelativeTo(getOwner());
     }
-}

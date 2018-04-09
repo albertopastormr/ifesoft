@@ -1,5 +1,6 @@
 package Presentacion.Feria.views;
 
+import Presentacion.Feria.UI;
 import Presentacion.Feria.UIimp;
 
 import java.awt.*;
@@ -24,7 +25,7 @@ public class ViewHalfShow extends JFrame {
     private JButton okButton;
     private JButton cancelButton;
     private JButton helpButton;
-    private JTextField textField;
+    private JTextField textID;
 
     private Font fComboBox = new Font(Font.DIALOG, Font.PLAIN, 40);
     private Font fTitle  = new Font(Font.MONOSPACED, Font.BOLD, 80);
@@ -33,9 +34,9 @@ public class ViewHalfShow extends JFrame {
     private Font fLabelSubId = new Font(Font.DIALOG, Font.PLAIN, 30);
     private Font fTextField = new Font(Font.DIALOG, Font.PLAIN, 30);
 
-    private Color cOkButton = new Color(66,35,146);
-    private Color cHelpButton = new Color(146, 35, 59);
-    private Color cCancelButton = new Color(26, 184, 59);
+    private Color cHelpButton = new Color(66,35,146);
+    private Color cCancelButton = new Color(146, 35, 59);
+    private Color cOkButton = new Color(26, 184, 59);
     private Color cComboBoxActive = new Color(207, 216, 220);
     private Color cComboBoxInactive = new Color(187, 196, 200);
     private Color cComboBoxFont = new Color(84, 91, 94);
@@ -142,14 +143,14 @@ public class ViewHalfShow extends JFrame {
 
         textFieldPanel.add(labelSubID);
 
-        textField = new JTextField();
-        textField.setFont(fTextField);
-        textField.setBackground(cTextFieldBG);
-        textField.setMinimumSize(new Dimension(200, 50));
-        textField.setPreferredSize(new Dimension(400, 50));
-        textField.setMaximumSize(new Dimension(400, 50));
+        textID = new JTextField();
+        textID.setFont(fTextField);
+        textID.setBackground(cTextFieldBG);
+        textID.setMinimumSize(new Dimension(200, 50));
+        textID.setPreferredSize(new Dimension(400, 50));
+        textID.setMaximumSize(new Dimension(400, 50));
 
-        textFieldPanel.add(textField);
+        textFieldPanel.add(textID);
 
         centerPanel.add(textFieldPanel);
 
@@ -220,12 +221,15 @@ public class ViewHalfShow extends JFrame {
     private void initComponents() {
 
         //======== this ========
-        Container contentPane = getContentPane();
+        Container contentPane = getContentPane(); 
         contentPane.setLayout(new BorderLayout());
 
-        URL path = UIimp.class.getResource("Icon.png");
-        ImageIcon img = new ImageIcon(path);
-        this.setIconImage(img.getImage());
+        URL path = getClass().getResource("Icon.png");
+        if(path!=null){
+            ImageIcon img = new ImageIcon(path);
+            this.setIconImage(img.getImage());
+        }
+
 
         //======== dialogPanel ========
 
