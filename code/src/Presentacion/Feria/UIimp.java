@@ -131,7 +131,7 @@ public class UIimp extends JFrame implements UI{
          centerConst.weightx = 0.5;
          centerConst.weighty = 0.5;
 
-         buttonCreateHome = createBigButton("Home");
+         buttonCreateHome = createBigButton("Create");
             buttonCreateHome.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
