@@ -1,5 +1,7 @@
 package Presentacion.Feria.views;
 
+import Presentacion.Feria.UIimp;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
@@ -221,7 +223,8 @@ public class ViewHalfShow extends JFrame {
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
-        ImageIcon img = new ImageIcon("C:\\Users\\artes\\Documents\\GitHub\\ifesoft\\Icon.png");
+        URL path = UIimp.class.getResource("Icon.png");
+        ImageIcon img = new ImageIcon(path);
         this.setIconImage(img.getImage());
 
         //======== dialogPanel ========
