@@ -51,6 +51,7 @@ public class DAOFeriaImp implements DAOFeria{
 				id = rs.getInt("LAST_INSERT_ID()");
 			else
 				throw new DAOException("LAST_INSERT_ID() returned empty: 'ifesoft' database does not have any 'feria' registered\n");
+			ps.close();
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'create' Name Feria "+ tFeria.getName() +" no logrado\n");
@@ -60,12 +61,6 @@ public class DAOFeriaImp implements DAOFeria{
 				connec.close();
 			} catch (SQLException e) {
 				throw new DAOException("ERROR: cerrando conexion a DB para 'create' Name Feria "+ tFeria.getName() +" no logrado\n");			}
-		}
-
-		try { // Desconexion db
-			connec.close();
-		} catch (SQLException e) {
-			throw new DAOException("ERROR: cerrando conexion a DB para 'create' Name Feria "+ tFeria.getName() +" no logrado\n");
 		}
 		return id;
 	}
@@ -86,6 +81,7 @@ public class DAOFeriaImp implements DAOFeria{
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readAll' no logrado\n");
 		}
+		
 
 		try { // Tratamiento db
 			PreparedStatement ps;
@@ -105,12 +101,6 @@ public class DAOFeriaImp implements DAOFeria{
 				connec.close();
 			} catch (SQLException e) {
 				throw new DAOException("ERROR: cerrando conexion a DB para 'readAll' no logrado\n");			}
-		}
-
-		try { // Desconexion db
-			connec.close();
-		} catch (SQLException e) {
-			throw new DAOException("ERROR: cerrando conexion a DB para 'readAll' no logrado\n");
 		}
 		return readFeriaList;
 	}
@@ -142,10 +132,10 @@ public class DAOFeriaImp implements DAOFeria{
 
 			if (rs.next()){
 				readFeria = new Tferia( rs.getString("name"),rs.getString("description"),rs.getDate("initDate"),rs.getDate("endDate"),rs.getBoolean("active") ) ;
-				ps.close();
 			}
 			else
 				throw new DAOException("Tferia" + name + " does not exist in ifesoft database\n");
+			ps.close();
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'readByName' Name Feria "+ name +" no logrado\n");
@@ -157,12 +147,6 @@ public class DAOFeriaImp implements DAOFeria{
 				throw new DAOException("ERROR: cerrando conexion a DB para 'readByName' no logrado\n");			}
 		}
 
-
-		try { // Desconexion db
-			connec.close();
-		} catch (SQLException e) {
-			throw new DAOException("ERROR: cerrando conexion a DB para 'readByName' Name Feria "+ name +" no logrado\n");
-		}
 		return readFeria;
 	}
 
@@ -211,12 +195,6 @@ public class DAOFeriaImp implements DAOFeria{
 				connec.close();
 			} catch (SQLException e) {
 				throw new DAOException("ERROR: cerrando conexion a DB para 'update' no logrado\n");			}
-		}
-
-		try { // Desconexion db
-			connec.close();
-		} catch (SQLException e) {
-			throw new DAOException("ERROR: cerrando conexion a DB para 'update' Name Feria "+ tFeria.getName() +" no logrado\n");
 		}
 
 		return id;
