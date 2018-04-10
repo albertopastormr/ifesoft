@@ -11,18 +11,20 @@ import java.util.Collection;
 
 public class DAOAsignacionImp implements DAOAsignacion {
 
-	protected static final String connectionChain = "jdbc:mysql://localhost:3306/ifesoft_bd";
+	protected static final String connectionChain = "jdbc:mariadb://localhost:3306/ifesoft?user=manager&password=manager-if";
 
 	/***
-	 * Inserts a valid Tferia to database 'ifesoft'
+	 * Inserts a valid Tasignacion to database 'ifesoft'
 	 * @param tAsignacion
-	 * @return
-	 * @throws DAOException
+	 * @return Integer ID of tAsignacion created at database
+	 * @throws DAOException error from database
 	 */
 	public Integer create(Tasignacion tAsignacion) throws DAOException {
 		int id = -1;
 
+		driverIdentify();
 		Connection connec = null;
+
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if"); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
@@ -48,30 +50,32 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'create' Asignacion ID Feria "+ tAsignacion.getFair_id() + " ID Pabellon " + tAsignacion.getPavilion_id() + " ID Stand " + tAsignacion.getStand_id()+" no logrado\n");
 		}
-
-		try { // Desconexion db
-			connec.close();
-		} catch (SQLException e) {
-			throw new DAOException("ERROR: cerrando conexion a DB para 'create' Asignacion ID Feria "+ tAsignacion.getFair_id() + " ID Pabellon " + tAsignacion.getPavilion_id() + " ID Stand " + tAsignacion.getStand_id()+" no logrado\n");
+		finally {
+			try { // Desconexion db
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrando conexion a DB para 'create' Asignacion ID Feria "+ tAsignacion.getFair_id() + " ID Pabellon " + tAsignacion.getPavilion_id() + " ID Stand " + tAsignacion.getStand_id()+" no logrado\n");
+			}
 		}
 		return id;
 	}
 
 	/***
-	 * reads every Tferia(collection) from database 'ifesoft' with any constraint
-	 * @return
-	 * @throws DAOException
+	 * reads every Tasignacion(collection) from database 'ifesoft' with any constraint
+	 * @return Collection<Tasignacion>
+	 * @throws DAOException error from database
 	 */
 	public Collection<Tasignacion> readAll() throws DAOException {
 		ArrayList<Tasignacion> readAsignacionList = new ArrayList<>();
+
+		driverIdentify();
 		Connection connec = null;
+
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readAll' no logrado\n");
 		}
-
-
 
 		try { // Tratamiento db
 			PreparedStatement ps;
@@ -85,26 +89,29 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'readAll' no logrado\n");
 		}
-
-
-		try { // Desconexion db
-			connec.close();
-		} catch (SQLException e) {
-			throw new DAOException("ERROR: cerrando conexion a DB para 'readAll' no logrado\n");
+		finally {
+			try { // Desconexion db
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrando conexion a DB para 'readAll' no logrado\n");
+			}
 		}
+
 		return readAsignacionList;
 	}
 
 	/***
-	 * reads a Tferia from database ifesoft by a fair name
-	 * @param name Tferia name to be read
-	 * @return
-	 * @throws DAOException
+	 * reads a Tasignacion from database ifesoft by a fair name
+	 * @param name Tasignacion name to be read
+	 * @return Tasignacion read from database
+	 * @throws DAOException error from database
 	 */
 	public Tasignacion readByFairName(String name) throws DAOException {
 		Tasignacion readAsignacion = null;
 
+		driverIdentify();
 		Connection connec = null;
+
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
@@ -125,26 +132,28 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'readByName' Fair Name "+ name +" no logrado\n");
 		}
-
-
-
-		try { // Desconexion db
-			connec.close();
-		} catch (SQLException e) {
-			throw new DAOException("ERROR: cerrando conexion a DB para 'readByName' Fair Name "+ name +" no logrado\n");
+		finally {
+			try { // Desconexion db
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrando conexion a DB para 'readByName' Fair Name "+ name +" no logrado\n");
+			}
 		}
+
+
 		return readAsignacion;
 	}
 
 	/***
-	 * reads a Tferia from database ifesoft by a pavilion name
-	 * @param name Tferia name to be read
-	 * @return
-	 * @throws DAOException
+	 * reads a Tasignacion from database ifesoft by a pavilion name
+	 * @param name Tasignacion name to be read
+	 * @return Tasignacion read from database
+	 * @throws DAOException error from database
 	 */
 	public Tasignacion readByPavilionName(String name) throws DAOException {
 		Tasignacion readAsignacion = null;
 
+		driverIdentify();
 		Connection connec = null;
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
@@ -166,27 +175,30 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'readByName' Pavilion Name "+ name +" no logrado\n");
 		}
-
-
-
-		try { // Desconexion db
-			connec.close();
-		} catch (SQLException e) {
-			throw new DAOException("ERROR: cerrando conexion a DB para 'readByName' Pavilion Name "+ name +" no logrado\n");
+		finally {
+			try { // Desconexion db
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrando conexion a DB para 'readByName' Pavilion Name "+ name +" no logrado\n");
+			}
 		}
+
+
 		return readAsignacion;
 	}
 
 	/***
 	 * Updates the database ifesoft information of a tAsignacion(param) which already exists
 	 * @param tAsignacion it needs a valid ID read from db
-	 * @return
-	 * @throws DAOException
+	 * @return Integer id tAsignacion updated at database
+	 * @throws DAOException error from database
 	 */
 	public Integer update(Tasignacion tAsignacion) throws DAOException {
 		int id = -1;
 
+		driverIdentify();
 		Connection connec = null;
+
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
@@ -208,14 +220,15 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'update' Asignacion ID Feria "+ tAsignacion.getFair_id() + " ID Pabellon " + tAsignacion.getPavilion_id() + " ID Stand " + tAsignacion.getStand_id()+" no logrado\n");
 		}
-
-
-
-		try { // Desconexion db
-			connec.close();
-		} catch (SQLException e) {
-			throw new DAOException("ERROR: cerrando conexion a DB para 'update' Asignacion ID Feria "+ tAsignacion.getFair_id() + " ID Pabellon " + tAsignacion.getPavilion_id() + " ID Stand " + tAsignacion.getStand_id() +" no logrado\n");
+		finally {
+			try { // Desconexion db
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrando conexion a DB para 'update' Asignacion ID Feria "+ tAsignacion.getFair_id() + " ID Pabellon " + tAsignacion.getPavilion_id() + " ID Stand " + tAsignacion.getStand_id() +" no logrado\n");
+			}
 		}
+
+
 
 		return id;
 	}
@@ -224,12 +237,15 @@ public class DAOAsignacionImp implements DAOAsignacion {
 	 * deletes a tAsignacion from database
 	 * @param pavilion_id
 	 * @param stand_id
-	 * @param fair_id tAsignacion to delete
+	 * @param fair_id
 	 * @return boolean
 	 * @throws DAOException error from database
 	 */
 	public boolean delete (Integer fair_id, Integer pavilion_id, Integer stand_id) throws DAOException {
+
+		driverIdentify();
 		Connection connec = null;
+
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
@@ -248,27 +264,26 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento para 'delete' Asignacion con ID Feria "+ fair_id + " ID Pabellon " + pavilion_id + " ID Stand " + stand_id +" no logrado\n");
 		}
-
-
-		try { // Desconexion db
-			connec.close();
-		} catch (SQLException e) {
-			throw new DAOException("ERROR: cerrando conexion a DB para 'delete' Asignacion con ID Feria "+ fair_id + " ID Pabellon " + pavilion_id + " ID Stand " + stand_id +" no logrado\n");
+		finally {
+			try { // Desconexion db
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrando conexion a DB para 'delete' Asignacion con ID Feria " + fair_id + " ID Pabellon " + pavilion_id + " ID Stand " + stand_id + " no logrado\n");
+			}
 		}
+
 		return true;
 	}
 
 	/***
 	 * Deletes every tAsignacion from database
-	 * @throws DAOException
+	 * @throws DAOException error from database
 	 */
 	public void deleteAll() throws DAOException {
+
 		Connection connec = null;
-		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-		} catch (ClassNotFoundException ex) {
-			throw new DAOException("Error al registrar el driver de mariadb: " + ex);
-		}
+		driverIdentify();
+
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
@@ -281,14 +296,23 @@ public class DAOAsignacionImp implements DAOAsignacion {
 			ps.close();
 		}
 		catch (SQLException e){
-			throw new DAOException("ERROR: deleteAll Tferia no logrado\n");
+			throw new DAOException("ERROR: deleteAll Tasignacion no logrado\n");
+		}
+		finally {
+			try { // Desconexion db
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrando conexion a DB para 'deleteAll' no logrado\n");
+			}
 		}
 
+	}
 
-		try { // Desconexion db
-			connec.close();
-		} catch (SQLException e) {
-			throw new DAOException("ERROR: cerrando conexion a DB para 'deleteAll' no logrado\n");
+	private void driverIdentify() throws DAOException {
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+		} catch (ClassNotFoundException ex) {
+			throw new DAOException("Error al registrar el driver de mariadb: " + ex);
 		}
 	}
 }

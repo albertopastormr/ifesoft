@@ -10,18 +10,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class DAOStandImp implements DAOStand {
-	protected static final String connectionChain = "jdbc:mysql://localhost:3306/ifesoft_bd";
+	protected static final String connectionChain = "jdbc:mariadb://localhost:3306/ifesoft?user=manager&password=manager-if";
 
 	/***
-	 * Inserts a valid Tferia to database 'ifesoft'
+	 * Inserts a valid tStand to database 'ifesoft'
 	 * @param tStand
-	 * @return
-	 * @throws DAOException
+	 * @return Integer ID tStand created
+	 * @throws DAOException error from database
 	 */
 	public Integer create(Tstand tStand) throws DAOException {
 		int id = -1;
 
 		Connection connec = null;
+		driverIdentify();
+
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if"); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
@@ -56,13 +58,15 @@ public class DAOStandImp implements DAOStand {
 	}
 
 	/***
-	 * reads every Tferia(collection) from database 'ifesoft' with any constraint
+	 * reads every tStand(collection) from database 'ifesoft' with any constraint
 	 * @return
 	 * @throws DAOException
 	 */
 	public Collection<Tstand> readAll() throws DAOException {
 		ArrayList<Tstand> readStandList = new ArrayList<>();
 		Connection connec = null;
+		driverIdentify();
+
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
@@ -94,8 +98,8 @@ public class DAOStandImp implements DAOStand {
 	}
 
 	/***
-	 * reads a Tferia from database ifesoft by a name
-	 * @param name Tferia name to be read
+	 * reads a tStand from database ifesoft by a name
+	 * @param name tStand name to be read
 	 * @return
 	 * @throws DAOException
 	 */
@@ -103,6 +107,8 @@ public class DAOStandImp implements DAOStand {
 		Tstand readStand = null;
 
 		Connection connec = null;
+		driverIdentify();
+
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
@@ -117,7 +123,7 @@ public class DAOStandImp implements DAOStand {
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()){
-				readStand = new Tstand( rs.getInt("num_at_fair"), rs.getLong("phone"), rs.getBoolean("active") ) ;
+				readStand = new Tstand( rs.getInt("num_at_fair"), rs.getDouble("cost"), rs.getInt("total_m2"), rs.getBoolean("active") ) ;
 			}
 		}
 		catch (SQLException e){
@@ -144,6 +150,8 @@ public class DAOStandImp implements DAOStand {
 		int id = -1;
 
 		Connection connec = null;
+		driverIdentify();
+
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
@@ -154,8 +162,9 @@ public class DAOStandImp implements DAOStand {
 			PreparedStatement ps;
 			ps = connec.prepareStatement("UPDATE stand SET (num_at_fair, cost, total_m2, active) VALUES (?,?,?,?)");
 			ps.setInt(1, tStand.getNum_at_fair());
-			ps.setLong(2, tStand.getPhone());
-			ps.setBoolean(3, true);
+			ps.setDouble(2, tStand.getCost());
+			ps.setInt(3, tStand.getTotal_m2());
+			ps.setBoolean(4, true);
 			ps.execute();
 
 			ps = connec.prepareStatement("SELECT id FROM stand WHERE num_at_fair = ?");
@@ -189,6 +198,7 @@ public class DAOStandImp implements DAOStand {
 	 */
 	public boolean delete (Integer id) throws DAOException {
 		Connection connec = null;
+		driverIdentify();
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
@@ -222,11 +232,7 @@ public class DAOStandImp implements DAOStand {
 	 */
 	public void deleteAll() throws DAOException {
 		Connection connec = null;
-		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-		} catch (ClassNotFoundException ex) {
-			throw new DAOException("Error al registrar el driver de mariadb: " + ex);
-		}
+		driverIdentify();
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
@@ -248,8 +254,13 @@ public class DAOStandImp implements DAOStand {
 				throw new DAOException("ERROR: cerrando conexion a DB para 'deleteAll' no logrado\n");
 			}
 		}
+	}
 
-
-
+	private void driverIdentify() throws DAOException {
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+		} catch (ClassNotFoundException ex) {
+			throw new DAOException("Error al registrar el driver de mariadb: " + ex);
+		}
 	}
 }

@@ -20,19 +20,16 @@ public class DAOFeriaImp implements DAOFeria{
 
 	/***
 	 * Inserts a valid Tferia to database 'ifesoft'
-	 * @param tFeria
-	 * @return
-	 * @throws DAOException
+	 * @param tFeria to create
+	 * @return Integer ID of the tFeria created at database
+	 * @throws DAOException error from database
 	 */
 	public Integer create(Tferia tFeria) throws DAOException {
 		int id = -1;
-		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-		} catch (ClassNotFoundException ex) {
-			throw new DAOException("Error al registrar el driver de mariadb: " + ex);
-		}
 
+		driverIdentify();
 		Connection connec = null;
+
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
@@ -80,12 +77,10 @@ public class DAOFeriaImp implements DAOFeria{
 	 */
 	public Collection<Tferia> readAll() throws DAOException {
 		ArrayList<Tferia> readFeriaList = new ArrayList<>();
-		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-		} catch (ClassNotFoundException ex) {
-			throw new DAOException("Error al registrar el driver de mariadb: " + ex);
-		}
+
+		driverIdentify();
 		Connection connec = null;
+
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
@@ -128,12 +123,10 @@ public class DAOFeriaImp implements DAOFeria{
 	 */
 	public Tferia readByName(String name) throws DAOException {
 		Tferia readFeria = null;
-		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-		} catch (ClassNotFoundException ex) {
-			throw new DAOException("Error al registrar el driver de mariadb: " + ex);
-		}
+
+		driverIdentify();
 		Connection connec = null;
+
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
@@ -181,11 +174,7 @@ public class DAOFeriaImp implements DAOFeria{
 	 */
 	public Integer update(Tferia tFeria) throws DAOException {
 		int id = -1;
-		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-		} catch (ClassNotFoundException ex) {
-			throw new DAOException("Error al registrar el driver de mariadb: " + ex);
-		}
+		driverIdentify();
 		Connection connec = null;
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
@@ -242,11 +231,7 @@ public class DAOFeriaImp implements DAOFeria{
 	public boolean delete (Integer id) throws DAOException {
 		boolean deleteResult;
 		Connection connec = null;
-		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-		} catch (ClassNotFoundException ex) {
-			throw new DAOException("Error al registrar el driver de mariadb: " + ex);
-		}
+		driverIdentify();
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
@@ -281,15 +266,11 @@ public class DAOFeriaImp implements DAOFeria{
 
 	/***
 	 * Deletes every tFeria from database
-	 * @throws DAOException
+	 * @throws DAOException error from database
 	 */
 	public void deleteAll() throws DAOException {
 		Connection connec = null;
-		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-		} catch (ClassNotFoundException ex) {
-			throw new DAOException("Error al registrar el driver de mariadb: " + ex);
-		}
+		driverIdentify();
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
@@ -311,10 +292,13 @@ public class DAOFeriaImp implements DAOFeria{
 				throw new DAOException("ERROR: cerrando conexion a DB para 'deleteAll' no logrado\n");			}
 		}
 
-		try { // Desconexion db
-			connec.close();
-		} catch (SQLException e) {
-			throw new DAOException("ERROR: cerrando conexion a DB para 'deleteAll' no logrado\n");
+	}
+
+	private void driverIdentify() throws DAOException {
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+		} catch (ClassNotFoundException ex) {
+			throw new DAOException("Error al registrar el driver de mariadb: " + ex);
 		}
 	}
 

@@ -10,23 +10,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class DAOPabellonImp implements DAOPabellon {
-	protected static final String connectionChain = "jdbc:mysql://localhost:3306/ifesoft";
+	protected static final String connectionChain = "jdbc:mariadb://localhost:3306/ifesoft?user=manager&password=manager-if";
 
 	/***
 	 * Inserts a valid Tpabellon to database 'ifesoft'
-	 * @param tPabellon
+	 * @param tPabellon tPabellon to create
 	 * @return ID of the tPabellon created
 	 * @throws DAOException error from database
 	 */
 	public Integer create(Tpabellon tPabellon) throws DAOException {
 		int id = -1;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
 
+		driverIdentify();
 		Connection connec = null;
+
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if"); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
@@ -75,11 +72,7 @@ public class DAOPabellonImp implements DAOPabellon {
 	 */
 	public Collection<Tpabellon> readAll() throws DAOException {
 		ArrayList<Tpabellon> readPabellonList = new ArrayList<>();
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
+		driverIdentify();
 		Connection connec = null;
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
@@ -118,12 +111,10 @@ public class DAOPabellonImp implements DAOPabellon {
 	 */
 	public Tpabellon readById(Integer id) throws DAOException {
 		Tpabellon readPabellon = null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
+
+		driverIdentify();
 		Connection connec = null;
+
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
@@ -163,11 +154,7 @@ public class DAOPabellonImp implements DAOPabellon {
 	 */
 	public Integer update(Tpabellon tPabellon) throws DAOException {
 		int id = -1;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
+		driverIdentify();
 		Connection connec = null;
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
@@ -195,17 +182,11 @@ public class DAOPabellonImp implements DAOPabellon {
 			throw new DAOException("ERROR: tratamiento DB para 'update' Name Pabellon "+ tPabellon.getId() +" no logrado\n");
 		}
 		finally {
-			try {
+			try { // Desconexion db
 				connec.close();
 			} catch (SQLException e) {
-				throw new DAOException("ERROR: cerrando conexion a DB para 'update' no logrado\n");			}
-		}
-
-
-		try { // Desconexion db
-			connec.close();
-		} catch (SQLException e) {
-			throw new DAOException("ERROR: cerrando conexion a DB para 'update' Name Pabellon "+ tPabellon.getId() +" no logrado\n");
+				throw new DAOException("ERROR: cerrando conexion a DB para 'update' Name Pabellon "+ tPabellon.getId() +" no logrado\n");
+			}
 		}
 
 		return id;
@@ -218,11 +199,7 @@ public class DAOPabellonImp implements DAOPabellon {
 	 * @throws DAOException error from database
 	 */
 	public boolean delete (Integer id) throws DAOException {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
+		driverIdentify();
 		Connection connec = null;
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
@@ -257,11 +234,8 @@ public class DAOPabellonImp implements DAOPabellon {
 	 */
 	public void deleteAll() throws DAOException {
 		Connection connec = null;
-		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-		} catch (ClassNotFoundException ex) {
-			throw new DAOException("Error al registrar el driver de mariadb: " + ex);
-		}
+		driverIdentify();
+
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
@@ -283,6 +257,14 @@ public class DAOPabellonImp implements DAOPabellon {
 				throw new DAOException("ERROR: cerrando conexion a DB para 'deleteAll' no logrado\n");			}
 		}
 
+	}
+
+	private void driverIdentify() throws DAOException {
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+		} catch (ClassNotFoundException ex) {
+			throw new DAOException("Error al registrar el driver de mariadb: " + ex);
+		}
 	}
 
 }

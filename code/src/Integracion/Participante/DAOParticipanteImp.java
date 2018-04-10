@@ -9,18 +9,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class DAOParticipanteImp implements DAOParticipante {
-	protected static final String connectionChain = "jdbc:mysql://localhost:3306/ifesoft_bd";
+	protected static final String connectionChain = "jdbc:mariadb://localhost:3306/ifesoft?user=manager&password=manager-if";
 
 	/***
 	 * Inserts a valid Tparticipante to database 'ifesoft'
-	 * @param tParticipante
-	 * @return
-	 * @throws DAOException
+	 * @param tParticipante tParticipante to be create
+	 * @return Integer ID Tparticipante created
+	 * @throws DAOException error from database
 	 */
 	public Integer create(Tparticipante tParticipante) throws DAOException {
 		int id = -1;
 
 		Connection connec = null;
+		driverIdentify();
+
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if"); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
@@ -29,7 +31,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 
 		try { // Tratamiento db
 			PreparedStatement ps;
-			ps = connec.prepareStatement("INSERT INTO participante(name, phone, active) VALUES (?,?,?,?,?)");
+			ps = connec.prepareStatement("INSERT INTO participante(name, phone, active) VALUES (?,?,?)");
 			ps.setString(1, tParticipante.getName());
 			ps.setLong(2, tParticipante.getPhone());
 			ps.setBoolean(3, true);
@@ -56,12 +58,15 @@ public class DAOParticipanteImp implements DAOParticipante {
 
 	/***
 	 * reads every Tparticipante(collection) from database 'ifesoft' with any constraint
-	 * @return
-	 * @throws DAOException
+	 * @return Collection<Tparticipante>
+	 * @throws DAOException error from database
 	 */
 	public Collection<Tparticipante> readAll() throws DAOException {
 		ArrayList<Tparticipante> readParticipanteList = new ArrayList<>();
+
 		Connection connec = null;
+		driverIdentify();
+
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
@@ -102,6 +107,8 @@ public class DAOParticipanteImp implements DAOParticipante {
 		Tparticipante readParticipante = null;
 
 		Connection connec = null;
+		driverIdentify();
+
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
@@ -136,13 +143,13 @@ public class DAOParticipanteImp implements DAOParticipante {
 	/***
 	 * Updates the database ifesoft information of a tParticipante(param) which already exists
 	 * @param tParticipante it needs a valid ID read from db
-	 * @return
-	 * @throws DAOException
+	 * @return Integer ID tParticipante updated
+	 * @throws DAOException error from database
 	 */
 	public Integer update(Tparticipante tParticipante) throws DAOException {
 		int id = -1;
-
 		Connection connec = null;
+		driverIdentify();
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
@@ -186,6 +193,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 	 */
 	public boolean delete (Integer id) throws DAOException {
 		Connection connec = null;
+		driverIdentify();
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
@@ -219,11 +227,8 @@ public class DAOParticipanteImp implements DAOParticipante {
 	 */
 	public void deleteAll() throws DAOException {
 		Connection connec = null;
-		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-		} catch (ClassNotFoundException ex) {
-			throw new DAOException("Error al registrar el driver de mariadb: " + ex);
-		}
+		driverIdentify();
+
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
@@ -245,6 +250,14 @@ public class DAOParticipanteImp implements DAOParticipante {
 				throw new DAOException("ERROR: cerrando conexion a DB para 'deleteAll' no logrado\n");			}
 		}
 
+	}
+
+	private void driverIdentify() throws DAOException {
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+		} catch (ClassNotFoundException ex) {
+			throw new DAOException("Error al registrar el driver de mariadb: " + ex);
+		}
 	}
 
 }
