@@ -1,5 +1,7 @@
 package Presentacion;
 
+import Presentacion.ControllerImp;
+import Presentacion.UI;
 import Presentacion.views.events.Event;
 import Presentacion.views.events.EventGUI;
 
@@ -8,9 +10,9 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class UIimp extends JFrame implements UI{
+public class UIimp extends JFrame implements UI {
 
-    private static ControllerImp control;
+    Presentacion.Controller control;
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
@@ -63,26 +65,27 @@ public class UIimp extends JFrame implements UI{
     @Override
     public void start() {
         initComponents();
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     private void buttonCreateHomeActionPerformed() {
         this.setVisible(false);
-        UIimp.getInstance().execute(Event.CREATE_HALF, null);
+        Presentacion.Controller.getInstance().execute(Event.CREATE_HALF, null);
     }
 
     private void buttonShowHomeActionPerformed() {
         this.setVisible(false);
-        UIimp.getInstance().execute(Event.SHOW_HALF, null);
+        Presentacion.Controller.getInstance().execute(Event.SHOW_HALF, null);
     }
 
     private void buttonDropHomeActionPerformed() {
         this.setVisible(false);
-        UIimp.getInstance().execute(Event.DROP_HALF, null);
+        Presentacion.Controller.getInstance().execute(Event.DROP_HALF, null);
     }
 
     private void buttonModifyHomeActionPerformed() {
         this.setVisible(false);
-        UIimp.getInstance().execute(Event.MODIFY_HALF, null);
+        Presentacion.Controller.getInstance().execute(Event.MODIFY_HALF, null);
     }
 
     private void cancelButtonActionPerformed() {
@@ -128,7 +131,7 @@ public class UIimp extends JFrame implements UI{
          centerConst.weightx = 0.5;
          centerConst.weighty = 0.5;
 
-         buttonCreateHome = createBigButton("Home");
+         buttonCreateHome = createBigButton("Create");
             buttonCreateHome.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -266,12 +269,6 @@ public class UIimp extends JFrame implements UI{
         contentPane.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
-    }
-
-    public static synchronized ControllerImp getInstance( ) {
-        if (control == null)
-            control = new ControllerImp();
-        return control;
     }
 }
 

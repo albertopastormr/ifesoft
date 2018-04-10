@@ -1,6 +1,7 @@
 package Presentacion.views.forms;
 
 import Negocio.Pabellon.Tpabellon;
+import Presentacion.Controller;
 import Presentacion.UIimp;
 import Presentacion.views.events.Event;
 
@@ -8,7 +9,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.event.*;
 
 public class ViewsFormPabellon extends JFrame {
 
@@ -62,14 +62,14 @@ public class ViewsFormPabellon extends JFrame {
         String m2_totales = textFieldM2Tot.getText();
         Tpabellon tPabellon = new Tpabellon(Integer.parseInt(aforo), Integer.parseInt(m2_utiles), Integer.parseInt(m2_totales), true);
 
-        if (isOptionCreate)  UIimp.getInstance().execute(Event.INSERT_PAVILION, tPabellon);
-        else UIimp.getInstance().execute(Event.MODIFY_PAVILION, tPabellon);
+        if (isOptionCreate)  Controller.getInstance().execute(Event.INSERT_PAVILION, tPabellon);
+        else Controller.getInstance().execute(Event.MODIFY_PAVILION, tPabellon);
     }
 
     private void cancelButtonStateChanged() {
         this.setVisible(false);
-        if (isOptionCreate) UIimp.getInstance().execute(Event.CREATE_HALF, null);
-        else UIimp.getInstance().execute(Event.MODIFY_HALF, null);
+        if (isOptionCreate) Controller.getInstance().execute(Event.CREATE_HALF, null);
+        else Controller.getInstance().execute(Event.MODIFY_HALF, null);
     }
 
     private void helpButtonActionPerformed() {
@@ -170,9 +170,9 @@ public class ViewsFormPabellon extends JFrame {
 
                 //---- cancelButton ----
                 cancelButton.setText("Cancel");
-                cancelButton.addChangeListener(new ChangeListener() {
-                    @Override
-                    public void stateChanged(ChangeEvent e) {
+                cancelButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
                         cancelButtonStateChanged();
                     }
                 });

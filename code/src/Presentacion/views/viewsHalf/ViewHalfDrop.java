@@ -1,5 +1,14 @@
 package Presentacion.views.viewsHalf;
 
+import Negocio.Asignacion.Tasignacion;
+import Negocio.Feria.Tferia;
+import Negocio.Pabellon.Tpabellon;
+import Negocio.Participante.Tparticipante;
+import Negocio.Stand.Tstand;
+import Presentacion.Controller;
+import Presentacion.UIimp;
+import Presentacion.views.events.Event;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -16,16 +25,13 @@ public class ViewHalfDrop extends JFrame {
     private JLabel title;
     private JLabel labelSubID;
     private JComboBox<String> comboBoxDrop;
-    private JRadioButton radioButtonIndividual;
-    private JRadioButton radioButtonList;
     private JButton okButton;
     private JButton cancelButton;
     private JButton helpButton;
-    private JTextField textID;
+    private JTextField textName;
 
     private Font fComboBox = new Font(Font.DIALOG, Font.PLAIN, 40);
     private Font fTitle  = new Font(Font.MONOSPACED, Font.BOLD, 80);
-    private Font fRadioButton = new Font(Font.DIALOG, Font.PLAIN, 35);
     private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
     private Font fLabelSubId = new Font(Font.DIALOG, Font.PLAIN, 30);
     private Font fTextField = new Font(Font.DIALOG, Font.PLAIN, 30);
@@ -49,18 +55,43 @@ public class ViewHalfDrop extends JFrame {
     }
 
         private void okButtonActionPerformed(ActionEvent e) {
+            switch (String.valueOf(comboBoxDrop.getSelectedItem())){
+                case "Fair":
+                    this.setVisible(false);
+                    Controller.getInstance().execute(Event.DROP_HALF_FERIA, new Tferia(textName.getText(), null, null, null));
+                    break;
+                case "Pavilion":
+                    this.setVisible(false);
+                    Controller.getInstance().execute(Event.DROP_HALF_PABELLON, new Tpabellon(Integer.parseInt(textName.getText()), -1, -1, null));
+                    break;
+                case "Stand":
+                    this.setVisible(false);
+                    Controller.getInstance().execute(Event.DROP_HALF_STAND, new Tstand(Integer.parseInt(textName.getText()), -1, -1, null));
+                    break;
+                case "Client":
+                    this.setVisible(false);
+                    Controller.getInstance().execute(Event.DROP_HALF_PARTICIPANTE, new Tparticipante(Integer.parseInt(textName.getText()), null, -1, null));
+                    break;
+                case "Assignation":
+                    this.setVisible(false);
+                    Controller.getInstance().execute(Event.DROP_HALF_ASIGNACION, new Tasignacion(Integer.parseInt(textName.getText()), -1, -1, -1, null));
+                    break;
+                case "Participation":
+                    this.setVisible(false);
+                    Controller.getInstance().execute(Event.DROP_HALF_PARTICIPACION, new Tparticipante(Integer.parseInt(textName.getText()), null, -1, null));
+                    break;
 
+            }
         }
 
         private void cancelButtonActionPerformed(ActionEvent e) {
-
+            this.setVisible(false);
+            Controller.getInstance().execute(Event.HOME, null);
         }
 
         private void helpButtonActionPerformed(ActionEvent e) {
 
         }
-
-
 
         private void setUpTitle(){
 
@@ -104,29 +135,6 @@ public class ViewHalfDrop extends JFrame {
             comboBoxDrop.setBorder(BorderFactory.createEmptyBorder(0,0, 20, 0));
             centerPanel.add(comboBoxDrop);
 
-            //===== RadioButtonPanel =====
-
-            JPanel radioButtonPanel = new JPanel(new FlowLayout());
-
-            //---- radioButtonIndividual ----
-            radioButtonIndividual = new JRadioButton();
-            radioButtonIndividual.setText("Individual");
-            radioButtonIndividual.setFont(fRadioButton);
-
-            //---- radioButtonList ----
-            radioButtonList = new JRadioButton();
-            radioButtonList.setText("List");
-            radioButtonList.setFont(fRadioButton);
-
-            ButtonGroup radioButtons = new ButtonGroup();
-            radioButtons.add(radioButtonIndividual);
-            radioButtons.add(radioButtonList);
-
-            radioButtonPanel.add(radioButtonIndividual);
-            radioButtonPanel.add(radioButtonList);
-
-            centerPanel.add(radioButtonPanel);
-
             //===== TextField =====
 
             JPanel textFieldPanel = new JPanel();
@@ -139,14 +147,14 @@ public class ViewHalfDrop extends JFrame {
 
             textFieldPanel.add(labelSubID);
 
-            textID = new JTextField();
-            textID.setFont(fTextField);
-            textID.setBackground(cTextFieldBG);
-            textID.setMinimumSize(new Dimension(200, 50));
-            textID.setPreferredSize(new Dimension(400, 50));
-            textID.setMaximumSize(new Dimension(400, 50));
+            textName = new JTextField();
+            textName.setFont(fTextField);
+            textName.setBackground(cTextFieldBG);
+            textName.setMinimumSize(new Dimension(200, 50));
+            textName.setPreferredSize(new Dimension(400, 50));
+            textName.setMaximumSize(new Dimension(400, 50));
 
-            textFieldPanel.add(textID);
+            textFieldPanel.add(textName);
 
             centerPanel.add(textFieldPanel);
 

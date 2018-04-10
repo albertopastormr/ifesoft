@@ -1,6 +1,7 @@
 package Presentacion.views.forms;
 
 import Negocio.Participante.Tparticipante;
+import Presentacion.Controller;
 import Presentacion.UIimp;
 import Presentacion.views.events.Event;
 
@@ -8,7 +9,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.event.*;
 
 public class ViewsFormParticipante extends JFrame {
 
@@ -66,14 +66,14 @@ public class ViewsFormParticipante extends JFrame {
         String specialization = textFieldEspecializacion.getText();
         Tparticipante tParticipante = new Tparticipante(name, Integer.parseInt(numPhone), Boolean.parseBoolean(specialization));
 
-        if (isOptionCreate)  UIimp.getInstance().execute(Presentacion.views.events.Event.INSERT_CLIENT, tParticipante);
-        else UIimp.getInstance().execute(Event.MODIFY_CLIENT, tParticipante);
+        if (isOptionCreate)  Controller.getInstance().execute(Presentacion.views.events.Event.INSERT_CLIENT, tParticipante);
+        else Controller.getInstance().execute(Event.MODIFY_CLIENT, tParticipante);
     }
 
     private void cancelButtonStateChanged() {
         this.setVisible(false);
-        if (isOptionCreate) UIimp.getInstance().execute(Event.CREATE_HALF, null);
-        else UIimp.getInstance().execute(Event.MODIFY_HALF, null);
+        if (isOptionCreate) Controller.getInstance().execute(Event.CREATE_HALF, null);
+        else Controller.getInstance().execute(Event.MODIFY_HALF, null);
     }
 
     private void helpButtonActionPerformed() {
@@ -174,9 +174,9 @@ public class ViewsFormParticipante extends JFrame {
 
                 //---- cancelButton ----
                 cancelButton.setText("Cancel");
-                cancelButton.addChangeListener(new ChangeListener() {
-                    @Override
-                    public void stateChanged(ChangeEvent e) {
+                cancelButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
                         cancelButtonStateChanged();
                     }
                 });

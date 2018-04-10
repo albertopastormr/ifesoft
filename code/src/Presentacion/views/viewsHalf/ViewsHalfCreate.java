@@ -1,5 +1,6 @@
 package Presentacion.views.viewsHalf;
 
+import Presentacion.Controller;
 import Presentacion.views.events.Event;
 import Presentacion.UIimp;
 
@@ -19,8 +20,6 @@ public class ViewsHalfCreate extends JFrame {
     private JLabel title;
     //private JLabel labelSubID;
     private JComboBox<String> comboBoxCreate;
-    private JRadioButton radioButtonIndividual;
-    private JRadioButton radioButtonList;
     private JButton nextButton;
     private JButton backButton;
     private JButton helpButton;
@@ -28,7 +27,6 @@ public class ViewsHalfCreate extends JFrame {
 
     private Font fComboBox = new Font(Font.DIALOG, Font.PLAIN, 40);
     private Font fTitle  = new Font(Font.MONOSPACED, Font.BOLD, 80);
-    private Font fRadioButton = new Font(Font.DIALOG, Font.PLAIN, 35);
     private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
     private Font fLabelSubId = new Font(Font.DIALOG, Font.PLAIN, 30);
     private Font fTextField = new Font(Font.DIALOG, Font.PLAIN, 30);
@@ -52,24 +50,29 @@ public class ViewsHalfCreate extends JFrame {
     private void nextButtonActionPerformed() {
 
         switch (String.valueOf(comboBoxCreate.getSelectedItem())){
-            case "Feria":
+            case "Fair":
                 this.setVisible(false);
-                UIimp.getInstance().execute(Event.INSERT_FORM_FERIA, null);
+                Controller.getInstance().execute(Event.INSERT_FORM_FERIA, null);
                 break;
-            case "Pabellon":
-                UIimp.getInstance().execute(Event.INSERT_FORM_PABELLON, null);
+            case "Pavilion":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.INSERT_FORM_PABELLON, null);
                 break;
             case "Stand":
-                UIimp.getInstance().execute(Event.INSERT_FORM_STAND, null);
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.INSERT_FORM_STAND, null);
                 break;
-            case "Participante":
-                UIimp.getInstance().execute(Event.INSERT_FORM_PARTICIPANTE, null);
+            case "Client":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.INSERT_FORM_PARTICIPANTE, null);
                 break;
-            case "Asignacion":
-                UIimp.getInstance().execute(Event.INSERT_FORM_ASIGNACION, null);
+            case "Assignation":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.INSERT_FORM_ASIGNACION, null);
                 break;
-            case "Participacion":
-                UIimp.getInstance().execute(Event.INSERT_FORM_PARTICIPANTE, null);
+            case "Participation":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.INSERT_FORM_PARTICIPANTE, null);
                 break;
 
         }
@@ -79,7 +82,7 @@ public class ViewsHalfCreate extends JFrame {
 
     private void backButtonActionPerformed() {
         this.setVisible(false);
-        UIimp.getInstance().execute(Event.BACK_CREATE_HALF_FERIA, null);
+        Controller.getInstance().execute(Event.HOME, null);
         // Volver a mostrar la primera
     }
 
@@ -121,40 +124,13 @@ public class ViewsHalfCreate extends JFrame {
 
         comboBoxCreate.addItem("Assignation");
         comboBoxCreate.addItem("Fair");
-        comboBoxCreate.addItem("Participant");
+        comboBoxCreate.addItem("Client");
         comboBoxCreate.addItem("Pavilion");
         comboBoxCreate.addItem("Participation");
         comboBoxCreate.addItem("Stand");
 
         comboBoxCreate.setBorder(BorderFactory.createEmptyBorder(0,0, 20, 0));
         centerPanel.add(comboBoxCreate);
-
-        //===== RadioButtonPanel =====
-
-        JPanel radioButtonPanel = new JPanel(new FlowLayout());
-
-        //---- radioButtonIndividual ----
-        radioButtonIndividual = new JRadioButton();
-        radioButtonIndividual.setText("Individual");
-        radioButtonIndividual.setFont(fRadioButton);
-
-        //---- radioButtonList ----
-        radioButtonList = new JRadioButton();
-        radioButtonList.setText("List");
-        radioButtonList.setFont(fRadioButton);
-
-        ButtonGroup radioButtons = new ButtonGroup();
-        radioButtons.add(radioButtonIndividual);
-        radioButtons.add(radioButtonList);
-
-        radioButtonPanel.add(radioButtonIndividual);
-        radioButtonPanel.add(radioButtonList);
-
-        centerPanel.add(radioButtonPanel);
-
-
-
-
     }
 
     private void setUpButtonBar(){
@@ -163,7 +139,7 @@ public class ViewsHalfCreate extends JFrame {
 
         //---- cancelButton ----
         backButton = new JButton();
-        backButton.setText("Cancel");
+        backButton.setText("Back");
         backButton.setFont(fButton);
         backButton.setBackground(cCancelButton);
         backButton.setForeground(Color.WHITE);
@@ -219,6 +195,8 @@ public class ViewsHalfCreate extends JFrame {
     }
 
     private void initComponents() {
+
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         //======== this ========
         Container contentPane = getContentPane();

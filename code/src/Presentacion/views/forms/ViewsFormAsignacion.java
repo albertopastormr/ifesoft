@@ -1,6 +1,7 @@
 package Presentacion.views.forms;
 
 import Negocio.Asignacion.Tasignacion;
+import Presentacion.Controller;
 import Presentacion.UIimp;
 import Presentacion.views.events.Event;
 
@@ -8,7 +9,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.event.*;
 
 public class ViewsFormAsignacion extends JFrame {
 
@@ -65,14 +65,14 @@ public class ViewsFormAsignacion extends JFrame {
 
         Tasignacion tasignacion = new Tasignacion(idFair, idPavilion, idStand, mUsed, true);
 
-        if (isOptionCreate)  UIimp.getInstance().execute(Event.INSERT_ASIGNACION, tasignacion);
-        else UIimp.getInstance().execute(Event.MODIFY_ASIGNACION, tasignacion);
+        if (isOptionCreate)  Controller.getInstance().execute(Event.INSERT_ASIGNACION, tasignacion);
+        else Controller.getInstance().execute(Event.MODIFY_ASIGNACION, tasignacion);
     }
 
     private void cancelButtonStateChanged() {
         this.setVisible(false);
-        if (isOptionCreate) UIimp.getInstance().execute(Event.CREATE_HALF, null);
-        else UIimp.getInstance().execute(Event.MODIFY_HALF, null);
+        if (isOptionCreate) Controller.getInstance().execute(Event.CREATE_HALF, null);
+        else Controller.getInstance().execute(Event.MODIFY_HALF, null);
     }
 
     private void helpButtonActionPerformed() {
@@ -150,9 +150,9 @@ public class ViewsFormAsignacion extends JFrame {
 
                 //---- cancelButton ----
                 cancelButton.setText("Cancel");
-                cancelButton.addChangeListener(new ChangeListener() {
+                cancelButton.addActionListener(new ActionListener() {
                     @Override
-                    public void stateChanged(ChangeEvent e) {
+                    public void actionPerformed(ActionEvent e) {
                         cancelButtonStateChanged();
                     }
                 });

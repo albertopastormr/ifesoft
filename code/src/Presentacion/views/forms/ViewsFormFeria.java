@@ -1,6 +1,7 @@
 package Presentacion.views.forms;
 
 import Negocio.Feria.Tferia;
+import Presentacion.Controller;
 import Presentacion.views.events.Event;
 import Presentacion.UIimp;
 
@@ -70,14 +71,14 @@ public class ViewsFormFeria extends JFrame {
 
         Tferia tFeria = new Tferia(name, descrip, new Date(Integer.parseInt(a_fecha_ini), Integer.parseInt(m_fecha_ini), Integer.parseInt(d_fecha_ini)), new Date(Integer.parseInt(fecha_fin)));
 
-        if (isOptionCreate)  UIimp.getInstance().execute(Event.INSERT_FAIR, tFeria);
-        else UIimp.getInstance().execute(Event.MODIFY_FAIR ,tFeria);
+        if (isOptionCreate)  Controller.getInstance().execute(Event.INSERT_FAIR, tFeria);
+        else Controller.getInstance().execute(Event.MODIFY_FAIR ,tFeria);
     }
 
     private void cancelButtonStateChanged() {
         this.setVisible(false);
-        if (isOptionCreate) UIimp.getInstance().execute(Event.CREATE_HALF, null);
-        else UIimp.getInstance().execute(Event.MODIFY_HALF, null);
+        if (isOptionCreate) Controller.getInstance().execute(Event.CREATE_HALF, null);
+        else Controller.getInstance().execute(Event.MODIFY_HALF, null);
     }
 
     private void helpButtonActionPerformed() {

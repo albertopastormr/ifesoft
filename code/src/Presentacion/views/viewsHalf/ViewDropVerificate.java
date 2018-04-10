@@ -14,8 +14,13 @@ public class ViewDropVerificate extends JFrame {
     private JButton cancelButton;
     private JButton okButton;
 
-    public ViewDropVerificate() {
+    private Object transfer;
+
+    public ViewDropVerificate(Object data) {
         initComponents();
+
+        this.transfer = data;
+
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
