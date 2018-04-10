@@ -1,4 +1,4 @@
-package Presentacion.Feria;
+package Presentacion;
 
 import javax.swing.*;
 

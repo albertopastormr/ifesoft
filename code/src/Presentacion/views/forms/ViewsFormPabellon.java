@@ -1,8 +1,8 @@
-package Presentacion.Feria.views.forms;
+package Presentacion.views.forms;
 
-import Negocio.Participante.Tparticipante;
-import Presentacion.Feria.UIimp;
-import Presentacion.Feria.views.events.Event;
+import Negocio.Pabellon.Tpabellon;
+import Presentacion.UIimp;
+import Presentacion.views.events.Event;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -10,43 +10,39 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
 
-public class ViewsFormParticipante extends JFrame {
+public class ViewsFormPabellon extends JFrame {
 
     private JPanel dialogPanel;
     private JPanel contentPanel;
     private JPanel contentPanel2;
     private JLabel label1;
-    private JTextField textFieldNombre;
+    private JTextField textFieldAforo;
     private JPanel contentPanel3;
     private JLabel label2;
-    private JTextField textFieldTelefono;
+    private JTextField textFieldM2Utiles;
     private JPanel contentPanel4;
     private JLabel label3;
-    private JTextField textFieldEspecializacion;
+    private JTextField textFieldM2Tot;
     private JPanel buttonBar;
     private JButton createButtonForm;
     private JButton cancelButton;
     private JButton helpButton;
 
-    private Tparticipante tparticipanteModify;
+    private Tpabellon tpavilionModify;
     private boolean isOptionCreate;
 
-    // CONSTRUCTOR OPTION CREATE
-    public ViewsFormParticipante() {
+    public ViewsFormPabellon() {
         initComponents();
-
-        this.isOptionCreate = true;
-
+        isOptionCreate = true;
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
-    // CONSTRUCTOR OPTION MODIFY
-    public ViewsFormParticipante(Tparticipante tparticipante) {
+    public ViewsFormPabellon(Tpabellon tpabellon) {
         initComponents();
 
-        this.isOptionCreate = true;
-        this.tparticipanteModify = tparticipante;
+        isOptionCreate = false;
+        this.tpavilionModify = tpabellon;
 
         initComponentsModify();
         this.setBounds(100,100, 800,800);
@@ -54,20 +50,20 @@ public class ViewsFormParticipante extends JFrame {
     }
 
     private void initComponentsModify() {
-        textFieldNombre.setText(String.valueOf(tparticipanteModify.getName()));
-       // textFieldEspecializacion.setText(String.valueOf(tparticipanteModify.getEspecializacion()));
-        textFieldTelefono.setText(String.valueOf(tparticipanteModify.getPhone()));
+        textFieldAforo.setText(String.valueOf(tpavilionModify.getCapacity()));
+        textFieldM2Tot.setText(String.valueOf(tpavilionModify.getTotal_m2()));
+        textFieldM2Utiles.setText(String.valueOf(tpavilionModify.getUtil_m2()));
     }
 
     private void createButtonFormActionPerformed() {
         setVisible(false);
-        String name = textFieldNombre.getText();
-        String numPhone = textFieldTelefono.getText();
-        String specialization = textFieldEspecializacion.getText();
-        Tparticipante tParticipante = new Tparticipante(name, Integer.parseInt(numPhone), Boolean.parseBoolean(specialization));
+        String aforo = textFieldAforo.getText();
+        String m2_utiles = textFieldM2Utiles.getText();
+        String m2_totales = textFieldM2Tot.getText();
+        Tpabellon tPabellon = new Tpabellon(Integer.parseInt(aforo), Integer.parseInt(m2_utiles), Integer.parseInt(m2_totales), true);
 
-        if (isOptionCreate)  UIimp.getInstance().execute(Presentacion.Feria.views.events.Event.INSERT_CLIENT, tParticipante);
-        else UIimp.getInstance().execute(Event.MODIFY_CLIENT, tParticipante);
+        if (isOptionCreate)  UIimp.getInstance().execute(Event.INSERT_PAVILION, tPabellon);
+        else UIimp.getInstance().execute(Event.MODIFY_PAVILION, tPabellon);
     }
 
     private void cancelButtonStateChanged() {
@@ -85,13 +81,13 @@ public class ViewsFormParticipante extends JFrame {
         contentPanel = new JPanel();
         contentPanel2 = new JPanel();
         label1 = new JLabel();
-        textFieldNombre = new JTextField();
+        textFieldAforo = new JTextField();
         contentPanel3 = new JPanel();
         label2 = new JLabel();
-        textFieldTelefono = new JTextField();
+        textFieldM2Utiles = new JTextField();
         contentPanel4 = new JPanel();
         label3 = new JLabel();
-        textFieldEspecializacion = new JTextField();
+        textFieldM2Tot = new JTextField();
         buttonBar = new JPanel();
         createButtonForm = new JButton();
         cancelButton = new JButton();
@@ -123,9 +119,9 @@ public class ViewsFormParticipante extends JFrame {
                     contentPanel2.setLayout(new BoxLayout(contentPanel2, BoxLayout.X_AXIS));
 
                     //---- label1 ----
-                    label1.setText("Nombre");
+                    label1.setText("Aforo");
                     contentPanel2.add(label1);
-                    contentPanel2.add(textFieldNombre);
+                    contentPanel2.add(textFieldAforo);
                 }
                 contentPanel.add(contentPanel2);
 
@@ -134,9 +130,9 @@ public class ViewsFormParticipante extends JFrame {
                     contentPanel3.setLayout(new BoxLayout(contentPanel3, BoxLayout.X_AXIS));
 
                     //---- label2 ----
-                    label2.setText("Telefono");
+                    label2.setText("Metros cuadros utiles");
                     contentPanel3.add(label2);
-                    contentPanel3.add(textFieldTelefono);
+                    contentPanel3.add(textFieldM2Utiles);
                 }
                 contentPanel.add(contentPanel3);
 
@@ -145,9 +141,9 @@ public class ViewsFormParticipante extends JFrame {
                     contentPanel4.setLayout(new BoxLayout(contentPanel4, BoxLayout.X_AXIS));
 
                     //---- label3 ----
-                    label3.setText("Especialización");
+                    label3.setText("Metros cuadros totales");
                     contentPanel4.add(label3);
-                    contentPanel4.add(textFieldEspecializacion);
+                    contentPanel4.add(textFieldM2Tot);
                 }
                 contentPanel.add(contentPanel4);
             }

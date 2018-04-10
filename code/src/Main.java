@@ -1,6 +1,4 @@
-package Presentacion;
-
-import Presentacion.Feria.UIimp;
+import Presentacion.UIimp;
 
 import javax.swing.*;
 

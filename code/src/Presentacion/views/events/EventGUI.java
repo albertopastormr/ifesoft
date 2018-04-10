@@ -1,4 +1,4 @@
-package Presentacion.Feria.views.events;
+package Presentacion.views.events;
 
 public class EventGUI {
 

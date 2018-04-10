@@ -1,8 +1,8 @@
-package Presentacion.Feria.views.forms;
+package Presentacion.views.forms;
 
-import Negocio.Stand.Tstand;
-import Presentacion.Feria.UIimp;
-import Presentacion.Feria.views.events.Event;
+import Negocio.Asignacion.Tasignacion;
+import Presentacion.UIimp;
+import Presentacion.views.events.Event;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -10,28 +10,25 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
 
-public class ViewsFormStand extends JFrame {
+public class ViewsFormAsignacion extends JFrame {
 
     private JPanel dialogPanel;
     private JPanel contentPanel;
     private JPanel contentPanel2;
     private JLabel label1;
-    private JTextField textFieldCoste;
-    private JPanel contentPanel3;
-    private JLabel label2;
-    private JTextField textFieldMUsados;
-    private JPanel contentPanel4;
-    private JLabel label3;
-    private JTextField textFieldNumero;
+    private JTextField textFieldMUsed;
+    private JTextField textFieldIdFair;
+    private JTextField textFieldIdPavilion;
+    private JTextField textFieldIdStand;
     private JPanel buttonBar;
     private JButton createButtonForm;
     private JButton cancelButton;
     private JButton helpButton;
 
-    private Tstand tStandModify;
+    private Tasignacion tAsignacionModify;
     private boolean isOptionCreate;
 
-    public ViewsFormStand() {
+    public ViewsFormAsignacion() {
         initComponents();
 
         isOptionCreate = true;
@@ -40,11 +37,12 @@ public class ViewsFormStand extends JFrame {
         this.setVisible(true);
     }
 
-    public ViewsFormStand(Tstand tstand) {
+
+    public ViewsFormAsignacion(Tasignacion tAsigancion) {
         initComponents();
 
         isOptionCreate = false;
-        this.tStandModify = tstand;
+        this.tAsignacionModify = tAsigancion;
 
         initComponentsModify();
         this.setBounds(100,100, 800,800);
@@ -52,20 +50,23 @@ public class ViewsFormStand extends JFrame {
     }
 
     private void initComponentsModify() {
-        textFieldCoste.setText(String.valueOf(tStandModify.getCost()));
-        textFieldMUsados.setText(String.valueOf(tStandModify.getTotal_m2()));
-        textFieldNumero.setText(String.valueOf(tStandModify.getNum_at_fair()));
+        textFieldIdFair.setText(String.valueOf(tAsignacionModify.getFair_id()));
+        textFieldIdPavilion.setText(String.valueOf(tAsignacionModify.getPavilion_id()));
+        textFieldIdStand.setText(String.valueOf(tAsignacionModify.getStand_id()));
+        textFieldMUsed.setText(String.valueOf(tAsignacionModify.getUsed_m2()));
     }
 
     private void createButtonFormActionPerformed() {
-        setVisible(false);
-        String coste = textFieldCoste.getText();
-        String m_usados = textFieldMUsados.getText();
-        String numero = textFieldNumero.getText();
-        Tstand tStand = new Tstand(Integer.parseInt(coste), Integer.parseInt(m_usados), Integer.parseInt(numero), true);
+        this.setVisible(false);
+        int mUsed = Integer.valueOf(textFieldMUsed.getText());
+        int idFair = Integer.valueOf(textFieldIdFair.getText());
+        int idPavilion = Integer.valueOf(textFieldIdPavilion.getText());
+        int idStand = Integer.valueOf(textFieldIdStand.getText());
 
-        if (isOptionCreate)  UIimp.getInstance().execute(Presentacion.Feria.views.events.Event.INSERT_STAND, tStand);
-        else UIimp.getInstance().execute(Event.MODIFY_STAND,tStand);
+        Tasignacion tasignacion = new Tasignacion(idFair, idPavilion, idStand, mUsed, true);
+
+        if (isOptionCreate)  UIimp.getInstance().execute(Event.INSERT_ASIGNACION, tasignacion);
+        else UIimp.getInstance().execute(Event.MODIFY_ASIGNACION, tasignacion);
     }
 
     private void cancelButtonStateChanged() {
@@ -83,17 +84,16 @@ public class ViewsFormStand extends JFrame {
         contentPanel = new JPanel();
         contentPanel2 = new JPanel();
         label1 = new JLabel();
-        textFieldCoste = new JTextField();
-        contentPanel3 = new JPanel();
-        label2 = new JLabel();
-        textFieldMUsados = new JTextField();
-        contentPanel4 = new JPanel();
-        label3 = new JLabel();
-        textFieldNumero = new JTextField();
+        textFieldMUsed = new JTextField();
+        textFieldIdFair = new JTextField();
+        textFieldIdPavilion = new JTextField();
+        textFieldIdStand = new JTextField();
         buttonBar = new JPanel();
         createButtonForm = new JButton();
         cancelButton = new JButton();
         helpButton = new JButton();
+
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         //======== this ========
         Container contentPane = getContentPane();
@@ -121,33 +121,11 @@ public class ViewsFormStand extends JFrame {
                     contentPanel2.setLayout(new BoxLayout(contentPanel2, BoxLayout.X_AXIS));
 
                     //---- label1 ----
-                    label1.setText("Coste");
+                    label1.setText("Metros usados");
                     contentPanel2.add(label1);
-                    contentPanel2.add(textFieldCoste);
+                    contentPanel2.add(textFieldMUsed);
                 }
                 contentPanel.add(contentPanel2);
-
-                //======== contentPanel3 ========
-                {
-                    contentPanel3.setLayout(new BoxLayout(contentPanel3, BoxLayout.X_AXIS));
-
-                    //---- label2 ----
-                    label2.setText("Metros usados");
-                    contentPanel3.add(label2);
-                    contentPanel3.add(textFieldMUsados);
-                }
-                contentPanel.add(contentPanel3);
-
-                //======== contentPanel4 ========
-                {
-                    contentPanel4.setLayout(new BoxLayout(contentPanel4, BoxLayout.X_AXIS));
-
-                    //---- label3 ----
-                    label3.setText("Numero");
-                    contentPanel4.add(label3);
-                    contentPanel4.add(textFieldNumero);
-                }
-                contentPanel.add(contentPanel4);
             }
             dialogPanel.add(contentPanel, BorderLayout.CENTER);
 

@@ -1,13 +1,13 @@
-package Presentacion.Feria;
+package Presentacion;
 
 import Exceptions.ASException;
 import Exceptions.DAOException;
 import Negocio.Feria.ASferia;
 import Negocio.Feria.Tferia;
-import Presentacion.Feria.views.*;
-import Presentacion.Feria.views.events.Event;
-import Presentacion.Feria.views.events.EventGUI;
-import Presentacion.Feria.views.forms.ViewsFormFeria;
+import Presentacion.views.viewsHalf.*;
+import Presentacion.views.events.Event;
+import Presentacion.views.events.EventGUI;
+import Presentacion.views.forms.ViewsFormFeria;
 
 import java.sql.SQLException;
 

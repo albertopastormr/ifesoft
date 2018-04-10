@@ -1,15 +1,12 @@
-package Presentacion.Feria;
+package Presentacion;
 
-import Presentacion.Feria.views.events.Event;
-import Presentacion.Feria.views.events.EventGUI;
+import Presentacion.views.events.Event;
+import Presentacion.views.events.EventGUI;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.plaf.ColorUIResource;
 
 public class UIimp extends JFrame implements UI{
 

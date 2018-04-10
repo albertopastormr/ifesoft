@@ -1,8 +1,8 @@
-package Presentacion.Feria.views.forms;
+package Presentacion.views.forms;
 
-import Negocio.Asignacion.Tasignacion;
-import Presentacion.Feria.UIimp;
-import Presentacion.Feria.views.events.Event;
+import Negocio.Participacion.Tparticipacion;
+import Presentacion.UIimp;
+import Presentacion.views.events.Event;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -10,7 +10,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
 
-public class ViewsFormAsignacion extends JFrame {
+public class ViewsFormParticipacion extends JFrame {
 
     private JPanel dialogPanel;
     private JPanel contentPanel;
@@ -18,17 +18,17 @@ public class ViewsFormAsignacion extends JFrame {
     private JLabel label1;
     private JTextField textFieldMUsed;
     private JTextField textFieldIdFair;
-    private JTextField textFieldIdPavilion;
+    private JTextField textFieldIdParticipante;
     private JTextField textFieldIdStand;
     private JPanel buttonBar;
     private JButton createButtonForm;
     private JButton cancelButton;
     private JButton helpButton;
 
-    private Tasignacion tAsignacionModify;
+    private Tparticipacion tParticipacionModify;
     private boolean isOptionCreate;
 
-    public ViewsFormAsignacion() {
+    public ViewsFormParticipacion() {
         initComponents();
 
         isOptionCreate = true;
@@ -38,11 +38,11 @@ public class ViewsFormAsignacion extends JFrame {
     }
 
 
-    public ViewsFormAsignacion(Tasignacion tAsigancion) {
+    public ViewsFormParticipacion(Tparticipacion tParticipacion) {
         initComponents();
 
         isOptionCreate = false;
-        this.tAsignacionModify = tAsigancion;
+        this.tParticipacionModify = tParticipacion;
 
         initComponentsModify();
         this.setBounds(100,100, 800,800);
@@ -50,23 +50,22 @@ public class ViewsFormAsignacion extends JFrame {
     }
 
     private void initComponentsModify() {
-        textFieldIdFair.setText(String.valueOf(tAsignacionModify.getFair_id()));
-        textFieldIdPavilion.setText(String.valueOf(tAsignacionModify.getPavilion_id()));
-        textFieldIdStand.setText(String.valueOf(tAsignacionModify.getStand_id()));
-        textFieldMUsed.setText(String.valueOf(tAsignacionModify.getUsed_m2()));
+        textFieldIdFair.setText(String.valueOf(tParticipacionModify.getFair_id()));
+        textFieldIdParticipante.setText(String.valueOf(tParticipacionModify.getClient_id()));
+        textFieldIdStand.setText(String.valueOf(tParticipacionModify.getStand_id()));
     }
 
     private void createButtonFormActionPerformed() {
         this.setVisible(false);
         int mUsed = Integer.valueOf(textFieldMUsed.getText());
         int idFair = Integer.valueOf(textFieldIdFair.getText());
-        int idPavilion = Integer.valueOf(textFieldIdPavilion.getText());
+        int idParticipante = Integer.valueOf(textFieldIdParticipante.getText());
         int idStand = Integer.valueOf(textFieldIdStand.getText());
 
-        Tasignacion tasignacion = new Tasignacion(idFair, idPavilion, idStand, mUsed, true);
+        Tparticipacion tparticipacion = new Tparticipacion();
 
-        if (isOptionCreate)  UIimp.getInstance().execute(Event.INSERT_ASIGNACION, tasignacion);
-        else UIimp.getInstance().execute(Event.MODIFY_ASIGNACION, tasignacion);
+        if (isOptionCreate)  UIimp.getInstance().execute(Event.INSERT_PARTICIPACION, tparticipacion);
+        else UIimp.getInstance().execute(Event.MODIFY_PARTICIPACION, tparticipacion);
     }
 
     private void cancelButtonStateChanged() {
@@ -86,7 +85,7 @@ public class ViewsFormAsignacion extends JFrame {
         label1 = new JLabel();
         textFieldMUsed = new JTextField();
         textFieldIdFair = new JTextField();
-        textFieldIdPavilion = new JTextField();
+        textFieldIdParticipante = new JTextField();
         textFieldIdStand = new JTextField();
         buttonBar = new JPanel();
         createButtonForm = new JButton();
@@ -179,3 +178,4 @@ public class ViewsFormAsignacion extends JFrame {
         setLocationRelativeTo(getOwner());
     }
 }
+

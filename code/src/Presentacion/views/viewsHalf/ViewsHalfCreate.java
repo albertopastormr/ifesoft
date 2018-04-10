@@ -1,13 +1,10 @@
-package Presentacion.Feria.views;
+package Presentacion.views.viewsHalf;
 
-import Negocio.Feria.Tferia;
-import Presentacion.Feria.Controller;
-import Presentacion.Feria.views.events.Event;
-import Presentacion.Feria.UIimp;
+import Presentacion.views.events.Event;
+import Presentacion.UIimp;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Date;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.ColorUIResource;

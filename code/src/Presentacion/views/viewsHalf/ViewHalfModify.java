@@ -1,16 +1,16 @@
-package Presentacion.Feria.views;
+package Presentacion.views.viewsHalf;
 
-import Presentacion.Feria.UI;
-import Presentacion.Feria.UIimp;
+import Negocio.Feria.Tferia;
+import Presentacion.UIimp;
+import Presentacion.views.events.Event;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.net.URL;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class ViewHalfShow extends JFrame {
+public class ViewHalfModify extends JFrame {
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
@@ -19,7 +19,7 @@ public class ViewHalfShow extends JFrame {
     private JPanel buttonBar;
     private JLabel title;
     private JLabel labelSubID;
-    private JComboBox<String> comboBoxViews;
+    private JComboBox<String> comboBoxMod;
     private JRadioButton radioButtonIndividual;
     private JRadioButton radioButtonList;
     private JButton okButton;
@@ -43,16 +43,46 @@ public class ViewHalfShow extends JFrame {
     private Color cComboBoxSelectedFont = new Color(52, 56, 58);
     private Color cTextFieldBG = new Color(243,243,243);
 
-
-    public ViewHalfShow() {
-        super("Show");
-
+    public ViewHalfModify() {
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
     private void okButtonActionPerformed(ActionEvent e) {
+
+        switch (String.valueOf(comboBoxMod.getSelectedItem())){
+            case "Feria":
+                this.setVisible(false);
+
+                int idFeria = Integer.parseInt(textID.getText());
+
+                // Nos traemos los datos a poder modificar
+                Tferia tFeria = new Tferia(null ,null ,null ,null ,false);
+                tFeria.setId(idFeria);
+
+                UIimp.getInstance().execute(Presentacion.views.events.Event.INSERT_FORM_FERIA, tFeria);
+
+                break;
+            case "Pabellon":
+                UIimp.getInstance().execute(Presentacion.views.events.Event.CREATE_HALF, null);
+                break;
+            case "Stand":
+                UIimp.getInstance().execute(Presentacion.views.events.Event.CREATE_HALF, null);
+                break;
+            case "Participante":
+                UIimp.getInstance().execute(Presentacion.views.events.Event.CREATE_HALF, null);
+                break;
+            case "Asignacion":
+                UIimp.getInstance().execute(Presentacion.views.events.Event.CREATE_HALF, null);
+                break;
+            case "Participacion":
+                UIimp.getInstance().execute(Event.CREATE_HALF, null);
+                break;
+
+        }
+
+
 
     }
 
@@ -65,11 +95,10 @@ public class ViewHalfShow extends JFrame {
     }
 
 
-
     private void setUpTitle(){
 
         title = new JLabel();
-        title .setText("View");
+        title .setText("Modify");
         title .setFont(fTitle);
         title .setHorizontalAlignment(JLabel.CENTER);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
@@ -91,22 +120,22 @@ public class ViewHalfShow extends JFrame {
         UIManager.put("ComboBox.disabledForeground", new ColorUIResource(cComboBoxFont));
 
 
-        comboBoxViews = new JComboBox<>();
-        comboBoxViews.getEditor().getEditorComponent().setBackground(cComboBoxActive);
-        comboBoxViews.setFont(fComboBox);
-        comboBoxViews.setForeground(cComboBoxFont);
-        comboBoxViews.setMinimumSize(new Dimension(200, 50));
-        comboBoxViews.setMaximumSize(new Dimension(800, 50));
+        comboBoxMod = new JComboBox<>();
+        comboBoxMod.getEditor().getEditorComponent().setBackground(cComboBoxActive);
+        comboBoxMod.setFont(fComboBox);
+        comboBoxMod.setForeground(cComboBoxFont);
+        comboBoxMod.setMinimumSize(new Dimension(200, 50));
+        comboBoxMod.setMaximumSize(new Dimension(800, 50));
 
-            comboBoxViews.addItem("Assignation");
-            comboBoxViews.addItem("Fair");
-            comboBoxViews.addItem("Participant");
-            comboBoxViews.addItem("Pavilion");
-            comboBoxViews.addItem("Participation");
-            comboBoxViews.addItem("Stand");
+        comboBoxMod.addItem("Assignation");
+        comboBoxMod.addItem("Fair");
+        comboBoxMod.addItem("Participant");
+        comboBoxMod.addItem("Pavilion");
+        comboBoxMod.addItem("Participation");
+        comboBoxMod.addItem("Stand");
 
-        comboBoxViews.setBorder(BorderFactory.createEmptyBorder(0,0, 20, 0));
-        centerPanel.add(comboBoxViews);
+        comboBoxMod.setBorder(BorderFactory.createEmptyBorder(0,0, 20, 0));
+        centerPanel.add(comboBoxMod);
 
         //===== RadioButtonPanel =====
 
@@ -193,7 +222,7 @@ public class ViewHalfShow extends JFrame {
 
         //---- okButton ----
         okButton = new JButton();
-        okButton.setText("Show");
+        okButton.setText("Modify");
         okButton.setFont(fButton);
         okButton.setBackground(cOkButton);
         okButton.setForeground(Color.WHITE);
@@ -221,15 +250,11 @@ public class ViewHalfShow extends JFrame {
     private void initComponents() {
 
         //======== this ========
-        Container contentPane = getContentPane(); 
+        Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
-        URL path = getClass().getResource("Icon.png");
-        if(path!=null){
-            ImageIcon img = new ImageIcon(path);
-            this.setIconImage(img.getImage());
-        }
-
+        ImageIcon img = new ImageIcon("Icon.png");
+        this.setIconImage(img.getImage());
 
         //======== dialogPanel ========
 
