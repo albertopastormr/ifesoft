@@ -45,7 +45,7 @@ public class UIimp extends JFrame implements UI{
         control = new ControllerImp();
 
         start();
-        this.setBounds(100,100, 1200,1200);
+        this.setBounds(100,100, minScreenSize.width, minScreenSize.height);
         this.setVisible(true);
     }
 
