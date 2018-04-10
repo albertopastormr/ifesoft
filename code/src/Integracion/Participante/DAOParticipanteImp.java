@@ -10,6 +10,13 @@ import java.util.Collection;
 
 public class DAOParticipanteImp implements DAOParticipante {
 	protected static final String connectionChain = "jdbc:mysql://localhost:3306/ifesoft_bd";
+
+	/***
+	 * Inserts a valid Tparticipante to database 'ifesoft'
+	 * @param tParticipante
+	 * @return
+	 * @throws DAOException
+	 */
 	public Integer create(Tparticipante tParticipante) throws DAOException {
 		int id = -1;
 
@@ -37,16 +44,21 @@ public class DAOParticipanteImp implements DAOParticipante {
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'create' Name Participante "+ tParticipante.getName() +" no logrado\n");
 		}
-
-		try { // Desconexion db
-			connec.close();
-		} catch (SQLException e) {
-			throw new DAOException("ERROR: cerrando conexion a DB para 'create' Name Participante "+ tParticipante.getName() +" no logrado\n");
+		finally {
+			try {
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrando conexion a DB para 'create' Name Feria "+ tParticipante.getName() +" no logrado\n");			}
 		}
+
 		return id;
 	}
 
-
+	/***
+	 * reads every Tparticipante(collection) from database 'ifesoft' with any constraint
+	 * @return
+	 * @throws DAOException
+	 */
 	public Collection<Tparticipante> readAll() throws DAOException {
 		ArrayList<Tparticipante> readParticipanteList = new ArrayList<>();
 		Connection connec = null;
@@ -70,15 +82,22 @@ public class DAOParticipanteImp implements DAOParticipante {
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'readAll' no logrado\n");
 		}
-
-
-		try { // Desconexion db
-			connec.close();
-		} catch (SQLException e) {
-			throw new DAOException("ERROR: cerrando conexion a DB para 'readAll' no logrado\n");
+		finally {
+			try {
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrando conexion a DB para 'readAll' no logrado\n");			}
 		}
+
 		return readParticipanteList;
 	}
+
+	/***
+	 * reads a Tparticipante from database ifesoft by a name
+	 * @param name Tparticipante name to be read
+	 * @return
+	 * @throws DAOException
+	 */
 	public Tparticipante readByName(String name) throws DAOException {
 		Tparticipante readParticipante = null;
 
@@ -103,16 +122,23 @@ public class DAOParticipanteImp implements DAOParticipante {
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'readByName' Name Participante "+ name +" no logrado\n");
 		}
-
-
-
-		try { // Desconexion db
-			connec.close();
-		} catch (SQLException e) {
-			throw new DAOException("ERROR: cerrando conexion a DB para 'readByName' Name Participante "+ name +" no logrado\n");
+		finally {
+			try { // Desconexion db
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrando conexion a DB para 'readByName' Name Participante "+ name +" no logrado\n");
+			}
 		}
+
 		return readParticipante;
 	}
+
+	/***
+	 * Updates the database ifesoft information of a tParticipante(param) which already exists
+	 * @param tParticipante it needs a valid ID read from db
+	 * @return
+	 * @throws DAOException
+	 */
 	public Integer update(Tparticipante tParticipante) throws DAOException {
 		int id = -1;
 
@@ -141,19 +167,23 @@ public class DAOParticipanteImp implements DAOParticipante {
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'update' Name Participante "+ tParticipante.getName() +" no logrado\n");
 		}
-
-
-
-		try { // Desconexion db
-			connec.close();
-		} catch (SQLException e) {
-			throw new DAOException("ERROR: cerrando conexion a DB para 'update' Name Participante "+ tParticipante.getName() +" no logrado\n");
+		finally {
+			try { // Desconexion db
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrando conexion a DB para 'update' Name Participante "+ tParticipante.getName() +" no logrado\n");
+			}
 		}
 
 		return id;
 	}
 
-
+	/***
+	 * deletes a tParticipante from database
+	 * @param id tParticipante to delete
+	 * @return boolean
+	 * @throws DAOException
+	 */
 	public boolean delete (Integer id) throws DAOException {
 		Connection connec = null;
 		try { // Conexion db
@@ -172,14 +202,49 @@ public class DAOParticipanteImp implements DAOParticipante {
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento para 'delete' ID Participante "+ id +" no logrado\n");
 		}
-
-
-		try { // Desconexion db
-			connec.close();
-		} catch (SQLException e) {
-			throw new DAOException("ERROR: cerrando conexion a DB para 'delete' ID Participante "+ id +" no logrado\n");
+		finally {
+			try { // Desconexion db
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrando conexion a DB para 'delete' ID Participante "+ id +" no logrado\n");
+			}
 		}
+
 		return true;
+	}
+
+	/***
+	 * Deletes every tParticipante from database
+	 * @throws DAOException
+	 */
+	public void deleteAll() throws DAOException {
+		Connection connec = null;
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+		} catch (ClassNotFoundException ex) {
+			throw new DAOException("Error al registrar el driver de mariadb: " + ex);
+		}
+		try { // Conexion db
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
+		} catch (SQLException e) {
+			throw new DAOException("ERROR: acceso a la conexion para 'deleteAll' no logrado\n");
+		}
+
+
+		try { // Tratamiento db
+			PreparedStatement ps = connec.prepareStatement("TRUNCATE TABLE participante");
+			ps.close();
+		}
+		catch (SQLException e){
+			throw new DAOException("ERROR: deleteAll Tparticipante no logrado\n");
+		}
+		finally {
+			try {
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrando conexion a DB para 'deleteAll' no logrado\n");			}
+		}
+
 	}
 
 }

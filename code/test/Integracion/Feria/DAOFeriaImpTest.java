@@ -8,7 +8,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -18,12 +17,12 @@ public class DAOFeriaImpTest {
 	private static Tferia tferiaTest1 = new Tferia("FITUR","Feria internacional turismo",new Date(117,0,4),new Date(117,0,4),true);
 	private static Tferia tferiaTest2 = new Tferia("VINECT","Feria internacional vinos",new Date(117,9,28),new Date(117,10,4),true);
 
-	/*@Before
+	@Before
 	public  void setUp() throws Exception {
 		DAOFeriaImp dao = new DAOFeriaImp();
 		dao.deleteAll();
 	}
-*/
+
 	@Test
 	public void create() throws Exception {
 

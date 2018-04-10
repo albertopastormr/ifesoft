@@ -10,7 +10,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class DAOAsignacionImp implements DAOAsignacion {
+
 	protected static final String connectionChain = "jdbc:mysql://localhost:3306/ifesoft_bd";
+
+	/***
+	 * Inserts a valid Tferia to database 'ifesoft'
+	 * @param tAsignacion
+	 * @return
+	 * @throws DAOException
+	 */
 	public Integer create(Tasignacion tAsignacion) throws DAOException {
 		int id = -1;
 
@@ -49,7 +57,11 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		return id;
 	}
 
-
+	/***
+	 * reads every Tferia(collection) from database 'ifesoft' with any constraint
+	 * @return
+	 * @throws DAOException
+	 */
 	public Collection<Tasignacion> readAll() throws DAOException {
 		ArrayList<Tasignacion> readAsignacionList = new ArrayList<>();
 		Connection connec = null;
@@ -82,6 +94,13 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		}
 		return readAsignacionList;
 	}
+
+	/***
+	 * reads a Tferia from database ifesoft by a fair name
+	 * @param name Tferia name to be read
+	 * @return
+	 * @throws DAOException
+	 */
 	public Tasignacion readByFairName(String name) throws DAOException {
 		Tasignacion readAsignacion = null;
 
@@ -116,6 +135,13 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		}
 		return readAsignacion;
 	}
+
+	/***
+	 * reads a Tferia from database ifesoft by a pavilion name
+	 * @param name Tferia name to be read
+	 * @return
+	 * @throws DAOException
+	 */
 	public Tasignacion readByPavilionName(String name) throws DAOException {
 		Tasignacion readAsignacion = null;
 
@@ -150,6 +176,13 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		}
 		return readAsignacion;
 	}
+
+	/***
+	 * Updates the database ifesoft information of a tAsignacion(param) which already exists
+	 * @param tAsignacion it needs a valid ID read from db
+	 * @return
+	 * @throws DAOException
+	 */
 	public Integer update(Tasignacion tAsignacion) throws DAOException {
 		int id = -1;
 
@@ -187,7 +220,14 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		return id;
 	}
 
-
+	/***
+	 * deletes a tAsignacion from database
+	 * @param pavilion_id
+	 * @param stand_id
+	 * @param fair_id tAsignacion to delete
+	 * @return boolean
+	 * @throws DAOException error from database
+	 */
 	public boolean delete (Integer fair_id, Integer pavilion_id, Integer stand_id) throws DAOException {
 		Connection connec = null;
 		try { // Conexion db
@@ -218,4 +258,37 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		return true;
 	}
 
+	/***
+	 * Deletes every tAsignacion from database
+	 * @throws DAOException
+	 */
+	public void deleteAll() throws DAOException {
+		Connection connec = null;
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+		} catch (ClassNotFoundException ex) {
+			throw new DAOException("Error al registrar el driver de mariadb: " + ex);
+		}
+		try { // Conexion db
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
+		} catch (SQLException e) {
+			throw new DAOException("ERROR: acceso a la conexion para 'deleteAll' no logrado\n");
+		}
+
+
+		try { // Tratamiento db
+			PreparedStatement ps = connec.prepareStatement("TRUNCATE TABLE asignacion");
+			ps.close();
+		}
+		catch (SQLException e){
+			throw new DAOException("ERROR: deleteAll Tferia no logrado\n");
+		}
+
+
+		try { // Desconexion db
+			connec.close();
+		} catch (SQLException e) {
+			throw new DAOException("ERROR: cerrando conexion a DB para 'deleteAll' no logrado\n");
+		}
+	}
 }

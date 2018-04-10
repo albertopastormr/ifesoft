@@ -1,9 +1,9 @@
-package Negocio;
+package Negocio.Feria;
 
 import Integracion.Feria.DAOFeria;
 import Integracion.Feria.DAOFeriaImp;
 
-public class IFDAOimp extends IFDAO {
+public class IFDAOFeriaImp extends IFDAOFeria {
     public DAOFeria generateDAOferia(){
         return new DAOFeriaImp();
     }

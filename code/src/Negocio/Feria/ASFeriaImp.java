@@ -3,7 +3,6 @@ package Negocio.Feria;
 import Exceptions.ASException;
 import Exceptions.DAOException;
 import Integracion.Feria.DAOFeria;
-import Negocio.IFDAO;
 
 import java.sql.SQLException;
 import java.util.Collection;
@@ -12,7 +11,7 @@ import java.util.Date;
 public class ASFeriaImp implements ASferia { // Try-Catch solo si hay que capturar excepciones del DAO
     public Integer create(Tferia feria) throws ASException, SQLException, DAOException, ClassNotFoundException {
         int id = -1;
-        DAOFeria daoFeria = IFDAO.getInstance().generateDAOferia();
+        DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
         if (feria != null && feria.getName() != null && feria.getDescription() != null && feria.getIniDate() != null && feria.getEndDate() != null) {
             Tferia read = daoFeria.readByName(feria.getName());
             if (read == null) {
@@ -38,7 +37,7 @@ public class ASFeriaImp implements ASferia { // Try-Catch solo si hay que captur
 
     public Integer drop(Tferia feria) throws ASException, DAOException {
         int id = -1;
-        DAOFeria daoFeria = IFDAO.getInstance().generateDAOferia();
+        DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
         if (feria != null) {
             feria.setActive(false);
             Tferia read = daoFeria.readByName(feria.getName());
@@ -53,7 +52,7 @@ public class ASFeriaImp implements ASferia { // Try-Catch solo si hay que captur
 
     public Integer modify(Tferia feria) throws ASException, DAOException {
         int id = -1;
-        DAOFeria daoFeria = IFDAO.getInstance().generateDAOferia();
+        DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
         if (feria != null) {
             Tferia read = daoFeria.readByName(feria.getName());
             if (read != null) {
@@ -71,13 +70,13 @@ public class ASFeriaImp implements ASferia { // Try-Catch solo si hay que captur
     }
 
     public Collection<Tferia> list() throws DAOException {
-        DAOFeria daoFeria = IFDAO.getInstance().generateDAOferia();
+        DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
         return daoFeria.readAll();
 
     }
 
     public Tferia show(Tferia feria) throws ASException, DAOException {
-        DAOFeria daoFeria = IFDAO.getInstance().generateDAOferia();
+        DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
         if (feria != null) {
             Tferia read = daoFeria.readByName(feria.getName());
             if (read != null)
