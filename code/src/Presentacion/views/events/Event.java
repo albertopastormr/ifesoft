@@ -14,16 +14,29 @@ public class Event {
     /** PAGINAS INTERMEDIAS INSERCION DE VALORES */
 
     // FERIA
-    public static final int CREATE_HALF_FERIA = 5;
-    public static final int BACK_CREATE_HALF_FERIA = 6;
-
-    public static final int SHOW_HALF_FERIA = 7;
-    public static final int MODIFY_HALF_FERIA = 8;
     public static final int DROP_HALF_FERIA = 9;
 
-    //PABELLON
+    // PABELLON
+    public static final int DROP_HALF_PABELLON = 9345;
 
+    // STAND
+    public static final int DROP_HALF_STAND = 9768;
 
+    // PARTICIPACION
+    public static final int DROP_HALF_PARTICIPACION = 9121;
+
+    // PARTICIPANTE
+    public static final int DROP_HALF_PARTICIPANTE = 9435;
+
+    // ASIGNACION
+    public static final int DROP_HALF_ASIGNACION = 92143;
+
+    public static final int DROP_FERIA = 9213;
+    public static final int DROP_STAND = 921398;
+    public static final int DROP_ASIGNACION = 921334;
+    public static final int DROP_CLIENT = 921343;
+    public static final int DROP_PABELLON = 921312;
+    public static final int DROP_PARTICIPACION = 921376;
 
     /** PAGINAS MAS ESPECIFICAS DE CADA ACCION */
     public static final int INSERT_FORM_FERIA = 10;

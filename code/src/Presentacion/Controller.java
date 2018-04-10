@@ -1,6 +1,14 @@
 package Presentacion;
 
-public interface Controller {
+public abstract class Controller{
 
-    void execute(int event, Object datos);
+    private static ControllerImp control;
+
+    abstract void execute(int event,Object datos);
+
+    public static synchronized ControllerImp getInstance(){
+        if(control==null)
+            control=new ControllerImp();
+        return control;
+    }
 }

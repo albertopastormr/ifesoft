@@ -1,6 +1,7 @@
 package Presentacion.views.forms;
 
 import Negocio.Participacion.Tparticipacion;
+import Presentacion.Controller;
 import Presentacion.UIimp;
 import Presentacion.views.events.Event;
 
@@ -8,7 +9,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.event.*;
 
 public class ViewsFormParticipacion extends JFrame {
 
@@ -64,14 +64,14 @@ public class ViewsFormParticipacion extends JFrame {
 
         Tparticipacion tparticipacion = new Tparticipacion();
 
-        if (isOptionCreate)  UIimp.getInstance().execute(Event.INSERT_PARTICIPACION, tparticipacion);
-        else UIimp.getInstance().execute(Event.MODIFY_PARTICIPACION, tparticipacion);
+        if (isOptionCreate)  Controller.getInstance().execute(Event.INSERT_PARTICIPACION, tparticipacion);
+        else Controller.getInstance().execute(Event.MODIFY_PARTICIPACION, tparticipacion);
     }
 
     private void cancelButtonStateChanged() {
         this.setVisible(false);
-        if (isOptionCreate) UIimp.getInstance().execute(Event.CREATE_HALF, null);
-        else UIimp.getInstance().execute(Event.MODIFY_HALF, null);
+        if (isOptionCreate) Controller.getInstance().execute(Event.CREATE_HALF, null);
+        else Controller.getInstance().execute(Event.MODIFY_HALF, null);
     }
 
     private void helpButtonActionPerformed() {
@@ -149,9 +149,9 @@ public class ViewsFormParticipacion extends JFrame {
 
                 //---- cancelButton ----
                 cancelButton.setText("Cancel");
-                cancelButton.addChangeListener(new ChangeListener() {
-                    @Override
-                    public void stateChanged(ChangeEvent e) {
+                cancelButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
                         cancelButtonStateChanged();
                     }
                 });

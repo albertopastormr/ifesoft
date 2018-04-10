@@ -1,6 +1,7 @@
 package Presentacion.views.viewsHalf;
 
 import Negocio.Feria.Tferia;
+import Presentacion.Controller;
 import Presentacion.UIimp;
 import Presentacion.views.events.Event;
 
@@ -61,23 +62,23 @@ public class ViewHalfModify extends JFrame {
                 Tferia tFeria = new Tferia(null ,null ,null ,null ,false);
                 tFeria.setId(idFeria);
 
-                UIimp.getInstance().execute(Presentacion.views.events.Event.INSERT_FORM_FERIA, tFeria);
+                Controller.getInstance().execute(Presentacion.views.events.Event.INSERT_FORM_FERIA, tFeria);
 
                 break;
             case "Pabellon":
-                UIimp.getInstance().execute(Presentacion.views.events.Event.CREATE_HALF, null);
+                Controller.getInstance().execute(Presentacion.views.events.Event.CREATE_HALF, null);
                 break;
             case "Stand":
-                UIimp.getInstance().execute(Presentacion.views.events.Event.CREATE_HALF, null);
+                Controller.getInstance().execute(Presentacion.views.events.Event.CREATE_HALF, null);
                 break;
             case "Participante":
-                UIimp.getInstance().execute(Presentacion.views.events.Event.CREATE_HALF, null);
+                Controller.getInstance().execute(Presentacion.views.events.Event.CREATE_HALF, null);
                 break;
             case "Asignacion":
-                UIimp.getInstance().execute(Presentacion.views.events.Event.CREATE_HALF, null);
+                Controller.getInstance().execute(Presentacion.views.events.Event.CREATE_HALF, null);
                 break;
             case "Participacion":
-                UIimp.getInstance().execute(Event.CREATE_HALF, null);
+                Controller.getInstance().execute(Event.CREATE_HALF, null);
                 break;
 
         }
@@ -87,7 +88,8 @@ public class ViewHalfModify extends JFrame {
     }
 
     private void cancelButtonActionPerformed(ActionEvent e) {
-
+        this.setVisible(false);
+        Controller.getInstance().execute(Event.HOME, null);
     }
 
     private void helpButtonActionPerformed(ActionEvent e) {

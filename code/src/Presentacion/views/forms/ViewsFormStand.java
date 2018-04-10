@@ -1,6 +1,7 @@
 package Presentacion.views.forms;
 
 import Negocio.Stand.Tstand;
+import Presentacion.Controller;
 import Presentacion.UIimp;
 import Presentacion.views.events.Event;
 
@@ -8,7 +9,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.event.*;
 
 public class ViewsFormStand extends JFrame {
 
@@ -64,14 +64,14 @@ public class ViewsFormStand extends JFrame {
         String numero = textFieldNumero.getText();
         Tstand tStand = new Tstand(Integer.parseInt(coste), Integer.parseInt(m_usados), Integer.parseInt(numero), true);
 
-        if (isOptionCreate)  UIimp.getInstance().execute(Presentacion.views.events.Event.INSERT_STAND, tStand);
-        else UIimp.getInstance().execute(Event.MODIFY_STAND,tStand);
+        if (isOptionCreate)  Controller.getInstance().execute(Presentacion.views.events.Event.INSERT_STAND, tStand);
+        else Controller.getInstance().execute(Event.MODIFY_STAND,tStand);
     }
 
     private void cancelButtonStateChanged() {
         this.setVisible(false);
-        if (isOptionCreate) UIimp.getInstance().execute(Event.CREATE_HALF, null);
-        else UIimp.getInstance().execute(Event.MODIFY_HALF, null);
+        if (isOptionCreate) Controller.getInstance().execute(Event.CREATE_HALF, null);
+        else Controller.getInstance().execute(Event.MODIFY_HALF, null);
     }
 
     private void helpButtonActionPerformed() {
@@ -172,9 +172,9 @@ public class ViewsFormStand extends JFrame {
 
                 //---- cancelButton ----
                 cancelButton.setText("Cancel");
-                cancelButton.addChangeListener(new ChangeListener() {
+                cancelButton.addActionListener(new ActionListener() {
                     @Override
-                    public void stateChanged(ChangeEvent e) {
+                    public void actionPerformed(ActionEvent e) {
                         cancelButtonStateChanged();
                     }
                 });

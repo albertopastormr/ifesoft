@@ -4,16 +4,21 @@ import Exceptions.ASException;
 import Exceptions.DAOException;
 import Negocio.Feria.ASferia;
 import Negocio.Feria.Tferia;
+import Presentacion.views.forms.*;
 import Presentacion.views.viewsHalf.*;
 import Presentacion.views.events.Event;
 import Presentacion.views.events.EventGUI;
-import Presentacion.views.forms.ViewsFormFeria;
 
 import java.sql.SQLException;
 
-public class ControllerImp implements Controller  {
+public class ControllerImp extends Controller {
 
     private ASferia asFeria;
+    //private ASasignation asAsignation;
+    //private ASpavilion asPavilion;
+    //private ASstand asStand;
+    //private ASClient asClient;
+    //private ASpaticipation asParticipation;
     private UI gui;
 
     @Override
@@ -26,10 +31,8 @@ public class ControllerImp implements Controller  {
             /** Main Views*/
 
             case Event.HOME:
-            case Event.BACK_CREATE_HALF_FERIA:
                 new UIimp();
                 break;
-
 
             /** Half Views*/
 
@@ -45,16 +48,77 @@ public class ControllerImp implements Controller  {
             case Event.DROP_HALF:
                 new ViewHalfDrop();
                 break;
-            case Event.DROP_HALF_FERIA:
-                new ViewDropVerificate();
-                break;
 
+            /** DROPS*/
+
+            /* NO BORRAR - DESCOMENTAR CUANDO ESTEN HECHOS LOS "AS"
+
+
+            case Event.DROP_FERIA:
+                try {
+                    asFeria.drop((Tferia)data);
+                } catch (ASException | DAOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case Event.DROP_ASIGNACION:
+                try {
+                    asAsignation.drop((Tasignacion)data);
+                } catch (ASException | DAOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case Event.DROP_PARTICIPACION:
+                try {
+                    asParticipation.drop((Tparticipacion)data);
+                } catch (ASException | DAOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case Event.DROP_STAND:
+                try {
+                    asStand.drop((Tstand)data);
+                } catch (ASException | DAOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case Event.DROP_CLIENT:
+                try {
+                    asClient.drop((Tparticipante)data);
+                } catch (ASException | DAOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case Event.DROP_PABELLON:
+                try {
+                    asAsignation.drop((Tasignacion)data);
+                } catch (ASException | DAOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            */
 
             /** Form Views*/
 
             case Event.INSERT_FORM_FERIA:
                 new ViewsFormFeria();
                 break;
+            case Event.INSERT_FORM_ASIGNACION:
+                new ViewsFormAsignacion();
+                break;
+            case Event.INSERT_FORM_PARTICIPANTE:
+                new ViewsFormParticipante();
+                break;
+            case Event.INSERT_FORM_PABELLON:
+                new ViewsFormPabellon();
+                break;
+            case Event.INSERT_FORM_STAND:
+                new ViewsFormStand();
+                break;
+            case Event.INSERT_FORM_PARTICIPACION:
+                new ViewsFormParticipacion();
+                break;
+
             case Event.MODIFY_FORM_FERIA:
                 try {
                     tFeria = asFeria.show((Tferia) data);

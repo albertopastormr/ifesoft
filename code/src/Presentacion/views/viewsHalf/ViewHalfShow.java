@@ -1,5 +1,9 @@
 package Presentacion.views.viewsHalf;
 
+import Presentacion.Controller;
+import Presentacion.UIimp;
+import Presentacion.views.events.Event;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
@@ -54,23 +58,20 @@ public class ViewHalfShow extends JFrame {
     }
 
     private void cancelButtonActionPerformed(ActionEvent e) {
-
+        this.setVisible(false);
+        Controller.getInstance().execute(Event.HOME, null);
     }
 
     private void helpButtonActionPerformed(ActionEvent e) {
 
     }
 
-
-
     private void setUpTitle(){
-
         title = new JLabel();
         title .setText("View");
         title .setFont(fTitle);
         title .setHorizontalAlignment(JLabel.CENTER);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
-
     }
 
     private void setUpCenter(){
