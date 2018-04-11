@@ -12,4 +12,5 @@ public interface DAOParticipante {
 	 Tparticipante readByName(String name) throws DAOException;
 	 Integer update(Tparticipante tparticipante) throws DAOException;
 	 boolean delete(Integer id) throws DAOException;
+	public void deleteAll() throws DAOException;
 }

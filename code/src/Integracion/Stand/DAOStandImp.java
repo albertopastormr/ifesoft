@@ -60,7 +60,7 @@ public class DAOStandImp implements DAOStand {
 	/***
 	 * reads every tStand(collection) from database 'ifesoft' with any constraint
 	 * @return
-	 * @throws DAOException
+	 * @throws DAOException error from database
 	 */
 	public Collection<Tstand> readAll() throws DAOException {
 		ArrayList<Tstand> readStandList = new ArrayList<>();

@@ -71,7 +71,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 		driverIdentify();
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readAll' no logrado\n");
 		}
@@ -105,14 +105,14 @@ public class DAOParticipacionImp implements DAOParticipacion {
 	 * @return Tparticipacion read from database
 	 * @throws DAOException
 	 */
-	public Tparticipacion readByFairName(String name) throws DAOException {
-		Tparticipacion readParticipacion = null;
+	public Collection<Tparticipacion> readByFairName(String name) throws DAOException {
+		ArrayList<Tparticipacion> readParticipacionList = new ArrayList<>();
 
 		Connection connec = null;
 		driverIdentify();
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' Fair Name "+ name +" no logrado\n");
 		}
@@ -124,8 +124,8 @@ public class DAOParticipacionImp implements DAOParticipacion {
 			ps.setString(1, name);
 			ResultSet rs = ps.executeQuery();
 
-			if (rs.next()){
-				readParticipacion = new Tparticipacion( rs.getInt("fair_id"), rs.getInt("client_id"), rs.getInt("stand_id"), rs.getBoolean("active") ) ;
+			while(rs.next()){
+				readParticipacionList.add(new Tparticipacion( rs.getInt("fair_id"), rs.getInt("client_id"), rs.getInt("stand_id"), rs.getBoolean("active") ));
 			}
 		}
 		catch (SQLException e){
@@ -139,7 +139,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 			}
 		}
 
-		return readParticipacion;
+		return readParticipacionList;
 	}
 
 	/***
@@ -148,14 +148,14 @@ public class DAOParticipacionImp implements DAOParticipacion {
 	 * @return Tparticipacion read from database
 	 * @throws DAOException error from database
 	 */
-	public Tparticipacion readByClientName(String name) throws DAOException {
-		Tparticipacion readParticipacion = null;
+	public Collection<Tparticipacion> readByClientName(String name) throws DAOException {
+		ArrayList<Tparticipacion> readParticipacionList = new ArrayList<>();
 
 		Connection connec = null;
 		driverIdentify();
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' Client Name "+ name +" no logrado\n");
 		}
@@ -167,8 +167,8 @@ public class DAOParticipacionImp implements DAOParticipacion {
 			ps.setString(1, name);
 			ResultSet rs = ps.executeQuery();
 
-			if (rs.next()){
-				readParticipacion = new Tparticipacion( rs.getInt("fair_id"), rs.getInt("client_id"), rs.getInt("stand_id"), rs.getBoolean("active") ) ;
+			while (rs.next()){
+				readParticipacionList.add( new Tparticipacion( rs.getInt("fair_id"), rs.getInt("client_id"), rs.getInt("stand_id"), rs.getBoolean("active") )) ;
 			}
 		}
 		catch (SQLException e){
@@ -182,7 +182,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 			}
 		}
 
-		return readParticipacion;
+		return readParticipacionList;
 	}
 
 	/***
@@ -198,7 +198,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 		driverIdentify();
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'update' Participacion con ID Feria "+ tParticipacion.getFair_id() + " ID Participante " + tParticipacion.getClient_id() + " ID Stand " + tParticipacion.getStand_id()+" no logrado\n");
 		}
@@ -241,7 +241,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 		driverIdentify();
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion para 'delete' Participacion con ID Feria "+ fair_id + " ID Participante " + client_id + " ID Stand " + stand_id +" no logrado\n");
 		}

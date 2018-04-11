@@ -1,0 +1,6 @@
+- Stand: justificacion en DAO
+- Pabellon: leer por id (autoincremental)
+- Paquete de IFSA?
+- Factorias por cada modulo?
+- Revisar test
+-
