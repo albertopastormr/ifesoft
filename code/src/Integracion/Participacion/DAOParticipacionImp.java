@@ -290,12 +290,21 @@ public class DAOParticipacionImp implements DAOParticipacion {
 
 		try { // Tratamiento db
 			PreparedStatement ps;
-			ps = connec.prepareStatement("UPDATE participacion SET (fair_id, client_id, stand_id, active) VALUES (?,?,?,?)");
-			ps.setInt(1, tParticipacion.getFair_id());
-			ps.setInt(2, tParticipacion.getClient_id());
-			ps.setInt(3, tParticipacion.getStand_id());
-			ps.setBoolean(4, true);
+			ps = connec.prepareStatement("UPDATE participacion SET active = ? WHERE fair_id = ? AND client_id = ? AND stand_id = ?");
+			ps.setBoolean(1, tParticipacion.getActive());
+			ps.setInt(2, tParticipacion.getFair_id());
+			ps.setInt(3, tParticipacion.getClient_id());
+			ps.setInt(4, tParticipacion.getStand_id());
 			ps.execute();
+
+			if(!tParticipacion.getActive()){ // Caso desactivado tAsignacion
+				// Desactivado de los stands y participacion relacionados con la asignacion a desactivar
+				ps = connec.prepareStatement("UPDATE stand s JOIN asignacion a ON s.id = a.stand_id SET s.active = ? AND a.active = ? WHERE s.id = ?");
+				ps.setBoolean(1, tParticipacion.getActive());
+				ps.setBoolean(2, tParticipacion.getActive());
+				ps.setInt(3, tParticipacion.getStand_id());
+				ps.execute();
+			}
 
 		}
 		catch (SQLException e){

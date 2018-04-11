@@ -201,18 +201,30 @@ public class DAOParticipanteImp implements DAOParticipante {
 
 		try { // Tratamiento db
 			PreparedStatement ps;
-			ps = connec.prepareStatement("UPDATE participante SET (name, description, initDate, endDate, active) VALUES (?,?,?,?,?)");
+			ps = connec.prepareStatement("UPDATE participante SET name = ? AND phone = ? AND active = ? WHERE id = ?");
 			ps.setString(1, tParticipante.getName());
 			ps.setLong(2, tParticipante.getPhone());
 			ps.setBoolean(3, true);
+			ps.setInt(4,tParticipante.getId()); // PENDIENTE MODIFICACION
 			ps.execute();
 
 			ps = connec.prepareStatement("SELECT id FROM participante WHERE name = ?");
 			ps.setString(1, tParticipante.getName());
 			ResultSet rs = ps.executeQuery();
 
-			if (rs.next())
+			if (rs.next()) {
 				id = rs.getInt("id");
+
+				if(!tParticipante.getActive()){
+					ps = connec.prepareStatement("UPDATE (participacion p JOIN stand s ON p.stand_id = s.id) JOIN asignacion a ON s.id = a.stand_id SET p.active = ? AND s.active = ? AND a.active = ? WHERE p.client_id = ?");
+					ps.setBoolean(1, tParticipante.getActive());
+					ps.setBoolean(2, tParticipante.getActive());
+					ps.setBoolean(3, tParticipante.getActive());
+					ps.setInt(4, tParticipante.getId());
+					ps.execute();
+					ps.close();
+				}
+			}
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'update' Name Participante "+ tParticipante.getName() +" no logrado\n");
