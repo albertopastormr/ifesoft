@@ -2,7 +2,7 @@ package Presentacion;
 
 import Exceptions.ASException;
 import Exceptions.DAOException;
-import Negocio.Feria.ASferia;
+import Negocio.Feria.ASFeria;
 import Negocio.Feria.Tferia;
 import Presentacion.views.forms.*;
 import Presentacion.views.viewsHalf.*;
@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 public class ControllerImp extends Controller {
 
-    private ASferia asFeria;
+    private ASFeria asFeria;
     //private ASasignation asAsignation;
     //private ASpavilion asPavilion;
     //private ASstand asStand;

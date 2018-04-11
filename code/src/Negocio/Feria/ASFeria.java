@@ -6,7 +6,7 @@ import Exceptions.DAOException;
 import java.sql.SQLException;
 import java.util.Collection;
 
-public interface ASferia {
+public interface ASFeria {
     Integer create(Tferia feria) throws ASException, SQLException, DAOException, ClassNotFoundException;
 
     Integer drop(Tferia feria) throws ASException, DAOException;

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Date;
 
-public class ASFeriaImp implements ASferia { // Try-Catch solo si hay que capturar excepciones del DAO
+public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que capturar excepciones del DAO
     public Integer create(Tferia feria) throws ASException, SQLException, DAOException, ClassNotFoundException {
         int id = -1;
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
