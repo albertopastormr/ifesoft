@@ -105,8 +105,8 @@ public class DAOParticipacionImp implements DAOParticipacion {
 	 * @return Tparticipacion read from database
 	 * @throws DAOException
 	 */
-	public Tparticipacion readByFairName(String name) throws DAOException {
-		Tparticipacion readParticipacion = null;
+	public Collection<Tparticipacion> readByFairName(String name) throws DAOException {
+		ArrayList<Tparticipacion> readParticipacionList = new ArrayList<>();
 
 		Connection connec = null;
 		driverIdentify();
@@ -124,8 +124,8 @@ public class DAOParticipacionImp implements DAOParticipacion {
 			ps.setString(1, name);
 			ResultSet rs = ps.executeQuery();
 
-			if (rs.next()){
-				readParticipacion = new Tparticipacion( rs.getInt("fair_id"), rs.getInt("client_id"), rs.getInt("stand_id"), rs.getBoolean("active") ) ;
+			while(rs.next()){
+				readParticipacionList.add(new Tparticipacion( rs.getInt("fair_id"), rs.getInt("client_id"), rs.getInt("stand_id"), rs.getBoolean("active") ));
 			}
 		}
 		catch (SQLException e){
@@ -139,7 +139,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 			}
 		}
 
-		return readParticipacion;
+		return readParticipacionList;
 	}
 
 	/***
@@ -148,8 +148,8 @@ public class DAOParticipacionImp implements DAOParticipacion {
 	 * @return Tparticipacion read from database
 	 * @throws DAOException error from database
 	 */
-	public Tparticipacion readByClientName(String name) throws DAOException {
-		Tparticipacion readParticipacion = null;
+	public Collection<Tparticipacion> readByClientName(String name) throws DAOException {
+		ArrayList<Tparticipacion> readParticipacionList = new ArrayList<>();
 
 		Connection connec = null;
 		driverIdentify();
@@ -167,8 +167,8 @@ public class DAOParticipacionImp implements DAOParticipacion {
 			ps.setString(1, name);
 			ResultSet rs = ps.executeQuery();
 
-			if (rs.next()){
-				readParticipacion = new Tparticipacion( rs.getInt("fair_id"), rs.getInt("client_id"), rs.getInt("stand_id"), rs.getBoolean("active") ) ;
+			while (rs.next()){
+				readParticipacionList.add( new Tparticipacion( rs.getInt("fair_id"), rs.getInt("client_id"), rs.getInt("stand_id"), rs.getBoolean("active") )) ;
 			}
 		}
 		catch (SQLException e){
@@ -182,7 +182,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 			}
 		}
 
-		return readParticipacion;
+		return readParticipacionList;
 	}
 
 	/***

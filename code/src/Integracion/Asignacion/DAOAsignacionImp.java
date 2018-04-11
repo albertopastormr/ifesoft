@@ -106,8 +106,8 @@ public class DAOAsignacionImp implements DAOAsignacion {
 	 * @return Tasignacion read from database
 	 * @throws DAOException error from database
 	 */
-	public Tasignacion readByFairName(String name) throws DAOException {
-		Tasignacion readAsignacion = null;
+	public Collection<Tasignacion> readByFairName(String name) throws DAOException {
+		ArrayList<Tasignacion> readAsignacionList = new ArrayList<>();
 
 		driverIdentify();
 		Connection connec = null;
@@ -125,8 +125,8 @@ public class DAOAsignacionImp implements DAOAsignacion {
 			ps.setString(1, name);
 			ResultSet rs = ps.executeQuery();
 
-			if (rs.next()){
-				readAsignacion = new Tasignacion( rs.getInt("fair_id"), rs.getInt("pavilion_id"), rs.getInt("stand_id"), rs.getInt("used_m2"), rs.getBoolean("active") ) ;
+			while (rs.next()){
+				readAsignacionList.add(new Tasignacion( rs.getInt("fair_id"), rs.getInt("pavilion_id"), rs.getInt("stand_id"), rs.getInt("used_m2"), rs.getBoolean("active") ) );
 			}
 		}
 		catch (SQLException e){
@@ -141,7 +141,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		}
 
 
-		return readAsignacion;
+		return readAsignacionList;
 	}
 
 	/***
@@ -150,11 +150,12 @@ public class DAOAsignacionImp implements DAOAsignacion {
 	 * @return Tasignacion read from database
 	 * @throws DAOException error from database
 	 */
-	public Tasignacion readByPavilionName(String name) throws DAOException {
-		Tasignacion readAsignacion = null;
+	public Collection<Tasignacion> readByPavilionName(String name) throws DAOException {
+		ArrayList<Tasignacion> readAsignacionList = new ArrayList<>();
 
 		driverIdentify();
 		Connection connec = null;
+
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
@@ -168,8 +169,8 @@ public class DAOAsignacionImp implements DAOAsignacion {
 			ps.setString(1, name);
 			ResultSet rs = ps.executeQuery();
 
-			if (rs.next()){
-				readAsignacion = new Tasignacion( rs.getInt("fair_id"), rs.getInt("pavilion_id"), rs.getInt("stand_id"), rs.getInt("used_m2"), rs.getBoolean("active") ) ;
+			while (rs.next()){
+				readAsignacionList.add( new Tasignacion( rs.getInt("fair_id"), rs.getInt("pavilion_id"), rs.getInt("stand_id"), rs.getInt("used_m2"), rs.getBoolean("active") )) ;
 			}
 		}
 		catch (SQLException e){
@@ -184,7 +185,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		}
 
 
-		return readAsignacion;
+		return readAsignacionList;
 	}
 
 	/***
