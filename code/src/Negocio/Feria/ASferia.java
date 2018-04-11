@@ -13,7 +13,7 @@ public interface ASferia {
 
     Integer modify(Tferia feria) throws ASException, DAOException;
 
-    Collection<Tferia> list() throws DAOException;
+    Collection<Tferia> list() throws ASException, DAOException;
 
     Tferia show(Tferia feria) throws ASException, DAOException;
 }

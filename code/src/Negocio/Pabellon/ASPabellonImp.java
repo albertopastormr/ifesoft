@@ -2,9 +2,11 @@ package Negocio.Pabellon;
 
 import Exceptions.ASException;
 import Exceptions.DAOException;
+
 import java.sql.SQLException;
 
 import Integracion.Pabellon.DAOPabellon;
+
 import java.util.Collection;
 
 public class ASPabellonImp implements ASPabellon {
@@ -16,8 +18,15 @@ public class ASPabellonImp implements ASPabellon {
 
     public Integer drop(Tpabellon pabellon) throws ASException, DAOException {
         DAOPabellon daoPabellon = IFDAOPabellon.getInstance().generateDAOpabellon();
-        if(pabellon != null){
-            Tpabellon read = DAO
+        if (pabellon != null && pabellon.getId() != -1 && pabellon.getTotal_m2() >= 0 && pabellon.getTotal_m2() >= pabellon.getUtil_m2()) {
+            try {
+                Tpabellon read = daoPabellon.readById(pabellon.getId());
+                if (read == null) {
+
+                }
+            } catch (Exception ex) {
+
+            }
         } else
             throw new ASException("ERROR: No se han introducido los datos del pabellon.\n");
         return null;
@@ -27,7 +36,7 @@ public class ASPabellonImp implements ASPabellon {
         return null;
     }
 
-    public Collection<Tpabellon> list() throws DAOException {
+    public Collection<Tpabellon> list() throws ASException, DAOException {
         return null;
     }
 
