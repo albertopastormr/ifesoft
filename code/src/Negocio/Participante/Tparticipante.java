@@ -1,9 +1,8 @@
 package Negocio.Participante;
 
-import java.sql.Date;
+//import java.sql.Date;
 
 public class Tparticipante {
-
     private int id;
     private String name;
     private long phone;
