@@ -1,9 +1,8 @@
 package Presentacion;
 
-import Presentacion.ControllerImp;
-import Presentacion.UI;
 import Presentacion.views.events.Event;
 import Presentacion.views.events.EventGUI;
+import Presentacion.views.help.ActionHelp;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -36,6 +35,8 @@ public class UIimp extends JFrame implements UI {
     private Color cHelpButton = new Color(66,35,146);
     private Color cExitButton = new Color(146, 35, 59);
 
+    String helpMessage = "<html>this is a really long message<br>this is a really long message this is a really long message this is " +
+            "a really long message this is a really long message this is a really long message this is a really long message";
 
     public UIimp() {
         super("IFESOFT SOFTWARE");
@@ -58,7 +59,6 @@ public class UIimp extends JFrame implements UI {
 
                 break;
 
-            // .....
         }
     }
 
@@ -93,7 +93,7 @@ public class UIimp extends JFrame implements UI {
     }
 
     private void helpButtonActionPerformed() {
-
+        new ActionHelp(helpMessage);
     }
 
     private void setUpTitle(){

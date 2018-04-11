@@ -101,7 +101,7 @@ public class ControllerImp extends Controller {
             /** Form Views*/
 
             case Event.INSERT_FORM_FERIA:
-                new ViewsFormFeria();
+                //new ViewsFormFeria();
                 break;
             case Event.INSERT_FORM_ASIGNACION:
                 new ViewsFormAsignacion();
@@ -120,13 +120,13 @@ public class ControllerImp extends Controller {
                 break;
 
             case Event.MODIFY_FORM_FERIA:
-                try {
+               /* try {
                     tFeria = asFeria.show((Tferia) data);
-                    new ViewsFormFeria(tFeria);
+                    //new ViewsFormFeria(tFeria);
 
                 } catch (ASException | DAOException e) {
                     e.printStackTrace();
-                }
+                }*/
                 break;
             case Event.INSERT_FAIR:
                 tFeria = (Tferia) data;

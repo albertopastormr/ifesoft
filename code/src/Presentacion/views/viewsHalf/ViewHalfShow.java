@@ -7,6 +7,7 @@ import Presentacion.views.events.Event;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
+import java.util.Objects;
 import javax.naming.ldap.Control;
 import javax.swing.*;
 import javax.swing.border.*;
@@ -32,6 +33,8 @@ public class ViewHalfShow extends JFrame {
     private JTextField textID;
     private JTextField textDateStart;
     private JTextField textDateEnd;
+    private JPanel radioButtonPanel;
+    private ButtonGroup radioButtons;
 
     private Font fComboBox = new Font(Font.DIALOG, Font.PLAIN, 40);
     private Font fTitle  = new Font(Font.MONOSPACED, Font.BOLD, 80);
@@ -54,6 +57,7 @@ public class ViewHalfShow extends JFrame {
         super("Show");
 
         initComponents();
+        logicView();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
@@ -113,7 +117,7 @@ public class ViewHalfShow extends JFrame {
 
         //===== RadioButtonPanel =====
 
-        JPanel radioButtonPanel = new JPanel(new FlowLayout());
+        this.radioButtonPanel = new JPanel(new FlowLayout());
 
         //---- radioButtonLeft ----
         radioButtonLeft = new JRadioButton();
@@ -125,7 +129,7 @@ public class ViewHalfShow extends JFrame {
         radioButtonRight.setText("List");
         radioButtonRight.setFont(fRadioButton);
 
-        ButtonGroup radioButtons = new ButtonGroup();
+        radioButtons = new ButtonGroup();
         radioButtons.add(radioButtonLeft);
         radioButtons.add(radioButtonRight);
 
@@ -142,8 +146,10 @@ public class ViewHalfShow extends JFrame {
         textFieldPanel.setLayout(textFieldPanelLayout);
 
         labelSubID = new JLabel();
-        labelSubID.setText("ID");
+        labelSubID.setText("ID:");
         labelSubID.setFont(fLabelSubId);
+
+        labelSubID.setVisible(false);
 
         textFieldPanel.add(labelSubID);
 
@@ -167,8 +173,10 @@ public class ViewHalfShow extends JFrame {
         panelDateStart.setLayout(panelLayoutDateStart);
 
         labelSubIDdateStart = new JLabel();
-        labelSubIDdateStart.setText("ID");
+        labelSubIDdateStart.setText("Start date:");
         labelSubIDdateStart.setFont(fLabelSubId);
+
+        labelSubIDdateStart.setVisible(false);
 
         textFieldPanel.add(labelSubIDdateStart);
 
@@ -192,8 +200,10 @@ public class ViewHalfShow extends JFrame {
         panelDateEnd.setLayout(panelLayoutDateEnd);
 
         labelSubIDdateEnd = new JLabel();
-        labelSubIDdateEnd.setText("ID");
+        labelSubIDdateEnd.setText("End date:");
         labelSubIDdateEnd.setFont(fLabelSubId);
+
+        labelSubIDdateEnd.setVisible(false);
 
         panelDateEnd.add(labelSubIDdateEnd);
 
@@ -276,6 +286,8 @@ public class ViewHalfShow extends JFrame {
 
     private void initComponents() {
 
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
         //======== this ========
         Container contentPane = getContentPane(); 
         contentPane.setLayout(new BorderLayout());
@@ -328,21 +340,44 @@ public class ViewHalfShow extends JFrame {
     }
 
     private void logicView(){
-        this.radioButtonLeft.setVisible(true);
-        this.radioButtonRight.setVisible(true);
-        switch (String.valueOf(comboBoxViews.getSelectedItem())){
+
+        comboBoxViews.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                itemStateChanged(evt);
+            }
+        });
+
+    }
+
+    private void itemStateChanged(ActionEvent evt) {
+
+        textID.setVisible(false);
+        labelSubID.setVisible(false);
+        labelSubIDdateStart.setVisible(false);
+        labelSubIDdateEnd.setVisible(false);
+        textDateStart.setVisible(false);
+        textDateEnd.setVisible(false);
+        radioButtonPanel.setVisible(false);
+
+        switch (Objects.requireNonNull(comboBoxViews.getSelectedItem()).toString()){
             case "Fair":
+
+                radioButtonPanel.setVisible(true);
+
                 if(radioButtonLeft.isSelected()){
                     textID.setVisible(true);
                     labelSubID.setVisible(true);
-                    Controller.getInstance().execute(Event.SHOW_FAIR_INDIVIDUAL ,new Tferia(textID.getText(), null, null, null));
+                    labelSubIDdateStart.setVisible(false);
+                    labelSubIDdateEnd.setVisible(false);
+                    textDateStart.setVisible(false);
+                    textDateEnd.setVisible(false);
                 }else{
+                    textID.setVisible(false);
+                    labelSubID.setVisible(false);
                     labelSubIDdateStart.setVisible(true);
                     labelSubIDdateEnd.setVisible(true);
                     textDateStart.setVisible(true);
                     textDateEnd.setVisible(true);
-
-                    Controller.getInstance().execute(Event.SHOW_FAIR_LIST ,new Tferia(null, null, null, null));
                 }
 
                 break;
@@ -368,9 +403,6 @@ public class ViewHalfShow extends JFrame {
                 //Cambiar texto
 
                 break;
-
         }
-
-
     }
 }
