@@ -88,7 +88,7 @@ public class ASPabellonImp implements ASPabellon {
         return collection;
     }
 
-    public Tpabellon show(Tpabellon pabellon) throws ASException, DAOException {
+    public Tpabellon showById(Tpabellon pabellon) throws ASException, DAOException {
         DAOPabellon daoPabellon = IFDAOPabellon.getInstance().generateDAOpabellon();
         if (pabellon != null) {
             try {

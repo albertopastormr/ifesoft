@@ -14,5 +14,5 @@ public interface ASPabellon {
 
     Collection<Tpabellon> list() throws ASException, DAOException;
 
-    Tpabellon show(Tpabellon pabellon) throws ASException, DAOException;
+    Tpabellon showById(Tpabellon pabellon) throws ASException, DAOException;
 }

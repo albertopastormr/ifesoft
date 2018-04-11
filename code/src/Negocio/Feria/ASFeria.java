@@ -15,5 +15,8 @@ public interface ASFeria {
 
     Collection<Tferia> list() throws ASException, DAOException;
 
-    Tferia show(Tferia feria) throws ASException, DAOException;
+    Tferia showByName(Tferia feria) throws ASException, DAOException;
+
+    Tferia showById(Tferia feria) throws ASException, DAOException;
+
 }

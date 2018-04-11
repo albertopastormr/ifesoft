@@ -45,11 +45,11 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
         if (feria != null) {
             feria.setActive(false);
             try {
-                Tferia read = daoFeria.readByName(feria.getName());
+                Tferia read = daoFeria.readById(feria.getId());
                 if (read != null)
                     id = daoFeria.update(feria);
                 else
-                    throw new ASException("ERROR: La feria " + feria.getName() + " no existe.\n");
+                    throw new ASException("ERROR: La feria " + feria.getId() + " no existe.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }
@@ -91,7 +91,7 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
         return collection;
     }
 
-    public Tferia show(Tferia feria) throws ASException, DAOException {
+    public Tferia showByName(Tferia feria) throws ASException, DAOException {
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
         if (feria != null) {
             try {
@@ -100,6 +100,23 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
                     return read;
                 else
                     throw new ASException("ERROR: La feria " + feria.getName() + " no existe.\n");
+            } catch (Exception ex) {
+                throw new ASException(ex.getMessage());
+            }
+        } else
+            throw new ASException("ERROR: No se han introducido los datos de la feria.\n");
+        //return null;
+    }
+
+    public Tferia showById(Tferia feria) throws ASException, DAOException {
+        DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
+        if (feria != null) {
+            try {
+                Tferia read = daoFeria.readById(feria.getId());
+                if (read != null)
+                    return read;
+                else
+                    throw new ASException("ERROR: La feria " + feria.getId() + " no existe.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }
