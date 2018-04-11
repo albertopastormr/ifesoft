@@ -141,6 +141,49 @@ public class DAOParticipanteImp implements DAOParticipante {
 	}
 
 	/***
+	 * reads a Tparticipante from database ifesoft by a name
+	 * @param id Tparticipante name to be read
+	 * @return tParticipante read from database
+	 * @throws DAOException error from database
+	 */
+	public Tparticipante readById(Integer id) throws DAOException {
+		Tparticipante readParticipante = null;
+
+		Connection connec = null;
+		driverIdentify();
+
+		try { // Conexion db
+			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+		} catch (SQLException e) {
+			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' ID Participante "+ id +" no logrado\n");
+		}
+
+		try { // Tratamiento db
+			PreparedStatement ps;
+
+			ps = connec.prepareStatement("SELECT * FROM participante WHERE id = ?");
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()){
+				readParticipante = new Tparticipante( rs.getString("name"), rs.getLong("phone"), rs.getBoolean("active") ) ;
+			}
+		}
+		catch (SQLException e){
+			throw new DAOException("ERROR: tratamiento DB para 'readById' ID Participante "+ id +" no logrado\n");
+		}
+		finally {
+			try { // Desconexion db
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrando conexion a DB para 'readById' ID Participante "+ id +" no logrado\n");
+			}
+		}
+
+		return readParticipante;
+	}
+
+	/***
 	 * Updates the database ifesoft information of a tParticipante(param) which already exists
 	 * @param tParticipante it needs a valid ID read from db
 	 * @return Integer ID tParticipante updated

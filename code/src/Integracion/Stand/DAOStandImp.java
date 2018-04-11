@@ -14,7 +14,7 @@ public class DAOStandImp implements DAOStand {
 
 	/***
 	 * Inserts a valid tStand to database 'ifesoft'
-	 * @param tStand
+	 * @param tStand to create
 	 * @return Integer ID tStand created
 	 * @throws DAOException error from database
 	 */
@@ -27,7 +27,7 @@ public class DAOStandImp implements DAOStand {
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if"); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
-			throw new DAOException("ERROR: acceso a la conexion a DB para 'create' Name Stand "+ tStand.getNum_at_fair() +" no logrado\n");
+			throw new DAOException("ERROR: acceso a la conexion a DB para 'create' ID Stand "+ tStand.getId() +" no logrado\n");
 		}
 
 		try { // Tratamiento db
@@ -45,13 +45,13 @@ public class DAOStandImp implements DAOStand {
 				id = rs.getInt("LAST_INSERT_ID()");
 		}
 		catch (SQLException e){
-			throw new DAOException("ERROR: tratamiento DB para 'create' Name Stand "+ tStand.getNum_at_fair() +" no logrado\n");
+			throw new DAOException("ERROR: tratamiento DB para 'create' ID Stand "+ tStand.getId() +" no logrado\n");
 		}
 		finally {
 			try { // Desconexion db
 				connec.close();
 			} catch (SQLException e) {
-				throw new DAOException("ERROR: cerrando conexion a DB para 'create' Name Stand "+ tStand.getNum_at_fair() +" no logrado\n");
+				throw new DAOException("ERROR: cerrando conexion a DB para 'create' ID Stand "+ tStand.getId() +" no logrado\n");
 			}
 		}
 		return id;
@@ -59,7 +59,7 @@ public class DAOStandImp implements DAOStand {
 
 	/***
 	 * reads every tStand(collection) from database 'ifesoft' with any constraint
-	 * @return
+	 * @return Collection<Tstand> read from database
 	 * @throws DAOException error from database
 	 */
 	public Collection<Tstand> readAll() throws DAOException {
@@ -99,11 +99,11 @@ public class DAOStandImp implements DAOStand {
 
 	/***
 	 * reads a tStand from database ifesoft by a name
-	 * @param name tStand name to be read
-	 * @return
-	 * @throws DAOException
+	 * @param id tStand name to be read
+	 * @return tStand read from database
+	 * @throws DAOException error from database
 	 */
-	public Tstand readByName(String name) throws DAOException {
+	public Tstand readById(Integer id) throws DAOException {
 		Tstand readStand = null;
 
 		Connection connec = null;
@@ -112,14 +112,14 @@ public class DAOStandImp implements DAOStand {
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
-			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' Name Stand "+ name +" no logrado\n");
+			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByID' ID Stand "+ id +" no logrado\n");
 		}
 
 		try { // Tratamiento db
 			PreparedStatement ps;
 
-			ps = connec.prepareStatement("SELECT * FROM stand WHERE num_at_fair = ?");
-			ps.setString(1, name);
+			ps = connec.prepareStatement("SELECT * FROM stand WHERE id = ?");
+			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()){
@@ -127,15 +127,13 @@ public class DAOStandImp implements DAOStand {
 			}
 		}
 		catch (SQLException e){
-			throw new DAOException("ERROR: tratamiento DB para 'readByName' Name Stand "+ name +" no logrado\n");
+			throw new DAOException("ERROR: tratamiento DB para 'readByID' ID Stand "+ id +" no logrado\n");
 		}
-
-
 
 		try { // Desconexion db
 			connec.close();
 		} catch (SQLException e) {
-			throw new DAOException("ERROR: cerrando conexion a DB para 'readByName' Name Stand "+ name +" no logrado\n");
+			throw new DAOException("ERROR: cerrando conexion a DB para 'readByID' ID Stand "+ id +" no logrado\n");
 		}
 		return readStand;
 	}
@@ -143,8 +141,8 @@ public class DAOStandImp implements DAOStand {
 	/***
 	 * Updates the database ifesoft information of a tStand(param) which already exists
 	 * @param tStand it needs a valid ID read from db
-	 * @return
-	 * @throws DAOException
+	 * @return tStand updated at database
+	 * @throws DAOException error from database
 	 */
 	public Integer update(Tstand tStand) throws DAOException {
 		int id = -1;
@@ -155,7 +153,7 @@ public class DAOStandImp implements DAOStand {
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
 		} catch (SQLException e) {
-			throw new DAOException("ERROR: acceso a la conexion a DB para 'update' Name Stand "+ tStand.getNum_at_fair() +" no logrado\n");
+			throw new DAOException("ERROR: acceso a la conexion a DB para 'update' ID Stand "+ tStand.getId() +" no logrado\n");
 		}
 
 		try { // Tratamiento db
@@ -167,15 +165,15 @@ public class DAOStandImp implements DAOStand {
 			ps.setBoolean(4, true);
 			ps.execute();
 
-			ps = connec.prepareStatement("SELECT id FROM stand WHERE num_at_fair = ?");
-			ps.setInt(1, tStand.getNum_at_fair());
+			ps = connec.prepareStatement("SELECT id FROM stand WHERE id = ?");
+			ps.setInt(1, tStand.getId());
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next())
 				id = rs.getInt("id");
 		}
 		catch (SQLException e){
-			throw new DAOException("ERROR: tratamiento DB para 'update' Name Stand "+ tStand.getNum_at_fair() +" no logrado\n");
+			throw new DAOException("ERROR: tratamiento DB para 'update' ID Stand "+ tStand.getId() +" no logrado\n");
 		}
 
 
@@ -183,7 +181,7 @@ public class DAOStandImp implements DAOStand {
 			try { // Desconexion db
 				connec.close();
 			} catch (SQLException e) {
-				throw new DAOException("ERROR: cerrando conexion a DB para 'update' Name Stand "+ tStand.getNum_at_fair() +" no logrado\n");
+				throw new DAOException("ERROR: cerrando conexion a DB para 'update' ID Stand "+ tStand.getId() +" no logrado\n");
 			}
 		}
 
@@ -193,8 +191,8 @@ public class DAOStandImp implements DAOStand {
 	/***
 	 * deletes a tStand from database
 	 * @param id tStand to delete
-	 * @return boolean
-	 * @throws DAOException
+	 * @return boolean has_been_deleted
+	 * @throws DAOException error from database
 	 */
 	public boolean delete (Integer id) throws DAOException {
 		Connection connec = null;

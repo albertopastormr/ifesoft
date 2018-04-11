@@ -115,7 +115,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
-			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' Fair Name "+ name +" no logrado\n");
+			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByFairName' Fair Name "+ name +" no logrado\n");
 		}
 
 		try { // Tratamiento db
@@ -130,13 +130,57 @@ public class DAOAsignacionImp implements DAOAsignacion {
 			}
 		}
 		catch (SQLException e){
-			throw new DAOException("ERROR: tratamiento DB para 'readByName' Fair Name "+ name +" no logrado\n");
+			throw new DAOException("ERROR: tratamiento DB para 'readByFairName' Fair Name "+ name +" no logrado\n");
 		}
 		finally {
 			try { // Desconexion db
 				connec.close();
 			} catch (SQLException e) {
-				throw new DAOException("ERROR: cerrando conexion a DB para 'readByName' Fair Name "+ name +" no logrado\n");
+				throw new DAOException("ERROR: cerrando conexion a DB para 'readByFairName' Fair Name "+ name +" no logrado\n");
+			}
+		}
+
+
+		return readAsignacionList;
+	}
+
+	/***
+	 * reads a Tasignacion from database ifesoft by a fair name
+	 * @param id Tasignacion name to be read
+	 * @return Tasignacion read from database
+	 * @throws DAOException error from database
+	 */
+	public Collection<Tasignacion> readByFairId(Integer id) throws DAOException {
+		ArrayList<Tasignacion> readAsignacionList = new ArrayList<>();
+
+		driverIdentify();
+		Connection connec = null;
+
+		try { // Conexion db
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
+		} catch (SQLException e) {
+			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByFairId' Fair ID "+ id +" no logrado\n");
+		}
+
+		try { // Tratamiento db
+			PreparedStatement ps;
+
+			ps = connec.prepareStatement("SELECT * FROM asignacion as JOIN feria f ON as.fair_id = f.id WHERE f.id = ?");
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()){
+				readAsignacionList.add(new Tasignacion( rs.getInt("fair_id"), rs.getInt("pavilion_id"), rs.getInt("stand_id"), rs.getInt("used_m2"), rs.getBoolean("active") ) );
+			}
+		}
+		catch (SQLException e){
+			throw new DAOException("ERROR: tratamiento DB para 'readByFairId' Fair ID "+ id +" no logrado\n");
+		}
+		finally {
+			try { // Desconexion db
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrando conexion a DB para 'readByFairId' Fair ID "+ id +" no logrado\n");
 			}
 		}
 
@@ -159,7 +203,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
-			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' Pavilion Name "+ id +" no logrado\n");
+			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByPavilionID' Pavilion Id "+ id +" no logrado\n");
 		}
 
 		try { // Tratamiento db
@@ -174,13 +218,13 @@ public class DAOAsignacionImp implements DAOAsignacion {
 			}
 		}
 		catch (SQLException e){
-			throw new DAOException("ERROR: tratamiento DB para 'readByName' Pavilion Name "+ id +" no logrado\n");
+			throw new DAOException("ERROR: tratamiento DB para 'readByPavilionID' Pavilion ID "+ id +" no logrado\n");
 		}
 		finally {
 			try { // Desconexion db
 				connec.close();
 			} catch (SQLException e) {
-				throw new DAOException("ERROR: cerrando conexion a DB para 'readByName' Pavilion Name "+ id +" no logrado\n");
+				throw new DAOException("ERROR: cerrando conexion a DB para 'readByPavilionID' Pavilion ID "+ id +" no logrado\n");
 			}
 		}
 

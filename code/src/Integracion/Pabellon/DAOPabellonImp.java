@@ -113,7 +113,7 @@ public class DAOPabellonImp implements DAOPabellon {
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
-			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' Name Pabellon "+ id +" no logrado\n");
+			throw new DAOException("ERROR: acceso a la conexion a DB para 'readById' ID Pabellon "+ id +" no logrado\n");
 		}
 
 		try { // Tratamiento db
@@ -128,13 +128,13 @@ public class DAOPabellonImp implements DAOPabellon {
 			}
 		}
 		catch (SQLException e){
-			throw new DAOException("ERROR: tratamiento DB para 'readByName' Name Pabellon "+ id +" no logrado\n");
+			throw new DAOException("ERROR: tratamiento DB para 'readById' ID Pabellon "+ id +" no logrado\n");
 		}
 		finally {
 			try { // Desconexion db
 				connec.close();
 			} catch (SQLException e) {
-				throw new DAOException("ERROR: cerrando conexion a DB para 'readByName' Name Pabellon "+ id +" no logrado\n");
+				throw new DAOException("ERROR: cerrando conexion a DB para 'readById' ID Pabellon "+ id +" no logrado\n");
 			}
 		}
 
