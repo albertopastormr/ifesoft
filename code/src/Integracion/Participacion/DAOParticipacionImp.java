@@ -71,7 +71,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 		driverIdentify();
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readAll' no logrado\n");
 		}
@@ -112,7 +112,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 		driverIdentify();
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' Fair Name "+ name +" no logrado\n");
 		}
@@ -155,7 +155,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 		driverIdentify();
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' Client Name "+ name +" no logrado\n");
 		}
@@ -198,7 +198,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 		driverIdentify();
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'update' Participacion con ID Feria "+ tParticipacion.getFair_id() + " ID Participante " + tParticipacion.getClient_id() + " ID Stand " + tParticipacion.getStand_id()+" no logrado\n");
 		}
@@ -241,7 +241,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 		driverIdentify();
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion para 'delete' Participacion con ID Feria "+ fair_id + " ID Participante " + client_id + " ID Stand " + stand_id +" no logrado\n");
 		}

@@ -12,4 +12,5 @@ public interface DAOStand {
 	 Tstand readByName(String nombre) throws DAOException;
 	 Integer update(Tstand tstand) throws DAOException;
 	 boolean delete(Integer id) throws DAOException;
+	public void deleteAll() throws DAOException;
 }

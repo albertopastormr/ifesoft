@@ -26,7 +26,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		Connection connec = null;
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if"); // Datos de acceso a la db: user//manager pw//manager-if
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'create' Asignacion ID Feria "+ tAsignacion.getFair_id() + " ID Pabellon " + tAsignacion.getPavilion_id() + " ID Stand " + tAsignacion.getStand_id()+" no logrado\n");
 		}
@@ -72,7 +72,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		Connection connec = null;
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readAll' no logrado\n");
 		}
@@ -113,7 +113,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		Connection connec = null;
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' Fair Name "+ name +" no logrado\n");
 		}
@@ -157,7 +157,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		Connection connec = null;
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' Pavilion Name "+ name +" no logrado\n");
 		}
@@ -201,7 +201,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		Connection connec = null;
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'update' Asignacion ID Feria "+ tAsignacion.getFair_id() + " ID Pabellon " + tAsignacion.getPavilion_id() + " ID Stand " + tAsignacion.getStand_id()+" no logrado\n");
 		}
@@ -248,7 +248,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		Connection connec = null;
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion para 'delete' Asignacion con ID Feria "+ fair_id + " ID Pabellon " + pavilion_id + " ID Stand " + stand_id +" no logrado\n");
 		}

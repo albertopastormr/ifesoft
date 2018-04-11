@@ -12,4 +12,5 @@ public interface DAOPabellon {
 	 Tpabellon readById(Integer id) throws DAOException;
 	 Integer update(Tpabellon tpabellon) throws DAOException;
 	 boolean delete(Integer id) throws DAOException;
+	public void deleteAll() throws DAOException;
 }

@@ -13,4 +13,5 @@ public interface DAOParticipacion {
 	 Collection<Tparticipacion> readByClientName(String nombre) throws DAOException;
 	 Integer update(Tparticipacion tParticipacion) throws DAOException;
 	 boolean delete(Integer fair_id, Integer pavilion_id, Integer stand_id) throws DAOException;
+	 public void deleteAll() throws DAOException;
 }

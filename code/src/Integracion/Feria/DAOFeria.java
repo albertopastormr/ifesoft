@@ -12,4 +12,5 @@ public interface DAOFeria {
 	 Tferia readByName(String name) throws DAOException;
 	 Integer update(Tferia tferia) throws DAOException;
 	 boolean delete (Integer id) throws DAOException;
+	 public void deleteAll() throws DAOException;
 }
