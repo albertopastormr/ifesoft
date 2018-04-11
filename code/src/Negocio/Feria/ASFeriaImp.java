@@ -21,13 +21,13 @@ public class ASFeriaImp implements ASferia { // Try-Catch solo si hay que captur
                 else
                     throw new ASException("ERROR: El intervalo de fechas no es correcto.\n");
             } else {
-                if (read.equals(feria)) {
-                    if (!read.getActive()) {
-                        read.setActive(true);
-                        id = daoFeria.update(read);
-                    } else
-                        throw new ASException("ERROR: La feria " + feria.getName() + "ya esta activa.\n");
-                } else
+             //   if (read.equals(feria)) {
+             //   if (!read.getActive()) {
+             //           read.setActive(true);
+             //           id = daoFeria.update(read);
+             //       } else
+             //           throw new ASException("ERROR: La feria " + feria.getName() + "ya esta activa.\n");
+             //   } else
                     throw new ASException("ERROR: El nombre " + feria.getName() + " ya esta siendo utilizado.\n");
             }
         } else
