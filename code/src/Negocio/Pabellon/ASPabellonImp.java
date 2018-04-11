@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import Integracion.Pabellon.DAOPabellon;
 
 import java.util.Collection;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class ASPabellonImp implements ASPabellon {
     public Integer create(Tpabellon pabellon) throws ASException, DAOException {
@@ -21,8 +22,13 @@ public class ASPabellonImp implements ASPabellon {
                         id = daoPabellon.create(pabellon);
                     else
                         throw new ASException("ERROR: Los datos del pabellon no son correctos.\n");
-                } else
-                    throw new ASException("ERROR: El pabellon " + pabellon.getId() + "ya existe.\n");
+                } else {
+                    if (!read.getActive()) {
+                        pabellon.setActive(true);
+                        id = daoPabellon.update(pabellon);
+                    } else
+                        throw new ASException("ERROR: El pabellon " + pabellon.getId() + "ya existe.\n");
+                }
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }
@@ -51,14 +57,51 @@ public class ASPabellonImp implements ASPabellon {
     }
 
     public Integer modify(Tpabellon pabellon) throws ASException, DAOException {
-        return null;
+        int id = -1;
+        DAOPabellon daoPabellon = IFDAOPabellon.getInstance().generateDAOpabellon();
+        if (pabellon != null) {
+            try {
+                Tpabellon read = daoPabellon.readById(pabellon.getId());
+                if (read != null) {
+                    if (pabellon.getTotal_m2() >= pabellon.getUtil_m2()) {
+                        id = daoPabellon.update(pabellon);
+                    } else
+                        throw new ASException("Error: Los metros cuadrados totales son menores a los utiles.\n");
+                } else
+                    throw new ASException("ERROR: El pabellon " + pabellon.getId() + " no existe.\n");
+            } catch (Exception ex) {
+                throw new ASException(ex.getMessage());
+            }
+        } else
+            throw new ASException("ERROR: No se han introducido los datos del pabellon.\n");
+        return id;
     }
 
     public Collection<Tpabellon> list() throws ASException, DAOException {
-        return null;
+        DAOPabellon daoPabellon = IFDAOPabellon.getInstance().generateDAOpabellon();
+        Collection<Tpabellon> collection;
+        try {
+            collection = daoPabellon.readAll();
+        } catch (Exception ex) {
+            throw new ASException(ex.getMessage());
+        }
+        return collection;
     }
 
     public Tpabellon show(Tpabellon pabellon) throws ASException, DAOException {
-        return null;
+        DAOPabellon daoPabellon = IFDAOPabellon.getInstance().generateDAOpabellon();
+        if (pabellon != null) {
+            try {
+                Tpabellon read = daoPabellon.readById(pabellon.getId());
+                if (read != null)
+                    return read;
+                else
+                    throw new ASException("ERROR: El pabellon " + pabellon.getId() + " no existe.\n");
+            } catch (Exception ex) {
+                throw new ASException(ex.getMessage());
+            }
+        } else
+            throw new ASException("ERROR: No se han introducido los datos del pabellon.\n");
+        //return null;
     }
 }

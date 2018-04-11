@@ -105,6 +105,6 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
             }
         } else
             throw new ASException("ERROR: No se han introducido los datos de la feria.\n");
-        //return null; /* No se llega a este return */
+        //return null;
     }
 }
