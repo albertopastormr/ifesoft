@@ -17,6 +17,9 @@ import javax.swing.plaf.ColorUIResource;
 
 public class ViewHalfDrop extends JFrame {
 
+    private JFrame sureFrame;
+    private boolean chosen = false;
+
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
     private JPanel dialogPanel;
@@ -55,33 +58,43 @@ public class ViewHalfDrop extends JFrame {
     }
 
         private void okButtonActionPerformed(ActionEvent e) {
-            switch (String.valueOf(comboBoxDrop.getSelectedItem())){
-                case "Fair":
-                    this.setVisible(false);
-                    Controller.getInstance().execute(Event.DROP_HALF_FERIA, new Tferia(textName.getText(), null, null, null));
-                    break;
-                case "Pavilion":
-                    this.setVisible(false);
-                    Controller.getInstance().execute(Event.DROP_HALF_PABELLON, new Tpabellon(Integer.parseInt(textName.getText()), -1, -1, null));
-                    break;
-                case "Stand":
-                    this.setVisible(false);
-                    Controller.getInstance().execute(Event.DROP_HALF_STAND, new Tstand(Integer.parseInt(textName.getText()), -1, -1, null));
-                    break;
-                case "Client":
-                    this.setVisible(false);
-                    Controller.getInstance().execute(Event.DROP_HALF_PARTICIPANTE, new Tparticipante(Integer.parseInt(textName.getText()), null, -1, null));
-                    break;
-                case "Assignation":
-                    this.setVisible(false);
-                    Controller.getInstance().execute(Event.DROP_HALF_ASIGNACION, new Tasignacion(Integer.parseInt(textName.getText()), -1, -1, -1, null));
-                    break;
-                case "Participation":
-                    this.setVisible(false);
-                    Controller.getInstance().execute(Event.DROP_HALF_PARTICIPACION, new Tparticipante(Integer.parseInt(textName.getText()), null, -1, null));
-                    break;
 
-            }
+            chosen = false;
+            setupSure();
+        }
+
+        private void delete(){
+
+
+           System.out.println("Hem arribat");
+
+        switch (String.valueOf(comboBoxDrop.getSelectedItem())) {
+            case "Fair":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.DROP_HALF_FERIA, new Tferia(textName.getText(), null, null, null));
+                break;
+            case "Pavilion":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.DROP_HALF_PABELLON, new Tpabellon(Integer.parseInt(textName.getText()), -1, -1, null));
+                break;
+            case "Stand":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.DROP_HALF_STAND, new Tstand(Integer.parseInt(textName.getText()), -1, -1, null));
+                break;
+            case "Client":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.DROP_HALF_PARTICIPANTE, new Tparticipante(Integer.parseInt(textName.getText()), null, -1, null));
+                break;
+            case "Assignation":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.DROP_HALF_ASIGNACION, new Tasignacion(Integer.parseInt(textName.getText()), -1, -1, -1, null));
+                break;
+            case "Participation":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.DROP_HALF_PARTICIPACION, new Tparticipante(Integer.parseInt(textName.getText()), null, -1, null));
+                break;
+
+         }
         }
 
         private void cancelButtonActionPerformed(ActionEvent e) {
@@ -91,6 +104,96 @@ public class ViewHalfDrop extends JFrame {
 
         private void helpButtonActionPerformed(ActionEvent e) {
 
+        }
+
+        private void closeOkFrame(ActionEvent e){
+            System.out.println("HE ARRIBAT");
+        sureFrame.setVisible(false);
+
+            delete();
+        }
+
+        private void closeNotOkFrame(ActionEvent e){
+            sureFrame.setVisible(false);
+        }
+
+
+
+    private JPanel setupSureButtonBar(){
+            Dimension buttonDim = new Dimension(150, 80);
+
+            JPanel sureButtonBar;
+
+            //---- cancelButton ----
+            JButton denyButton = new JButton();
+            denyButton.setText("Cancel");
+            denyButton.setFont(fButton);
+            denyButton.setBackground(cCancelButton);
+            denyButton.setForeground(Color.WHITE);
+            denyButton.setPreferredSize(buttonDim);
+            denyButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    closeNotOkFrame(e);
+                }
+            });
+
+
+            //---- okButton ----
+            JButton acceptButton = new JButton();
+            acceptButton.setText("Drop");
+            acceptButton.setFont(fButton);
+            acceptButton.setBackground(cOkButton);
+            acceptButton.setForeground(Color.WHITE);
+            acceptButton.setPreferredSize(buttonDim);
+            acceptButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    closeOkFrame(e);
+                }
+            });
+
+            sureButtonBar = new JPanel();
+            FlowLayout layout = new FlowLayout();
+            layout.setHgap(25);
+            sureButtonBar .setLayout(layout);
+            sureButtonBar .add(denyButton);
+            sureButtonBar .add(Box.createHorizontalStrut(200));
+            sureButtonBar .add(acceptButton);
+
+            return sureButtonBar;
+        }
+
+        private void setupSure(){
+            sureFrame = new JFrame();
+            sureFrame.setResizable(false);
+            sureFrame.setAlwaysOnTop(true);
+            sureFrame.setSize(new Dimension(1000, 300));
+            sureFrame.setLocationRelativeTo(null);
+            sureFrame.setLocationRelativeTo(null);
+
+
+            JPanel surePane = new JPanel();
+            surePane.setBorder(new EmptyBorder(12, 12, 12, 12));
+            surePane.setLayout(new BorderLayout());
+
+            JLabel labelQuestion = new JLabel();
+            labelQuestion.setText("Are you sure that you want to permanently delete this module?");
+            labelQuestion.setFont(new Font(Font.DIALOG, Font.PLAIN, 30));
+            labelQuestion.setHorizontalAlignment(SwingConstants.CENTER);
+            labelQuestion.setPreferredSize(new Dimension(1000, 100));
+            surePane.add(labelQuestion, BorderLayout.CENTER);
+
+            surePane.add(setupSureButtonBar(), BorderLayout.PAGE_END);
+            sureFrame.add(surePane);
+
+            pack();
+            if(chosen){
+                sureFrame.setVisible(false);
+            }
+            else{
+                sureFrame.setVisible(true);
+            }
         }
 
         private void setUpTitle(){
