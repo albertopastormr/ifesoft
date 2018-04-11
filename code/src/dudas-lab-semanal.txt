@@ -1,6 +1,11 @@
 - Stand: justificacion en DAO
-- Pabellon: leer por id (autoincremental)
-- Paquete de IFSA?
-- Factorias por cada modulo?
+- Paquete de IFSA? ==> Negocio
+- Factorias por cada modulo ==> factorias por modulo y SA/DAO
 - Revisar test
--
+- Diagrama de clases por modulo? ==> diagrmas de clases por capas y modulos
+- Crear asignacion/participacion
+
+- agregar readByID
+
+
+

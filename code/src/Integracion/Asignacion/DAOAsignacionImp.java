@@ -146,11 +146,11 @@ public class DAOAsignacionImp implements DAOAsignacion {
 
 	/***
 	 * reads a Tasignacion from database ifesoft by a pavilion name
-	 * @param name Tasignacion name to be read
+	 * @param id Tasignacion name to be read
 	 * @return Tasignacion read from database
 	 * @throws DAOException error from database
 	 */
-	public Collection<Tasignacion> readByPavilionName(String name) throws DAOException {
+	public Collection<Tasignacion> readByPavilionId(Integer id) throws DAOException {
 		ArrayList<Tasignacion> readAsignacionList = new ArrayList<>();
 
 		driverIdentify();
@@ -159,14 +159,14 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
-			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' Pavilion Name "+ name +" no logrado\n");
+			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' Pavilion Name "+ id +" no logrado\n");
 		}
 
 		try { // Tratamiento db
 			PreparedStatement ps;
 
-			ps = connec.prepareStatement("SELECT * FROM asignacion as JOIN pabellon pa ON as.pavilion_id = pa.id WHERE pa.name = ?");
-			ps.setString(1, name);
+			ps = connec.prepareStatement("SELECT * FROM asignacion as JOIN pabellon pa ON as.pavilion_id = pa.id WHERE pa.id = ?");
+			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()){
@@ -174,13 +174,13 @@ public class DAOAsignacionImp implements DAOAsignacion {
 			}
 		}
 		catch (SQLException e){
-			throw new DAOException("ERROR: tratamiento DB para 'readByName' Pavilion Name "+ name +" no logrado\n");
+			throw new DAOException("ERROR: tratamiento DB para 'readByName' Pavilion Name "+ id +" no logrado\n");
 		}
 		finally {
 			try { // Desconexion db
 				connec.close();
 			} catch (SQLException e) {
-				throw new DAOException("ERROR: cerrando conexion a DB para 'readByName' Pavilion Name "+ name +" no logrado\n");
+				throw new DAOException("ERROR: cerrando conexion a DB para 'readByName' Pavilion Name "+ id +" no logrado\n");
 			}
 		}
 
