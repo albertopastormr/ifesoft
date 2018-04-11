@@ -1,12 +1,13 @@
 package Presentacion.views.viewsHalf;
 
+import Negocio.Feria.Tferia;
 import Presentacion.Controller;
-import Presentacion.UIimp;
 import Presentacion.views.events.Event;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
+import javax.naming.ldap.Control;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.ColorUIResource;
@@ -20,13 +21,17 @@ public class ViewHalfShow extends JFrame {
     private JPanel buttonBar;
     private JLabel title;
     private JLabel labelSubID;
+    private JLabel labelSubIDdateStart;
+    private JLabel labelSubIDdateEnd;
     private JComboBox<String> comboBoxViews;
-    private JRadioButton radioButtonIndividual;
-    private JRadioButton radioButtonList;
+    private JRadioButton radioButtonLeft;
+    private JRadioButton radioButtonRight;
     private JButton okButton;
     private JButton cancelButton;
     private JButton helpButton;
     private JTextField textID;
+    private JTextField textDateStart;
+    private JTextField textDateEnd;
 
     private Font fComboBox = new Font(Font.DIALOG, Font.PLAIN, 40);
     private Font fTitle  = new Font(Font.MONOSPACED, Font.BOLD, 80);
@@ -110,23 +115,24 @@ public class ViewHalfShow extends JFrame {
 
         JPanel radioButtonPanel = new JPanel(new FlowLayout());
 
-        //---- radioButtonIndividual ----
-        radioButtonIndividual = new JRadioButton();
-        radioButtonIndividual.setText("Individual");
-        radioButtonIndividual.setFont(fRadioButton);
+        //---- radioButtonLeft ----
+        radioButtonLeft = new JRadioButton();
+        radioButtonLeft.setText("Individual");
+        radioButtonLeft.setFont(fRadioButton);
 
-        //---- radioButtonList ----
-        radioButtonList = new JRadioButton();
-        radioButtonList.setText("List");
-        radioButtonList.setFont(fRadioButton);
+        //---- radioButtonRight ----
+        radioButtonRight = new JRadioButton();
+        radioButtonRight.setText("List");
+        radioButtonRight.setFont(fRadioButton);
 
         ButtonGroup radioButtons = new ButtonGroup();
-        radioButtons.add(radioButtonIndividual);
-        radioButtons.add(radioButtonList);
+        radioButtons.add(radioButtonLeft);
+        radioButtons.add(radioButtonRight);
 
-        radioButtonPanel.add(radioButtonIndividual);
-        radioButtonPanel.add(radioButtonList);
+        radioButtonPanel.add(radioButtonLeft);
+        radioButtonPanel.add(radioButtonRight);
 
+        radioButtonPanel.setVisible(false);
         centerPanel.add(radioButtonPanel);
 
         //===== TextField =====
@@ -148,9 +154,61 @@ public class ViewHalfShow extends JFrame {
         textID.setPreferredSize(new Dimension(400, 50));
         textID.setMaximumSize(new Dimension(400, 50));
 
+        textID.setVisible(false);
+
         textFieldPanel.add(textID);
 
         centerPanel.add(textFieldPanel);
+
+        //===== TextField Dates Start =====
+
+        JPanel panelDateStart = new JPanel();
+        FlowLayout panelLayoutDateStart = new FlowLayout();
+        panelDateStart.setLayout(panelLayoutDateStart);
+
+        labelSubIDdateStart = new JLabel();
+        labelSubIDdateStart.setText("ID");
+        labelSubIDdateStart.setFont(fLabelSubId);
+
+        textFieldPanel.add(labelSubIDdateStart);
+
+        textDateStart = new JTextField();
+        textDateStart.setFont(fTextField);
+        textDateStart.setBackground(cTextFieldBG);
+        textDateStart.setMinimumSize(new Dimension(200, 50));
+        textDateStart.setPreferredSize(new Dimension(400, 50));
+        textDateStart.setMaximumSize(new Dimension(400, 50));
+
+        textDateStart.setVisible(false);
+
+        panelDateStart.add(textDateStart);
+
+        centerPanel.add(panelDateStart);
+
+        //===== TextField Dates End =====
+
+        JPanel panelDateEnd = new JPanel();
+        FlowLayout panelLayoutDateEnd = new FlowLayout();
+        panelDateEnd.setLayout(panelLayoutDateEnd);
+
+        labelSubIDdateEnd = new JLabel();
+        labelSubIDdateEnd.setText("ID");
+        labelSubIDdateEnd.setFont(fLabelSubId);
+
+        panelDateEnd.add(labelSubIDdateEnd);
+
+        textDateEnd = new JTextField();
+        textDateEnd.setFont(fTextField);
+        textDateEnd.setBackground(cTextFieldBG);
+        textDateEnd.setMinimumSize(new Dimension(200, 50));
+        textDateEnd.setPreferredSize(new Dimension(400, 50));
+        textDateEnd.setMaximumSize(new Dimension(400, 50));
+
+        textDateEnd.setVisible(false);
+
+        panelDateEnd.add(textDateEnd);
+
+        centerPanel.add(panelDateEnd);
 
 
     }
@@ -267,5 +325,52 @@ public class ViewHalfShow extends JFrame {
         contentPane.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
+    }
+
+    private void logicView(){
+        this.radioButtonLeft.setVisible(true);
+        this.radioButtonRight.setVisible(true);
+        switch (String.valueOf(comboBoxViews.getSelectedItem())){
+            case "Fair":
+                if(radioButtonLeft.isSelected()){
+                    textID.setVisible(true);
+                    labelSubID.setVisible(true);
+                    Controller.getInstance().execute(Event.SHOW_FAIR_INDIVIDUAL ,new Tferia(textID.getText(), null, null, null));
+                }else{
+                    labelSubIDdateStart.setVisible(true);
+                    labelSubIDdateEnd.setVisible(true);
+                    textDateStart.setVisible(true);
+                    textDateEnd.setVisible(true);
+
+                    Controller.getInstance().execute(Event.SHOW_FAIR_LIST ,new Tferia(null, null, null, null));
+                }
+
+                break;
+            case "Pabellon":
+
+
+
+                break;
+            case "Stand":
+
+                // Cambiar texto
+
+                break;
+            case "Participante":
+                break;
+            case "Asignacion":
+
+                //Cambiar texto
+
+                break;
+            case "Participacion":
+
+                //Cambiar texto
+
+                break;
+
+        }
+
+
     }
 }

@@ -65,6 +65,10 @@ public class Event {
     public static final int INSERT_PARTICIPACION = 23455234;
     public static final int MODIFY_PARTICIPACION = 3432523;
 
+    //SHOWS
+
+    public static final int SHOW_FAIR_INDIVIDUAL = 34325623;
+    public static final int SHOW_FAIR_LIST = 343256363;
 
 
 }
