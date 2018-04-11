@@ -1,0 +1,3 @@
+- Stand: justificacion en DAO
+- Pabellon: leer por id (autoincremental)
+-
