@@ -12,7 +12,7 @@ public interface ASPabellon {
 
     Integer modify(Tpabellon pabellon) throws ASException, DAOException;
 
-    Collection<Tpabellon> list() throws DAOException;
+    Collection<Tpabellon> list() throws ASException, DAOException;
 
-    Tpabellon show(Tpabellon pabellon) throws ASException, DAOException;
+    Tpabellon showById(Tpabellon pabellon) throws ASException, DAOException;
 }

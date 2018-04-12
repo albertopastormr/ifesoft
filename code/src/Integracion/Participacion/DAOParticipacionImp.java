@@ -25,7 +25,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 		driverIdentify();
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if"); // Datos de acceso a la db: user//manager pw//manager-if
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'create' Participacion con ID Feria "+ tParticipacion.getFair_id() + " ID Participante " + tParticipacion.getClient_id() + " ID Stand " + tParticipacion.getStand_id()+" no logrado\n");
 		}
@@ -123,7 +123,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 			ps = connec.prepareStatement("SELECT * FROM participacion pn JOIN feria f ON pn.fair_id = f.id  WHERE f.name = ?");
 			ps.setString(1, name);
 			ResultSet rs = ps.executeQuery();
-
+			ps.close();
 			while(rs.next()){
 				readParticipacionList.add(new Tparticipacion( rs.getInt("fair_id"), rs.getInt("client_id"), rs.getInt("stand_id"), rs.getBoolean("active") ));
 			}
@@ -186,6 +186,91 @@ public class DAOParticipacionImp implements DAOParticipacion {
 	}
 
 	/***
+	 * reads a Tparticipacion from database ifesoft by a fair name
+	 * @param id Tparticipacion name to be read
+	 * @return Tparticipacion read from database
+	 * @throws DAOException
+	 */
+	public Collection<Tparticipacion> readByFairId(Integer id) throws DAOException {
+		ArrayList<Tparticipacion> readParticipacionList = new ArrayList<>();
+
+		Connection connec = null;
+		driverIdentify();
+
+		try { // Conexion db
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
+		} catch (SQLException e) {
+			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByFairId' Fair ID "+ id +" no logrado\n");
+		}
+
+		try { // Tratamiento db
+			PreparedStatement ps;
+
+			ps = connec.prepareStatement("SELECT * FROM participacion pn JOIN feria f ON pn.fair_id = f.id  WHERE f.id = ?");
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()){
+				readParticipacionList.add(new Tparticipacion( rs.getInt("fair_id"), rs.getInt("client_id"), rs.getInt("stand_id"), rs.getBoolean("active") ));
+			}
+		}
+		catch (SQLException e){
+			throw new DAOException("ERROR: tratamiento DB para 'readByFairId' Fair ID "+ id +" no logrado\n");
+		}
+		finally {
+			try { // Desconexion db
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrando conexion a DB para 'readByFairId' Fair ID "+ id +" no logrado\n");
+			}
+		}
+
+		return readParticipacionList;
+	}
+
+	/***
+	 * reads a Tparticipacion from database ifesoft by a client name
+	 * @param id Tparticipacion name to be read
+	 * @return Tparticipacion read from database
+	 * @throws DAOException error from database
+	 */
+	public Collection<Tparticipacion> readByClientId(Integer id) throws DAOException {
+		ArrayList<Tparticipacion> readParticipacionList = new ArrayList<>();
+
+		Connection connec = null;
+		driverIdentify();
+
+		try { // Conexion db
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
+		} catch (SQLException e) {
+			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' Client Name "+ id +" no logrado\n");
+		}
+
+		try { // Tratamiento db
+			PreparedStatement ps;
+
+			ps = connec.prepareStatement("SELECT * FROM participacion pn JOIN participante pe ON pn.client_id = pe.id WHERE pe.id = ?");
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			ps.close();
+			while (rs.next()){
+				readParticipacionList.add( new Tparticipacion( rs.getInt("fair_id"), rs.getInt("client_id"), rs.getInt("stand_id"), rs.getBoolean("active") )) ;
+			}
+		}
+		catch (SQLException e){
+			throw new DAOException("ERROR: tratamiento DB para 'readByName' Client Name "+ id +" no logrado\n");
+		}
+		finally {
+			try { // Desconexion db
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrando conexion a DB para 'readByClientName' Participante Name "+ id +" no logrado\n");
+			}
+		}
+
+		return readParticipacionList;
+	}
+	/***
 	 * Updates the database ifesoft information of a tParticipacion(param) which already exists
 	 * @param tParticipacion it needs a valid ID read from db
 	 * @return ID of the Tparticipacion updated at database
@@ -205,12 +290,22 @@ public class DAOParticipacionImp implements DAOParticipacion {
 
 		try { // Tratamiento db
 			PreparedStatement ps;
-			ps = connec.prepareStatement("UPDATE participacion SET (fair_id, client_id, stand_id, active) VALUES (?,?,?,?)");
-			ps.setInt(1, tParticipacion.getFair_id());
-			ps.setInt(2, tParticipacion.getClient_id());
-			ps.setInt(3, tParticipacion.getStand_id());
-			ps.setBoolean(4, true);
+			ps = connec.prepareStatement("UPDATE participacion SET active = ? WHERE fair_id = ? AND client_id = ? AND stand_id = ?");
+			ps.setBoolean(1, tParticipacion.getActive());
+			ps.setInt(2, tParticipacion.getFair_id());
+			ps.setInt(3, tParticipacion.getClient_id());
+			ps.setInt(4, tParticipacion.getStand_id());
 			ps.execute();
+			ps.close();
+			if(!tParticipacion.getActive()){ // Caso desactivado tAsignacion
+				// Desactivado de los stands y participacion relacionados con la asignacion a desactivar
+				ps = connec.prepareStatement("UPDATE stand s JOIN asignacion a ON s.id = a.stand_id SET s.active = ? AND a.active = ? WHERE s.id = ?");
+				ps.setBoolean(1, tParticipacion.getActive());
+				ps.setBoolean(2, tParticipacion.getActive());
+				ps.setInt(3, tParticipacion.getStand_id());
+				ps.execute();
+				ps.close();
+			}
 
 		}
 		catch (SQLException e){

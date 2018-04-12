@@ -1,7 +1,6 @@
 package Negocio.Participante;
 
 public class TparticipanteNacional extends Tparticipante {
-
 	private String region;
 
 	public TparticipanteNacional(String region) {

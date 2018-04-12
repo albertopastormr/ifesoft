@@ -151,6 +151,51 @@ public class DAOFeriaImp implements DAOFeria{
 	}
 
 	/***
+	 * reads a Tferia from database ifesoft by a id
+	 * @param id Tferia name to be read
+	 * @return
+	 * @throws DAOException
+	 */
+	public Tferia readById(Integer id) throws DAOException {
+		Tferia readFeria = null;
+
+		driverIdentify();
+		Connection connec = null;
+
+		try { // Conexion db
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
+		} catch (SQLException e) {
+			throw new DAOException("ERROR: acceso a la conexion a DB para 'readById' ID Feria "+ id +" no logrado\n");
+		}
+
+		try { // Tratamiento db
+			PreparedStatement ps;
+
+			ps = connec.prepareStatement("SELECT * FROM feria WHERE id = ?");
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()){
+				readFeria = new Tferia( rs.getString("name"),rs.getString("description"),rs.getDate("initDate"),rs.getDate("endDate"),rs.getBoolean("active") ) ;
+			}
+			else
+				throw new DAOException("Tferia" + id + " does not exist in ifesoft database\n");
+			ps.close();
+		}
+		catch (SQLException e){
+			throw new DAOException("ERROR: tratamiento DB para 'readById' ID Feria "+ id +" no logrado\n");
+		}
+		finally {
+			try {
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrando conexion a DB para 'readById' no logrado\n");			}
+		}
+
+		return readFeria;
+	}
+
+	/***
 	 * Updates the database ifesoft information of a tFeria(param) which already exists
 	 * @param tFeria it needs a valid ID read from db
 	 * @return
@@ -177,15 +222,33 @@ public class DAOFeriaImp implements DAOFeria{
 			ps.setInt(6, tFeria.getId());
 			ps.execute();
 			ps.close();
+
 			ps = connec.prepareStatement("SELECT id FROM feria WHERE name = ?");
 			ps.setString(1, tFeria.getName());
 			ResultSet rs = ps.executeQuery();
+			ps.close();
 
-			if (rs.next())
+			if (rs.next()) {
 				id = rs.getInt("id");
+				if(!tFeria.getActive()){ 	 // Caso en el cual se desactiva una feria
+					// Desactivado de todos los stands y participaciones relacionadas con la feria a desactivar
+					ps = connec.prepareStatement("UPDATE stand s JOIN participacion p ON s.id = p.stand_id  SET s.active = ? AND p.active = ? WHERE p.fair_id = ?");
+					ps.setBoolean(1, tFeria.getActive());
+					ps.setBoolean(2, tFeria.getActive());
+					ps.setInt(3, tFeria.getId());
+					ps.execute();
+					ps.close();
+					// Desactivado de todos los pabellones y asignaciones relacionadas con la feria a desactivar
+					ps = connec.prepareStatement("UPDATE pabellon p JOIN asignacion a ON p.id = a.pavilion_id  SET p.active = ? AND a.active = ? WHERE a.fair_id = ?");
+					ps.setBoolean(1, tFeria.getActive());
+					ps.setBoolean(2, tFeria.getActive());
+					ps.setInt(3, tFeria.getId());
+					ps.execute();
+					ps.close();
+				}
+			}
 			else
 				throw new DAOException("Tferia " + tFeria.getName() + " does not exist (id not defined) in ifesoft database\n");
-			ps.close();
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'update' Name Feria "+ tFeria.getName() +" no logrado\n");

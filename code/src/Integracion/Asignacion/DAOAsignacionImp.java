@@ -40,10 +40,12 @@ public class DAOAsignacionImp implements DAOAsignacion {
 			ps.setInt(4, tAsignacion.getUsed_m2());
 			ps.setBoolean(5, true);
 			ps.execute();
+			ps.close();
 
 			ps = connec.prepareStatement("SELECT LAST_INSERT_ID() FROM asignacion");
 
 			ResultSet rs = ps.executeQuery();
+			ps.close();
 			if (rs.next())
 				id = rs.getInt("LAST_INSERT_ID()");
 		}
@@ -83,6 +85,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 			ps = connec.prepareStatement("SELECT * FROM asignacion WHERE active = true");
 
 			ResultSet rs = ps.executeQuery();
+			ps.close();
 			while (rs.next())
 				readAsignacionList.add( new Tasignacion( rs.getInt("fair_id"), rs.getInt("pavilion_id"), rs.getInt("stand_id"), rs.getInt("used_m2"), rs.getBoolean("active") ) );
 		}
@@ -115,7 +118,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
-			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' Fair Name "+ name +" no logrado\n");
+			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByFairName' Fair Name "+ name +" no logrado\n");
 		}
 
 		try { // Tratamiento db
@@ -124,19 +127,65 @@ public class DAOAsignacionImp implements DAOAsignacion {
 			ps = connec.prepareStatement("SELECT * FROM asignacion as JOIN feria f ON as.fair_id = f.id WHERE f.name = ?");
 			ps.setString(1, name);
 			ResultSet rs = ps.executeQuery();
+			ps.close();
 
 			while (rs.next()){
 				readAsignacionList.add(new Tasignacion( rs.getInt("fair_id"), rs.getInt("pavilion_id"), rs.getInt("stand_id"), rs.getInt("used_m2"), rs.getBoolean("active") ) );
 			}
 		}
 		catch (SQLException e){
-			throw new DAOException("ERROR: tratamiento DB para 'readByName' Fair Name "+ name +" no logrado\n");
+			throw new DAOException("ERROR: tratamiento DB para 'readByFairName' Fair Name "+ name +" no logrado\n");
 		}
 		finally {
 			try { // Desconexion db
 				connec.close();
 			} catch (SQLException e) {
-				throw new DAOException("ERROR: cerrando conexion a DB para 'readByName' Fair Name "+ name +" no logrado\n");
+				throw new DAOException("ERROR: cerrando conexion a DB para 'readByFairName' Fair Name "+ name +" no logrado\n");
+			}
+		}
+
+
+		return readAsignacionList;
+	}
+
+	/***
+	 * reads a Tasignacion from database ifesoft by a fair name
+	 * @param id Tasignacion name to be read
+	 * @return Tasignacion read from database
+	 * @throws DAOException error from database
+	 */
+	public Collection<Tasignacion> readByFairId(Integer id) throws DAOException {
+		ArrayList<Tasignacion> readAsignacionList = new ArrayList<>();
+
+		driverIdentify();
+		Connection connec = null;
+
+		try { // Conexion db
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
+		} catch (SQLException e) {
+			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByFairId' Fair ID "+ id +" no logrado\n");
+		}
+
+		try { // Tratamiento db
+			PreparedStatement ps;
+
+			ps = connec.prepareStatement("SELECT * FROM asignacion as JOIN feria f ON as.fair_id = f.id WHERE f.id = ?");
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			ps.close();
+
+			while (rs.next()){
+				readAsignacionList.add(new Tasignacion( rs.getInt("fair_id"), rs.getInt("pavilion_id"), rs.getInt("stand_id"), rs.getInt("used_m2"), rs.getBoolean("active") ) );
+			}
+		}
+		catch (SQLException e){
+			throw new DAOException("ERROR: tratamiento DB para 'readByFairId' Fair ID "+ id +" no logrado\n");
+		}
+		finally {
+			try { // Desconexion db
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrando conexion a DB para 'readByFairId' Fair ID "+ id +" no logrado\n");
 			}
 		}
 
@@ -146,11 +195,11 @@ public class DAOAsignacionImp implements DAOAsignacion {
 
 	/***
 	 * reads a Tasignacion from database ifesoft by a pavilion name
-	 * @param name Tasignacion name to be read
+	 * @param id Tasignacion name to be read
 	 * @return Tasignacion read from database
 	 * @throws DAOException error from database
 	 */
-	public Collection<Tasignacion> readByPavilionName(String name) throws DAOException {
+	public Collection<Tasignacion> readByPavilionId(Integer id) throws DAOException {
 		ArrayList<Tasignacion> readAsignacionList = new ArrayList<>();
 
 		driverIdentify();
@@ -159,28 +208,29 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
-			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' Pavilion Name "+ name +" no logrado\n");
+			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByPavilionID' Pavilion Id "+ id +" no logrado\n");
 		}
 
 		try { // Tratamiento db
 			PreparedStatement ps;
 
-			ps = connec.prepareStatement("SELECT * FROM asignacion as JOIN pabellon pa ON as.pavilion_id = pa.id WHERE pa.name = ?");
-			ps.setString(1, name);
+			ps = connec.prepareStatement("SELECT * FROM asignacion as JOIN pabellon pa ON as.pavilion_id = pa.id WHERE pa.id = ?");
+			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
+			ps.close();
 
 			while (rs.next()){
 				readAsignacionList.add( new Tasignacion( rs.getInt("fair_id"), rs.getInt("pavilion_id"), rs.getInt("stand_id"), rs.getInt("used_m2"), rs.getBoolean("active") )) ;
 			}
 		}
 		catch (SQLException e){
-			throw new DAOException("ERROR: tratamiento DB para 'readByName' Pavilion Name "+ name +" no logrado\n");
+			throw new DAOException("ERROR: tratamiento DB para 'readByPavilionID' Pavilion ID "+ id +" no logrado\n");
 		}
 		finally {
 			try { // Desconexion db
 				connec.close();
 			} catch (SQLException e) {
-				throw new DAOException("ERROR: cerrando conexion a DB para 'readByName' Pavilion Name "+ name +" no logrado\n");
+				throw new DAOException("ERROR: cerrando conexion a DB para 'readByPavilionID' Pavilion ID "+ id +" no logrado\n");
 			}
 		}
 
@@ -208,14 +258,24 @@ public class DAOAsignacionImp implements DAOAsignacion {
 
 		try { // Tratamiento db
 			PreparedStatement ps;
-			ps = connec.prepareStatement("UPDATE asignacion SET (fair_id, pavilion_id, stand_id, used_m2, active) VALUES (?,?,?,?,?)");
-			ps.setInt(1, tAsignacion.getFair_id());
-			ps.setInt(2, tAsignacion.getPavilion_id());
-			ps.setInt(3, tAsignacion.getStand_id());
-			ps.setInt(4, tAsignacion.getUsed_m2());
-			ps.setBoolean(5, true);
+			ps = connec.prepareStatement("UPDATE asignacion SET used_m2 = ? AND active = ? WHERE fair_id = ? AND pavilion_id = ? AND stand_id = ?");
+			ps.setInt(1, tAsignacion.getUsed_m2());
+			ps.setBoolean(2, tAsignacion.getActive());
+			ps.setInt(3, tAsignacion.getFair_id());
+			ps.setInt(4, tAsignacion.getPavilion_id());
+			ps.setInt(5, tAsignacion.getStand_id());
 			ps.execute();
+			ps.close();
 
+			if(!tAsignacion.getActive()){ // Caso desactivado tAsignacion
+				// Desactivado de los stands y participacion relacionados con la asignacion a desactivar
+				ps = connec.prepareStatement("UPDATE stand s JOIN participacion p ON s.id = p.stand_id SET s.active = ? AND p.active = ? WHERE s.id = ?");
+				ps.setBoolean(1, tAsignacion.getActive());
+				ps.setBoolean(2, tAsignacion.getActive());
+				ps.setInt(3, tAsignacion.getStand_id());
+				ps.execute();
+				ps.close();
+			}
 
 		}
 		catch (SQLException e){
@@ -228,8 +288,6 @@ public class DAOAsignacionImp implements DAOAsignacion {
 				throw new DAOException("ERROR: cerrando conexion a DB para 'update' Asignacion ID Feria "+ tAsignacion.getFair_id() + " ID Pabellon " + tAsignacion.getPavilion_id() + " ID Stand " + tAsignacion.getStand_id() +" no logrado\n");
 			}
 		}
-
-
 
 		return id;
 	}
@@ -261,6 +319,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 			ps.setInt(2, pavilion_id);
 			ps.setInt(3, stand_id);
 			ps.execute();
+			ps.close();
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento para 'delete' Asignacion con ID Feria "+ fair_id + " ID Pabellon " + pavilion_id + " ID Stand " + stand_id +" no logrado\n");

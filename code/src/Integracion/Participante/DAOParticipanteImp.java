@@ -141,6 +141,49 @@ public class DAOParticipanteImp implements DAOParticipante {
 	}
 
 	/***
+	 * reads a Tparticipante from database ifesoft by a name
+	 * @param id Tparticipante name to be read
+	 * @return tParticipante read from database
+	 * @throws DAOException error from database
+	 */
+	public Tparticipante readById(Integer id) throws DAOException {
+		Tparticipante readParticipante = null;
+
+		Connection connec = null;
+		driverIdentify();
+
+		try { // Conexion db
+			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+		} catch (SQLException e) {
+			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' ID Participante "+ id +" no logrado\n");
+		}
+
+		try { // Tratamiento db
+			PreparedStatement ps;
+
+			ps = connec.prepareStatement("SELECT * FROM participante WHERE id = ?");
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()){
+				readParticipante = new Tparticipante( rs.getString("name"), rs.getLong("phone"), rs.getBoolean("active") ) ;
+			}
+		}
+		catch (SQLException e){
+			throw new DAOException("ERROR: tratamiento DB para 'readById' ID Participante "+ id +" no logrado\n");
+		}
+		finally {
+			try { // Desconexion db
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrando conexion a DB para 'readById' ID Participante "+ id +" no logrado\n");
+			}
+		}
+
+		return readParticipante;
+	}
+
+	/***
 	 * Updates the database ifesoft information of a tParticipante(param) which already exists
 	 * @param tParticipante it needs a valid ID read from db
 	 * @return Integer ID tParticipante updated
@@ -158,18 +201,30 @@ public class DAOParticipanteImp implements DAOParticipante {
 
 		try { // Tratamiento db
 			PreparedStatement ps;
-			ps = connec.prepareStatement("UPDATE participante SET (name, description, initDate, endDate, active) VALUES (?,?,?,?,?)");
+			ps = connec.prepareStatement("UPDATE participante SET name = ? AND phone = ? AND active = ? WHERE id = ?");
 			ps.setString(1, tParticipante.getName());
 			ps.setLong(2, tParticipante.getPhone());
 			ps.setBoolean(3, true);
+			ps.setInt(4,tParticipante.getId()); // PENDIENTE MODIFICACION
 			ps.execute();
 
 			ps = connec.prepareStatement("SELECT id FROM participante WHERE name = ?");
 			ps.setString(1, tParticipante.getName());
 			ResultSet rs = ps.executeQuery();
 
-			if (rs.next())
+			if (rs.next()) {
 				id = rs.getInt("id");
+
+				if(!tParticipante.getActive()){
+					ps = connec.prepareStatement("UPDATE (participacion p JOIN stand s ON p.stand_id = s.id) JOIN asignacion a ON s.id = a.stand_id SET p.active = ? AND s.active = ? AND a.active = ? WHERE p.client_id = ?");
+					ps.setBoolean(1, tParticipante.getActive());
+					ps.setBoolean(2, tParticipante.getActive());
+					ps.setBoolean(3, tParticipante.getActive());
+					ps.setInt(4, tParticipante.getId());
+					ps.execute();
+					ps.close();
+				}
+			}
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'update' Name Participante "+ tParticipante.getName() +" no logrado\n");
