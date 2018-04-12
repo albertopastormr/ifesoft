@@ -5,7 +5,9 @@ import org.junit.Test;
 import Integracion.Feria.DAOFeria;
 import static org.junit.Assert.*;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 
 public class ASFeriaImpTest {
 	//HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -25,7 +27,10 @@ public class ASFeriaImpTest {
 		//Es porque ya existia en la bbdd por lo tanto es correcto el test
 
 	}
-
+	public void main() throws DAOException, Exception{
+		createFeriaExistente();
+	}
+	
 	@Test
 	//Metodo donde probamos que no se puede leer una feria que no existe en la bbdd
 	public void leeFeriaInexistente() throws Exception, DAOException {
