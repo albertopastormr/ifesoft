@@ -1,8 +1,19 @@
+
+DUDAS PARA LAB:
 - Revisar test
 
 
-
-Cambios SRS:
+CAMBIOS SRS:
 - Listar ferias: filtros en busqueda por fechas: los podemos cambiar?
     mostramos solo modulos activos
--
+- Listar todas las ferias agregado
+- Listar todos los participantes agregado
+- Listar solo activos?
+
+- Listar stands por participacion: ahora se busca por ID de feria existente e ID participante existente
+- Todos los listar son por ID ahora y no por nombre
+
+
+PENDIENTE:
+. En drop de DAO actualizar todos los modulos relacionados con el modulo correspondiente
+. Participantes internacionales y nacionales

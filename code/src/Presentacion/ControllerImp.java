@@ -4,6 +4,7 @@ import Exceptions.ASException;
 import Exceptions.DAOException;
 import Negocio.Feria.ASFeria;
 import Negocio.Feria.Tferia;
+import Negocio.Participante.Tparticipante;
 import Presentacion.views.forms.*;
 import Presentacion.views.viewsHalf.*;
 import Presentacion.views.events.Event;
@@ -138,6 +139,51 @@ public class ControllerImp extends Controller {
                 } catch (ASException | ClassNotFoundException | DAOException | SQLException e) {
                     e.printStackTrace();
                 }
+                break;
+
+            case Event.SHOW_CLIENT_INDIVIDUAL:
+
+                // No borrar y descomentar cuando se implemente en negocio
+                //asClient.showById((Tparticipante) data);
+
+                break;
+            case Event.SHOW_CLIENT_LIST:
+
+                // No borrar y descomentar cuando se implemente en negocio
+                /*try {
+                    asClient.list();
+                } catch (ASException | DAOException e) {
+                    e.printStackTrace();
+                }*/
+
+                break;
+            case Event.SHOW_FAIR_INDIVIDUAL:
+
+                try {
+                    asFeria.showById((Tferia) data);
+                } catch (ASException | DAOException e) {
+                    e.printStackTrace();
+                }
+
+                break;
+            case Event.SHOW_FAIR_LIST:
+
+                try {
+                    asFeria.list();
+                } catch (ASException | DAOException e) {
+                    e.printStackTrace();
+                }
+
+                break;
+            case Event.SHOW_FAIR_LIST_DATES:
+
+                try {
+                    asFeria.listDates((Tferia) data);
+                } catch (ASException | DAOException e) {
+                    e.printStackTrace();
+                }
+
+
                 break;
         }
     }

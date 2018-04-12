@@ -1,14 +1,15 @@
 package Presentacion.views.viewsHalf;
 
 import Negocio.Feria.Tferia;
+import Negocio.Participante.Tparticipante;
 import Presentacion.Controller;
+import Presentacion.utils.Utilities;
 import Presentacion.views.events.Event;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
 import java.util.Objects;
-import javax.naming.ldap.Control;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.ColorUIResource;
@@ -27,6 +28,7 @@ public class ViewHalfShow extends JFrame {
     private JComboBox<String> comboBoxViews;
     private JRadioButton radioButtonLeft;
     private JRadioButton radioButtonRight;
+    private JRadioButton radioButtonOptional;
     private JButton okButton;
     private JButton cancelButton;
     private JButton helpButton;
@@ -57,14 +59,15 @@ public class ViewHalfShow extends JFrame {
         super("Show");
 
         initComponents();
-        logicView();
+        viewVisibleLogic();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
     private void okButtonActionPerformed(ActionEvent e) {
-
+        viewLogicListener();
     }
+
 
     private void cancelButtonActionPerformed(ActionEvent e) {
         this.setVisible(false);
@@ -107,7 +110,7 @@ public class ViewHalfShow extends JFrame {
 
             comboBoxViews.addItem("Assignation");
             comboBoxViews.addItem("Fair");
-            comboBoxViews.addItem("Participant");
+            comboBoxViews.addItem("Client");
             comboBoxViews.addItem("Pavilion");
             comboBoxViews.addItem("Participation");
             comboBoxViews.addItem("Stand");
@@ -123,18 +126,60 @@ public class ViewHalfShow extends JFrame {
         radioButtonLeft = new JRadioButton();
         radioButtonLeft.setText("Individual");
         radioButtonLeft.setFont(fRadioButton);
+        radioButtonLeft.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textID.setVisible(true);
+                labelSubID.setVisible(true);
+                textDateEnd.setVisible(false);
+                textDateStart.setVisible(false);
+                labelSubIDdateStart.setVisible(false);
+                labelSubIDdateEnd.setVisible(false);
+            }
+        });
 
         //---- radioButtonRight ----
         radioButtonRight = new JRadioButton();
         radioButtonRight.setText("List");
         radioButtonRight.setFont(fRadioButton);
+        radioButtonRight.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textID.setVisible(false);
+                labelSubID.setVisible(false);
+                textDateEnd.setVisible(false);
+                textDateStart.setVisible(false);
+                labelSubIDdateStart.setVisible(false);
+                labelSubIDdateEnd.setVisible(false);
+            }
+        });
+
+        //---- radioButtonOptional ----
+        radioButtonOptional = new JRadioButton();
+        radioButtonOptional.setText("List for dates");
+        radioButtonOptional.setFont(fRadioButton);
+        radioButtonOptional.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textID.setVisible(false);
+                labelSubID.setVisible(false);
+                textDateEnd.setVisible(true);
+                textDateStart.setVisible(true);
+                labelSubIDdateStart.setVisible(true);
+                labelSubIDdateEnd.setVisible(true);
+            }
+        });
+
+        radioButtonOptional.setVisible(false);
 
         radioButtons = new ButtonGroup();
         radioButtons.add(radioButtonLeft);
         radioButtons.add(radioButtonRight);
+        radioButtons.add(radioButtonOptional);
 
         radioButtonPanel.add(radioButtonLeft);
         radioButtonPanel.add(radioButtonRight);
+        radioButtonPanel.add(radioButtonOptional);
 
         radioButtonPanel.setVisible(false);
         centerPanel.add(radioButtonPanel);
@@ -223,6 +268,43 @@ public class ViewHalfShow extends JFrame {
 
     }
 
+    private void viewLogicListener() {
+        switch (String.valueOf(comboBoxViews.getSelectedItem())){
+            case "Fair":
+                this.setVisible(false);
+                if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_FAIR_INDIVIDUAL ,new Tferia(Integer.parseInt(textID.getText()) , null, null, null, null, null));
+                else if(radioButtonOptional.isSelected()) Controller.getInstance().execute(Event.SHOW_FAIR_LIST_DATES, new Tferia(null, null, Utilities.parseIntToDate(textDateStart.getText()), Utilities.parseIntToDate(textDateEnd.getText()), null));
+                else Controller.getInstance().execute(Event.SHOW_FAIR_LIST ,null);
+                break;
+            case "Pavilion":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.INSERT_FORM_PABELLON, null);
+                break;
+            case "Stand":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.INSERT_FORM_STAND, null);
+                break;
+            case "Client":
+                this.setVisible(false);
+                if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_CLIENT_INDIVIDUAL ,new Tparticipante(Integer.parseInt(textID.getText()) , null, -1, null));
+                else Controller.getInstance().execute(Event.SHOW_CLIENT_LIST, null);
+                break;
+            case "Assignation":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.INSERT_FORM_ASIGNACION, null);
+                break;
+            case "Participation":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.INSERT_FORM_PARTICIPANTE, null);
+                break;
+
+        }
+
+
+
+
+    }
+
     private void setUpButtonBar(){
 
         Dimension buttonDim = new Dimension(150, 80);
@@ -279,8 +361,6 @@ public class ViewHalfShow extends JFrame {
         buttonBar.add(helpButton);
         buttonBar.add(Box.createHorizontalStrut(500));
         buttonBar.add(okButton);
-
-
 
     }
 
@@ -339,7 +419,7 @@ public class ViewHalfShow extends JFrame {
         setLocationRelativeTo(getOwner());
     }
 
-    private void logicView(){
+    private void viewVisibleLogic(){
 
         comboBoxViews.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -358,47 +438,44 @@ public class ViewHalfShow extends JFrame {
         textDateStart.setVisible(false);
         textDateEnd.setVisible(false);
         radioButtonPanel.setVisible(false);
+        radioButtonOptional.setVisible(false);
+        radioButtons.clearSelection();
 
         switch (Objects.requireNonNull(comboBoxViews.getSelectedItem()).toString()){
             case "Fair":
 
                 radioButtonPanel.setVisible(true);
+                radioButtonOptional.setVisible(true);
 
-                if(radioButtonLeft.isSelected()){
-                    textID.setVisible(true);
-                    labelSubID.setVisible(true);
-                    labelSubIDdateStart.setVisible(false);
-                    labelSubIDdateEnd.setVisible(false);
-                    textDateStart.setVisible(false);
-                    textDateEnd.setVisible(false);
-                }else{
-                    textID.setVisible(false);
-                    labelSubID.setVisible(false);
-                    labelSubIDdateStart.setVisible(true);
-                    labelSubIDdateEnd.setVisible(true);
-                    textDateStart.setVisible(true);
-                    textDateEnd.setVisible(true);
-                }
+                // Visuaslizar una normal
+
+                // Listar todas se queda vacio
+
+                // Listar vsrias por datos
 
                 break;
-            case "Pabellon":
+            case "Pavilion":
 
+                radioButtonPanel.setVisible(true);
 
+                // Radio button listener y controller con esos datos
 
                 break;
             case "Stand":
 
                 // Cambiar texto
 
+
                 break;
-            case "Participante":
+            case "Client":
+                radioButtonPanel.setVisible(true);
                 break;
-            case "Asignacion":
+            case "Assignation":
 
                 //Cambiar texto
 
                 break;
-            case "Participacion":
+            case "Participation":
 
                 //Cambiar texto
 
