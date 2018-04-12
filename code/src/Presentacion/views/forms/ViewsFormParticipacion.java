@@ -12,65 +12,80 @@ import javax.swing.border.*;
 
 public class ViewsFormParticipacion extends JFrame {
 
+
+    private String metres = "";
+    private String idFair = "";
+    private String idParticipant = "";
+    private String idStand = "";
+
+    private boolean mod;
+
+    private Dimension minScreenSize = new Dimension(1600, 1000);
+
     private JPanel dialogPanel;
-    private JPanel contentPanel;
-    private JPanel contentPanel2;
-    private JLabel label1;
-    private JTextField textFieldMUsed;
-    private JTextField textFieldIdFair;
-    private JTextField textFieldIdParticipante;
-    private JTextField textFieldIdStand;
-    private JPanel buttonBar;
-    private JButton createButtonForm;
+    private JLabel title;
+    private JPanel formPanel;
+    private JPanel formContainer;
+    private JLabel metresLabel;
+    private JLabel idFairLabel;
+    private JLabel idParticipantLabel;
+    private JLabel idStandLabel;
+    private JTextField metresField;
+    private JTextField idFairField;
+    private JTextField idParticipantField;
+    private JTextField idStandField;
+    private JButton okButton;
     private JButton cancelButton;
     private JButton helpButton;
+    private JPanel buttonBar;
 
-    private Tparticipacion tParticipacionModify;
-    private boolean isOptionCreate;
+
+    private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
+    private Font fLabel = new Font(Font.DIALOG, Font.PLAIN, 30);
+    private Font fField = new Font(Font.DIALOG, Font.PLAIN, 30);
+    private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
+
+    private Color cField = new Color(243,243,243);
+    private Color cHelpButton = new Color(66,35,146);
+    private Color cCancelButton = new Color(146, 35, 59);
+    private Color cOkButton = new Color(26, 184, 59);
 
     public ViewsFormParticipacion() {
+        mod = false;
         initComponents();
-
-        isOptionCreate = true;
-
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
 
     public ViewsFormParticipacion(Tparticipacion tParticipacion) {
+        mod = true;
+
+        idFair = (String.valueOf(tParticipacion.getFair_id()));
+        idParticipant = (String.valueOf(tParticipacion.getClient_id()));
+        idStand = (String.valueOf(tParticipacion.getStand_id()));
+
         initComponents();
-
-        isOptionCreate = false;
-        this.tParticipacionModify = tParticipacion;
-
-        initComponentsModify();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
-    private void initComponentsModify() {
-        textFieldIdFair.setText(String.valueOf(tParticipacionModify.getFair_id()));
-        textFieldIdParticipante.setText(String.valueOf(tParticipacionModify.getClient_id()));
-        textFieldIdStand.setText(String.valueOf(tParticipacionModify.getStand_id()));
-    }
-
     private void createButtonFormActionPerformed() {
         this.setVisible(false);
-        int mUsed = Integer.valueOf(textFieldMUsed.getText());
-        int idFair = Integer.valueOf(textFieldIdFair.getText());
-        int idParticipante = Integer.valueOf(textFieldIdParticipante.getText());
-        int idStand = Integer.valueOf(textFieldIdStand.getText());
+        int mUsed = Integer.valueOf(metresField.getText());
+        int idFair = Integer.valueOf(idFairField.getText());
+        int idParticipante = Integer.valueOf(idParticipantField.getText());
+        int idStand = Integer.valueOf(idStandField.getText());
 
         Tparticipacion tparticipacion = new Tparticipacion();
 
-        if (isOptionCreate)  Controller.getInstance().execute(Event.INSERT_PARTICIPACION, tparticipacion);
+        if (!mod)  Controller.getInstance().execute(Event.INSERT_PARTICIPACION, tparticipacion);
         else Controller.getInstance().execute(Event.MODIFY_PARTICIPACION, tparticipacion);
     }
 
     private void cancelButtonStateChanged() {
         this.setVisible(false);
-        if (isOptionCreate) Controller.getInstance().execute(Event.CREATE_HALF, null);
+        if (!mod) Controller.getInstance().execute(Event.CREATE_HALF, null);
         else Controller.getInstance().execute(Event.MODIFY_HALF, null);
     }
 
@@ -78,19 +93,190 @@ public class ViewsFormParticipacion extends JFrame {
 
     }
 
-    private void initComponents() {
-        dialogPanel = new JPanel();
-        contentPanel = new JPanel();
-        contentPanel2 = new JPanel();
-        label1 = new JLabel();
-        textFieldMUsed = new JTextField();
-        textFieldIdFair = new JTextField();
-        textFieldIdParticipante = new JTextField();
-        textFieldIdStand = new JTextField();
-        buttonBar = new JPanel();
-        createButtonForm = new JButton();
+    private void setupTitle(){
+        title = new JLabel();
+        if(mod)
+            title.setText("Modify Participation");
+        else
+            title.setText("Create Participation");
+        title.setFont(fTitle);
+        title.setHorizontalAlignment(JLabel.CENTER);
+        title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
+    }
+
+    private JLabel createLabel(String text){
+
+        JLabel label = new JLabel(text, JLabel.RIGHT);
+        label.setFont(fLabel);
+        return label;
+    }
+
+    private JTextField setupTextField(){
+        JTextField field = new JTextField();
+        field.setFont(fField);
+        field.setBackground(cField);
+        return field;
+    }
+
+    private void setupForm() {
+
+        formContainer = new JPanel();
+        formContainer.setLayout(new FlowLayout());
+
+        formPanel = new JPanel();
+        GridBagLayout formLayout = new GridBagLayout();
+        formPanel.setLayout(formLayout);
+
+
+        //---- Labels ----
+
+        Dimension minDim = new Dimension(500, 50);
+        Dimension prefDim = new Dimension(600, 50);
+        Dimension maxDim = new Dimension(700, 50);
+
+
+        GridBagConstraints formCon = new GridBagConstraints();
+
+        formCon.fill = GridBagConstraints.NONE;
+        formCon.weightx = 0.5;
+        formCon.weighty = 0.5;
+        formCon.anchor = GridBagConstraints.EAST;
+
+
+        metresLabel = createLabel("Metres:");
+        idFairLabel = createLabel("Fair id:");
+        idParticipantLabel = createLabel("Client id:");
+        idStandLabel = createLabel("Stand id:");
+
+        formCon.insets = new Insets(20, 0, 20, 0);
+        formCon.anchor = GridBagConstraints.WEST;
+
+        formCon.gridx = 0;
+        formCon.gridy = 0;
+        formPanel.add(metresLabel, formCon);
+        formCon.gridx = 0;
+        formCon.gridy = 1;
+        formPanel.add(idFairLabel, formCon);
+        formCon.gridx = 0;
+        formCon.gridy = 2;
+        formPanel.add(idParticipantLabel, formCon);
+        formCon.gridx = 0;
+        formCon.gridy = 3;
+        formPanel.add(idStandLabel, formCon);
+
+        metresField = setupTextField();
+        metresField.setMinimumSize(minDim);
+        metresField.setPreferredSize(prefDim);
+        metresField.setMaximumSize(maxDim);
+        metresField.setText(metres);
+
+        idFairField = setupTextField();
+        idFairField.setMinimumSize(minDim);
+        idFairField.setPreferredSize(prefDim);
+        idFairField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
+        idFairField.setText(idFair);
+
+        idParticipantField = setupTextField();
+        idParticipantField.setMinimumSize(minDim);
+        idParticipantField.setPreferredSize(prefDim);
+        idParticipantField.setMaximumSize(maxDim);
+        idParticipantField.setText(idParticipant);
+
+        idStandField = setupTextField();
+        idStandField.setMinimumSize(minDim);
+        idStandField.setPreferredSize(prefDim);
+        idStandField.setMaximumSize(maxDim);
+        idStandField.setText(idStand);
+
+        formCon.anchor = GridBagConstraints.WEST;
+
+        formCon.insets = new Insets(20,10,20,0);
+
+        formCon.gridx = 1;
+        formCon.gridy = 0;
+        formPanel.add(metresField, formCon);
+        formCon.gridx = 1;
+        formCon.gridy = 1;
+        formPanel.add(idFairField, formCon);
+        formCon.gridx = 1;
+        formCon.gridy = 2;
+        formPanel.add(idParticipantField, formCon);
+        formCon.gridx = 1;
+        formCon.gridy = 3;
+        formPanel.add(idStandField, formCon);
+        formContainer.add(formPanel);
+    }
+
+    private void setUpButtonBar(){
+
+        Dimension buttonDim = new Dimension(150, 80);
+
+        //---- cancelButton ----
         cancelButton = new JButton();
+        cancelButton.setText("Cancel");
+        cancelButton.setFont(fButton);
+        cancelButton.setBackground(cCancelButton);
+        cancelButton.setForeground(Color.WHITE);
+        cancelButton.setPreferredSize(buttonDim);
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cancelButtonStateChanged();
+            }
+        });
+
+
+        //---- helpButton ----
         helpButton = new JButton();
+        helpButton.setText("Help");
+        helpButton.setFont(fButton);
+        helpButton.setBackground(cHelpButton);
+        helpButton.setForeground(Color.WHITE);
+        helpButton.setPreferredSize(buttonDim);
+        helpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                helpButtonActionPerformed();
+            }
+        });
+
+
+        //---- okButton ----
+        okButton = new JButton();
+        okButton.setText("Add");
+        okButton.setFont(fButton);
+        okButton.setBackground(cOkButton);
+        okButton.setForeground(Color.WHITE);
+        okButton.setPreferredSize(buttonDim);
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createButtonFormActionPerformed();
+            }
+        });
+
+        buttonBar = new JPanel();
+        FlowLayout layout = new FlowLayout();
+        layout.setHgap(25);
+        buttonBar.setLayout(layout);
+        buttonBar.add(cancelButton);
+        buttonBar.add(helpButton);
+        buttonBar.add(Box.createHorizontalStrut(500));
+        buttonBar.add(okButton);
+
+
+
+    }
+
+    private void initComponents() {
+
+        this.setMinimumSize(minScreenSize);
+
+        dialogPanel = new JPanel();
+        BorderLayout dialogLayout = new BorderLayout();
+        dialogPanel.setLayout(dialogLayout);
+        dialogPanel.setBorder(BorderFactory.createEmptyBorder(20,50,20,50));
+
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,84 +284,20 @@ public class ViewsFormParticipacion extends JFrame {
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
-        //======== dialogPanel ========
-        {
-            dialogPanel.setBorder(new EmptyBorder(12, 12, 12, 12));
+        //======== contents ========
 
-            // JFormDesigner evaluation mark
-            dialogPanel.setBorder(new javax.swing.border.CompoundBorder(
-                    new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                            "", javax.swing.border.TitledBorder.CENTER,
-                            javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                            java.awt.Color.red), dialogPanel.getBorder())); dialogPanel.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+        //----Title----
+        setupTitle();
+        dialogPanel.add(title, BorderLayout.PAGE_START);
+        //----Form----
+        setupForm();
+        dialogPanel.add(formContainer, BorderLayout.CENTER);
+        //----Buttons----
+        setUpButtonBar();
+        dialogPanel.add(buttonBar, BorderLayout.PAGE_END);
 
-            dialogPanel.setLayout(new BorderLayout());
-
-            //======== contentPanel ========
-            {
-                contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
-
-                //======== contentPanel2 ========
-                {
-                    contentPanel2.setLayout(new BoxLayout(contentPanel2, BoxLayout.X_AXIS));
-
-                    //---- label1 ----
-                    label1.setText("Metros usados");
-                    contentPanel2.add(label1);
-                    contentPanel2.add(textFieldMUsed);
-                }
-                contentPanel.add(contentPanel2);
-            }
-            dialogPanel.add(contentPanel, BorderLayout.CENTER);
-
-            //======== buttonBar ========
-            {
-                buttonBar.setBorder(new EmptyBorder(12, 0, 0, 0));
-                buttonBar.setLayout(new GridBagLayout());
-                ((GridBagLayout)buttonBar.getLayout()).columnWidths = new int[] {0, 85, 85, 80};
-                ((GridBagLayout)buttonBar.getLayout()).columnWeights = new double[] {1.0, 0.0, 0.0, 0.0};
-
-                //---- createButtonForm ----
-                createButtonForm.setText("Add");
-                createButtonForm.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        createButtonFormActionPerformed();
-                    }
-                });
-                buttonBar.add(createButtonForm, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
-                        GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                        new Insets(0, 0, 0, 5), 0, 0));
-
-                //---- cancelButton ----
-                cancelButton.setText("Cancel");
-                cancelButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                        cancelButtonStateChanged();
-                    }
-                });
-                buttonBar.add(cancelButton, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
-                        GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                        new Insets(0, 0, 0, 5), 0, 0));
-
-                //---- helpButton ----
-                helpButton.setText("Help");
-                helpButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        helpButtonActionPerformed();
-                    }
-                });
-                buttonBar.add(helpButton, new GridBagConstraints(3, 0, 1, 1, 0.0, 0.0,
-                        GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                        new Insets(0, 0, 0, 0), 0, 0));
-            }
-            dialogPanel.add(buttonBar, BorderLayout.SOUTH);
-        }
         contentPane.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
     }
 }
-

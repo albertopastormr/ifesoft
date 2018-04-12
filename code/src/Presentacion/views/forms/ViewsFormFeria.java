@@ -65,24 +65,17 @@ public class ViewsFormFeria extends JFrame {
     public ViewsFormFeria(Tferia tferia) {
 
         mod = true;
-        initComponents();
 
         DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-
-
 
         name = tferia.getName();
         description = tferia.getDescription();
         iniDate = df.format(tferia.getIniDate());
         finDate = df.format(tferia.getEndDate());
 
-        initComponentsModify();
+        initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
-    }
-
-    private void initComponentsModify() {
-
     }
 
     private void createButtonFormActionPerformed() {
