@@ -3,9 +3,11 @@ package Negocio.Participacion;
 import Exceptions.ASException;
 import Exceptions.DAOException;
 import Integracion.Participacion.DAOParticipacion;
+import Negocio.Feria.Tferia;
 import Negocio.Participacion.ASParticipacion;
 import Negocio.Participacion.IFDAOParticipacion;
 import Negocio.Participacion.Tparticipacion;
+import Negocio.Participante.Tparticipante;
 
 import java.util.Collection;
 
@@ -60,5 +62,15 @@ public class ASParticipacionImp implements ASParticipacion {
 
     public Tparticipacion show(Tparticipacion participacion) throws ASException, DAOException {
         return null;
+    }
+
+    @Override
+    public void showByIdFair(Tferia tferia) throws ASException, DAOException {
+
+    }
+
+    @Override
+    public void showByIdClient(Tparticipante tparticipante) throws ASException, DAOException {
+
     }
 }

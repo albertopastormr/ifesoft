@@ -57,7 +57,7 @@ public class ASParticipanteImp implements ASParticipante {
         return null;
     }
 
-    public Tparticipante show(Tparticipante participante) throws ASException, DAOException {
+    public Tparticipante showById(Tparticipante participante) throws ASException, DAOException {
         return null;
     }
 }

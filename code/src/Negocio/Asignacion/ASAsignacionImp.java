@@ -6,6 +6,9 @@ import Integracion.Asignacion.DAOAsignacion;
 import Negocio.Asignacion.ASAsignacion;
 import Negocio.Asignacion.IFDAOAsignacion;
 import Negocio.Asignacion.Tasignacion;
+import Negocio.Feria.Tferia;
+import Negocio.Pabellon.Tpabellon;
+import Negocio.Participante.Tparticipante;
 
 import java.util.Collection;
 
@@ -60,5 +63,15 @@ public class ASAsignacionImp implements ASAsignacion {
 
     public Tasignacion show(Tasignacion asignacion) throws ASException, DAOException {
         return null;
+    }
+
+    @Override
+    public void showByIdPavilion(Tpabellon tpabellon) throws ASException, DAOException {
+
+    }
+
+    @Override
+    public void showByIdFair(Tferia tferia) throws ASException, DAOException {
+
     }
 }

@@ -2,6 +2,8 @@ package Negocio.Participacion;
 
 import Exceptions.ASException;
 import Exceptions.DAOException;
+import Negocio.Feria.Tferia;
+import Negocio.Participante.Tparticipante;
 
 import java.util.Collection;
 
@@ -15,4 +17,8 @@ public interface ASParticipacion {
     Collection<Tparticipacion> list() throws ASException, DAOException;
 
     Tparticipacion show(Tparticipacion participacion) throws ASException, DAOException;
+
+    void showByIdFair(Tferia tferia) throws ASException, DAOException;
+
+    void showByIdClient(Tparticipante tparticipante) throws ASException, DAOException;
 }

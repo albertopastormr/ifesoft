@@ -1,22 +1,24 @@
 package Presentacion.views.forms;
 
-import Negocio.Participacion.Tparticipacion;
+import Negocio.Feria.Tferia;
 import Presentacion.Controller;
-import Presentacion.UIimp;
 import Presentacion.views.events.Event;
+import Presentacion.UIimp;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class ViewsFormParticipacion extends JFrame {
+public class ViewsFormFeria extends JFrame {
 
-
-    private String metres = "";
-    private String idFair = "";
-    private String idParticipant = "";
-    private String idStand = "";
+    private String name = "";
+    private String description = "";
+    private String iniDate = "";
+    private String finDate = "";
 
     private boolean mod;
 
@@ -26,14 +28,14 @@ public class ViewsFormParticipacion extends JFrame {
     private JLabel title;
     private JPanel formPanel;
     private JPanel formContainer;
-    private JLabel metresLabel;
-    private JLabel idFairLabel;
-    private JLabel idParticipantLabel;
-    private JLabel idStandLabel;
-    private JTextField metresField;
-    private JTextField idFairField;
-    private JTextField idParticipantField;
-    private JTextField idStandField;
+    private JLabel nameLabel;
+    private JLabel descLabel;
+    private JLabel iniDateLabel;
+    private JLabel finDateLabel;
+    private JTextField nameField;
+    private JTextField descField;
+    private JTextField iniDateField;
+    private JTextField finDateField;
     private JButton okButton;
     private JButton cancelButton;
     private JButton helpButton;
@@ -50,20 +52,26 @@ public class ViewsFormParticipacion extends JFrame {
     private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
 
-    public ViewsFormParticipacion() {
+
+    public ViewsFormFeria() {
+
         mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
+
     }
 
+    public ViewsFormFeria(Tferia tferia) {
 
-    public ViewsFormParticipacion(Tparticipacion tParticipacion) {
         mod = true;
 
-        idFair = (String.valueOf(tParticipacion.getFair_id()));
-        idParticipant = (String.valueOf(tParticipacion.getClient_id()));
-        idStand = (String.valueOf(tParticipacion.getStand_id()));
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+
+        name = tferia.getName();
+        description = tferia.getDescription();
+        iniDate = df.format(tferia.getIniDate());
+        finDate = df.format(tferia.getEndDate());
 
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -71,23 +79,34 @@ public class ViewsFormParticipacion extends JFrame {
     }
 
     private void createButtonFormActionPerformed() {
-        this.setVisible(false);
-        int mUsed = Integer.valueOf(metresField.getText());
-        int idFair = Integer.valueOf(idFairField.getText());
-        int idParticipante = Integer.valueOf(idParticipantField.getText());
-        int idStand = Integer.valueOf(idStandField.getText());
+       /* this.setVisible(false);
+        String name = textFieldNombre.getText();
+        String descrip = textFieldNombre.getText();
+        String a_fecha_ini = textFieldFechaIni.getText();
+        String m_fecha_ini = textFieldFechaFin.getText();
+        String d_fecha_ini = textFieldFechaFin.getText();
+        String fecha_fin = textFieldFechaFin.getText();
 
-        Tparticipacion tparticipacion = new Tparticipacion();
+        Tferia tFeria = new Tferia(name, descrip, new Date(Integer.parseInt(a_fecha_ini), Integer.parseInt(m_fecha_ini), Integer.parseInt(d_fecha_ini)), new Date(Integer.parseInt(fecha_fin)));
 
-        if (!mod)  Controller.getInstance().execute(Event.INSERT_PARTICIPACION, tparticipacion);
-        else Controller.getInstance().execute(Event.MODIFY_PARTICIPACION, tparticipacion);
+<<<<<<< HEAD:code/src/Presentacion/Feria/views/forms/ViewsFormFeria.java
+        if (isOptionCreate)  UIimp.getInstance().execute(Event.INSERT_FAIR, tFeria);
+        else UIimp.getInstance().execute(Event.MODIFY_FAIR ,tFeria);*/
     }
 
     private void cancelButtonStateChanged() {
-        this.setVisible(false);
-        if (!mod) Controller.getInstance().execute(Event.CREATE_HALF, null);
-        else Controller.getInstance().execute(Event.MODIFY_HALF, null);
+        /*this.setVisible(false);
+        if (isOptionCreate) UIimp.getInstance().execute(Event.CREATE_HALF, null);
+        else UIimp.getInstance().execute(Event.MODIFY_HALF, null);
+        if (isOptionCreate)  Controller.getInstance().execute(Event.INSERT_FAIR, tFeria);
+        else Controller.getInstance().execute(Event.MODIFY_FAIR ,tFeria);*/
     }
+
+   /* private void cancelButtonStateChanged() {
+        this.setVisible(false);
+        if (isOptionCreate) Controller.getInstance().execute(Event.CREATE_HALF, null);
+        else Controller.getInstance().execute(Event.MODIFY_HALF, null);
+    }*/
 
     private void helpButtonActionPerformed() {
 
@@ -96,9 +115,9 @@ public class ViewsFormParticipacion extends JFrame {
     private void setupTitle(){
         title = new JLabel();
         if(mod)
-            title.setText("Modify Participation");
+            title.setText("Modify Fair");
         else
-            title.setText("Create Participation");
+            title.setText("Create Fair");
         title.setFont(fTitle);
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
@@ -143,50 +162,50 @@ public class ViewsFormParticipacion extends JFrame {
         formCon.anchor = GridBagConstraints.EAST;
 
 
-        metresLabel = createLabel("Metres:");
-        idFairLabel = createLabel("Fair id:");
-        idParticipantLabel = createLabel("Client id:");
-        idStandLabel = createLabel("Stand id:");
+        nameLabel = createLabel("Name:");
+        descLabel = createLabel("Description:");
+        iniDateLabel = createLabel("Start Date:");
+        finDateLabel = createLabel("End Date:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
 
         formCon.gridx = 0;
         formCon.gridy = 0;
-        formPanel.add(metresLabel, formCon);
+        formPanel.add(nameLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 1;
-        formPanel.add(idFairLabel, formCon);
+        formPanel.add(descLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 2;
-        formPanel.add(idParticipantLabel, formCon);
+        formPanel.add(iniDateLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 3;
-        formPanel.add(idStandLabel, formCon);
+        formPanel.add(finDateLabel, formCon);
 
-        metresField = setupTextField();
-        metresField.setMinimumSize(minDim);
-        metresField.setPreferredSize(prefDim);
-        metresField.setMaximumSize(maxDim);
-        metresField.setText(metres);
+        nameField = setupTextField();
+        nameField.setMinimumSize(minDim);
+        nameField.setPreferredSize(prefDim);
+        nameField.setMaximumSize(maxDim);
+        nameField.setText(name);
 
-        idFairField = setupTextField();
-        idFairField.setMinimumSize(minDim);
-        idFairField.setPreferredSize(prefDim);
-        idFairField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
-        idFairField.setText(idFair);
+        descField = setupTextField();
+        descField.setMinimumSize(new Dimension(minDim.width, minDim.height + 100));
+        descField.setPreferredSize(new Dimension(prefDim.width, prefDim.height + 100));
+        descField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
+        descField.setText(description);
 
-        idParticipantField = setupTextField();
-        idParticipantField.setMinimumSize(minDim);
-        idParticipantField.setPreferredSize(prefDim);
-        idParticipantField.setMaximumSize(maxDim);
-        idParticipantField.setText(idParticipant);
+        iniDateField = setupTextField();
+        iniDateField.setMinimumSize(minDim);
+        iniDateField.setPreferredSize(prefDim);
+        iniDateField.setMaximumSize(maxDim);
+        iniDateField.setText(iniDate);
 
-        idStandField = setupTextField();
-        idStandField.setMinimumSize(minDim);
-        idStandField.setPreferredSize(prefDim);
-        idStandField.setMaximumSize(maxDim);
-        idStandField.setText(idStand);
+        finDateField = setupTextField();
+        finDateField.setMinimumSize(minDim);
+        finDateField.setPreferredSize(prefDim);
+        finDateField.setMaximumSize(maxDim);
+        finDateField.setText(finDate);
 
         formCon.anchor = GridBagConstraints.WEST;
 
@@ -194,16 +213,16 @@ public class ViewsFormParticipacion extends JFrame {
 
         formCon.gridx = 1;
         formCon.gridy = 0;
-        formPanel.add(metresField, formCon);
+        formPanel.add(nameField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 1;
-        formPanel.add(idFairField, formCon);
+        formPanel.add(descField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 2;
-        formPanel.add(idParticipantField, formCon);
+        formPanel.add(iniDateField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 3;
-        formPanel.add(idStandField, formCon);
+        formPanel.add(finDateField, formCon);
         formContainer.add(formPanel);
     }
 
