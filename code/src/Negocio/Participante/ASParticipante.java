@@ -14,5 +14,5 @@ public interface ASParticipante {
 
     Collection<Tparticipante> list() throws ASException, DAOException;
 
-    Tparticipante show(Tparticipante participante) throws ASException, DAOException;
+    Tparticipante showById(Tparticipante participante) throws ASException, DAOException;
 }

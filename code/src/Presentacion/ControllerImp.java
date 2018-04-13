@@ -2,8 +2,18 @@ package Presentacion;
 
 import Exceptions.ASException;
 import Exceptions.DAOException;
+import Negocio.Asignacion.ASAsignacion;
+import Negocio.Asignacion.Tasignacion;
 import Negocio.Feria.ASFeria;
 import Negocio.Feria.Tferia;
+import Negocio.Pabellon.ASPabellon;
+import Negocio.Pabellon.Tpabellon;
+import Negocio.Participacion.ASParticipacion;
+import Negocio.Participacion.Tparticipacion;
+import Negocio.Participante.ASParticipante;
+import Negocio.Participante.Tparticipante;
+import Negocio.Stand.ASStand;
+import Negocio.Stand.Tstand;
 import Presentacion.views.forms.*;
 import Presentacion.views.viewsHalf.*;
 import Presentacion.views.events.Event;
@@ -14,11 +24,11 @@ import java.sql.SQLException;
 public class ControllerImp extends Controller {
 
     private ASFeria asFeria;
-    //private ASasignation asAsignation;
-    //private ASpavilion asPavilion;
-    //private ASstand asStand;
-    //private ASClient asClient;
-    //private ASpaticipation asParticipation;
+    private ASAsignacion asAsignation;
+    private ASPabellon asPavilion;
+    private ASStand asStand;
+    private ASParticipante asClient;
+    private ASParticipacion asParticipation;
     private UI gui;
 
     @Override
@@ -50,9 +60,6 @@ public class ControllerImp extends Controller {
                 break;
 
             /** DROPS*/
-
-            /* NO BORRAR - DESCOMENTAR CUANDO ESTEN HECHOS LOS "AS"
-
 
             case Event.DROP_FERIA:
                 try {
@@ -96,7 +103,6 @@ public class ControllerImp extends Controller {
                     e.printStackTrace();
                 }
                 break;
-            */
 
             /** Form Views*/
 
@@ -136,6 +142,83 @@ public class ControllerImp extends Controller {
                     else gui.update(EventGUI.UPDATE_CREATE_FERIA_FAIL, null);
 
                 } catch (ASException | ClassNotFoundException | DAOException | SQLException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case Event.SHOW_CLIENT_INDIVIDUAL:
+                try {
+                    asClient.showById((Tparticipante) data);
+                } catch (ASException | DAOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case Event.SHOW_CLIENT_LIST:
+                try {
+                    asClient.list();
+                } catch (ASException | DAOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case Event.SHOW_FAIR_INDIVIDUAL:
+                try {
+                    asFeria.showById((Tferia) data);
+                } catch (ASException | DAOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case Event.SHOW_FAIR_LIST:
+                try {
+                    asFeria.list();
+                } catch (ASException | DAOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case Event.SHOW_FAIR_LIST_DATES:
+                try {
+                    asFeria.listDates((Tferia) data);
+                } catch (ASException | DAOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case Event.SHOW_PAVILION_INDIVIDUAL:
+                try {
+                    asPavilion.showById((Tpabellon)data);
+                } catch (ASException | DAOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case Event.SHOW_PAVILION_LIST:
+                try {
+                    asPavilion.list();
+                } catch (ASException | DAOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case Event.SHOW_ASSIGANTION_FAIR:
+                try {
+                    asAsignation.showByIdFair((Tferia)data);
+                } catch (ASException | DAOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case Event.SHOW_ASSIGNATION_PAVILION:
+                try {
+                    asAsignation.showByIdPavilion((Tpabellon)data);
+                } catch (ASException | DAOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case Event.SHOW_PARTICIPATION_FAIR:
+                try {
+                    asParticipation.showByIdFair((Tferia)data);
+                } catch (ASException | DAOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case Event.SHOW_PARTICIPACION_CLIENT:
+                try {
+                    asParticipation.showByIdClient((Tparticipante)data);
+                } catch (ASException | DAOException e) {
                     e.printStackTrace();
                 }
                 break;

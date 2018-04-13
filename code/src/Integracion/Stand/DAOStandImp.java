@@ -165,26 +165,22 @@ public class DAOStandImp implements DAOStand {
 			ps.setBoolean(4, true);
 			ps.setInt(5, tStand.getId());
 			ps.execute();
-
-			ps = connec.prepareStatement("SELECT id FROM stand WHERE id = ?");
-			ps.setInt(1, tStand.getId());
-			ResultSet rs = ps.executeQuery();
-
-			if (rs.next()) {
-				id = rs.getInt("id");
-				if(!tStand.getActive()) {
-					// Desactivado asignacion relacionada con stand
-					ps = connec.prepareStatement("UPDATE asignacion SET active = ? WHERE stand_id = ?");
-					ps.setBoolean(1, true);
-					ps.setInt(2, tStand.getId());
-					ps.execute();
-					// Desactivado participacion relacionada con stand
-					ps = connec.prepareStatement("UPDATE participacion SET active = ? WHERE stand_id = ?");
-					ps.setBoolean(1, true);
-					ps.setInt(2, tStand.getId());
-					ps.execute();
+			ps.close();
+			id = tStand.getId();
+			if(!tStand.getActive()) {
+				// Desactivado asignacion relacionada con stand
+				ps = connec.prepareStatement("UPDATE asignacion SET active = ? WHERE stand_id = ?");
+				ps.setBoolean(1, true);
+				ps.setInt(2, tStand.getId());
+				ps.execute();
+				ps.close();
+				// Desactivado participacion relacionada con stand
+				ps = connec.prepareStatement("UPDATE participacion SET active = ? WHERE stand_id = ?");
+				ps.setBoolean(1, true);
+				ps.setInt(2, tStand.getId());
+				ps.execute();
+				ps.close();
 				}
-			}
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'update' ID Stand "+ tStand.getId() +" no logrado\n");

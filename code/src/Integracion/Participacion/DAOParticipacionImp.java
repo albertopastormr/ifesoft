@@ -25,7 +25,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 		driverIdentify();
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if"); // Datos de acceso a la db: user//manager pw//manager-if
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'create' Participacion con ID Feria "+ tParticipacion.getFair_id() + " ID Participante " + tParticipacion.getClient_id() + " ID Stand " + tParticipacion.getStand_id()+" no logrado\n");
 		}
@@ -123,7 +123,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 			ps = connec.prepareStatement("SELECT * FROM participacion pn JOIN feria f ON pn.fair_id = f.id  WHERE f.name = ?");
 			ps.setString(1, name);
 			ResultSet rs = ps.executeQuery();
-
+			ps.close();
 			while(rs.next()){
 				readParticipacionList.add(new Tparticipacion( rs.getInt("fair_id"), rs.getInt("client_id"), rs.getInt("stand_id"), rs.getBoolean("active") ));
 			}
@@ -252,7 +252,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 			ps = connec.prepareStatement("SELECT * FROM participacion pn JOIN participante pe ON pn.client_id = pe.id WHERE pe.id = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-
+			ps.close();
 			while (rs.next()){
 				readParticipacionList.add( new Tparticipacion( rs.getInt("fair_id"), rs.getInt("client_id"), rs.getInt("stand_id"), rs.getBoolean("active") )) ;
 			}
@@ -296,7 +296,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 			ps.setInt(3, tParticipacion.getClient_id());
 			ps.setInt(4, tParticipacion.getStand_id());
 			ps.execute();
-
+			ps.close();
 			if(!tParticipacion.getActive()){ // Caso desactivado tAsignacion
 				// Desactivado de los stands y participacion relacionados con la asignacion a desactivar
 				ps = connec.prepareStatement("UPDATE stand s JOIN asignacion a ON s.id = a.stand_id SET s.active = ? AND a.active = ? WHERE s.id = ?");
@@ -304,6 +304,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 				ps.setBoolean(2, tParticipacion.getActive());
 				ps.setInt(3, tParticipacion.getStand_id());
 				ps.execute();
+				ps.close();
 			}
 
 		}

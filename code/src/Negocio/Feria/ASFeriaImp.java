@@ -91,6 +91,11 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
         return collection;
     }
 
+    @Override
+    public Collection<Tferia> listDates(Tferia feria) throws ASException, DAOException {
+        return null;
+    }
+
     public Tferia showByName(Tferia feria) throws ASException, DAOException {
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
         if (feria != null) {

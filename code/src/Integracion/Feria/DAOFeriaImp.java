@@ -296,7 +296,6 @@ public class DAOFeriaImp implements DAOFeria{
 			}
 			else
 				throw new DAOException("Tferia " + tFeria.getName() + " does not exist (id not defined) in ifesoft database\n");
-			ps.close();
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'update' Name Feria "+ tFeria.getName() +" no logrado\n");
