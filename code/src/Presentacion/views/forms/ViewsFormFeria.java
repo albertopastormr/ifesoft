@@ -2,6 +2,7 @@ package Presentacion.views.forms;
 
 import Negocio.Feria.Tferia;
 import Presentacion.Controller;
+import Presentacion.utils.Utilities;
 import Presentacion.views.events.Event;
 import Presentacion.UIimp;
 
@@ -10,6 +11,7 @@ import java.awt.event.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.naming.ldap.Control;
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -66,12 +68,10 @@ public class ViewsFormFeria extends JFrame {
 
         mod = true;
 
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-
         name = tferia.getName();
         description = tferia.getDescription();
-        iniDate = df.format(tferia.getIniDate());
-        finDate = df.format(tferia.getEndDate());
+        iniDate = Utilities.parseDateToString(tferia.getIniDate());
+        finDate = Utilities.parseDateToString(tferia.getEndDate());
 
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -79,34 +79,22 @@ public class ViewsFormFeria extends JFrame {
     }
 
     private void createButtonFormActionPerformed() {
-       /* this.setVisible(false);
-        String name = textFieldNombre.getText();
-        String descrip = textFieldNombre.getText();
-        String a_fecha_ini = textFieldFechaIni.getText();
-        String m_fecha_ini = textFieldFechaFin.getText();
-        String d_fecha_ini = textFieldFechaFin.getText();
-        String fecha_fin = textFieldFechaFin.getText();
-
-        Tferia tFeria = new Tferia(name, descrip, new Date(Integer.parseInt(a_fecha_ini), Integer.parseInt(m_fecha_ini), Integer.parseInt(d_fecha_ini)), new Date(Integer.parseInt(fecha_fin)));
-
-<<<<<<< HEAD:code/src/Presentacion/Feria/views/forms/ViewsFormFeria.java
-        if (isOptionCreate)  UIimp.getInstance().execute(Event.INSERT_FAIR, tFeria);
-        else UIimp.getInstance().execute(Event.MODIFY_FAIR ,tFeria);*/
-    }
-
-    private void cancelButtonStateChanged() {
-        /*this.setVisible(false);
-        if (isOptionCreate) UIimp.getInstance().execute(Event.CREATE_HALF, null);
-        else UIimp.getInstance().execute(Event.MODIFY_HALF, null);
-        if (isOptionCreate)  Controller.getInstance().execute(Event.INSERT_FAIR, tFeria);
-        else Controller.getInstance().execute(Event.MODIFY_FAIR ,tFeria);*/
-    }
-
-   /* private void cancelButtonStateChanged() {
         this.setVisible(false);
-        if (isOptionCreate) Controller.getInstance().execute(Event.CREATE_HALF, null);
+        String name = nameField.getText();
+        String descrip = descField.getText();
+        String dateStart = iniDateField.getText();
+        String dateEnd = finDateField.getText();
+
+        if(!mod) Controller.getInstance().execute(Event.INSERT_FAIR, new Tferia(name, descrip, Utilities.parseStringToDate(dateStart), Utilities.parseStringToDate(dateEnd)));
+        else Controller.getInstance().execute(Event.MODIFY_FAIR, new Tferia(name, descrip, Utilities.parseStringToDate(dateStart), Utilities.parseStringToDate(dateEnd)));
+
+    }
+
+   private void cancelButtonStateChanged() {
+        this.setVisible(false);
+        if (!mod) Controller.getInstance().execute(Event.CREATE_HALF, null);
         else Controller.getInstance().execute(Event.MODIFY_HALF, null);
-    }*/
+    }
 
     private void helpButtonActionPerformed() {
 

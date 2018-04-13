@@ -58,12 +58,13 @@ public class ViewHalfShow extends JFrame {
     private Color cTextFieldBG = new Color(243,243,243);
 
     private boolean isHalfEntity;
-
+    private boolean isHalfEntityList;
 
     public ViewHalfShow() {
         super("Show");
 
         this.isHalfEntity = false;
+        this.isHalfEntityList = false;
 
         initComponents();
         viewVisibleLogic();
@@ -158,12 +159,7 @@ public class ViewHalfShow extends JFrame {
         radioButtonOptional.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textID.setVisible(false);
-                labelSubID.setVisible(false);
-                textDateEnd.setVisible(true);
-                textDateStart.setVisible(true);
-                labelSubIDdateStart.setVisible(true);
-                labelSubIDdateEnd.setVisible(true);
+                changeVisibleOptional();
             }
         });
 
@@ -263,6 +259,20 @@ public class ViewHalfShow extends JFrame {
         centerPanel.add(panelDateEnd);
     }
 
+    private void changeVisibleOptional() {
+        textID.setVisible(false);
+        labelSubID.setVisible(false);
+        textDateEnd.setVisible(true);
+        textDateStart.setVisible(true);
+        labelSubIDdateStart.setVisible(true);
+        labelSubIDdateEnd.setVisible(true);
+
+        if(isHalfEntityList){
+            this.labelSubIDdateStart.setText("ID Fair: ");
+            this.labelSubIDdateEnd.setText("ID Client: ");
+        }
+    }
+
     private void changeVisibleLeft() {
         textID.setVisible(true);
         labelSubID.setVisible(true);
@@ -283,6 +293,15 @@ public class ViewHalfShow extends JFrame {
         }else{
             changeVisibleLeft();
         }
+
+        if(isHalfEntityList){
+            this.labelSubIDdateStart.setText("ID Fair: ");
+            this.labelSubIDdateEnd.setText("ID Pavilion: ");
+            labelSubIDdateStart.setVisible(true);
+            labelSubIDdateEnd.setVisible(true);
+            textDateStart.setVisible(true);
+            textDateEnd.setVisible(true);
+        }
     }
 
     private void viewLogicListener() {
@@ -290,7 +309,7 @@ public class ViewHalfShow extends JFrame {
             case "Fair":
                 this.setVisible(false);
                 if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_FAIR_INDIVIDUAL ,new Tferia(Integer.parseInt(textID.getText()) , null, null, null, null, null));
-                else if(radioButtonOptional.isSelected()) Controller.getInstance().execute(Event.SHOW_FAIR_LIST_DATES, new Tferia(null, null, Utilities.parseIntToDate(textDateStart.getText()), Utilities.parseIntToDate(textDateEnd.getText()), null));
+                else if(radioButtonOptional.isSelected()) Controller.getInstance().execute(Event.SHOW_FAIR_LIST_DATES, new Tferia(null, null, Utilities.parseStringToDate(textDateStart.getText()), Utilities.parseStringToDate(textDateEnd.getText()), null));
                 else Controller.getInstance().execute(Event.SHOW_FAIR_LIST ,null);
                 break;
             case "Pavilion":
@@ -437,31 +456,16 @@ public class ViewHalfShow extends JFrame {
     }
 
     private void viewVisibleLogic(){
-
         comboBoxViews.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 itemStateChanged(evt);
             }
         });
-
     }
 
     private void itemStateChanged(ActionEvent evt) {
 
-        textID.setVisible(false);
-        labelSubID.setVisible(false);
-        labelSubIDdateStart.setVisible(false);
-        labelSubIDdateEnd.setVisible(false);
-        textDateStart.setVisible(false);
-        textDateEnd.setVisible(false);
-        radioButtonPanel.setVisible(false);
-        radioButtonOptional.setVisible(false);
-        radioButtons.clearSelection();
-
-        radioButtonLeft.setText("Individual");
-        radioButtonRight.setText("List");
-
-        this.isHalfEntity = false;
+        clearVisibles();
 
         switch (Objects.requireNonNull(comboBoxViews.getSelectedItem()).toString()){
             case "Fair":
@@ -472,10 +476,11 @@ public class ViewHalfShow extends JFrame {
                 radioButtonPanel.setVisible(true);
                 break;
             case "Stand":
-
-                // Cambiar texto
-
-
+                radioButtonPanel.setVisible(true);
+                radioButtonOptional.setVisible(true);
+                radioButtonRight.setText("List by Assignation");
+                radioButtonOptional.setText("List by Participation");
+                this.isHalfEntityList = true;
                 break;
             case "Client":
                 radioButtonPanel.setVisible(true);
@@ -493,5 +498,25 @@ public class ViewHalfShow extends JFrame {
                 this.isHalfEntity = true;
                 break;
         }
+    }
+
+    private void clearVisibles() {
+        textID.setVisible(false);
+        labelSubID.setVisible(false);
+        labelSubIDdateStart.setVisible(false);
+        labelSubIDdateEnd.setVisible(false);
+        textDateStart.setVisible(false);
+        textDateEnd.setVisible(false);
+        radioButtonPanel.setVisible(false);
+        radioButtonOptional.setVisible(false);
+        radioButtons.clearSelection();
+
+        radioButtonLeft.setText("Individual");
+        radioButtonRight.setText("List");
+        labelSubIDdateEnd.setText("End date:");
+        labelSubIDdateStart.setText("Start date:");
+
+        this.isHalfEntity = false;
+        this.isHalfEntityList = false;
     }
 }
