@@ -2,6 +2,7 @@
 DUDAS PARA LAB:
 - Revisar test
 - Al listar todos solo listamos por activos?
+- Al leer participantes, cruzamos por las especialidades? tabla participante general vacia?
 
 
 CAMBIOS SRS:
@@ -10,7 +11,6 @@ CAMBIOS SRS:
 - Listar todas las ferias agregado
 - Listar todos los participantes agregado
 - Listar solo activos?
-
 - Listar stands por participacion: ahora se busca por ID de feria existente e ID participante existente
 - Todos los listar son por ID ahora y no por nombre
 - Eliminado: mostrar feria actual en un pabellon mostrado y viceversa
@@ -21,3 +21,4 @@ PENDIENTE:
 . Procedimiento SQL que gestione los metros de los pabellones al borrar stands
 . Problema: Create Asignacion: metros cuadrados
 . Problema: Create/modificacion Stand: metros cuadrados maximos que puede ocupar
+. Problema: lectura de participantes
