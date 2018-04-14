@@ -1,29 +1,36 @@
 package Negocio.Feria;
 
+
+import Exceptions.ASException;
 import Exceptions.DAOException;
 import org.junit.Test;
 import Integracion.Feria.DAOFeria;
 import static org.junit.Assert.*;
 
 import java.util.Collection;
+import java.util.Date;
 
 public class ASFeriaImpTest {
-	//HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-	@Test
+	@Test(expected=ASException.class)
 	//Metodo donde probamos que no se puede crear una feria ya existente en la bbdd
 	public void createFeriaExistente() throws Exception, DAOException {
-		int id = -1;
-		System.out.println("Test Create Feria Existente"); //Probamos que la feria que intentamos crear existe ya en la bbdd
-
-		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-		daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
-
-		Tferia feria = new Tferia(id, null, null, null, null, null); //Generamos un transfer
-		daoFeria.create(feria); //Creamos una feria con los datos intoducidos en el transfer anterior
-
-		assertTrue(daoFeria.create(feria) < 0); //Intentamos volver a crear una feria que ya existe en la bbdd y si nos devuelve -1
-		//Es porque ya existia en la bbdd por lo tanto es correcto el test
-
+			int id = -1;
+			System.out.println("Test Create Feria Existente"); //Probamos que la feria que intentamos crear existe ya en la bbdd
+	
+			DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
+			daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
+			
+			//Insertamos una feria en la bbdd
+			
+			
+			Date dateIni = new Date(2018, 01, 12);
+			Date dateEnd = new Date(2018, 01, 18);
+	
+			Tferia feria = new Tferia(id, "IBM", "IBM prueba existente", dateIni , dateEnd, false); //Generamos un transfer
+			daoFeria.create(feria); //Creamos una feria con los datos intoducidos en el transfer anterior
+			
+			Tferia feria2 = new Tferia(id, "IBM", "Prueba", null, null, false);
+			id = daoFeria.create(feria2);
 	}
 
 	@Test
