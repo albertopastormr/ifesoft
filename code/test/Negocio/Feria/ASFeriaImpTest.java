@@ -195,7 +195,7 @@ public class ASFeriaImpTest {
 		
 		Date dateIni = new Date(2018, 12, 12);
 		Date dateEnd = new Date(2018, 12, 18);
-		Tferia feria = new Tferia(id, "IBM", "Desription", dateIni, dateEnd, true);
+		Tferia feria = new Tferia(id, "IBM", "Desription", dateIni, dateEnd, false);
 		asFeria.create(feria);
 		
 		Date dateIni2 = new Date(2018, 12, 13);
@@ -205,21 +205,126 @@ public class ASFeriaImpTest {
 	}
 	
 	//-----------------------------------------------------------------------------------------------------------------------------
+	
+	@SuppressWarnings("deprecation")
+	//------------------------------------------------------TEST LIST----------------------------------------------------------------
 	@Test
+	//Test que comprueba que se lista correctamente dos ferias introducidas en la bbdd, si no hay ferias no muestra nada
 	public void list() throws Exception, DAOException {
-		System.out.println("Test list Feria");
+		ASFeriaImp asFeria = new ASFeriaImp();
+		Integer id1 = 223344, id2 = 556677;
+        Collection<Tferia> collection;
 		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-		Collection<Tferia> collectionFeria = daoFeria.readAll();
-		assertTrue(collectionFeria != null); //Si se cumple assertTrue el test saldr� correcto
+		daoFeria.deleteAll();
+		
+		Date dateIni = new Date(2018, 12, 12);
+		Date dateEnd = new Date(2018, 12, 18);
+		Tferia feria = new Tferia(id1, "IBM", "Desription", dateIni, dateEnd, false);
+		asFeria.create(feria);
+		
+		Date dateIni2 = new Date(2018, 12, 12);
+		Date dateEnd2 = new Date(2018, 12, 18);
+		Tferia feria2 = new Tferia(id2, "ACER", "Desription2", dateIni2, dateEnd2, false);
+		asFeria.create(feria2);
+		
+		collection = asFeria.list();
+		assertTrue(collection != null);
+		
 	}
+	//----------------------------------------------------------------------------------------------------------------------------------
 
+	//--------------------------------------------------------TEST LISTDATES------------------------------------------------------------
+	
+	@SuppressWarnings("deprecation")
 	@Test
-	public void show() throws Exception {
-		Tferia feria = new Tferia(0, null, null, null, null, null);
-		System.out.println("Test show Feria");
+	//Test que comprueba que se lista por fecha correctamente dos ferias introducidas en la bbdd
+	public void listbyDates() throws Exception, DAOException {
+		ASFeriaImp asFeria = new ASFeriaImp();
+		Integer id1 = 223344, id2 = 556677;
+        Collection<Tferia> collection;
 		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-		Tferia read = daoFeria.readByName(feria.getName());
-		assertTrue(read != null);
+		daoFeria.deleteAll();
+		
+		Date dateIni = new Date(2018, 12, 12);
+		Date dateEnd = new Date(2018, 12, 18);
+		Tferia feria = new Tferia(id1, "IBM", "Desription", dateIni, dateEnd, false);
+		asFeria.create(feria);
+		
+		Date dateIni2 = new Date(2018, 12, 12);
+		Date dateEnd2 = new Date(2018, 12, 18);
+		Tferia feria2 = new Tferia(id2, "ACER", "Desription2", dateIni2, dateEnd2, false);
+		asFeria.create(feria2);
+		
+		collection = asFeria.list();
+		assertTrue(collection != null);
+		
 	}
+	//----------------------------------------------------------------------------------------------------------------------------------
+	
+	//--------------------------------------------------TEST SHOWBYNAME------------------------------------------------------------------
+	@Test(expected=ASException.class)
+	public void showBynameInexistente() throws ASException, DAOException{
+		ASFeriaImp asFeria = new ASFeriaImp();
+		Integer id = -1;
+		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
+		daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
+		Tferia feria = new Tferia(id, "IBM", "Description", null, null, null);
+		
+		asFeria.showByName(feria);
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Test
+	//Test que comprueba que se muestra una feria con un nombre existente en la bbdd, si no existe lanza una excepcion
+	public void showByname() throws ASException, DAOException{
+		ASFeriaImp asFeria = new ASFeriaImp();
+		Integer id = -1;
+		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
+		daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
+		
+		Date dateIni = new Date(2018, 12, 12);
+		Date dateEnd = new Date(2018, 12, 18);
+		Tferia feria = new Tferia(id, "IBM", "Description", dateIni, dateEnd, false);
+		id = asFeria.create(feria);
+		
+		Tferia feria2 = new Tferia(id, "IBM", "Description", dateIni, dateEnd, false);
+		feria2 = asFeria.showByName(feria2);
+		assertTrue(feria2 != null); 
+	}
+	//----------------------------------------------------------------------------------------------------------------------------------
+	
+	//--------------------------------------------------TEST SHOWBYID-----------------------------------------------------------------
+	
+	//Test que comprueba que no se puede mostrar una feria por id inexistente en la bbddd
+	@Test(expected=ASException.class)
+	public void showByIdInexistente() throws ASException, DAOException{
+		ASFeriaImp asFeria = new ASFeriaImp();
+		Integer id = 223344;
+		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
+		daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
+		Tferia feria = new Tferia(id, "IBM", "Description", null, null, null);
+		
+		asFeria.showById(feria);
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Test
+	//Test que comprueba que se muestra una feria con un id existente en la bbdd, si no existe lanza una excepcion
+	public void showById() throws ASException, DAOException{
+		ASFeriaImp asFeria = new ASFeriaImp();
+		Integer id = 223344;
+		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
+		daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
+		
+		Date dateIni = new Date(2018, 12, 12);
+		Date dateEnd = new Date(2018, 12, 18);
+		Tferia feria = new Tferia(id, "IBM", "Description", dateIni, dateEnd, false);
+		id = asFeria.create(feria);
+		
+		Tferia feria2 = new Tferia(id, "IBM", "Description", dateIni, dateEnd, false);
+		feria2 = asFeria.showById(feria2);
+		assertTrue(feria2 != null); 
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------
 
 }
