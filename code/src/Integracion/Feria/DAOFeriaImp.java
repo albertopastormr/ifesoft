@@ -42,7 +42,7 @@ public class DAOFeriaImp implements DAOFeria{
 			ps.setString(2, tFeria.getDescription());
 			ps.setDate(3, new java.sql.Date (tFeria.getIniDate().getTime()));
 			ps.setDate(4, new java.sql.Date (tFeria.getEndDate().getTime()));
-			ps.setBoolean(5, true);
+			ps.setBoolean(5, tFeria.getActive());
 			ps.execute();
 			ps.close();
 			ps = connec.prepareStatement("SELECT LAST_INSERT_ID() FROM feria");
@@ -174,13 +174,13 @@ public class DAOFeriaImp implements DAOFeria{
 			ps = connec.prepareStatement("SELECT * FROM feria WHERE id = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-
+			ps.close();
 			if (rs.next()){
 				readFeria = new Tferia( rs.getString("name"),rs.getString("description"),rs.getDate("initDate"),rs.getDate("endDate"),rs.getBoolean("active") ) ;
 			}
 			else
 				throw new DAOException("Tferia" + id + " does not exist in ifesoft database\n");
-			ps.close();
+			
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'readById' ID Feria "+ id +" no logrado\n");
@@ -193,6 +193,53 @@ public class DAOFeriaImp implements DAOFeria{
 		}
 
 		return readFeria;
+	}
+
+	/***
+	 * reads a Collection<Tferia> from database ifesoft included in a time interval defined by two dates
+	 * @param  initDate initial bound of the time interval
+	 * @param  endDate end bound of the time interval
+	 * @return Collection<Tferia>
+	 * @throws DAOException error from database
+	 */
+	public Collection<Tferia> readByDates(Date initDate, Date endDate) throws DAOException {
+		ArrayList<Tferia> readFeriaList = new ArrayList<>();
+
+		driverIdentify();
+		Connection connec = null;
+
+		try { // Conexion db
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
+		} catch (SQLException e) {
+			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByDates' Dates Feria init:"+ initDate + " end:"+endDate +" no logrado\n");
+		}
+
+		try { // Tratamiento db
+			PreparedStatement ps;
+
+			ps = connec.prepareStatement("SELECT * FROM feria WHERE initDate >= ? AND endDate >= ? AND initDate <= ? AND endDate <= ?");
+			ps.setDate(1, new java.sql.Date (initDate.getTime()));
+			ps.setDate(2, new java.sql.Date (initDate.getTime()));
+			ps.setDate(3, new java.sql.Date (endDate.getTime()));
+			ps.setDate(4, new java.sql.Date (endDate.getTime()));
+
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next())
+				readFeriaList.add( new Tferia( rs.getString("name"),rs.getString("description"),rs.getDate("initDate"),rs.getDate("endDate"),rs.getBoolean("active") ) );
+			ps.close();
+		}
+		catch (SQLException e){
+			throw new DAOException("ERROR: tratamiento DB para 'readByDates' Dates Feria init:"+ initDate + " end:"+endDate +" no logrado\n");
+		}
+		finally {
+			try {
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrando conexion a DB para 'readByDates' no logrado\n");			}
+		}
+
+		return readFeriaList;
 	}
 
 	/***
