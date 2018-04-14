@@ -11,6 +11,8 @@ import java.util.Collection;
 import java.util.Date;
 
 public class ASFeriaImpTest {
+	//-------------------------------------TEST CREATE-------------------------------------------------------------
+	
 	///intenta crear una feria existente
 	@SuppressWarnings("deprecation")
 	@Test(expected=ASException.class)//Se pasa el test si se lanza la excepcion
@@ -93,6 +95,11 @@ public class ASFeriaImpTest {
 		Tferia feria = new Tferia(id, "IBM", "prueba de fecha", dateIni, dateEnd, false); //Generamos un transfer
 		assertTrue(daoFeria.create(feria) > 0);
 	}
+	
+	//---------------------------------------------------------------------------------------------------------------
+	
+	//---------------------------------------TEST DROP---------------------------------------------------------------------
+
 	public void drop() throws Exception {
 		Tferia feria = new Tferia(0, null, null, null, null, null);
 		Boolean deleted = false;
@@ -102,6 +109,8 @@ public class ASFeriaImpTest {
 		
 		assertTrue(deleted == true);
 	}
+	
+	//-----------------------------------------------------------------------------------------------------------------------------
 
 	@Test
 	public void modify() throws Exception {
