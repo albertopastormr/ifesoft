@@ -140,16 +140,70 @@ public class ASFeriaImpTest {
 	//-----------------------------------------------------------------------------------------------------------------------------
 
 	//------------------------------------------TEST MODIFY-------------------------------------------------------------------------
-	@Test
-	public void modify() throws Exception {
-		Tferia feria = new Tferia(0, null, null, null, null, null);
+	//Test que comprueba que no se puede modificar una feria con un id incorrecto
+	@Test(expected=ASException.class)
+	public void testModifyIdIncorrecto() throws Exception {
 		Integer id = -1;
-		System.out.println("Test Modify Feria");
-		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-		id = daoFeria.update(feria);
-		
-		assertTrue(id != -1);
+		ASFeriaImp asFeria = new ASFeriaImp();
+		Tferia feria = new Tferia(id, "IBM", "Desription", null, null, true);
+		asFeria.modify(feria);
 	}
+	
+	//Test que comprueba que no se puede modificar una feria con un nombre que no existe  en la bddd
+	@SuppressWarnings("deprecation")
+	@Test(expected=ASException.class)
+	public void testModifyFeriaInexistente() throws Exception {
+		Integer id = 223344;
+		ASFeriaImp asFeria = new ASFeriaImp();
+		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
+		daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
+		
+		Date dateIni = new Date(2018, 12, 12);
+		Date dateEnd = new Date(2018, 12, 18);
+		Tferia feria = new Tferia(id, "IBM", "Desription", dateIni, dateEnd, true);
+		asFeria.modify(feria);
+	}
+	
+	//Test que intenta modificar una feria introduciendole una fecha no valida
+	@SuppressWarnings("deprecation")
+	@Test(expected=ASException.class)
+	public void testModifyFeriaFechaIncorrecta() throws Exception {
+		Integer id = 223344;
+		ASFeriaImp asFeria = new ASFeriaImp();
+		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
+		daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
+		
+		Date dateIni = new Date(2018, 12, 12);
+		Date dateEnd = new Date(2018, 12, 18);
+		Tferia feria = new Tferia(id, "IBM", "Desription", dateIni, dateEnd, true);
+		asFeria.create(feria);
+		
+		Date dateIni2 = new Date(2016, 12, 12);
+		Date dateEnd2 = new Date(2016, 12, 18);
+		Tferia feria2 = new Tferia(id, "IBM", "Description", dateIni2, dateEnd2, true );
+		asFeria.modify(feria2);
+	}
+	
+	//Test que comprueba que se modifica una feria correctamente en la bbdd
+	@SuppressWarnings("deprecation")
+	@Test
+	public void testModify() throws Exception {
+		Integer id = 223344;
+		ASFeriaImp asFeria = new ASFeriaImp();
+		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
+		daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
+		
+		Date dateIni = new Date(2018, 12, 12);
+		Date dateEnd = new Date(2018, 12, 18);
+		Tferia feria = new Tferia(id, "IBM", "Desription", dateIni, dateEnd, true);
+		asFeria.create(feria);
+		
+		Date dateIni2 = new Date(2018, 12, 13);
+		Date dateEnd2 = new Date(2018, 12, 19);
+		Tferia feria2 = new Tferia(id, "IBM", "Description + more things", dateIni2, dateEnd2, true );
+		asFeria.modify(feria2);
+	}
+	
 	//-----------------------------------------------------------------------------------------------------------------------------
 	@Test
 	public void list() throws Exception, DAOException {
