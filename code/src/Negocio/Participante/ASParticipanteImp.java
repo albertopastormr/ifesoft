@@ -54,8 +54,8 @@ public class ASParticipanteImp implements ASParticipante {
                 Tparticipante read = daoParticipante.readById(participante.getId());
                 if (read != null) {
                     Tparticipante nameOK = daoParticipante.readByName(participante.getName());
-                    if (nameOK == null) {
-                            id = daoParticipante.update(participante);
+                    if (nameOK == null || nameOK.getName().equals(read.getName())) {
+                        id = daoParticipante.update(participante);
                     } else
                         throw new ASException("ERROR: El nuevo nombre para el participante " + participante.getName() + " ya esta siendo usado.\n");
                 } else
@@ -69,10 +69,47 @@ public class ASParticipanteImp implements ASParticipante {
     }
 
     public Collection<Tparticipante> list() throws ASException {
-        return null;
+        DAOParticipante daoParticipante = IFDAOParticipante.getInstance().generateDAOparticipante();
+        Collection<Tparticipante> collection;
+        try {
+            collection = daoParticipante.readAll();
+        } catch (Exception ex) {
+            throw new ASException(ex.getMessage());
+        }
+        return collection;
+    }
+
+    public Tparticipante showByName(Tparticipante participante) throws ASException {
+        DAOParticipante daoParticipante = IFDAOParticipante.getInstance().generateDAOparticipante();
+        if (participante != null) {
+            try {
+                Tparticipante read = daoParticipante.readByName(participante.getName());
+                if (read != null)
+                    return read;
+                else
+                    throw new ASException("ERROR: El participante " + participante.getName() + " no existe.\n");
+            } catch (Exception ex) {
+                throw new ASException(ex.getMessage());
+            }
+        } else
+            throw new ASException("ERROR: No se han introducido los datos del participante.\n");
+        //return null;
     }
 
     public Tparticipante showById(Tparticipante participante) throws ASException {
-        return null;
+        DAOParticipante daoParticipante = IFDAOParticipante.getInstance().generateDAOparticipante();
+        if (participante != null) {
+            try {
+                Tparticipante read = daoParticipante.readById(participante.getId());
+                if (read != null)
+                    return read;
+                else
+                    throw new ASException("ERROR: El participante " + participante.getId() + " no existe.\n");
+            } catch (Exception ex) {
+                throw new ASException(ex.getMessage());
+            }
+        } else
+            throw new ASException("ERROR: No se han introducido los datos del participante.\n");
+        //return null;
     }
 }
