@@ -85,7 +85,7 @@ public class ASFeriaImpTest {
 	//Metodo donde probamos que se crea una feria correctamente
 	@SuppressWarnings("deprecation")
 	@Test
-	public void creaFeria() throws Exception, DAOException {
+	public void createFeria() throws Exception, DAOException {
 		Integer id = -1;
 		System.out.println("Test crea Feria Inexistente"); //Probamos que la feria que intentamos crear existe ya en la bbdd
 
@@ -102,6 +102,7 @@ public class ASFeriaImpTest {
 	
 	//---------------------------------------TEST DROP---------------------------------------------------------------------
 	@Test(expected=ASException.class)
+	//Intentamos borrar una feria pasandole un id incorrecto(-1)
 	public void dropIdincorrecto() throws Exception {
 		ASFeriaImp asFeria = new ASFeriaImp();
 
@@ -109,9 +110,36 @@ public class ASFeriaImpTest {
 		asFeria.drop(feria); //Creamos una feria con los datos intoducidos en el transfer anterior
 		
 	}
+	//Intentamos borrar una feria con un id que no se encuentra en la bbdd
+	@Test(expected=ASException.class)
+	public void dropIdinexistente() throws Exception {
+		ASFeriaImp asFeria = new ASFeriaImp();
+		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
+		daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
+
+		
+		Tferia feria = new Tferia(223344, "IBM", "The feria IBM", null , null, true);
+		asFeria.drop(feria);
+		
+	}
+	//Borramos una feria correctamente, existente en la bbdd
+	@SuppressWarnings("deprecation")
+	@Test
+	public void dropFeria() throws Exception {
+		ASFeriaImp asFeria = new ASFeriaImp();		
+		Date dateIni = new Date(2016, 01, 12);
+		Date dateEnd = new Date(2016, 01, 18);
+
+		Tferia feria = new Tferia(223344, "IBM", "The feria IBM", dateIni , dateEnd, false);
+		asFeria.create(feria); //Creamos una feria IBM
+		assertTrue(asFeria.drop(feria) > 0); //Si se ha podido borrar la feria correctamente, nos devuelve el id de la feria borrada logicamente
+											//Y ademas el test sale correcto
+		
+	}
 	
 	//-----------------------------------------------------------------------------------------------------------------------------
 
+	//------------------------------------------TEST MODIFY-------------------------------------------------------------------------
 	@Test
 	public void modify() throws Exception {
 		Tferia feria = new Tferia(0, null, null, null, null, null);
@@ -122,7 +150,7 @@ public class ASFeriaImpTest {
 		
 		assertTrue(id != -1);
 	}
-
+	//-----------------------------------------------------------------------------------------------------------------------------
 	@Test
 	public void list() throws Exception, DAOException {
 		System.out.println("Test list Feria");
