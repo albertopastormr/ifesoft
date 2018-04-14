@@ -66,7 +66,7 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
                 Tferia read = daoFeria.readById(feria.getId());
                 if (read != null) {
                     Tferia nameOK = daoFeria.readByName(feria.getName());
-                    if (nameOK == null) {
+                    if ((nameOK == null) || nameOK.getName().equals(read.getName())) {
                         Date currentDate = new Date();
                         if (feria.getIniDate().after(currentDate) && feria.getEndDate().after(feria.getIniDate()))
                             id = daoFeria.update(feria);
