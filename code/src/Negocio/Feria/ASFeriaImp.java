@@ -135,7 +135,7 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
 
     public Tferia showById(Tferia feria) throws ASException {
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-        if (feria != null) {
+        if (feria != null && feria.getId() != -1) {
             try {
                 Tferia read = daoFeria.readById(feria.getId());
                 if (read != null)
