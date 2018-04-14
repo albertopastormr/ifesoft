@@ -40,7 +40,7 @@ public class ASFeriaImpTest {
 	@SuppressWarnings("deprecation")
 	@Test(expected=ASException.class)//Se pasa el test si se lanza la excepcion
 	public void creaFeriaConFechaIncorrecta() throws Exception, DAOException {
-
+		ASFeriaImp asFeria = new ASFeriaImp();
 		Integer id = -1;
 		System.out.println("Test Lee Feria Inexistente"); //Probamos que la feria que intentamos crear existe ya en la bbdd
 
@@ -50,12 +50,13 @@ public class ASFeriaImpTest {
 		Date dateIni = new Date(2016, 01, 12);
 		Date dateEnd = new Date(2016, 01, 18);
 		Tferia feria = new Tferia(id, "IBM", "prueba de fecha", dateIni, dateEnd, false); //Generamos un transfer
-		daoFeria.create(feria);
+		asFeria.create(feria);
 	}
 	//Metodo donde probamos que no se puede crear una feria cuando le pasamos algun datos incorrecto, es decir, a null o incompleto
 	@SuppressWarnings("deprecation")
 	@Test(expected=ASException.class)//Se pasa el test si se lanza la excepcion
 	public void creaFeriaConDatosIncorrectos() throws Exception, DAOException {
+		ASFeriaImp asFeria = new ASFeriaImp();
 		Integer id = -1;
 		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
 		daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
@@ -64,12 +65,13 @@ public class ASFeriaImpTest {
 		Date dateEnd = new Date(2019, 01, 18);
 		//En este caso le pasamos la descripcion a null y necesitaria una descripcion para poder crearse correctamente
 		Tferia feria = new Tferia(id, "IBM", null, dateIni, dateEnd, false); //Generamos un transfer
-		daoFeria.create(feria);
+		asFeria.create(feria);
 	}
 	//Metodo donde probamos que no se puede crear una feria leida incorrectamente
 	@SuppressWarnings("deprecation")
 	@Test(expected=ASException.class)//Se pasa el test si se lanza la excepcion
 	public void creaFeriaLeidaIncorrectamente() throws Exception, DAOException {
+		ASFeriaImp asFeria = new ASFeriaImp();
 		Integer id = -1;
 		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
 		daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
@@ -78,7 +80,7 @@ public class ASFeriaImpTest {
 		Date dateEnd = new Date(2016, 01, 18);
 		Tferia feria = new Tferia(id, "IBM", "prueba de fecha", dateIni, dateEnd, false); //Generamos un transfer
 		//Intentara leer IBM en la bbdd y saltara una excepcion en create ya que la feria no existe
-		daoFeria.create(feria);
+		asFeria.create(feria);
 	}
 	//Metodo donde probamos que se crea una feria correctamente
 	@SuppressWarnings("deprecation")
@@ -99,15 +101,13 @@ public class ASFeriaImpTest {
 	//---------------------------------------------------------------------------------------------------------------
 	
 	//---------------------------------------TEST DROP---------------------------------------------------------------------
+	@Test(expected=ASException.class)
+	public void dropIdincorrecto() throws Exception {
+		ASFeriaImp asFeria = new ASFeriaImp();
 
-	public void drop() throws Exception {
-		Tferia feria = new Tferia(0, null, null, null, null, null);
-		Boolean deleted = false;
-		System.out.println("Test drop Feria");
-		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-		deleted = daoFeria.delete(feria.getId());
+		Tferia feria = new Tferia(-1, "IBM", null, null , null, true); //Generamos un transfer
+		asFeria.drop(feria); //Creamos una feria con los datos intoducidos en el transfer anterior
 		
-		assertTrue(deleted == true);
 	}
 	
 	//-----------------------------------------------------------------------------------------------------------------------------
