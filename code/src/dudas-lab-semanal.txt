@@ -3,6 +3,7 @@ DUDAS PARA LAB:
 - Revisar test
 - Al listar todos solo listamos por activos?
 - Al leer participantes, cruzamos por las especialidades? tabla participante general vacia?
+- Pabellon (create) Comprobar si id es diferente de -1? El id lo tiene que dar la bbdd, no?
 
 
 CAMBIOS SRS:
@@ -22,3 +23,11 @@ PENDIENTE:
 . Problema: Create Asignacion: metros cuadrados
 . Problema: Create/modificacion Stand: metros cuadrados maximos que puede ocupar
 . Problema: lectura de participantes
+
+MODIFICACIONES PARA EL FINAL/DUDAS: (o por lo menos cuando este todo claro de como funciona)
+- Feria
+    . Listar ferias: solo nuevas o ferias pasadas (SRS)
+    . Visualizar feria: Mostrar pabellones
+- Pabellon
+    . Operación para calcular el aforo maximo a partir de los m2 totales (Modificar y crear)
+    . Visualizar pabellon: Feria actual ocupandolo (SRS)
