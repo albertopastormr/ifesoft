@@ -3,6 +3,8 @@ package Integracion.Participante;
 
 import Exceptions.DAOException;
 import Negocio.Participante.Tparticipante;
+import Negocio.Participante.TparticipanteInternacional;
+import Negocio.Participante.TparticipanteNacional;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -30,18 +32,38 @@ public class DAOParticipanteImp implements DAOParticipante {
 		}
 
 		try { // Tratamiento db
-			PreparedStatement ps;
-			ps = connec.prepareStatement("INSERT INTO participante(name, phone, active) VALUES (?,?,?)");
-			ps.setString(1, tParticipante.getName());
-			ps.setLong(2, tParticipante.getPhone());
-			ps.setBoolean(3, true);
-			ps.execute();
+			if( tParticipante instanceof TparticipanteNacional) {
+				PreparedStatement ps;
+				ps = connec.prepareStatement("INSERT INTO participante_nacional(name, phone, active, region) VALUES (?,?,?,?)");
+				ps.setString(1, tParticipante.getName());
+				ps.setLong(2, tParticipante.getPhone());
+				ps.setBoolean(3, true);
+				ps.setString(4, ((TparticipanteNacional) tParticipante).getRegion());
+				ps.execute();
 
-			ps = connec.prepareStatement("SELECT LAST_INSERT_ID() FROM participante");
+				ps = connec.prepareStatement("SELECT LAST_INSERT_ID() FROM participante");
 
-			ResultSet rs = ps.executeQuery();
-			if (rs.next())
-				id = rs.getInt("LAST_INSERT_ID()");
+				ResultSet rs = ps.executeQuery();
+				if (rs.next())
+					id = rs.getInt("LAST_INSERT_ID()");
+				return -1;
+			}
+			else if ( tParticipante instanceof  TparticipanteInternacional){
+				PreparedStatement ps;
+				ps = connec.prepareStatement("INSERT INTO participante_internacional(name, phone, active, country) VALUES (?,?,?,?)");
+				ps.setString(1, tParticipante.getName());
+				ps.setLong(2, tParticipante.getPhone());
+				ps.setBoolean(3, true);
+				ps.setString(4, ((TparticipanteInternacional) tParticipante).getCountry());
+				ps.execute();
+
+				ps = connec.prepareStatement("SELECT LAST_INSERT_ID() FROM participante");
+
+				ResultSet rs = ps.executeQuery();
+				if (rs.next())
+					id = rs.getInt("LAST_INSERT_ID()");
+				return -1;
+			}
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'create' Name Participante "+ tParticipante.getName() +" no logrado\n");
@@ -78,7 +100,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 		try { // Tratamiento db
 			PreparedStatement ps;
 
-			ps = connec.prepareStatement("SELECT * FROM participante WHERE active = true");
+			ps = connec.prepareStatement("SELECT * FROM participante_nacional JOIN participante_internacional WHERE active = true");
 
 			ResultSet rs = ps.executeQuery();
 			while (rs.next())
@@ -118,12 +140,23 @@ public class DAOParticipanteImp implements DAOParticipante {
 		try { // Tratamiento db
 			PreparedStatement ps;
 
-			ps = connec.prepareStatement("SELECT * FROM participante WHERE name = ?");
+			ps = connec.prepareStatement("SELECT * FROM participante_nacional WHERE name = ?");
 			ps.setString(1, name);
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()){
-				readParticipante = new Tparticipante( rs.getString("name"), rs.getLong("phone"), rs.getBoolean("active") ) ;
+				readParticipante = new TparticipanteNacional( rs.getString("name"), rs.getLong("phone"), rs.getBoolean("active"), rs.getString("region")) ;
+			}
+			else{ // En este caso no hay ningun participante nacional con ese id y se busca en los internacionales
+				ps = connec.prepareStatement("SELECT * FROM participante_internacional WHERE name = ?");
+				ps.setString(1, name);
+				rs = ps.executeQuery();
+
+				if (rs.next()){
+					readParticipante = new TparticipanteInternacional( rs.getString("name"), rs.getLong("phone"), rs.getBoolean("active"), rs.getString("country")) ;
+				}
+				else
+					return null;
 			}
 		}
 		catch (SQLException e){
@@ -161,12 +194,23 @@ public class DAOParticipanteImp implements DAOParticipante {
 		try { // Tratamiento db
 			PreparedStatement ps;
 
-			ps = connec.prepareStatement("SELECT * FROM participante WHERE id = ?");
+			ps = connec.prepareStatement("SELECT * FROM participante_nacional WHERE id = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()){
-				readParticipante = new Tparticipante( rs.getString("name"), rs.getLong("phone"), rs.getBoolean("active") ) ;
+				readParticipante = new TparticipanteNacional( rs.getString("name"), rs.getLong("phone"), rs.getBoolean("active"), rs.getString("region")) ;
+			}
+			else{ // En este caso no hay ningun participante nacional con ese id y se busca en los internacionales
+				ps = connec.prepareStatement("SELECT * FROM participante_internacional WHERE id = ?");
+				ps.setInt(1, id);
+				rs = ps.executeQuery();
+
+				if (rs.next()){
+					readParticipante = new TparticipanteInternacional( rs.getString("name"), rs.getLong("phone"), rs.getBoolean("active"), rs.getString("country")) ;
+				}
+				else
+					return null;
 			}
 		}
 		catch (SQLException e){
@@ -201,29 +245,65 @@ public class DAOParticipanteImp implements DAOParticipante {
 
 		try { // Tratamiento db
 			PreparedStatement ps;
-			ps = connec.prepareStatement("UPDATE participante SET name = ? AND phone = ? AND active = ? WHERE id = ?");
-			ps.setString(1, tParticipante.getName());
-			ps.setLong(2, tParticipante.getPhone());
-			ps.setBoolean(3, true);
-			ps.setInt(4,tParticipante.getId()); // PENDIENTE MODIFICACION
-			ps.execute();
+			if(tParticipante instanceof TparticipanteNacional) {
+				ps = connec.prepareStatement("UPDATE participante_nacional SET name = ? AND phone = ? AND active = ? AND region = ? WHERE id = ?");
+				ps.setString(1, tParticipante.getName());
+				ps.setLong(2, tParticipante.getPhone());
+				ps.setBoolean(3, true);
+				ps.setString(4, ((TparticipanteNacional) tParticipante).getRegion());
+				ps.setInt(5, tParticipante.getId());
+				ps.execute();
 
-			ps = connec.prepareStatement("SELECT id FROM participante WHERE name = ?");
-			ps.setString(1, tParticipante.getName());
-			ResultSet rs = ps.executeQuery();
+				ps = connec.prepareStatement("SELECT id FROM participante_nacional WHERE name = ?");
+				ps.setString(1, tParticipante.getName());
+				ResultSet rs = ps.executeQuery();
 
-			if (rs.next()) {
-				id = rs.getInt("id");
 
-				if(!tParticipante.getActive()){
-					ps = connec.prepareStatement("UPDATE (participacion p JOIN stand s ON p.stand_id = s.id) JOIN asignacion a ON s.id = a.stand_id SET p.active = ? AND s.active = ? AND a.active = ? WHERE p.client_id = ?");
-					ps.setBoolean(1, tParticipante.getActive());
-					ps.setBoolean(2, tParticipante.getActive());
-					ps.setBoolean(3, tParticipante.getActive());
-					ps.setInt(4, tParticipante.getId());
-					ps.execute();
-					ps.close();
+				if (rs.next()) {
+					id = rs.getInt("id");
+
+					if (!tParticipante.getActive()) {
+						ps = connec.prepareStatement("UPDATE (participacion p JOIN stand s ON p.stand_id = s.id) JOIN asignacion a ON s.id = a.stand_id SET p.active = ? AND s.active = ? AND a.active = ? WHERE p.client_id = ?");
+						ps.setBoolean(1, tParticipante.getActive());
+						ps.setBoolean(2, tParticipante.getActive());
+						ps.setBoolean(3, tParticipante.getActive());
+						ps.setInt(4, tParticipante.getId());
+						ps.execute();
+						ps.close();
+					}
 				}
+				else
+					return -1;
+			}
+			else if (tParticipante instanceof TparticipanteInternacional){
+				ps = connec.prepareStatement("UPDATE participante_internacional SET name = ? AND phone = ? AND active = ? AND country = ? WHERE id = ?");
+				ps.setString(1, tParticipante.getName());
+				ps.setLong(2, tParticipante.getPhone());
+				ps.setBoolean(3, true);
+				ps.setString(4, ((TparticipanteInternacional) tParticipante).getCountry());
+				ps.setInt(5, tParticipante.getId());
+				ps.execute();
+
+				ps = connec.prepareStatement("SELECT id FROM participante_internacional WHERE name = ?");
+				ps.setString(1, tParticipante.getName());
+				ResultSet rs = ps.executeQuery();
+
+
+				if (rs.next()) {
+					id = rs.getInt("id");
+
+					if (!tParticipante.getActive()) {
+						ps = connec.prepareStatement("UPDATE (participacion p JOIN stand s ON p.stand_id = s.id) JOIN asignacion a ON s.id = a.stand_id SET p.active = ? AND s.active = ? AND a.active = ? WHERE p.client_id = ?");
+						ps.setBoolean(1, tParticipante.getActive());
+						ps.setBoolean(2, tParticipante.getActive());
+						ps.setBoolean(3, tParticipante.getActive());
+						ps.setInt(4, tParticipante.getId());
+						ps.execute();
+						ps.close();
+					}
+				}
+				else
+					return -1;
 			}
 		}
 		catch (SQLException e){

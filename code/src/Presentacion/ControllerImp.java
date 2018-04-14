@@ -14,12 +14,16 @@ import Negocio.Participante.ASParticipante;
 import Negocio.Participante.Tparticipante;
 import Negocio.Stand.ASStand;
 import Negocio.Stand.Tstand;
+import Presentacion.utils.Utilities;
 import Presentacion.views.forms.*;
+import Presentacion.views.shows.List.ListFairs;
 import Presentacion.views.viewsHalf.*;
 import Presentacion.views.events.Event;
 import Presentacion.views.events.EventGUI;
 
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Collection;
 
 public class ControllerImp extends Controller {
 
@@ -107,7 +111,7 @@ public class ControllerImp extends Controller {
             /** Form Views*/
 
             case Event.INSERT_FORM_FERIA:
-                //new ViewsFormFeria();
+                new ViewsFormFeria();
                 break;
             case Event.INSERT_FORM_ASIGNACION:
                 new ViewsFormAsignacion();
@@ -125,15 +129,29 @@ public class ControllerImp extends Controller {
                 new ViewsFormParticipacion();
                 break;
 
+
+            /** HACER ESTO CON TODOS LOS MODULOS*/
+
             case Event.MODIFY_FORM_FERIA:
-               /* try {
-                    tFeria = asFeria.show((Tferia) data);
-                    //new ViewsFormFeria(tFeria);
+               try {
+                    tFeria = asFeria.showById((Tferia) data);
+                    new ViewsFormFeria(tFeria);
+                } catch (ASException | DAOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case Event.MODIFY_FAIR:
+                tFeria = (Tferia) data;
+                try {
+                    int res = asFeria.modify(tFeria);
+                    if (res>0) gui.update(EventGUI.UPDATE_UPDATE_FERIA_OK, res);
+                    else gui.update(EventGUI.UPDATE_UPDATE_FERIA_FAIL, null);
 
                 } catch (ASException | DAOException e) {
                     e.printStackTrace();
-                }*/
+                }
                 break;
+
             case Event.INSERT_FAIR:
                 tFeria = (Tferia) data;
                 try {
@@ -145,6 +163,9 @@ public class ControllerImp extends Controller {
                     e.printStackTrace();
                 }
                 break;
+
+            /** ---------------------------- */
+
             case Event.SHOW_CLIENT_INDIVIDUAL:
                 try {
                     asClient.showById((Tparticipante) data);
@@ -168,7 +189,7 @@ public class ControllerImp extends Controller {
                 break;
             case Event.SHOW_FAIR_LIST:
                 try {
-                    asFeria.list();
+                    new ListFairs(asFeria.list());
                 } catch (ASException | DAOException e) {
                     e.printStackTrace();
                 }

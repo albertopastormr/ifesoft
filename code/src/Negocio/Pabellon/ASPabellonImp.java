@@ -11,21 +11,21 @@ import java.util.Collection;
 import java.util.concurrent.ThreadPoolExecutor;
 
 public class ASPabellonImp implements ASPabellon {
-    public Integer create(Tpabellon pabellon) throws ASException, DAOException {
+    public Integer create(Tpabellon pabellon) throws ASException {
         int id = -1;
         DAOPabellon daoPabellon = IFDAOPabellon.getInstance().generateDAOpabellon();
         if (pabellon != null && pabellon.getTotal_m2() >= 0 && pabellon.getUtil_m2() >= 0 && pabellon.getCapacity() >= 0) {
             try {
                 Tpabellon read = daoPabellon.readById(pabellon.getId());
                 if (read == null) {
-                    if (pabellon.getId() != -1 && pabellon.getTotal_m2() >= 0 && pabellon.getTotal_m2() >= pabellon.getUtil_m2())
+                    if (pabellon.getTotal_m2() >= 0 && pabellon.getTotal_m2() >= pabellon.getUtil_m2())
                         id = daoPabellon.create(pabellon);
                     else
                         throw new ASException("ERROR: Los datos del pabellon no son correctos.\n");
                 } else {
                     if (!read.getActive()) {
-                        pabellon.setActive(true);
-                        id = daoPabellon.update(pabellon);
+                        read.setActive(true);
+                        id = daoPabellon.update(read);
                     } else
                         throw new ASException("ERROR: El pabellon " + pabellon.getId() + "ya existe.\n");
                 }
@@ -37,16 +37,16 @@ public class ASPabellonImp implements ASPabellon {
         return id;
     }
 
-    public Integer drop(Tpabellon pabellon) throws ASException, DAOException {
+    public Integer drop(Tpabellon pabellon) throws ASException {
         int id = -1;
         DAOPabellon daoPabellon = IFDAOPabellon.getInstance().generateDAOpabellon();
-        if (pabellon != null) {
-            pabellon.setActive(false);
+        if (pabellon != null && pabellon.getId() != -1) {
             try {
                 Tpabellon read = daoPabellon.readById(pabellon.getId());
-                if (read != null)
-                    id = daoPabellon.update(pabellon);
-                else
+                if (read != null) {
+                    read.setActive(false);
+                    id = daoPabellon.update(read);
+                } else
                     throw new ASException("ERROR: El pabellon " + pabellon.getId() + " no existe.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
@@ -56,10 +56,10 @@ public class ASPabellonImp implements ASPabellon {
         return id;
     }
 
-    public Integer modify(Tpabellon pabellon) throws ASException, DAOException {
+    public Integer modify(Tpabellon pabellon) throws ASException {
         int id = -1;
         DAOPabellon daoPabellon = IFDAOPabellon.getInstance().generateDAOpabellon();
-        if (pabellon != null) {
+        if (pabellon != null && pabellon.getId() != -1) {
             try {
                 Tpabellon read = daoPabellon.readById(pabellon.getId());
                 if (read != null) {
@@ -77,7 +77,7 @@ public class ASPabellonImp implements ASPabellon {
         return id;
     }
 
-    public Collection<Tpabellon> list() throws ASException, DAOException {
+    public Collection<Tpabellon> list() throws ASException {
         DAOPabellon daoPabellon = IFDAOPabellon.getInstance().generateDAOpabellon();
         Collection<Tpabellon> collection;
         try {
@@ -88,7 +88,7 @@ public class ASPabellonImp implements ASPabellon {
         return collection;
     }
 
-    public Tpabellon showById(Tpabellon pabellon) throws ASException, DAOException {
+    public Tpabellon showById(Tpabellon pabellon) throws ASException {
         DAOPabellon daoPabellon = IFDAOPabellon.getInstance().generateDAOpabellon();
         if (pabellon != null) {
             try {

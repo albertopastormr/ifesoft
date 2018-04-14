@@ -52,6 +52,7 @@ public class Event {
     public static final int INSERT_FORM_PARTICIPANTE = 3242324;
     public static final int MODIFY_FORM_PARTICIPANTE = 98349;
 
+
     public static final int INSERT_FAIR = 12;
     public static final int MODIFY_FAIR = 15;
     public static final int INSERT_CLIENT = 200;

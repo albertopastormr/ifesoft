@@ -1,6 +1,11 @@
 package Presentacion.views.viewsHalf;
 
+import Negocio.Asignacion.Tasignacion;
 import Negocio.Feria.Tferia;
+import Negocio.Pabellon.Tpabellon;
+import Negocio.Participacion.Tparticipacion;
+import Negocio.Participante.Tparticipante;
+import Negocio.Stand.Tstand;
 import Presentacion.Controller;
 import Presentacion.UIimp;
 import Presentacion.views.events.Event;
@@ -21,8 +26,6 @@ public class ViewHalfModify extends JFrame {
     private JLabel title;
     private JLabel labelSubID;
     private JComboBox<String> comboBoxMod;
-    private JRadioButton radioButtonIndividual;
-    private JRadioButton radioButtonList;
     private JButton okButton;
     private JButton cancelButton;
     private JButton helpButton;
@@ -30,7 +33,6 @@ public class ViewHalfModify extends JFrame {
 
     private Font fComboBox = new Font(Font.DIALOG, Font.PLAIN, 40);
     private Font fTitle  = new Font(Font.MONOSPACED, Font.BOLD, 80);
-    private Font fRadioButton = new Font(Font.DIALOG, Font.PLAIN, 35);
     private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
     private Font fLabelSubId = new Font(Font.DIALOG, Font.PLAIN, 30);
     private Font fTextField = new Font(Font.DIALOG, Font.PLAIN, 30);
@@ -53,38 +55,38 @@ public class ViewHalfModify extends JFrame {
     private void okButtonActionPerformed(ActionEvent e) {
 
         switch (String.valueOf(comboBoxMod.getSelectedItem())){
-            case "Feria":
+            case "Fair":
                 this.setVisible(false);
-
-                int idFeria = Integer.parseInt(textID.getText());
-
-                // Nos traemos los datos a poder modificar
-                Tferia tFeria = new Tferia(null ,null ,null ,null ,false);
-                tFeria.setId(idFeria);
-
-                Controller.getInstance().execute(Presentacion.views.events.Event.INSERT_FORM_FERIA, tFeria);
-
+                Controller.getInstance().execute(Event.INSERT_FORM_FERIA,
+                        new Tferia( Integer.parseInt(textID.getText()) ,null,null ,null ,null, null));
                 break;
-            case "Pabellon":
-                Controller.getInstance().execute(Presentacion.views.events.Event.CREATE_HALF, null);
+            case "Pavilion":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.INSERT_FORM_PABELLON,
+                        new Tpabellon(Integer.parseInt(textID.getText()) ,-1,-1 ,-1,null));
                 break;
             case "Stand":
-                Controller.getInstance().execute(Presentacion.views.events.Event.CREATE_HALF, null);
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.INSERT_FORM_STAND,
+                        new Tstand(Integer.parseInt(textID.getText()) ,-1,-1 ,-1,null));
                 break;
-            case "Participante":
-                Controller.getInstance().execute(Presentacion.views.events.Event.CREATE_HALF, null);
+            case "Client":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.INSERT_FORM_PARTICIPANTE,
+                        new Tparticipante(Integer.parseInt(textID.getText()) ,null ,-1 ,null));
                 break;
-            case "Asignacion":
-                Controller.getInstance().execute(Presentacion.views.events.Event.CREATE_HALF, null);
+            case "Assignation":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.INSERT_FORM_ASIGNACION,
+                        new Tasignacion(Integer.parseInt(textID.getText()) ,-1 ,-1 ,-1 ,null));
                 break;
-            case "Participacion":
-                Controller.getInstance().execute(Event.CREATE_HALF, null);
+            case "Participation":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.INSERT_FORM_PARTICIPACION,
+                        new Tparticipacion(Integer.parseInt(textID.getText()) ,-1 ,-1 ,null));
                 break;
 
         }
-
-
-
     }
 
     private void cancelButtonActionPerformed(ActionEvent e) {
@@ -139,29 +141,6 @@ public class ViewHalfModify extends JFrame {
         comboBoxMod.setBorder(BorderFactory.createEmptyBorder(0,0, 20, 0));
         centerPanel.add(comboBoxMod);
 
-        //===== RadioButtonPanel =====
-
-        JPanel radioButtonPanel = new JPanel(new FlowLayout());
-
-        //---- radioButtonIndividual ----
-        radioButtonIndividual = new JRadioButton();
-        radioButtonIndividual.setText("Individual");
-        radioButtonIndividual.setFont(fRadioButton);
-
-        //---- radioButtonList ----
-        radioButtonList = new JRadioButton();
-        radioButtonList.setText("List");
-        radioButtonList.setFont(fRadioButton);
-
-        ButtonGroup radioButtons = new ButtonGroup();
-        radioButtons.add(radioButtonIndividual);
-        radioButtons.add(radioButtonList);
-
-        radioButtonPanel.add(radioButtonIndividual);
-        radioButtonPanel.add(radioButtonList);
-
-        centerPanel.add(radioButtonPanel);
-
         //===== TextField =====
 
         JPanel textFieldPanel = new JPanel();
@@ -184,8 +163,6 @@ public class ViewHalfModify extends JFrame {
         textFieldPanel.add(textID);
 
         centerPanel.add(textFieldPanel);
-
-
     }
 
     private void setUpButtonBar(){
