@@ -37,7 +37,8 @@ public class DAOStandImp implements DAOStand {
 			ps = connec.prepareStatement("INSERT INTO stand(num_at_fair, cost, total_m2, active) VALUES (?,?,?,?)");
 			ps.setInt(1, tStand.getNum_at_fair());
 			ps.setDouble(2, tStand.getCost());
-			ps.setBoolean(3, true);
+			ps.setDouble(3, tStand.getTotal_m2());
+			ps.setBoolean(4, tStand.getActive());
 			ps.execute();
 
 			ps = connec.prepareStatement("SELECT LAST_INSERT_ID() FROM stand");
@@ -45,6 +46,8 @@ public class DAOStandImp implements DAOStand {
 			ResultSet rs = ps.executeQuery();
 			if (rs.next())
 				id = rs.getInt("LAST_INSERT_ID()");
+			else
+				return -1;
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'create' ID Stand "+ tStand.getId() +" no logrado\n");
@@ -84,7 +87,7 @@ public class DAOStandImp implements DAOStand {
 
 			ResultSet rs = ps.executeQuery();
 			while (rs.next())
-				readStandList.add( new Tstand( rs.getInt("num_at_fair"), rs.getDouble("cost"), rs.getInt("total_m2"),rs.getBoolean("active") ) );
+				readStandList.add( new Tstand(rs.getInt("id"), rs.getInt("num_at_fair"), rs.getDouble("cost"), rs.getInt("total_m2"),rs.getBoolean("active") ) );
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'readAll' no logrado\n");
@@ -124,7 +127,7 @@ public class DAOStandImp implements DAOStand {
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next())
-				readStandList.add(new Tstand( rs.getInt("num_at_fair"), rs.getDouble("cost"), rs.getInt("total_m2"), rs.getBoolean("active") ));
+				readStandList.add(new Tstand(rs.getInt("id"), rs.getInt("num_at_fair"), rs.getDouble("cost"), rs.getInt("total_m2"), rs.getBoolean("active") ));
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'readAssignation' no logrado\n");
@@ -166,7 +169,7 @@ public class DAOStandImp implements DAOStand {
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next())
-				readStandList.add(  new Tstand( rs.getInt("num_at_fair"), rs.getDouble("cost"), rs.getInt("total_m2"), rs.getBoolean("active") ));
+				readStandList.add(  new Tstand(rs.getInt("id"), rs.getInt("num_at_fair"), rs.getDouble("cost"), rs.getInt("total_m2"), rs.getBoolean("active") ));
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'readAll' no logrado\n");
@@ -207,8 +210,10 @@ public class DAOStandImp implements DAOStand {
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()){
-				readStand = new Tstand( rs.getInt("num_at_fair"), rs.getDouble("cost"), rs.getInt("total_m2"), rs.getBoolean("active") ) ;
+				readStand = new Tstand(rs.getInt("id"), rs.getInt("num_at_fair"), rs.getDouble("cost"), rs.getInt("total_m2"), rs.getBoolean("active") ) ;
 			}
+			else
+				return null;
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'readByID' ID Stand "+ id +" no logrado\n");
@@ -235,7 +240,7 @@ public class DAOStandImp implements DAOStand {
 		driverIdentify();
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain);
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'update' ID Stand "+ tStand.getId() +" no logrado\n");
 		}
@@ -246,25 +251,33 @@ public class DAOStandImp implements DAOStand {
 			ps.setInt(1, tStand.getNum_at_fair());
 			ps.setDouble(2, tStand.getCost());
 			ps.setInt(3, tStand.getTotal_m2());
-			ps.setBoolean(4, true);
+			ps.setBoolean(4, tStand.getActive());
 			ps.setInt(5, tStand.getId());
 			ps.execute();
 			ps.close();
-			id = tStand.getId();
-			if(!tStand.getActive()) {
-				// Desactivado asignacion relacionada con stand
-				ps = connec.prepareStatement("UPDATE asignacion SET active = ? WHERE stand_id = ?");
-				ps.setBoolean(1, true);
-				ps.setInt(2, tStand.getId());
-				ps.execute();
-				ps.close();
-				// Desactivado participacion relacionada con stand
-				ps = connec.prepareStatement("UPDATE participacion SET active = ? WHERE stand_id = ?");
-				ps.setBoolean(1, true);
-				ps.setInt(2, tStand.getId());
-				ps.execute();
-				ps.close();
+
+			ps = connec.prepareStatement("SELECT id FROM stand WHERE id = ?");
+			ps.setInt(1, tStand.getId());
+			ResultSet rs = ps.executeQuery();
+			ps.close();
+
+			if (rs.next()) {
+				id = rs.getInt("id");
+				if (!tStand.getActive()) {
+					// Desactivado asignacion relacionada con stand
+					ps = connec.prepareStatement("UPDATE asignacion SET active = ? WHERE stand_id = ?");
+					ps.setBoolean(1, tStand.getActive());
+					ps.setInt(2, tStand.getId());
+					ps.execute();
+					ps.close();
+					// Desactivado participacion relacionada con stand
+					ps = connec.prepareStatement("UPDATE participacion SET active = ? WHERE stand_id = ?");
+					ps.setBoolean(1, tStand.getActive());
+					ps.setInt(2, tStand.getId());
+					ps.execute();
+					ps.close();
 				}
+			}
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'update' ID Stand "+ tStand.getId() +" no logrado\n");
@@ -292,7 +305,7 @@ public class DAOStandImp implements DAOStand {
 		Connection connec = null;
 		driverIdentify();
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain);
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion para 'delete' ID Stand "+ id +" no logrado\n");
 		}
@@ -333,7 +346,14 @@ public class DAOStandImp implements DAOStand {
 
 
 		try { // Tratamiento db
-			PreparedStatement ps = connec.prepareStatement("TRUNCATE TABLE stand");
+			PreparedStatement ps = connec.prepareStatement("SET FOREIGN_KEY_CHECKS = 0");
+			ps.execute();
+			ps.close();
+			ps = connec.prepareStatement("TRUNCATE TABLE stand");
+			ps.execute();
+			ps.close();
+			ps = connec.prepareStatement("SET FOREIGN_KEY_CHECKS = 1");
+			ps.execute();
 			ps.close();
 		}
 		catch (SQLException e){
