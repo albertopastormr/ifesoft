@@ -1,20 +1,17 @@
 package Presentacion.views.shows.individual;
 
-import Negocio.Feria.Tferia;
-import Presentacion.utils.Utilities;
+import Negocio.Stand.Tstand;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Date;
 import javax.swing.*;
 
-public class ViewFair extends JFrame {
+public class ViewStand extends JFrame {
 
+    private String metres;
+    private String number;
+    private String cost;
     private String id;
-    private String name;
-    private String description;
-    private String iniDate;
-    private String finDate;
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
@@ -25,37 +22,23 @@ public class ViewFair extends JFrame {
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
     private Font fLabel = new Font(Font.DIALOG, Font.PLAIN, 30);
-    private Font fField = new Font(Font.DIALOG, Font.PLAIN, 30);
     private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
 
-    private Color cField = new Color(243,243,243);
-    private Color cCancelButton = new Color(146, 35, 59);
+    private Color cBackButton = new Color(146, 35, 59);
 
-    public ViewFair() {
 
-        id = "5";
-        name = "Reunion de alcoholicos anonimos";
-        description = "Hoy nos reunimos para hablar sobre los beneficios de beber alcohol de farmacia";
-        iniDate = "Hoy";
-        finDate = "Ayer";
+    public ViewStand(Tstand tstand) {
 
-        initComponents();
-        this.setBounds(100,100, 800,800);
-        this.setVisible(true);
-    }
-
-    public ViewFair(Tferia tferia) {
-
-        id = tferia.getId() + "";
-        name = tferia.getName();
-        description = tferia.getDescription();
-        iniDate = Utilities.parseDateToString(tferia.getIniDate());
-        finDate = Utilities.parseDateToString(tferia.getEndDate());
+        metres = "" + tstand.getTotal_m2();
+        number = "" + tstand.getNum_at_fair();
+        cost = "" + tstand.getCost();
+        id = "" + tstand.getId();
 
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
+
 
     private void backButtonActionPerformed() {
         this.setVisible(false);
@@ -65,7 +48,7 @@ public class ViewFair extends JFrame {
 
     private void setupTitle(){
         title = new JLabel();
-        title.setText("Fair: " + id);
+        title.setText("Stand: " + id);
         title.setFont(fTitle);
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
@@ -78,12 +61,6 @@ public class ViewFair extends JFrame {
         return label;
     }
 
-    private JLabel setupLabel(){
-        JLabel field = new JLabel();
-        field.setFont(fField);
-        field.setBackground(cField);
-        return field;
-    }
 
     private void setupForm() {
 
@@ -110,67 +87,52 @@ public class ViewFair extends JFrame {
         formCon.anchor = GridBagConstraints.EAST;
 
 
-        JLabel nameLabel = createLabel("Name:");
-        JLabel descLabel = createLabel("Description:");
-        JLabel iniDateLabel = createLabel("Start Date:");
-        JLabel finDateLabel = createLabel("End Date:");
+        JLabel metresLabel = createLabel("Metres:");
+        JLabel numberLabel = createLabel("Number:");
+        JLabel costLabel = createLabel("Cost:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
 
         formCon.gridx = 0;
         formCon.gridy = 0;
-        formPanel.add(nameLabel, formCon);
+        formPanel.add(metresLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 1;
-        formPanel.add(descLabel, formCon);
+        formPanel.add(numberLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 2;
-        formPanel.add(iniDateLabel, formCon);
-        formCon.gridx = 0;
-        formCon.gridy = 3;
-        formPanel.add(finDateLabel, formCon);
+        formPanel.add(costLabel, formCon);
 
-        JLabel nameField = setupLabel();
-        nameField.setMinimumSize(minDim);
-        nameField.setPreferredSize(prefDim);
-        nameField.setMaximumSize(maxDim);
-        nameField.setText(name);
+        JLabel metresField = createLabel(metres);
+        metresField.setMinimumSize(minDim);
+        metresField.setPreferredSize(prefDim);
+        metresField.setMaximumSize(maxDim);
 
-        JLabel descField = setupLabel();
-        descField.setMinimumSize(new Dimension(minDim.width, minDim.height + 100));
-        descField.setPreferredSize(new Dimension(prefDim.width, prefDim.height + 100));
-        descField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
-        descField.setText(description);
+        JLabel numberField = createLabel(number);
+        numberField.setMinimumSize(minDim);
+        numberField.setPreferredSize(prefDim);
+        numberField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
 
-        JLabel iniDateField = setupLabel();
-        iniDateField.setMinimumSize(minDim);
-        iniDateField.setPreferredSize(prefDim);
-        iniDateField.setMaximumSize(maxDim);
-        iniDateField.setText(iniDate);
-
-        JLabel finDateField = setupLabel();
-        finDateField.setMinimumSize(minDim);
-        finDateField.setPreferredSize(prefDim);
-        finDateField.setMaximumSize(maxDim);
-        finDateField.setText(finDate);
+        JLabel costField = createLabel(cost);
+        costField.setMinimumSize(minDim);
+        costField.setPreferredSize(prefDim);
+        costField.setMaximumSize(maxDim);
 
         formCon.anchor = GridBagConstraints.WEST;
 
         formCon.insets = new Insets(20,10,20,0);
 
+
         formCon.gridx = 1;
         formCon.gridy = 0;
-        formPanel.add(nameField, formCon);
+        formPanel.add(metresField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 1;
-        formPanel.add(descField, formCon);
+        formPanel.add(numberField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 2;
-        formPanel.add(iniDateField, formCon);
-        formCon.gridx = 1;
-        formCon.gridy = 3;
-        formPanel.add(finDateField, formCon);
+        formPanel.add(costField, formCon);
         formContainer.add(formPanel);
     }
 
@@ -182,7 +144,7 @@ public class ViewFair extends JFrame {
         JButton backButton = new JButton();
         backButton.setText("Back");
         backButton.setFont(fButton);
-        backButton.setBackground(cCancelButton);
+        backButton.setBackground(cBackButton);
         backButton.setForeground(Color.WHITE);
         backButton.setPreferredSize(buttonDim);
         backButton.addActionListener(new ActionListener() {
