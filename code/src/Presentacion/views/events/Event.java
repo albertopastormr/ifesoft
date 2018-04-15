@@ -81,4 +81,6 @@ public class Event {
     public static final int SHOW_ASSIGNATION_PAVILION = 8787;
     public static final int SHOW_PARTICIPATION_FAIR = 6545;
     public static final int SHOW_PARTICIPACION_CLIENT = 334123;
+    public static final int SHOW_STAND_INDIVIDUAL = 34574;
+    public static final int SHOW_STAND_LIST = 99987;
 }

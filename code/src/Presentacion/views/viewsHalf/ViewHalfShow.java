@@ -5,6 +5,7 @@ import Negocio.Feria.Tferia;
 import Negocio.Pabellon.Tpabellon;
 import Negocio.Participacion.Tparticipacion;
 import Negocio.Participante.Tparticipante;
+import Negocio.Stand.Tstand;
 import Presentacion.Controller;
 import Presentacion.utils.Utilities;
 import Presentacion.views.events.Event;
@@ -319,7 +320,8 @@ public class ViewHalfShow extends JFrame {
                 break;
             case "Stand":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_STAND, null);
+                if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_STAND_INDIVIDUAL ,new Tstand(Integer.parseInt(textID.getText()) , -1, -1, -1, null));
+                else Controller.getInstance().execute(Event.SHOW_STAND_LIST, null);
                 break;
             case "Client":
                 this.setVisible(false);

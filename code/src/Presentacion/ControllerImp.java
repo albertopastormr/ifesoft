@@ -17,6 +17,7 @@ import Negocio.Stand.Tstand;
 import Presentacion.utils.Utilities;
 import Presentacion.views.forms.*;
 import Presentacion.views.shows.List.ListFairs;
+import Presentacion.views.shows.individual.ViewFair;
 import Presentacion.views.viewsHalf.*;
 import Presentacion.views.events.Event;
 import Presentacion.views.events.EventGUI;
@@ -183,6 +184,7 @@ public class ControllerImp extends Controller {
             case Event.SHOW_FAIR_INDIVIDUAL:
                 try {
                     asFeria.showById((Tferia) data);
+                    new ViewFair();
                 } catch (ASException e) {
                     e.printStackTrace();
                 }
