@@ -56,6 +56,7 @@ public class Tasignacion {
 		this.used_m2 = used_m2;
 	}
 
+	
 	public Boolean getActive() {
 		return active;
 	}
