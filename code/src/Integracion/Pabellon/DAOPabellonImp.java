@@ -45,6 +45,8 @@ public class DAOPabellonImp implements DAOPabellon {
 			ResultSet rs = ps.executeQuery();
 			if (rs.next())
 				id = rs.getInt("LAST_INSERT_ID()");
+			else
+				return -1;
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'create' Name Pabellon "+ tPabellon.getId() +" no logrado\n");
@@ -83,7 +85,7 @@ public class DAOPabellonImp implements DAOPabellon {
 
 			ResultSet rs = ps.executeQuery();
 			while (rs.next())
-				readPabellonList.add( new Tpabellon( rs.getInt("capacity"), rs.getInt("total_m2"), rs.getInt("util_m2"), rs.getBoolean("active") ) );
+				readPabellonList.add( new Tpabellon(rs.getInt("id"), rs.getInt("capacity"), rs.getInt("total_m2"), rs.getInt("util_m2"), rs.getBoolean("active") ) );
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'readAll' no logrado\n");
@@ -124,7 +126,7 @@ public class DAOPabellonImp implements DAOPabellon {
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()){
-				readPabellon = new Tpabellon( rs.getInt("capacity"), rs.getInt("total_m2"), rs.getInt("util_m2"), rs.getBoolean("active") ) ;
+				readPabellon = new Tpabellon(rs.getInt("id"), rs.getInt("capacity"), rs.getInt("total_m2"), rs.getInt("util_m2"), rs.getBoolean("active") ) ;
 			}
 		}
 		catch (SQLException e){
@@ -247,6 +249,7 @@ public class DAOPabellonImp implements DAOPabellon {
 
 		try { // Tratamiento db
 			PreparedStatement ps = connec.prepareStatement("TRUNCATE TABLE pabellon");
+			ps.execute();
 			ps.close();
 		}
 		catch (SQLException e){

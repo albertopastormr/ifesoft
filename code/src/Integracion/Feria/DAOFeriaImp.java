@@ -67,8 +67,8 @@ public class DAOFeriaImp implements DAOFeria{
 
 	/***
 	 * reads every Tferia(collection) from database 'ifesoft' with any constraint
-	 * @return
-	 * @throws DAOException
+	 * @return Collection < tFeria > read from database
+	 * @throws DAOException error from database
 	 */
 	public Collection<Tferia> readAll() throws DAOException {
 		ArrayList<Tferia> readFeriaList = new ArrayList<>();
@@ -90,7 +90,7 @@ public class DAOFeriaImp implements DAOFeria{
 
 			ResultSet rs = ps.executeQuery();
 			while (rs.next())
-				readFeriaList.add( new Tferia( rs.getString("name"),rs.getString("description"),rs.getDate("initDate"),rs.getDate("endDate"),rs.getBoolean("active") ) );
+				readFeriaList.add( new Tferia(rs.getInt("id"), rs.getString("name"),rs.getString("description"),rs.getDate("initDate"),rs.getDate("endDate"),rs.getBoolean("active") ) );
 			ps.close();
 		}
 		catch (SQLException e){
@@ -108,8 +108,8 @@ public class DAOFeriaImp implements DAOFeria{
 	/***
 	 * reads a Tferia from database ifesoft by a name
 	 * @param name Tferia name to be read
-	 * @return
-	 * @throws DAOException
+	 * @return tFeria read from database
+	 * @throws DAOException error from database
 	 */
 	public Tferia readByName(String name) throws DAOException {
 		Tferia readFeria = null;
@@ -131,7 +131,7 @@ public class DAOFeriaImp implements DAOFeria{
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()){
-				readFeria = new Tferia( rs.getString("name"),rs.getString("description"),rs.getDate("initDate"),rs.getDate("endDate"),rs.getBoolean("active") ) ;
+				readFeria = new Tferia(rs.getInt("id"), rs.getString("name"),rs.getString("description"),rs.getDate("initDate"),rs.getDate("endDate"),rs.getBoolean("active") ) ;
 			}
 			else
 				throw new DAOException("Tferia" + name + " does not exist in ifesoft database\n");
@@ -153,8 +153,8 @@ public class DAOFeriaImp implements DAOFeria{
 	/***
 	 * reads a Tferia from database ifesoft by a id
 	 * @param id Tferia name to be read
-	 * @return
-	 * @throws DAOException
+	 * @return tFeria read from database
+	 * @throws DAOException error from database
 	 */
 	public Tferia readById(Integer id) throws DAOException {
 		Tferia readFeria = null;
@@ -176,7 +176,7 @@ public class DAOFeriaImp implements DAOFeria{
 			ResultSet rs = ps.executeQuery();
 			ps.close();
 			if (rs.next()){
-				readFeria = new Tferia( rs.getString("name"),rs.getString("description"),rs.getDate("initDate"),rs.getDate("endDate"),rs.getBoolean("active") ) ;
+				readFeria = new Tferia(rs.getInt("id"), rs.getString("name"),rs.getString("description"),rs.getDate("initDate"),rs.getDate("endDate"),rs.getBoolean("active") ) ;
 			}
 			else
 				throw new DAOException("Tferia" + id + " does not exist in ifesoft database\n");
@@ -226,7 +226,7 @@ public class DAOFeriaImp implements DAOFeria{
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next())
-				readFeriaList.add( new Tferia( rs.getString("name"),rs.getString("description"),rs.getDate("initDate"),rs.getDate("endDate"),rs.getBoolean("active") ) );
+				readFeriaList.add( new Tferia(rs.getInt("id"), rs.getString("name"),rs.getString("description"),rs.getDate("initDate"),rs.getDate("endDate"),rs.getBoolean("active") ) );
 			ps.close();
 		}
 		catch (SQLException e){
@@ -368,6 +368,7 @@ public class DAOFeriaImp implements DAOFeria{
 
 		try { // Tratamiento db
 			PreparedStatement ps = connec.prepareStatement("TRUNCATE TABLE feria");
+			ps.execute();
 			ps.close();
 		}
 		catch (SQLException e){
