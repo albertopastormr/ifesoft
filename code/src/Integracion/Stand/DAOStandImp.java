@@ -37,7 +37,8 @@ public class DAOStandImp implements DAOStand {
 			ps = connec.prepareStatement("INSERT INTO stand(num_at_fair, cost, total_m2, active) VALUES (?,?,?,?)");
 			ps.setInt(1, tStand.getNum_at_fair());
 			ps.setDouble(2, tStand.getCost());
-			ps.setBoolean(3, tStand.getActive());
+			ps.setDouble(3, tStand.getTotal_m2());
+			ps.setBoolean(4, tStand.getActive());
 			ps.execute();
 
 			ps = connec.prepareStatement("SELECT LAST_INSERT_ID() FROM stand");
@@ -345,7 +346,13 @@ public class DAOStandImp implements DAOStand {
 
 
 		try { // Tratamiento db
-			PreparedStatement ps = connec.prepareStatement("TRUNCATE TABLE stand");
+			PreparedStatement ps = connec.prepareStatement("SET FOREIGN_KEY_CHECKS = 0");
+			ps.execute();
+			ps.close();
+			ps = connec.prepareStatement("TRUNCATE TABLE stand");
+			ps.execute();
+			ps.close();
+			ps = connec.prepareStatement("SET FOREIGN_KEY_CHECKS = 1");
 			ps.execute();
 			ps.close();
 		}

@@ -373,7 +373,13 @@ public class DAOParticipanteImp implements DAOParticipante {
 
 
 		try { // Tratamiento db
-			PreparedStatement ps = connec.prepareStatement("TRUNCATE TABLE participante");
+			PreparedStatement ps = connec.prepareStatement("SET FOREIGN_KEY_CHECKS = 0");
+			ps.execute();
+			ps.close();
+			ps = connec.prepareStatement("TRUNCATE TABLE participante");
+			ps.execute();
+			ps.close();
+			ps = connec.prepareStatement("SET FOREIGN_KEY_CHECKS = 1");
 			ps.execute();
 			ps.close();
 		}

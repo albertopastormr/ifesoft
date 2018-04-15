@@ -66,6 +66,18 @@ public class DAOFeriaImpTest {
 
 		dao.delete(out_id);
 	}
+	@Test
+	public void readById() throws Exception {
+
+		DAOFeriaImp dao = new DAOFeriaImp();
+
+		int out_id = dao.create(tferiaTest1);
+		Tferia read = dao.readById(1);
+
+		tferiaEquals(tferiaTest1, read);
+
+		dao.delete(out_id);
+	}
 
 	@Test
 	public void update() throws Exception {

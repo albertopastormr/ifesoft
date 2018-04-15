@@ -174,7 +174,7 @@ public class DAOFeriaImp implements DAOFeria{
 			ps = connec.prepareStatement("SELECT * FROM feria WHERE id = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			ps.close();
+			//ps.close();
 			if (rs.next()){
 				readFeria = new Tferia(rs.getInt("id"), rs.getString("name"),rs.getString("description"),rs.getDate("initDate"),rs.getDate("endDate"),rs.getBoolean("active") ) ;
 			}
@@ -317,7 +317,6 @@ public class DAOFeriaImp implements DAOFeria{
 	 * @throws DAOException
 	 */
 	public boolean delete (Integer id) throws DAOException {
-		boolean deleteResult;
 		Connection connec = null;
 		driverIdentify();
 		try { // Conexion db
@@ -331,7 +330,7 @@ public class DAOFeriaImp implements DAOFeria{
 			PreparedStatement ps;
 			ps = connec.prepareStatement("DELETE FROM feria WHERE id = ?");
 			ps.setInt(1, id);
-			deleteResult= ps.execute();
+			ps.execute();
 			ps.close();
 		}
 		catch (SQLException e){
@@ -349,7 +348,7 @@ public class DAOFeriaImp implements DAOFeria{
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: cerrando conexion a DB para 'delete' ID Feria "+ id +" no logrado\n");
 		}
-		return deleteResult;
+		return true;
 	}
 
 	/***
@@ -367,7 +366,13 @@ public class DAOFeriaImp implements DAOFeria{
 
 
 		try { // Tratamiento db
-			PreparedStatement ps = connec.prepareStatement("TRUNCATE TABLE feria");
+			PreparedStatement ps = connec.prepareStatement("SET FOREIGN_KEY_CHECKS = 0");
+			ps.execute();
+			ps.close();
+			ps = connec.prepareStatement("TRUNCATE TABLE feria");
+			ps.execute();
+			ps.close();
+			ps = connec.prepareStatement("SET FOREIGN_KEY_CHECKS = 1");
 			ps.execute();
 			ps.close();
 		}

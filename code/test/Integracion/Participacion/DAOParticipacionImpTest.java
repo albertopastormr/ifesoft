@@ -7,7 +7,9 @@ import static org.junit.Assert.*;
 
 public class DAOParticipacionImpTest {
 	@Before
-	public void setUp() throws Exception {
+	public  void setUp() throws Exception {
+		DAOParticipacionImp dao = new DAOParticipacionImp();
+		dao.deleteAll();
 	}
 
 	@Test
