@@ -25,6 +25,21 @@ public class ViewPavilion extends JFrame {
 
     private Color cBackButton = new Color(146, 35, 59);
 
+    /*
+    SOLO PARA DEPURAR
+     */
+    public ViewPavilion() {
+
+        capacity = "7";
+        m2tot = "420";
+        m2util = "69";
+        id = "1";
+
+        initComponents();
+        this.setBounds(100,100, 800,800);
+        this.setVisible(true);
+    }
+
     public ViewPavilion(Tpabellon tpabellon) {
 
         capacity = tpabellon.getCapacity() +"";

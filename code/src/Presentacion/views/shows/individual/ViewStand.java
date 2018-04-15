@@ -26,6 +26,17 @@ public class ViewStand extends JFrame {
 
     private Color cBackButton = new Color(146, 35, 59);
 
+    public ViewStand() {
+
+        metres = "6789";
+        number = "42";
+        cost = "1 millón de camellos";
+        id = "7";
+
+        initComponents();
+        this.setBounds(100,100, 800,800);
+        this.setVisible(true);
+    }
 
     public ViewStand(Tstand tstand) {
 

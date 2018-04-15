@@ -26,6 +26,9 @@ public class ViewClient extends JFrame {
 
     private Color cBackButton = new Color(146, 35, 59);
 
+    /*
+    SOLO PARA DEPURAR
+     */
     public ViewClient() {
 
         id = "5";

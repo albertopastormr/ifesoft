@@ -28,9 +28,11 @@ public class ViewFair extends JFrame {
     private Font fField = new Font(Font.DIALOG, Font.PLAIN, 30);
     private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
 
-    private Color cField = new Color(243,243,243);
     private Color cCancelButton = new Color(146, 35, 59);
 
+    /*
+    SOLO PARA DEPURAR
+     */
     public ViewFair() {
 
         id = "5";
@@ -76,13 +78,6 @@ public class ViewFair extends JFrame {
         JLabel label = new JLabel(text, JLabel.RIGHT);
         label.setFont(fLabel);
         return label;
-    }
-
-    private JLabel setupLabel(){
-        JLabel field = new JLabel();
-        field.setFont(fField);
-        field.setBackground(cField);
-        return field;
     }
 
     private void setupForm() {
@@ -131,29 +126,31 @@ public class ViewFair extends JFrame {
         formCon.gridy = 3;
         formPanel.add(finDateLabel, formCon);
 
-        JLabel nameField = setupLabel();
+        JLabel nameField = createLabel(name);
         nameField.setMinimumSize(minDim);
         nameField.setPreferredSize(prefDim);
         nameField.setMaximumSize(maxDim);
-        nameField.setText(name);
 
-        JLabel descField = setupLabel();
+        JTextArea descField = new JTextArea();
         descField.setMinimumSize(new Dimension(minDim.width, minDim.height + 100));
         descField.setPreferredSize(new Dimension(prefDim.width, prefDim.height + 100));
         descField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
+        descField.setLineWrap(true);
+        descField.setEditable(false);
+        descField.setFont(fLabel);
+        descField.setBackground(this.getBackground());
+        descField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         descField.setText(description);
 
-        JLabel iniDateField = setupLabel();
+        JLabel iniDateField = createLabel(iniDate);
         iniDateField.setMinimumSize(minDim);
         iniDateField.setPreferredSize(prefDim);
         iniDateField.setMaximumSize(maxDim);
-        iniDateField.setText(iniDate);
 
-        JLabel finDateField = setupLabel();
+        JLabel finDateField = createLabel(finDate);
         finDateField.setMinimumSize(minDim);
         finDateField.setPreferredSize(prefDim);
         finDateField.setMaximumSize(maxDim);
-        finDateField.setText(finDate);
 
         formCon.anchor = GridBagConstraints.WEST;
 
