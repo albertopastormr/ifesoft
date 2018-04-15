@@ -26,7 +26,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 		driverIdentify();
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if"); // Datos de acceso a la db: user//manager pw//manager-if
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'create' Name Participante "+ tParticipante.getName() +" no logrado\n");
 		}
@@ -37,7 +37,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 				ps = connec.prepareStatement("INSERT INTO participante_nacional(name, phone, active, region) VALUES (?,?,?,?)");
 				ps.setString(1, tParticipante.getName());
 				ps.setLong(2, tParticipante.getPhone());
-				ps.setBoolean(3, true);
+				ps.setBoolean(3, tParticipante.getActive());
 				ps.setString(4, ((TparticipanteNacional) tParticipante).getRegion());
 				ps.execute();
 
@@ -54,7 +54,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 				ps = connec.prepareStatement("INSERT INTO participante_internacional(name, phone, active, country) VALUES (?,?,?,?)");
 				ps.setString(1, tParticipante.getName());
 				ps.setLong(2, tParticipante.getPhone());
-				ps.setBoolean(3, true);
+				ps.setBoolean(3, tParticipante.getActive());
 				ps.setString(4, ((TparticipanteInternacional) tParticipante).getCountry());
 				ps.execute();
 
@@ -92,7 +92,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 		driverIdentify();
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain);
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readAll' no logrado\n");
 		}
@@ -124,8 +124,8 @@ public class DAOParticipanteImp implements DAOParticipante {
 	/***
 	 * reads a Tparticipante from database ifesoft by a name
 	 * @param name Tparticipante name to be read
-	 * @return
-	 * @throws DAOException
+	 * @return tParticipante read from database
+	 * @throws DAOException error from database
 	 */
 	public Tparticipante readByName(String name) throws DAOException {
 		Tparticipante readParticipante = null;
@@ -134,7 +134,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 		driverIdentify();
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain);
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' Name Participante "+ name +" no logrado\n");
 		}
@@ -147,7 +147,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()){
-				readParticipante = new TparticipanteNacional( rs.getString("name"), rs.getLong("phone"), rs.getBoolean("active"), rs.getString("region")) ;
+				readParticipante = new TparticipanteNacional(rs.getInt("id"), rs.getString("name"), rs.getLong("phone"), rs.getBoolean("active"), rs.getString("region")) ;
 			}
 			else{ // En este caso no hay ningun participante nacional con ese id y se busca en los internacionales
 				ps = connec.prepareStatement("SELECT * FROM participante_internacional WHERE name = ?");
@@ -188,7 +188,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 		driverIdentify();
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain);
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByName' ID Participante "+ id +" no logrado\n");
 		}
@@ -209,7 +209,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 				rs = ps.executeQuery();
 
 				if (rs.next()){
-					readParticipante = new TparticipanteInternacional( rs.getString("name"), rs.getLong("phone"), rs.getBoolean("active"), rs.getString("country")) ;
+					readParticipante = new TparticipanteInternacional(rs.getInt("id"), rs.getString("name"), rs.getLong("phone"), rs.getBoolean("active"), rs.getString("country")) ;
 				}
 				else
 					return null;
@@ -240,7 +240,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 		Connection connec = null;
 		driverIdentify();
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain);
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'update' Name Participante "+ tParticipante.getName() +" no logrado\n");
 		}
@@ -263,7 +263,6 @@ public class DAOParticipanteImp implements DAOParticipante {
 
 				if (rs.next()) {
 					id = rs.getInt("id");
-
 					if (!tParticipante.getActive()) {
 						ps = connec.prepareStatement("UPDATE (participacion p JOIN stand s ON p.stand_id = s.id) JOIN asignacion a ON s.id = a.stand_id SET p.active = ? AND s.active = ? AND a.active = ? WHERE p.client_id = ?");
 						ps.setBoolean(1, tParticipante.getActive());
@@ -281,7 +280,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 				ps = connec.prepareStatement("UPDATE participante_internacional SET name = ? AND phone = ? AND active = ? AND country = ? WHERE id = ?");
 				ps.setString(1, tParticipante.getName());
 				ps.setLong(2, tParticipante.getPhone());
-				ps.setBoolean(3, true);
+				ps.setBoolean(3, tParticipante.getActive());
 				ps.setString(4, ((TparticipanteInternacional) tParticipante).getCountry());
 				ps.setInt(5, tParticipante.getId());
 				ps.execute();
@@ -332,7 +331,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 		Connection connec = null;
 		driverIdentify();
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain);
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion para 'delete' ID Participante "+ id +" no logrado\n");
 		}

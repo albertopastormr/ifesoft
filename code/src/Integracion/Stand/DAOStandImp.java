@@ -37,7 +37,7 @@ public class DAOStandImp implements DAOStand {
 			ps = connec.prepareStatement("INSERT INTO stand(num_at_fair, cost, total_m2, active) VALUES (?,?,?,?)");
 			ps.setInt(1, tStand.getNum_at_fair());
 			ps.setDouble(2, tStand.getCost());
-			ps.setBoolean(3, true);
+			ps.setBoolean(3, tStand.getActive());
 			ps.execute();
 
 			ps = connec.prepareStatement("SELECT LAST_INSERT_ID() FROM stand");

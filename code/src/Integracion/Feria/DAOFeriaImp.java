@@ -265,7 +265,7 @@ public class DAOFeriaImp implements DAOFeria{
 			ps.setString(2, tFeria.getDescription());
 			ps.setDate(3, new java.sql.Date (tFeria.getIniDate().getTime()));
 			ps.setDate(4, new java.sql.Date (tFeria.getEndDate().getTime()));
-			ps.setBoolean(5, true);
+			ps.setBoolean(5, tFeria.getActive());
 			ps.setInt(6, tFeria.getId());
 			ps.execute();
 			ps.close();

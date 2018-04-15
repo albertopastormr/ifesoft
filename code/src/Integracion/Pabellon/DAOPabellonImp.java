@@ -36,7 +36,7 @@ public class DAOPabellonImp implements DAOPabellon {
 			ps.setInt(1, tPabellon.getCapacity());
 			ps.setInt(2, tPabellon.getTotal_m2());
 			ps.setInt(3, tPabellon.getUtil_m2());
-			ps.setBoolean(4, true);
+			ps.setBoolean(4, tPabellon.getActive());
 			ps.execute();
 
 
@@ -169,19 +169,28 @@ public class DAOPabellonImp implements DAOPabellon {
 			ps.setInt(5, tPabellon.getId());
 			ps.execute();
 			ps.close();
-			id = tPabellon.getId();
 
-			if(!tPabellon.getActive()){
-				// Desactivado de todas las asignaciones y stands relacionados con el pabellon ademas de las participaciones relacionadas con estos stands
-				ps = connec.prepareStatement("UPDATE (asignacion a JOIN stand s ON a.stand_id = s.id) JOIN participacion p ON s.id = p.stand_id SET a.active = ? AND s.active = ? AND p.active = ? WHERE a.pavilion_id = ?");					
-				ps.setBoolean(1, tPabellon.getActive());
-				ps.setBoolean(2, tPabellon.getActive());
-				ps.setBoolean(3, tPabellon.getActive());
-				ps.setInt(4, tPabellon.getId());
-				ps.execute();
-				ps.close();
+			ps = connec.prepareStatement("SELECT id FROM pabellon WHERE id = ?");
+			ps.setInt(1, tPabellon.getId());
+			ResultSet rs = ps.executeQuery();
+			ps.close();
+
+			if (rs.next()) {
+				id = rs.getInt("id");
+				if (!tPabellon.getActive()) {
+					// Desactivado de todas las asignaciones y stands relacionados con el pabellon ademas de las participaciones relacionadas con estos stands
+					ps = connec.prepareStatement("UPDATE (asignacion a JOIN stand s ON a.stand_id = s.id) JOIN participacion p ON s.id = p.stand_id SET a.active = ? AND s.active = ? AND p.active = ? WHERE a.pavilion_id = ?");
+					ps.setBoolean(1, tPabellon.getActive());
+					ps.setBoolean(2, tPabellon.getActive());
+					ps.setBoolean(3, tPabellon.getActive());
+					ps.setInt(4, tPabellon.getId());
+					ps.execute();
+					ps.close();
 				}
 			}
+			else
+				return -1;
+		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'update' Name Pabellon "+ tPabellon.getId() +" no logrado\n");
 		}
