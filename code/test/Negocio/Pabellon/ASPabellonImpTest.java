@@ -14,7 +14,6 @@ public class ASPabellonImpTest {
         DAOPabellon daoPabellon = IFDAOPabellon.getInstance().generateDAOpabellon();
         daoPabellon.deleteAll();
     }
-
     //-------------------------------------TEST CREATE-------------------------------------------------------------
     @Test(expected = ASException.class)//Se pasa el test si se lanza la excepcion
     public void createPabellonExistingId() throws Exception {

@@ -1,10 +1,15 @@
 package Integracion.Participante;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class DAOParticipanteImpTest {
+	@Before
+	public void setUp() throws Exception {
+	}
+
 	@Test
 	public void create() throws Exception {
 	}
@@ -14,7 +19,7 @@ public class DAOParticipanteImpTest {
 	}
 
 	@Test
-	public void readByName() throws Exception {
+	public void readById() throws Exception {
 	}
 
 	@Test

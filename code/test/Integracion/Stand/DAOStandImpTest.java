@@ -1,10 +1,15 @@
 package Integracion.Stand;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class DAOStandImpTest {
+	@Before
+	public void setUp() throws Exception {
+	}
+
 	@Test
 	public void create() throws Exception {
 	}
@@ -14,7 +19,15 @@ public class DAOStandImpTest {
 	}
 
 	@Test
-	public void readByName() throws Exception {
+	public void readByAssignation() throws Exception {
+	}
+
+	@Test
+	public void readByParticipation() throws Exception {
+	}
+
+	@Test
+	public void readById() throws Exception {
 	}
 
 	@Test

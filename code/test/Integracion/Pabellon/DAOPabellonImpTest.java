@@ -1,10 +1,15 @@
 package Integracion.Pabellon;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class DAOPabellonImpTest {
+	@Before
+	public void setUp() throws Exception {
+	}
+
 	@Test
 	public void create() throws Exception {
 	}
@@ -14,7 +19,7 @@ public class DAOPabellonImpTest {
 	}
 
 	@Test
-	public void readByName() throws Exception {
+	public void readById() throws Exception {
 	}
 
 	@Test
