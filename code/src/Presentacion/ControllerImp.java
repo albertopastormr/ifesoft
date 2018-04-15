@@ -68,7 +68,7 @@ public class ControllerImp extends Controller {
             case Event.DROP_FERIA:
                 try {
                     asFeria.drop((Tferia)data);
-                } catch (ASException | DAOException e) {
+                } catch (ASException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -96,7 +96,7 @@ public class ControllerImp extends Controller {
             case Event.DROP_CLIENT:
                 try {
                     asClient.drop((Tparticipante)data);
-                } catch (ASException | DAOException e) {
+                } catch (ASException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -136,7 +136,7 @@ public class ControllerImp extends Controller {
                try {
                     tFeria = asFeria.showById((Tferia) data);
                     new ViewsFormFeria(tFeria);
-                } catch (ASException | DAOException e) {
+                } catch (ASException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -147,7 +147,7 @@ public class ControllerImp extends Controller {
                     if (res>0) gui.update(EventGUI.UPDATE_UPDATE_FERIA_OK, res);
                     else gui.update(EventGUI.UPDATE_UPDATE_FERIA_FAIL, null);
 
-                } catch (ASException | DAOException e) {
+                } catch (ASException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -159,7 +159,7 @@ public class ControllerImp extends Controller {
                     if (res>0) gui.update(EventGUI.UPDATE_CREATE_FERIA_OK, res);
                     else gui.update(EventGUI.UPDATE_CREATE_FERIA_FAIL, null);
 
-                } catch (ASException | ClassNotFoundException | DAOException | SQLException e) {
+                } catch (ASException e) {
                     e.printStackTrace();
                 }
                 break;
@@ -169,49 +169,49 @@ public class ControllerImp extends Controller {
             case Event.SHOW_CLIENT_INDIVIDUAL:
                 try {
                     asClient.showById((Tparticipante) data);
-                } catch (ASException | DAOException e) {
+                } catch (ASException e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.SHOW_CLIENT_LIST:
                 try {
                     asClient.list();
-                } catch (ASException | DAOException e) {
+                } catch (ASException e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.SHOW_FAIR_INDIVIDUAL:
                 try {
                     asFeria.showById((Tferia) data);
-                } catch (ASException | DAOException e) {
+                } catch (ASException e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.SHOW_FAIR_LIST:
                 try {
                     new ListFairs(asFeria.list());
-                } catch (ASException | DAOException e) {
+                } catch (ASException e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.SHOW_FAIR_LIST_DATES:
                 try {
                     asFeria.listDates((Tferia) data);
-                } catch (ASException | DAOException e) {
+                } catch (ASException e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.SHOW_PAVILION_INDIVIDUAL:
                 try {
                     asPavilion.showById((Tpabellon)data);
-                } catch (ASException | DAOException e) {
+                } catch (ASException e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.SHOW_PAVILION_LIST:
                 try {
                     asPavilion.list();
-                } catch (ASException | DAOException e) {
+                } catch (ASException e) {
                     e.printStackTrace();
                 }
                 break;

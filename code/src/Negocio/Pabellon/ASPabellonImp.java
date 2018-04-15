@@ -90,7 +90,7 @@ public class ASPabellonImp implements ASPabellon {
 
     public Tpabellon showById(Tpabellon pabellon) throws ASException {
         DAOPabellon daoPabellon = IFDAOPabellon.getInstance().generateDAOpabellon();
-        if (pabellon != null) {
+        if (pabellon != null && pabellon.getId() != -1) {
             try {
                 Tpabellon read = daoPabellon.readById(pabellon.getId());
                 if (read != null)

@@ -52,7 +52,7 @@ public class Event {
     public static final int INSERT_FORM_PARTICIPANTE = 3242324;
     public static final int MODIFY_FORM_PARTICIPANTE = 98349;
 
-
+    /** EVENTOS FINALES CON NEGOCIO */
     public static final int INSERT_FAIR = 12;
     public static final int MODIFY_FAIR = 15;
     public static final int INSERT_CLIENT = 200;
@@ -66,15 +66,13 @@ public class Event {
     public static final int INSERT_PARTICIPACION = 23455234;
     public static final int MODIFY_PARTICIPACION = 3432523;
 
-    //SHOWS
+    /** EVENTOS SHOWS DE LISTAR E INDIVIDUALES */
 
     public static final int SHOW_FAIR_INDIVIDUAL = 34325623;
     public static final int SHOW_FAIR_LIST = 343256363;
 
-
     public static final int SHOW_CLIENT_INDIVIDUAL = 50;
     public static final int SHOW_CLIENT_LIST = 120;
-
 
     public static final int SHOW_FAIR_LIST_DATES = 432;
     public static final int SHOW_PAVILION_INDIVIDUAL = 543;

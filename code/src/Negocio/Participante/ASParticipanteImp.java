@@ -98,7 +98,7 @@ public class ASParticipanteImp implements ASParticipante {
 
     public Tparticipante showById(Tparticipante participante) throws ASException {
         DAOParticipante daoParticipante = IFDAOParticipante.getInstance().generateDAOparticipante();
-        if (participante != null) {
+        if (participante != null && participante.getId() != -1) {
             try {
                 Tparticipante read = daoParticipante.readById(participante.getId());
                 if (read != null)
