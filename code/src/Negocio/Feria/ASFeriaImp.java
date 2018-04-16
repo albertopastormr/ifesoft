@@ -14,8 +14,10 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
         if (feria != null && feria.getName() != null && feria.getDescription() != null && feria.getIniDate() != null && feria.getEndDate() != null) {
             try {
-                Tferia read = daoFeria.readByName(feria.getName());
+            	//CAMBIO LA OPERACION readByName por readBYID
+                Tferia read = daoFeria.readById(feria.getId());
                 if (read == null) {
+                	//CURRENTDATE A QUE FECHA CORRESPONDE??
                     Date currentDate = new Date();
                     if (feria.getIniDate().after(currentDate) && feria.getEndDate().after(feria.getIniDate()))
                         id = daoFeria.create(feria);
