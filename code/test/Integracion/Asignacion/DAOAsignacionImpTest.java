@@ -1,10 +1,15 @@
 package Integracion.Asignacion;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class DAOAsignacionImpTest {
+	@Before
+	public void setUp() throws Exception {
+	}
+
 	@Test
 	public void create() throws Exception {
 	}
@@ -14,11 +19,11 @@ public class DAOAsignacionImpTest {
 	}
 
 	@Test
-	public void readByFairName() throws Exception {
+	public void readByFairId() throws Exception {
 	}
 
 	@Test
-	public void readByPavilionName() throws Exception {
+	public void readByPavilionId() throws Exception {
 	}
 
 	@Test

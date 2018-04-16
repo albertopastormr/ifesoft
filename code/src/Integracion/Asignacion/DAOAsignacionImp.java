@@ -38,7 +38,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 			ps.setInt(2, tAsignacion.getPavilion_id());
 			ps.setInt(3, tAsignacion.getStand_id());
 			ps.setInt(4, tAsignacion.getUsed_m2());
-			ps.setBoolean(5, true);
+			ps.setBoolean(5, tAsignacion.getActive());
 			ps.execute();
 			ps.close();
 
@@ -48,6 +48,8 @@ public class DAOAsignacionImp implements DAOAsignacion {
 			ps.close();
 			if (rs.next())
 				id = rs.getInt("LAST_INSERT_ID()");
+			else
+				return -1;
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'create' Asignacion ID Feria "+ tAsignacion.getFair_id() + " ID Pabellon " + tAsignacion.getPavilion_id() + " ID Stand " + tAsignacion.getStand_id()+" no logrado\n");
@@ -244,8 +246,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 	 * @return Integer id tAsignacion updated at database
 	 * @throws DAOException error from database
 	 */
-	public Integer update(Tasignacion tAsignacion) throws DAOException {
-		int id = -1;
+	public boolean update(Tasignacion tAsignacion) throws DAOException {
 
 		driverIdentify();
 		Connection connec = null;
@@ -267,15 +268,27 @@ public class DAOAsignacionImp implements DAOAsignacion {
 			ps.execute();
 			ps.close();
 
-			if(!tAsignacion.getActive()){ // Caso desactivado tAsignacion
-				// Desactivado de los stands y participacion relacionados con la asignacion a desactivar
-				ps = connec.prepareStatement("UPDATE stand s JOIN participacion p ON s.id = p.stand_id SET s.active = ? AND p.active = ? WHERE s.id = ?");
-				ps.setBoolean(1, tAsignacion.getActive());
-				ps.setBoolean(2, tAsignacion.getActive());
-				ps.setInt(3, tAsignacion.getStand_id());
-				ps.execute();
-				ps.close();
+			ps = connec.prepareStatement("SELECT fair_id, pavilion_id, stand_id FROM asignacion WHERE fair_id = ? AND pavilion_id = ? AND stand_id = ?");
+			ps.setInt(1, tAsignacion.getFair_id());
+			ps.setInt(2, tAsignacion.getPavilion_id());
+			ps.setInt(3, tAsignacion.getStand_id());
+			ResultSet rs = ps.executeQuery();
+			ps.close();
+
+			if (rs.next()) {
+				if (!tAsignacion.getActive()) { // Caso desactivado tAsignacion
+					// Desactivado de los stands y participacion relacionados con la asignacion a desactivar
+					ps = connec.prepareStatement("UPDATE stand s JOIN participacion p ON s.id = p.stand_id SET s.active = ? AND p.active = ? WHERE s.id = ?");
+					ps.setBoolean(1, tAsignacion.getActive());
+					ps.setBoolean(2, tAsignacion.getActive());
+					ps.setInt(3, tAsignacion.getStand_id());
+					ps.execute();
+					ps.close();
+				}
+				return (rs.getInt("fair_id") == tAsignacion.getFair_id() && rs.getInt("pavilion_id") == tAsignacion.getPavilion_id() && rs.getInt("stand_id") == tAsignacion.getStand_id());
 			}
+			else
+				return false;
 
 		}
 		catch (SQLException e){
@@ -288,8 +301,6 @@ public class DAOAsignacionImp implements DAOAsignacion {
 				throw new DAOException("ERROR: cerrando conexion a DB para 'update' Asignacion ID Feria "+ tAsignacion.getFair_id() + " ID Pabellon " + tAsignacion.getPavilion_id() + " ID Stand " + tAsignacion.getStand_id() +" no logrado\n");
 			}
 		}
-
-		return id;
 	}
 
 	/***
@@ -352,7 +363,14 @@ public class DAOAsignacionImp implements DAOAsignacion {
 
 
 		try { // Tratamiento db
-			PreparedStatement ps = connec.prepareStatement("TRUNCATE TABLE asignacion");
+			PreparedStatement ps = connec.prepareStatement("SET FOREIGN_KEY_CHECKS = 0");
+			ps.execute();
+			ps.close();
+			ps = connec.prepareStatement("TRUNCATE TABLE asignacion");
+			ps.execute();
+			ps.close();
+			ps = connec.prepareStatement("SET FOREIGN_KEY_CHECKS = 1");
+			ps.execute();
 			ps.close();
 		}
 		catch (SQLException e){

@@ -1,10 +1,17 @@
 package Integracion.Participacion;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class DAOParticipacionImpTest {
+	@Before
+	public  void setUp() throws Exception {
+		DAOParticipacionImp dao = new DAOParticipacionImp();
+		dao.deleteAll();
+	}
+
 	@Test
 	public void create() throws Exception {
 	}
@@ -14,11 +21,11 @@ public class DAOParticipacionImpTest {
 	}
 
 	@Test
-	public void readByFairName() throws Exception {
+	public void readByFairId() throws Exception {
 	}
 
 	@Test
-	public void readByClientName() throws Exception {
+	public void readByClientId() throws Exception {
 	}
 
 	@Test
