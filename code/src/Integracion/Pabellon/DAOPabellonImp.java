@@ -128,6 +128,8 @@ public class DAOPabellonImp implements DAOPabellon {
 			if (rs.next()){
 				readPabellon = new Tpabellon(rs.getInt("id"), rs.getInt("capacity"), rs.getInt("total_m2"), rs.getInt("util_m2"), rs.getBoolean("active") ) ;
 			}
+			else
+				return null;
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'readById' ID Pabellon "+ id +" no logrado\n");

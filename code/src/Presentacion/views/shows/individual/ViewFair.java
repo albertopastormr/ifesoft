@@ -30,22 +30,6 @@ public class ViewFair extends JFrame {
 
     private Color cCancelButton = new Color(146, 35, 59);
 
-    /*
-    SOLO PARA DEPURAR
-     */
-    public ViewFair() {
-
-        id = "5";
-        name = "Reunion de alcoholicos anonimos";
-        description = "Hoy nos reunimos para hablar sobre los beneficios de beber alcohol de farmacia";
-        iniDate = "Hoy";
-        finDate = "Ayer";
-
-        initComponents();
-        this.setBounds(100,100, 800,800);
-        this.setVisible(true);
-    }
-
     public ViewFair(Tferia tferia) {
 
         id = tferia.getId() + "";

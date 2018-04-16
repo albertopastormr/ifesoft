@@ -128,7 +128,7 @@ public class ASPabellonImpTest {
         int id2 = asPabellon.modify(pabellon);
     }
 
-    @Test
+    @Test(expected = ASException.class) // Se crea un pabellon con un id ya existente
     public void modify() throws Exception {
         ASPabellonImp asPabellon = new ASPabellonImp();
 

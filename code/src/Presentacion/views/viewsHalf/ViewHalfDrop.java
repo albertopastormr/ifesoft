@@ -65,21 +65,18 @@ public class ViewHalfDrop extends JFrame {
 
         private void delete(){
 
-
-           System.out.println("Hem arribat");
-
         switch (String.valueOf(comboBoxDrop.getSelectedItem())) {
             case "Fair":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_HALF_FERIA, new Tferia(textName.getText(), null, null, null));
+                Controller.getInstance().execute(Event.DROP_FERIA, new Tferia(Integer.parseInt(textName.getText()), null, null, null, null, null));
                 break;
             case "Pavilion":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_HALF_PABELLON, new Tpabellon(Integer.parseInt(textName.getText()), -1, -1, null));
+                Controller.getInstance().execute(Event.DROP_PABELLON, new Tpabellon(Integer.parseInt(textName.getText()), -1, -1, null));
                 break;
             case "Stand":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_HALF_STAND, new Tstand(Integer.parseInt(textName.getText()), -1, -1, null));
+                Controller.getInstance().execute(Event.DROP_STAND, new Tstand(Integer.parseInt(textName.getText()), -1, -1, null));
                 break;
             case "Client":
                 this.setVisible(false);
@@ -87,11 +84,11 @@ public class ViewHalfDrop extends JFrame {
                 break;
             case "Assignation":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_HALF_ASIGNACION, new Tasignacion(Integer.parseInt(textName.getText()), -1, -1, -1, null));
+                Controller.getInstance().execute(Event.DROP_ASIGNACION, new Tasignacion(Integer.parseInt(textName.getText()), -1, -1, -1, null));
                 break;
             case "Participation":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_HALF_PARTICIPACION, new Tparticipante(Integer.parseInt(textName.getText()), null, -1, null));
+                Controller.getInstance().execute(Event.DROP_PARTICIPACION, new Tparticipante(Integer.parseInt(textName.getText()), null, -1, null));
                 break;
 
          }
@@ -107,7 +104,6 @@ public class ViewHalfDrop extends JFrame {
         }
 
         private void closeOkFrame(ActionEvent e){
-            System.out.println("HE ARRIBAT");
         sureFrame.setVisible(false);
 
             delete();

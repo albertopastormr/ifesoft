@@ -134,7 +134,7 @@ public class DAOFeriaImp implements DAOFeria{
 				readFeria = new Tferia(rs.getInt("id"), rs.getString("name"),rs.getString("description"),rs.getDate("initDate"),rs.getDate("endDate"),rs.getBoolean("active") ) ;
 			}
 			else
-				throw new DAOException("Tferia" + name + " does not exist in ifesoft database\n");
+				return null;
 			ps.close();
 		}
 		catch (SQLException e){
@@ -179,7 +179,7 @@ public class DAOFeriaImp implements DAOFeria{
 				readFeria = new Tferia(rs.getInt("id"), rs.getString("name"),rs.getString("description"),rs.getDate("initDate"),rs.getDate("endDate"),rs.getBoolean("active") ) ;
 			}
 			else
-				throw new DAOException("Tferia" + id + " does not exist in ifesoft database\n");
+				return null;
 			
 		}
 		catch (SQLException e){
