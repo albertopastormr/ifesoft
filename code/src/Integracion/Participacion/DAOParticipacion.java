@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 public interface DAOParticipacion {
-	Integer create(Tparticipacion tParticipacion) throws SQLException, DAOException;
+	boolean create(Tparticipacion tParticipacion) throws SQLException, DAOException;
 	Collection<Tparticipacion> readAll() throws DAOException;
 	Collection<Tparticipacion> readByFairName(String nombre) throws DAOException;
 	Collection<Tparticipacion> readByClientName(String nombre) throws DAOException;

@@ -19,8 +19,8 @@ public class DAOAsignacionImp implements DAOAsignacion {
 	 * @return Integer ID of tAsignacion created at database
 	 * @throws DAOException error from database
 	 */
-	public Integer create(Tasignacion tAsignacion) throws DAOException {
-		int id = -1;
+	public boolean create(Tasignacion tAsignacion) throws DAOException {
+		boolean create = false;
 
 		driverIdentify();
 		Connection connec = null;
@@ -42,14 +42,14 @@ public class DAOAsignacionImp implements DAOAsignacion {
 			ps.execute();
 			ps.close();
 
-			ps = connec.prepareStatement("SELECT LAST_INSERT_ID() FROM asignacion");
+			ps = connec.prepareStatement("SELECT * FROM asignacion");
 
 			ResultSet rs = ps.executeQuery();
 			ps.close();
 			if (rs.next())
-				id = rs.getInt("LAST_INSERT_ID()");
+				create = true;
 			else
-				return -1;
+				return false;
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'create' Asignacion ID Feria "+ tAsignacion.getFair_id() + " ID Pabellon " + tAsignacion.getPavilion_id() + " ID Stand " + tAsignacion.getStand_id()+" no logrado\n");
@@ -61,7 +61,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 				throw new DAOException("ERROR: cerrando conexion a DB para 'create' Asignacion ID Feria "+ tAsignacion.getFair_id() + " ID Pabellon " + tAsignacion.getPavilion_id() + " ID Stand " + tAsignacion.getStand_id()+" no logrado\n");
 			}
 		}
-		return id;
+		return create;
 	}
 
 	/***
@@ -171,7 +171,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		try { // Tratamiento db
 			PreparedStatement ps;
 
-			ps = connec.prepareStatement("SELECT * FROM asignacion as JOIN feria f ON as.fair_id = f.id WHERE f.id = ?");
+			ps = connec.prepareStatement("SELECT * FROM asignacion WHERE fair_id = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			ps.close();
@@ -216,7 +216,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		try { // Tratamiento db
 			PreparedStatement ps;
 
-			ps = connec.prepareStatement("SELECT * FROM asignacion as JOIN pabellon pa ON as.pavilion_id = pa.id WHERE pa.id = ?");
+			ps = connec.prepareStatement("SELECT * FROM asignacion WHERE pavilion_id = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			ps.close();

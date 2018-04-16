@@ -15,6 +15,7 @@ public class DAOStandImpTest {
 
 	@Before
 	public  void setUp() throws Exception {
+		// Borra todas las tuplas en la tabla 'stand' de la db
 		DAOStandImp dao = new DAOStandImp();
 		dao.deleteAll();
 	}
@@ -46,10 +47,12 @@ public class DAOStandImpTest {
 
 	@Test
 	public void readByAssignation() throws Exception {
+
 	}
 
 	@Test
 	public void readByParticipation() throws Exception {
+
 	}
 
 	@Test
@@ -58,7 +61,7 @@ public class DAOStandImpTest {
 
 		int out_id = dao.create(tstandTest1);
 		Tstand read = dao.readById(1);
-
+		assertEquals(out_id, read.getId());
 		tstandEquals(tstandTest1, read);
 	}
 

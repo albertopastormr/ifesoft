@@ -174,7 +174,7 @@ public class DAOFeriaImp implements DAOFeria{
 			ps = connec.prepareStatement("SELECT * FROM feria WHERE id = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			//ps.close();
+			ps.close();
 			if (rs.next()){
 				readFeria = new Tferia(rs.getInt("id"), rs.getString("name"),rs.getString("description"),rs.getDate("initDate"),rs.getDate("endDate"),rs.getBoolean("active") ) ;
 			}

@@ -14,6 +14,7 @@ public class DAOPabellonImpTest {
 
 	@Before
 	public  void setUp() throws Exception {
+		// Borra todas las tuplas en la tabla 'pabellon' de la db
 		DAOPabellonImp dao = new DAOPabellonImp();
 		dao.deleteAll();
 	}

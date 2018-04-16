@@ -18,8 +18,8 @@ public class DAOParticipacionImp implements DAOParticipacion {
 	 * @return Integer ID Tparticipacion created
 	 * @throws DAOException error from database
 	 */
-	public Integer create(Tparticipacion tParticipacion) throws DAOException {
-		int id = -1;
+	public boolean create(Tparticipacion tParticipacion) throws DAOException {
+		boolean create = false;
 
 		Connection connec = null;
 		driverIdentify();
@@ -36,16 +36,16 @@ public class DAOParticipacionImp implements DAOParticipacion {
 			ps.setInt(1, tParticipacion.getFair_id());
 			ps.setInt(2, tParticipacion.getClient_id());
 			ps.setInt(3, tParticipacion.getStand_id());
-			ps.setBoolean(4, true);
+			ps.setBoolean(4, tParticipacion.getActive());
 			ps.execute();
 
-			ps = connec.prepareStatement("SELECT LAST_INSERT_ID() FROM participacion");
+			ps = connec.prepareStatement("SELECT * FROM participacion");
 
 			ResultSet rs = ps.executeQuery();
 			if (rs.next())
-				id = rs.getInt("LAST_INSERT_ID()");
+				create = true;
 			else
-				 return -1;
+				 return false;
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'create' Participacion con ID Feria "+ tParticipacion.getFair_id() + " ID Participante " + tParticipacion.getClient_id() + " ID Stand " + tParticipacion.getStand_id()+" no logrado\n");
@@ -58,7 +58,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 			}
 		}
 
-		return id;
+		return create;
 	}
 
 	/***
@@ -208,7 +208,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 		try { // Tratamiento db
 			PreparedStatement ps;
 
-			ps = connec.prepareStatement("SELECT * FROM participacion pn JOIN feria f ON pn.fair_id = f.id  WHERE f.id = ?");
+			ps = connec.prepareStatement("SELECT * FROM participacion WHERE fair_id = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 
@@ -251,7 +251,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 		try { // Tratamiento db
 			PreparedStatement ps;
 
-			ps = connec.prepareStatement("SELECT * FROM participacion pn JOIN participante pe ON pn.client_id = pe.id WHERE pe.id = ?");
+			ps = connec.prepareStatement("SELECT * FROM participacion WHERE client_id = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			ps.close();
