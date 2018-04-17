@@ -17,8 +17,8 @@ public interface ASFeria {
 
     Collection<Tferia> listDates(Tferia feria) throws ASException;
 
-    Tferia showByName(Tferia feria) throws ASException;
+    Tferia showByName(String name) throws ASException;
 
-    Tferia showById(Tferia feria) throws ASException;
+    Tferia showById(Integer id) throws ASException;
 
 }

@@ -14,5 +14,5 @@ public interface ASPabellon {
 
     Collection<Tpabellon> list() throws ASException;
 
-    Tpabellon showById(Tpabellon pabellon) throws ASException;
+    Tpabellon showById(Integer id) throws ASException;
 }

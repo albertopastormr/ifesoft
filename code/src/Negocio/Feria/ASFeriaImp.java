@@ -117,15 +117,15 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
         return collection;
     }
 
-    public Tferia showByName(Tferia feria) throws ASException {
+    public Tferia showByName(String name) throws ASException {
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-        if (feria != null) {
+        if (name != null) {
             try {
-                Tferia read = daoFeria.readByName(feria.getName());
+                Tferia read = daoFeria.readByName(name);
                 if (read != null)
                     return read;
                 else
-                    throw new ASException("ERROR: La feria " + feria.getName() + " no existe.\n");
+                    throw new ASException("ERROR: La feria " + name + " no existe.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }
@@ -134,15 +134,15 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
         //return null;
     }
 
-    public Tferia showById(Tferia feria) throws ASException {
+    public Tferia showById(Integer id) throws ASException {
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-        if (feria != null && feria.getId() != -1) {
+        if (id != -1) {
             try {
-                Tferia read = daoFeria.readById(feria.getId());
+                Tferia read = daoFeria.readById(id);
                 if (read != null)
                     return read;
                 else
-                    throw new ASException("ERROR: La feria " + feria.getId() + " no existe.\n");
+                    throw new ASException("ERROR: La feria " + id + " no existe.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }

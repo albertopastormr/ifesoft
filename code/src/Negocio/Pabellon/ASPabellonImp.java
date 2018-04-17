@@ -88,20 +88,19 @@ public class ASPabellonImp implements ASPabellon {
         return collection;
     }
 
-    public Tpabellon showById(Tpabellon pabellon) throws ASException {
+    public Tpabellon showById(Integer id) throws ASException {
         DAOPabellon daoPabellon = IFDAOPabellon.getInstance().generateDAOpabellon();
-        if (pabellon != null && pabellon.getId() != -1) {
+        if (id != -1) {
             try {
-                Tpabellon read = daoPabellon.readById(pabellon.getId());
+                Tpabellon read = daoPabellon.readById(id);
                 if (read != null)
                     return read;
                 else
-                    throw new ASException("ERROR: El pabellon " + pabellon.getId() + " no existe.\n");
+                    throw new ASException("ERROR: El pabellon " + id + " no existe.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }
         } else
             throw new ASException("ERROR: No se han introducido los datos del pabellon.\n");
-        //return null;
     }
 }

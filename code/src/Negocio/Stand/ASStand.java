@@ -14,5 +14,11 @@ public interface ASStand {
 
     Collection<Tstand> list() throws ASException, DAOException;
 
-    Tstand show(Tstand stand) throws ASException, DAOException;
+    Tstand showById(Integer id) throws ASException, DAOException;
+
+    Collection<Tstand> showByAssignation(Integer fair_id, Integer pavilion_id) throws ASException, DAOException;
+
+
+    Collection<Tstand> showByParticipation(Integer fair_id, Integer client_id) throws ASException, DAOException;
+
 }
