@@ -1,41 +1,32 @@
 package Presentacion.views.forms;
 
-import Negocio.Pabellon.Tpabellon;
+import Negocio.Participante.Tparticipante;
 import Presentacion.Controller;
 import Presentacion.UIimp;
 import Presentacion.views.events.Event;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class ViewsFormPabellon extends JFrame {
+public class ViewsFormClient extends JFrame {
 
-    private String aforo = "";
-    private String m2tot = "";
-    private String m2utiles = "";
+    private String name;
+    private String phone;
+    private String specialization;
+
+    private boolean mod;
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
     private JLabel title;
     private JPanel formContainer;
-    private JPanel formPanel;
-    private JPanel dialogPanel;
-    private JLabel aforoLabel;
-    private JLabel m2totLabel;
-    private JLabel m2utilesLabel;
-    private JTextField aforoField;
-    private JTextField m2totField;
-    private JTextField m2utilesField;
+    private JTextField nameField;
+    private JTextField phoneField;
+    private JTextField specializationField;
     private JPanel buttonBar;
-    private JButton okButton;
-    private JButton cancelButton;
-    private JButton helpButton;
 
-    private boolean mod;
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
     private Font fLabel = new Font(Font.DIALOG, Font.PLAIN, 30);
@@ -47,19 +38,21 @@ public class ViewsFormPabellon extends JFrame {
     private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
 
-    public ViewsFormPabellon() {
+    // CONSTRUCTOR OPTION CREATE
+    public ViewsFormClient() {
         mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
-    public ViewsFormPabellon(Tpabellon tpabellon) {
+    // CONSTRUCTOR OPTION MODIFY
+    public ViewsFormClient(Tparticipante client) {
         mod = true;
 
-        aforo = "" + tpabellon.getCapacity();
-        m2tot = "" + tpabellon.getTotal_m2();
-        m2utiles = "" + tpabellon.getUtil_m2();
+        name = client.getName();
+        phone = "" + (client.getPhone());
+        //specialization = client.getSpecialization();
 
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -68,13 +61,13 @@ public class ViewsFormPabellon extends JFrame {
 
     private void createButtonFormActionPerformed() {
         setVisible(false);
-        String aforo = aforoField.getText();
-        String m2_utiles = m2utilesField.getText();
-        String m2_totales = m2totField.getText();
-        Tpabellon tPabellon = new Tpabellon(Integer.parseInt(aforo), Integer.parseInt(m2_utiles), Integer.parseInt(m2_totales), true);
+        String name = nameField.getText();
+        String numPhone = phoneField.getText();
+        String specialization = specializationField.getText();
+        Tparticipante client = new Tparticipante(name, Integer.parseInt(numPhone), Boolean.parseBoolean(specialization));
 
-        if (!mod)  Controller.getInstance().execute(Event.INSERT_PAVILION, tPabellon);
-        else Controller.getInstance().execute(Event.MODIFY_PAVILION, tPabellon);
+        if (!mod)  Controller.getInstance().execute(Presentacion.views.events.Event.INSERT_CLIENT, client);
+        else Controller.getInstance().execute(Event.MODIFY_CLIENT, client);
     }
 
     private void cancelButtonStateChanged() {
@@ -90,9 +83,9 @@ public class ViewsFormPabellon extends JFrame {
     private void setupTitle(){
         title = new JLabel();
         if(mod)
-            title.setText("Modify Pavilion");
+            title.setText("Modify Client");
         else
-            title.setText("Create Pavilion");
+            title.setText("Create Client");
         title.setFont(fTitle);
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
@@ -117,7 +110,7 @@ public class ViewsFormPabellon extends JFrame {
         formContainer = new JPanel();
         formContainer.setLayout(new FlowLayout());
 
-        formPanel = new JPanel();
+        JPanel formPanel = new JPanel();
         GridBagLayout formLayout = new GridBagLayout();
         formPanel.setLayout(formLayout);
 
@@ -137,40 +130,40 @@ public class ViewsFormPabellon extends JFrame {
         formCon.anchor = GridBagConstraints.EAST;
 
 
-        aforoLabel = createLabel("Capacity:");
-        m2totLabel= createLabel("Total square-metres:");
-        m2utilesLabel = createLabel("Useful square-metres:");
+        JLabel nameLabel = createLabel("Name:");
+        JLabel phoneLabel = createLabel("Phone:");
+        JLabel specializationLabel = createLabel("Specialization");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
 
         formCon.gridx = 0;
         formCon.gridy = 0;
-        formPanel.add(aforoLabel, formCon);
+        formPanel.add(nameLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 1;
-        formPanel.add(m2totLabel, formCon);
+        formPanel.add(phoneLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 2;
-        formPanel.add(m2utilesLabel, formCon);
+        formPanel.add(specializationLabel, formCon);
 
-        aforoField = setupTextField();
-        aforoField.setMinimumSize(minDim);
-        aforoField.setPreferredSize(prefDim);
-        aforoField.setMaximumSize(maxDim);
-        aforoField.setText(aforo);
+        nameField = setupTextField();
+        nameField.setMinimumSize(minDim);
+        nameField.setPreferredSize(prefDim);
+        nameField.setMaximumSize(maxDim);
+        nameField.setText(name);
 
-        m2totField = setupTextField();
-        m2totField.setMinimumSize(minDim);
-        m2totField.setPreferredSize(prefDim);
-        m2totField.setMaximumSize(maxDim);
-        m2totField.setText(m2tot);
+        phoneField = setupTextField();
+        phoneField.setMinimumSize(minDim);
+        phoneField.setPreferredSize(prefDim);
+        phoneField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
+        phoneField.setText(phone);
 
-        m2utilesField = setupTextField();
-        m2utilesField.setMinimumSize(minDim);
-        m2utilesField.setPreferredSize(prefDim);
-        m2utilesField.setMaximumSize(maxDim);
-        m2utilesField.setText(m2utiles);
+        specializationField = setupTextField();
+        specializationField.setMinimumSize(minDim);
+        specializationField.setPreferredSize(prefDim);
+        specializationField.setMaximumSize(maxDim);
+        specializationField.setText(specialization);
 
         formCon.anchor = GridBagConstraints.WEST;
 
@@ -178,13 +171,13 @@ public class ViewsFormPabellon extends JFrame {
 
         formCon.gridx = 1;
         formCon.gridy = 0;
-        formPanel.add(aforoField, formCon);
+        formPanel.add(nameField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 1;
-        formPanel.add(m2totField, formCon);
+        formPanel.add(phoneField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 2;
-        formPanel.add(m2utilesField, formCon);
+        formPanel.add(specializationField, formCon);
         formContainer.add(formPanel);
     }
 
@@ -193,7 +186,7 @@ public class ViewsFormPabellon extends JFrame {
         Dimension buttonDim = new Dimension(150, 80);
 
         //---- cancelButton ----
-        cancelButton = new JButton();
+        JButton cancelButton = new JButton();
         cancelButton.setText("Cancel");
         cancelButton.setFont(fButton);
         cancelButton.setBackground(cCancelButton);
@@ -208,7 +201,7 @@ public class ViewsFormPabellon extends JFrame {
 
 
         //---- helpButton ----
-        helpButton = new JButton();
+        JButton helpButton = new JButton();
         helpButton.setText("Help");
         helpButton.setFont(fButton);
         helpButton.setBackground(cHelpButton);
@@ -223,7 +216,7 @@ public class ViewsFormPabellon extends JFrame {
 
 
         //---- okButton ----
-        okButton = new JButton();
+        JButton okButton = new JButton();
         okButton.setText("Add");
         okButton.setFont(fButton);
         okButton.setBackground(cOkButton);
@@ -253,7 +246,7 @@ public class ViewsFormPabellon extends JFrame {
 
         this.setMinimumSize(minScreenSize);
 
-        dialogPanel = new JPanel();
+        JPanel dialogPanel = new JPanel();
         BorderLayout dialogLayout = new BorderLayout();
         dialogPanel.setLayout(dialogLayout);
         dialogPanel.setBorder(BorderFactory.createEmptyBorder(20,50,20,50));

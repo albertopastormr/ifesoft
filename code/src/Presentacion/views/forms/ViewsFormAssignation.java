@@ -1,42 +1,27 @@
 package Presentacion.views.forms;
 
-import Negocio.Participacion.Tparticipacion;
+import Negocio.Asignacion.Tasignacion;
 import Presentacion.Controller;
-import Presentacion.UIimp;
 import Presentacion.views.events.Event;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.border.*;
 
-public class ViewsFormParticipacion extends JFrame {
+public class ViewsFormAssignation extends JFrame {
 
-
-    private String metres = "";
-    private String idFair = "";
-    private String idParticipant = "";
-    private String idStand = "";
+    private String metres;
 
     private boolean mod;
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
-    private JPanel dialogPanel;
     private JLabel title;
-    private JPanel formPanel;
     private JPanel formContainer;
-    private JLabel metresLabel;
-    private JLabel idFairLabel;
-    private JLabel idParticipantLabel;
-    private JLabel idStandLabel;
     private JTextField metresField;
     private JTextField idFairField;
-    private JTextField idParticipantField;
+    private JTextField idPavilionField;
     private JTextField idStandField;
-    private JButton okButton;
-    private JButton cancelButton;
-    private JButton helpButton;
     private JPanel buttonBar;
 
 
@@ -50,7 +35,7 @@ public class ViewsFormParticipacion extends JFrame {
     private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
 
-    public ViewsFormParticipacion() {
+    public ViewsFormAssignation() {
         mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -58,29 +43,27 @@ public class ViewsFormParticipacion extends JFrame {
     }
 
 
-    public ViewsFormParticipacion(Tparticipacion tParticipacion) {
+    public ViewsFormAssignation(Tasignacion assignation) {
         mod = true;
-
-        idFair = (String.valueOf(tParticipacion.getFair_id()));
-        idParticipant = (String.valueOf(tParticipacion.getClient_id()));
-        idStand = (String.valueOf(tParticipacion.getStand_id()));
+        metres = assignation.getUsed_m2() + "";
 
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
+
     private void createButtonFormActionPerformed() {
         this.setVisible(false);
         int mUsed = Integer.valueOf(metresField.getText());
         int idFair = Integer.valueOf(idFairField.getText());
-        int idParticipante = Integer.valueOf(idParticipantField.getText());
+        int idPavilion = Integer.valueOf(idPavilionField.getText());
         int idStand = Integer.valueOf(idStandField.getText());
 
-        Tparticipacion tparticipacion = new Tparticipacion();
+        Tasignacion tAssignation = new Tasignacion(idFair, idPavilion, idStand, mUsed, true);
 
-        if (!mod)  Controller.getInstance().execute(Event.INSERT_PARTICIPACION, tparticipacion);
-        else Controller.getInstance().execute(Event.MODIFY_PARTICIPACION, tparticipacion);
+        if (!mod)  Controller.getInstance().execute(Event.INSERT_ASIGNACION, tAssignation);
+        else Controller.getInstance().execute(Event.MODIFY_ASIGNACION, tAssignation);
     }
 
     private void cancelButtonStateChanged() {
@@ -96,9 +79,9 @@ public class ViewsFormParticipacion extends JFrame {
     private void setupTitle(){
         title = new JLabel();
         if(mod)
-            title.setText("Modify Participation");
+            title.setText("Modify Assignation");
         else
-            title.setText("Create Participation");
+            title.setText("Create Assignation");
         title.setFont(fTitle);
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
@@ -123,7 +106,7 @@ public class ViewsFormParticipacion extends JFrame {
         formContainer = new JPanel();
         formContainer.setLayout(new FlowLayout());
 
-        formPanel = new JPanel();
+        JPanel formPanel = new JPanel();
         GridBagLayout formLayout = new GridBagLayout();
         formPanel.setLayout(formLayout);
 
@@ -143,10 +126,10 @@ public class ViewsFormParticipacion extends JFrame {
         formCon.anchor = GridBagConstraints.EAST;
 
 
-        metresLabel = createLabel("Metres:");
-        idFairLabel = createLabel("Fair id:");
-        idParticipantLabel = createLabel("Client id:");
-        idStandLabel = createLabel("Stand id:");
+        JLabel metresLabel = createLabel("Name:");
+        JLabel idFairLabel = createLabel("Description:");
+        JLabel idPavilionLabel = createLabel("Start Date:");
+        JLabel idStandLabel = createLabel("End Date:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
@@ -159,7 +142,7 @@ public class ViewsFormParticipacion extends JFrame {
         formPanel.add(idFairLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 2;
-        formPanel.add(idParticipantLabel, formCon);
+        formPanel.add(idPavilionLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 3;
         formPanel.add(idStandLabel, formCon);
@@ -174,18 +157,21 @@ public class ViewsFormParticipacion extends JFrame {
         idFairField.setMinimumSize(minDim);
         idFairField.setPreferredSize(prefDim);
         idFairField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
+        String idFair = "";
         idFairField.setText(idFair);
 
-        idParticipantField = setupTextField();
-        idParticipantField.setMinimumSize(minDim);
-        idParticipantField.setPreferredSize(prefDim);
-        idParticipantField.setMaximumSize(maxDim);
-        idParticipantField.setText(idParticipant);
+        idPavilionField = setupTextField();
+        idPavilionField.setMinimumSize(minDim);
+        idPavilionField.setPreferredSize(prefDim);
+        idPavilionField.setMaximumSize(maxDim);
+        String idPavilion = "";
+        idPavilionField.setText(idPavilion);
 
         idStandField = setupTextField();
         idStandField.setMinimumSize(minDim);
         idStandField.setPreferredSize(prefDim);
         idStandField.setMaximumSize(maxDim);
+        String idStand = "";
         idStandField.setText(idStand);
 
         formCon.anchor = GridBagConstraints.WEST;
@@ -200,7 +186,7 @@ public class ViewsFormParticipacion extends JFrame {
         formPanel.add(idFairField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 2;
-        formPanel.add(idParticipantField, formCon);
+        formPanel.add(idPavilionField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 3;
         formPanel.add(idStandField, formCon);
@@ -212,7 +198,7 @@ public class ViewsFormParticipacion extends JFrame {
         Dimension buttonDim = new Dimension(150, 80);
 
         //---- cancelButton ----
-        cancelButton = new JButton();
+        JButton cancelButton = new JButton();
         cancelButton.setText("Cancel");
         cancelButton.setFont(fButton);
         cancelButton.setBackground(cCancelButton);
@@ -227,7 +213,7 @@ public class ViewsFormParticipacion extends JFrame {
 
 
         //---- helpButton ----
-        helpButton = new JButton();
+        JButton helpButton = new JButton();
         helpButton.setText("Help");
         helpButton.setFont(fButton);
         helpButton.setBackground(cHelpButton);
@@ -242,7 +228,7 @@ public class ViewsFormParticipacion extends JFrame {
 
 
         //---- okButton ----
-        okButton = new JButton();
+        JButton okButton = new JButton();
         okButton.setText("Add");
         okButton.setFont(fButton);
         okButton.setBackground(cOkButton);
@@ -264,15 +250,13 @@ public class ViewsFormParticipacion extends JFrame {
         buttonBar.add(Box.createHorizontalStrut(500));
         buttonBar.add(okButton);
 
-
-
     }
 
     private void initComponents() {
 
         this.setMinimumSize(minScreenSize);
 
-        dialogPanel = new JPanel();
+        JPanel dialogPanel = new JPanel();
         BorderLayout dialogLayout = new BorderLayout();
         dialogPanel.setLayout(dialogLayout);
         dialogPanel.setBorder(BorderFactory.createEmptyBorder(20,50,20,50));
