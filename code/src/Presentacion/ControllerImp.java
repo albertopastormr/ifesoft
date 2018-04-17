@@ -152,13 +152,8 @@ public class ControllerImp extends Controller {
 
             case Event.MODIFY_FORM_FERIA:
                try {
-<<<<<<< HEAD
                     tFair = asFair.showById((Tferia) data);
-                    new ViewsFormFeria(tFair);
-=======
-                    tFeria = asFeria.showById((Tferia) data);
-                    new ViewsFormFair(tFeria);
->>>>>>> a3d2ff1d069289d338f53e0ad38c39a79a83a6a3
+                    new ViewsFormFair(tFair);
                 } catch (ASException e) {
                     e.printStackTrace();
                 }
