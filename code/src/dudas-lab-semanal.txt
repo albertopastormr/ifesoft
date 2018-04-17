@@ -5,6 +5,7 @@ DUDAS PARA LAB:
 - Al leer participantes, cruzamos por las especialidades? tabla participante general vacia?
 - Pabellon (create) Comprobar si id es diferente de -1? El id lo tiene que dar la bbdd, no?
 - Constructor del controller en la superclase o en ControllerImp ?
+- Antes de crear una asignacion/participacion, como tratamos que ya existan los modulos referenciados?
 
 
 CAMBIOS SRS:

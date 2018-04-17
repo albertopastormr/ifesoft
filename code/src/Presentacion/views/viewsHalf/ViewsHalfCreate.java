@@ -15,15 +15,11 @@ public class ViewsHalfCreate extends JFrame {
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
-    private JPanel dialogPanel;
     private JPanel centerPanel;
     private JPanel buttonBar;
     private JLabel title;
     //private JLabel labelSubID;
     private JComboBox<String> comboBoxCreate;
-    private JButton nextButton;
-    private JButton backButton;
-    private JButton helpButton;
     //private JTextField textField;
 
     private Font fComboBox = new Font(Font.DIALOG, Font.PLAIN, 40);
@@ -139,7 +135,7 @@ public class ViewsHalfCreate extends JFrame {
         Dimension buttonDim = new Dimension(150, 80);
 
         //---- cancelButton ----
-        backButton = new JButton();
+        JButton backButton = new JButton();
         backButton.setText("Back");
         backButton.setFont(fButton);
         backButton.setBackground(cCancelButton);
@@ -158,7 +154,7 @@ public class ViewsHalfCreate extends JFrame {
 
 
         //---- helpButton ----
-        helpButton = new JButton();
+        JButton helpButton = new JButton();
         helpButton.setText("Help");
         helpButton.setFont(fButton);
         helpButton.setBackground(cHelpButton);
@@ -173,7 +169,7 @@ public class ViewsHalfCreate extends JFrame {
 
 
         //---- okButton ----
-        nextButton = new JButton();
+        JButton nextButton = new JButton();
         nextButton.setText("Next");
         nextButton.setFont(fButton);
         nextButton.setBackground(cOkButton);
@@ -211,12 +207,12 @@ public class ViewsHalfCreate extends JFrame {
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
-        ImageIcon img = new ImageIcon("Icon.png");
+        ImageIcon img = new ImageIcon("Resources//Icon.png");
         this.setIconImage(img.getImage());
 
         //======== dialogPanel ========
 
-        dialogPanel = new JPanel();
+        JPanel dialogPanel = new JPanel();
         dialogPanel.setBorder(new LineBorder(Color.BLUE));
         dialogPanel.setBorder(new EmptyBorder(50, 50, 80, 50));
         this.setMinimumSize(minScreenSize);

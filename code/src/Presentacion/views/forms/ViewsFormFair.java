@@ -1,41 +1,37 @@
 package Presentacion.views.forms;
 
-import Negocio.Participante.Tparticipante;
+import Negocio.Feria.Tferia;
 import Presentacion.Controller;
-import Presentacion.UIimp;
+import Presentacion.utils.Utilities;
 import Presentacion.views.events.Event;
+<<<<<<< HEAD:code/src/Presentacion/views/forms/ViewsFormFeria.java
+import Presentacion.UIimp;
 import Presentacion.views.optionsPanel.PanelProblemUser;
+=======
+>>>>>>> a3d2ff1d069289d338f53e0ad38c39a79a83a6a3:code/src/Presentacion/views/forms/ViewsFormFair.java
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.border.*;
 
-public class ViewsFormParticipante extends JFrame {
+public class ViewsFormFair extends JFrame {
 
-    private String name = "";
-    private String phone = "";
-    private String specialization = "";
+    private String name;
+    private String description;
+    private String iniDate;
+    private String finDate;
 
     private boolean mod;
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
-    private JPanel dialogPanel;
     private JLabel title;
-    private JPanel formPanel;
     private JPanel formContainer;
-    private JLabel nameLabel;
-    private JLabel phoneLabel;
-    private JLabel specializationLabel;
     private JTextField nameField;
-    private JTextField phoneField;
-    private JTextField specializationField;
-    private JButton okButton;
-    private JButton cancelButton;
-    private JButton helpButton;
+    private JTextField descField;
+    private JTextField iniDateField;
+    private JTextField finDateField;
     private JPanel buttonBar;
-
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
     private Font fLabel = new Font(Font.DIALOG, Font.PLAIN, 30);
@@ -47,21 +43,24 @@ public class ViewsFormParticipante extends JFrame {
     private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
 
-    // CONSTRUCTOR OPTION CREATE
-    public ViewsFormParticipante() {
+
+    public ViewsFormFair() {
+        super("Fair");
         mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
+
     }
 
-    // CONSTRUCTOR OPTION MODIFY
-    public ViewsFormParticipante(Tparticipante tparticipante) {
+    public ViewsFormFair(Tferia fair) {
+        super("Fair");
         mod = true;
 
-        name = tparticipante.getName();
-        phone = "" + (tparticipante.getPhone());
-        //specialization = tparticipante.getSpecialization();
+        name = fair.getName();
+        description = fair.getDescription();
+        iniDate = Utilities.parseDateToString(fair.getIniDate());
+        finDate = Utilities.parseDateToString(fair.getEndDate());
 
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -69,17 +68,18 @@ public class ViewsFormParticipante extends JFrame {
     }
 
     private void createButtonFormActionPerformed() throws Exception {
-        setVisible(false);
+        this.setVisible(false);
         String name = nameField.getText();
-        String numPhone = phoneField.getText();
-        String specialization = specializationField.getText();
-        Tparticipante tParticipante = new Tparticipante(name, Integer.parseInt(numPhone), Boolean.parseBoolean(specialization));
+        String description = descField.getText();
+        String dateStart = iniDateField.getText();
+        String dateEnd = finDateField.getText();
 
-        if (!mod)  Controller.getInstance().execute(Presentacion.views.events.Event.INSERT_CLIENT, tParticipante);
-        else Controller.getInstance().execute(Event.MODIFY_CLIENT, tParticipante);
+        if(!mod) Controller.getInstance().execute(Event.INSERT_FAIR, new Tferia(name, description, Utilities.parseStringToDate(dateStart), Utilities.parseStringToDate(dateEnd)));
+        else Controller.getInstance().execute(Event.MODIFY_FAIR, new Tferia(name, description, Utilities.parseStringToDate(dateStart), Utilities.parseStringToDate(dateEnd)));
+
     }
 
-    private void cancelButtonStateChanged() throws Exception {
+   private void cancelButtonStateChanged() throws Exception {
         this.setVisible(false);
         if (!mod) Controller.getInstance().execute(Event.CREATE_HALF, null);
         else Controller.getInstance().execute(Event.MODIFY_HALF, null);
@@ -92,9 +92,9 @@ public class ViewsFormParticipante extends JFrame {
     private void setupTitle(){
         title = new JLabel();
         if(mod)
-            title.setText("Modify Client");
+            title.setText("Modify Fair");
         else
-            title.setText("Create Client");
+            title.setText("Create Fair");
         title.setFont(fTitle);
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
@@ -119,7 +119,7 @@ public class ViewsFormParticipante extends JFrame {
         formContainer = new JPanel();
         formContainer.setLayout(new FlowLayout());
 
-        formPanel = new JPanel();
+        JPanel formPanel = new JPanel();
         GridBagLayout formLayout = new GridBagLayout();
         formPanel.setLayout(formLayout);
 
@@ -139,9 +139,10 @@ public class ViewsFormParticipante extends JFrame {
         formCon.anchor = GridBagConstraints.EAST;
 
 
-        nameLabel = createLabel("Name:");
-        phoneLabel = createLabel("Phone:");
-        specializationLabel = createLabel("Specialization");
+        JLabel nameLabel = createLabel("Name:");
+        JLabel descLabel = createLabel("Description:");
+        JLabel iniDateLabel = createLabel("Start Date:");
+        JLabel finDateLabel = createLabel("End Date:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
@@ -151,10 +152,13 @@ public class ViewsFormParticipante extends JFrame {
         formPanel.add(nameLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 1;
-        formPanel.add(phoneLabel, formCon);
+        formPanel.add(descLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 2;
-        formPanel.add(specializationLabel, formCon);
+        formPanel.add(iniDateLabel, formCon);
+        formCon.gridx = 0;
+        formCon.gridy = 3;
+        formPanel.add(finDateLabel, formCon);
 
         nameField = setupTextField();
         nameField.setMinimumSize(minDim);
@@ -162,17 +166,23 @@ public class ViewsFormParticipante extends JFrame {
         nameField.setMaximumSize(maxDim);
         nameField.setText(name);
 
-        phoneField = setupTextField();
-        phoneField.setMinimumSize(minDim);
-        phoneField.setPreferredSize(prefDim);
-        phoneField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
-        phoneField.setText(phone);
+        descField = setupTextField();
+        descField.setMinimumSize(new Dimension(minDim.width, minDim.height + 100));
+        descField.setPreferredSize(new Dimension(prefDim.width, prefDim.height + 100));
+        descField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
+        descField.setText(description);
 
-        specializationField = setupTextField();
-        specializationField.setMinimumSize(minDim);
-        specializationField.setPreferredSize(prefDim);
-        specializationField.setMaximumSize(maxDim);
-        specializationField.setText(specialization);
+        iniDateField = setupTextField();
+        iniDateField.setMinimumSize(minDim);
+        iniDateField.setPreferredSize(prefDim);
+        iniDateField.setMaximumSize(maxDim);
+        iniDateField.setText(iniDate);
+
+        finDateField = setupTextField();
+        finDateField.setMinimumSize(minDim);
+        finDateField.setPreferredSize(prefDim);
+        finDateField.setMaximumSize(maxDim);
+        finDateField.setText(finDate);
 
         formCon.anchor = GridBagConstraints.WEST;
 
@@ -183,10 +193,13 @@ public class ViewsFormParticipante extends JFrame {
         formPanel.add(nameField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 1;
-        formPanel.add(phoneField, formCon);
+        formPanel.add(descField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 2;
-        formPanel.add(specializationField, formCon);
+        formPanel.add(iniDateField, formCon);
+        formCon.gridx = 1;
+        formCon.gridy = 3;
+        formPanel.add(finDateField, formCon);
         formContainer.add(formPanel);
     }
 
@@ -195,7 +208,7 @@ public class ViewsFormParticipante extends JFrame {
         Dimension buttonDim = new Dimension(150, 80);
 
         //---- cancelButton ----
-        cancelButton = new JButton();
+        JButton cancelButton = new JButton();
         cancelButton.setText("Cancel");
         cancelButton.setFont(fButton);
         cancelButton.setBackground(cCancelButton);
@@ -206,7 +219,7 @@ public class ViewsFormParticipante extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     cancelButtonStateChanged();
-                } catch (Exception e1){
+                }catch (Exception e1){
                     new PanelProblemUser(e1.getMessage());
                 }
             }
@@ -214,7 +227,7 @@ public class ViewsFormParticipante extends JFrame {
 
 
         //---- helpButton ----
-        helpButton = new JButton();
+        JButton helpButton = new JButton();
         helpButton.setText("Help");
         helpButton.setFont(fButton);
         helpButton.setBackground(cHelpButton);
@@ -229,7 +242,7 @@ public class ViewsFormParticipante extends JFrame {
 
 
         //---- okButton ----
-        okButton = new JButton();
+        JButton okButton = new JButton();
         okButton.setText("Add");
         okButton.setFont(fButton);
         okButton.setBackground(cOkButton);
@@ -263,7 +276,7 @@ public class ViewsFormParticipante extends JFrame {
 
         this.setMinimumSize(minScreenSize);
 
-        dialogPanel = new JPanel();
+        JPanel dialogPanel = new JPanel();
         BorderLayout dialogLayout = new BorderLayout();
         dialogPanel.setLayout(dialogLayout);
         dialogPanel.setBorder(BorderFactory.createEmptyBorder(20,50,20,50));
@@ -274,6 +287,9 @@ public class ViewsFormParticipante extends JFrame {
         //======== this ========
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
+
+        ImageIcon img = new ImageIcon("Resources//Icon.png");
+        this.setIconImage(img.getImage());
 
         //======== contents ========
 

@@ -129,22 +129,22 @@ public class ControllerImp extends Controller {
             /** Form Views*/
 
             case Event.INSERT_FORM_FERIA:
-                new ViewsFormFeria();
+                new ViewsFormFair();
                 break;
             case Event.INSERT_FORM_ASIGNACION:
-                new ViewsFormAsignacion();
+                new ViewsFormAssignation();
                 break;
             case Event.INSERT_FORM_PARTICIPANTE:
-                new ViewsFormParticipante();
+                new ViewsFormClient();
                 break;
             case Event.INSERT_FORM_PABELLON:
-                new ViewsFormPabellon();
+                new ViewsFormPavilion();
                 break;
             case Event.INSERT_FORM_STAND:
                 new ViewsFormStand();
                 break;
             case Event.INSERT_FORM_PARTICIPACION:
-                new ViewsFormParticipacion();
+                new ViewsFormParticipation();
                 break;
 
 
@@ -152,8 +152,13 @@ public class ControllerImp extends Controller {
 
             case Event.MODIFY_FORM_FERIA:
                try {
+<<<<<<< HEAD
                     tFair = asFair.showById((Tferia) data);
                     new ViewsFormFeria(tFair);
+=======
+                    tFeria = asFeria.showById((Tferia) data);
+                    new ViewsFormFair(tFeria);
+>>>>>>> a3d2ff1d069289d338f53e0ad38c39a79a83a6a3
                 } catch (ASException e) {
                     e.printStackTrace();
                 }

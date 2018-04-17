@@ -1,47 +1,28 @@
 package Presentacion.views.forms;
 
-import Negocio.Feria.Tferia;
+import Negocio.Asignacion.Tasignacion;
 import Presentacion.Controller;
-import Presentacion.utils.Utilities;
 import Presentacion.views.events.Event;
-import Presentacion.UIimp;
 import Presentacion.views.optionsPanel.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.naming.ldap.Control;
 import javax.swing.*;
-import javax.swing.border.*;
 
-public class ViewsFormFeria extends JFrame {
+public class ViewsFormAssignation extends JFrame {
 
-    private String name = "";
-    private String description = "";
-    private String iniDate = "";
-    private String finDate = "";
+    private String metres;
 
     private boolean mod;
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
-    private JPanel dialogPanel;
     private JLabel title;
-    private JPanel formPanel;
     private JPanel formContainer;
-    private JLabel nameLabel;
-    private JLabel descLabel;
-    private JLabel iniDateLabel;
-    private JLabel finDateLabel;
-    private JTextField nameField;
-    private JTextField descField;
-    private JTextField iniDateField;
-    private JTextField finDateField;
-    private JButton okButton;
-    private JButton cancelButton;
-    private JButton helpButton;
+    private JTextField metresField;
+    private JTextField idFairField;
+    private JTextField idPavilionField;
+    private JTextField idStandField;
     private JPanel buttonBar;
 
 
@@ -55,43 +36,40 @@ public class ViewsFormFeria extends JFrame {
     private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
 
-
-    public ViewsFormFeria() {
-
+    public ViewsFormAssignation() {
+       super("Assignation");
         mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
-
     }
 
-    public ViewsFormFeria(Tferia tferia) {
 
+    public ViewsFormAssignation(Tasignacion assignation) {
+        super("Assignation");
         mod = true;
-
-        name = tferia.getName();
-        description = tferia.getDescription();
-        iniDate = Utilities.parseDateToString(tferia.getIniDate());
-        finDate = Utilities.parseDateToString(tferia.getEndDate());
+        metres = assignation.getUsed_m2() + "";
 
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
+
     private void createButtonFormActionPerformed() throws Exception {
         this.setVisible(false);
-        String name = nameField.getText();
-        String descrip = descField.getText();
-        String dateStart = iniDateField.getText();
-        String dateEnd = finDateField.getText();
+        int mUsed = Integer.valueOf(metresField.getText());
+        int idFair = Integer.valueOf(idFairField.getText());
+        int idPavilion = Integer.valueOf(idPavilionField.getText());
+        int idStand = Integer.valueOf(idStandField.getText());
 
-        if(!mod) Controller.getInstance().execute(Event.INSERT_FAIR, new Tferia(name, descrip, Utilities.parseStringToDate(dateStart), Utilities.parseStringToDate(dateEnd)));
-        else Controller.getInstance().execute(Event.MODIFY_FAIR, new Tferia(name, descrip, Utilities.parseStringToDate(dateStart), Utilities.parseStringToDate(dateEnd)));
+        Tasignacion tAssignation = new Tasignacion(idFair, idPavilion, idStand, mUsed, true);
 
+        if (!mod)  Controller.getInstance().execute(Event.INSERT_ASIGNACION, tAssignation);
+        else Controller.getInstance().execute(Event.MODIFY_ASIGNACION, tAssignation);
     }
 
-   private void cancelButtonStateChanged() throws Exception {
+    private void cancelButtonStateChanged() throws Exception {
         this.setVisible(false);
         if (!mod) Controller.getInstance().execute(Event.CREATE_HALF, null);
         else Controller.getInstance().execute(Event.MODIFY_HALF, null);
@@ -104,9 +82,9 @@ public class ViewsFormFeria extends JFrame {
     private void setupTitle(){
         title = new JLabel();
         if(mod)
-            title.setText("Modify Fair");
+            title.setText("Modify Assignation");
         else
-            title.setText("Create Fair");
+            title.setText("Create Assignation");
         title.setFont(fTitle);
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
@@ -131,7 +109,7 @@ public class ViewsFormFeria extends JFrame {
         formContainer = new JPanel();
         formContainer.setLayout(new FlowLayout());
 
-        formPanel = new JPanel();
+        JPanel formPanel = new JPanel();
         GridBagLayout formLayout = new GridBagLayout();
         formPanel.setLayout(formLayout);
 
@@ -151,50 +129,53 @@ public class ViewsFormFeria extends JFrame {
         formCon.anchor = GridBagConstraints.EAST;
 
 
-        nameLabel = createLabel("Name:");
-        descLabel = createLabel("Description:");
-        iniDateLabel = createLabel("Start Date:");
-        finDateLabel = createLabel("End Date:");
+        JLabel metresLabel = createLabel("Name:");
+        JLabel idFairLabel = createLabel("Description:");
+        JLabel idPavilionLabel = createLabel("Start Date:");
+        JLabel idStandLabel = createLabel("End Date:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
 
         formCon.gridx = 0;
         formCon.gridy = 0;
-        formPanel.add(nameLabel, formCon);
+        formPanel.add(metresLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 1;
-        formPanel.add(descLabel, formCon);
+        formPanel.add(idFairLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 2;
-        formPanel.add(iniDateLabel, formCon);
+        formPanel.add(idPavilionLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 3;
-        formPanel.add(finDateLabel, formCon);
+        formPanel.add(idStandLabel, formCon);
 
-        nameField = setupTextField();
-        nameField.setMinimumSize(minDim);
-        nameField.setPreferredSize(prefDim);
-        nameField.setMaximumSize(maxDim);
-        nameField.setText(name);
+        metresField = setupTextField();
+        metresField.setMinimumSize(minDim);
+        metresField.setPreferredSize(prefDim);
+        metresField.setMaximumSize(maxDim);
+        metresField.setText(metres);
 
-        descField = setupTextField();
-        descField.setMinimumSize(new Dimension(minDim.width, minDim.height + 100));
-        descField.setPreferredSize(new Dimension(prefDim.width, prefDim.height + 100));
-        descField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
-        descField.setText(description);
+        idFairField = setupTextField();
+        idFairField.setMinimumSize(minDim);
+        idFairField.setPreferredSize(prefDim);
+        idFairField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
+        String idFair = "";
+        idFairField.setText(idFair);
 
-        iniDateField = setupTextField();
-        iniDateField.setMinimumSize(minDim);
-        iniDateField.setPreferredSize(prefDim);
-        iniDateField.setMaximumSize(maxDim);
-        iniDateField.setText(iniDate);
+        idPavilionField = setupTextField();
+        idPavilionField.setMinimumSize(minDim);
+        idPavilionField.setPreferredSize(prefDim);
+        idPavilionField.setMaximumSize(maxDim);
+        String idPavilion = "";
+        idPavilionField.setText(idPavilion);
 
-        finDateField = setupTextField();
-        finDateField.setMinimumSize(minDim);
-        finDateField.setPreferredSize(prefDim);
-        finDateField.setMaximumSize(maxDim);
-        finDateField.setText(finDate);
+        idStandField = setupTextField();
+        idStandField.setMinimumSize(minDim);
+        idStandField.setPreferredSize(prefDim);
+        idStandField.setMaximumSize(maxDim);
+        String idStand = "";
+        idStandField.setText(idStand);
 
         formCon.anchor = GridBagConstraints.WEST;
 
@@ -202,16 +183,16 @@ public class ViewsFormFeria extends JFrame {
 
         formCon.gridx = 1;
         formCon.gridy = 0;
-        formPanel.add(nameField, formCon);
+        formPanel.add(metresField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 1;
-        formPanel.add(descField, formCon);
+        formPanel.add(idFairField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 2;
-        formPanel.add(iniDateField, formCon);
+        formPanel.add(idPavilionField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 3;
-        formPanel.add(finDateField, formCon);
+        formPanel.add(idStandField, formCon);
         formContainer.add(formPanel);
     }
 
@@ -220,7 +201,7 @@ public class ViewsFormFeria extends JFrame {
         Dimension buttonDim = new Dimension(150, 80);
 
         //---- cancelButton ----
-        cancelButton = new JButton();
+        JButton cancelButton = new JButton();
         cancelButton.setText("Cancel");
         cancelButton.setFont(fButton);
         cancelButton.setBackground(cCancelButton);
@@ -231,7 +212,7 @@ public class ViewsFormFeria extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     cancelButtonStateChanged();
-                }catch (Exception e1){
+                } catch (Exception e1){
                     new PanelProblemUser(e1.getMessage());
                 }
             }
@@ -239,7 +220,7 @@ public class ViewsFormFeria extends JFrame {
 
 
         //---- helpButton ----
-        helpButton = new JButton();
+        JButton helpButton = new JButton();
         helpButton.setText("Help");
         helpButton.setFont(fButton);
         helpButton.setBackground(cHelpButton);
@@ -254,7 +235,7 @@ public class ViewsFormFeria extends JFrame {
 
 
         //---- okButton ----
-        okButton = new JButton();
+        JButton okButton = new JButton();
         okButton.setText("Add");
         okButton.setFont(fButton);
         okButton.setBackground(cOkButton);
@@ -280,15 +261,13 @@ public class ViewsFormFeria extends JFrame {
         buttonBar.add(Box.createHorizontalStrut(500));
         buttonBar.add(okButton);
 
-
-
     }
 
     private void initComponents() {
 
         this.setMinimumSize(minScreenSize);
 
-        dialogPanel = new JPanel();
+        JPanel dialogPanel = new JPanel();
         BorderLayout dialogLayout = new BorderLayout();
         dialogPanel.setLayout(dialogLayout);
         dialogPanel.setBorder(BorderFactory.createEmptyBorder(20,50,20,50));
@@ -299,6 +278,10 @@ public class ViewsFormFeria extends JFrame {
         //======== this ========
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
+
+
+        ImageIcon img = new ImageIcon("Resources//Icon.png");
+        this.setIconImage(img.getImage());
 
         //======== contents ========
 

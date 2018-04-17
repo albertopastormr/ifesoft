@@ -1,44 +1,31 @@
 package Presentacion.views.forms;
 
-import Negocio.Asignacion.Tasignacion;
+import Negocio.Pabellon.Tpabellon;
 import Presentacion.Controller;
-import Presentacion.UIimp;
 import Presentacion.views.events.Event;
+import Presentacion.views.optionsPanel.ActionHelp;
 import Presentacion.views.optionsPanel.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.border.*;
 
-public class ViewsFormAsignacion extends JFrame {
+public class ViewsFormPavilion extends JFrame {
 
-    private String metres = "";
-    private String idFair = "";
-    private String idPavilion = "";
-    private String idStand = "";
-
-    private boolean mod;
+    private String capacity;
+    private String m2tot;
+    private String m2utils;
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
-    private JPanel dialogPanel;
     private JLabel title;
-    private JPanel formPanel;
     private JPanel formContainer;
-    private JLabel metresLabel;
-    private JLabel idFairLabel;
-    private JLabel idPavilionLabel;
-    private JLabel idStandLabel;
-    private JTextField metresField;
-    private JTextField idFairField;
-    private JTextField idPavilionField;
-    private JTextField idStandField;
-    private JButton okButton;
-    private JButton cancelButton;
-    private JButton helpButton;
+    private JTextField capacityField;
+    private JTextField m2totField;
+    private JTextField m2utilsField;
     private JPanel buttonBar;
 
+    private boolean mod;
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
     private Font fLabel = new Font(Font.DIALOG, Font.PLAIN, 30);
@@ -50,35 +37,48 @@ public class ViewsFormAsignacion extends JFrame {
     private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
 
-    public ViewsFormAsignacion() {
+    public ViewsFormPavilion() {
+        super("Pavilion");
         mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
-
-    public ViewsFormAsignacion(Tasignacion tAsigancion) {
+    public ViewsFormPavilion(Tpabellon pavilion) {
+        super("Pavilion");
         mod = true;
-        metres = tAsigancion.getUsed_m2() + "";
+
+        capacity = "" + pavilion.getCapacity();
+        m2tot = "" + pavilion.getTotal_m2();
+        m2utils = "" + pavilion.getUtil_m2();
 
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
-
     private void createButtonFormActionPerformed() throws Exception {
-        this.setVisible(false);
-        int mUsed = Integer.valueOf(metresField.getText());
-        int idFair = Integer.valueOf(idFairField.getText());
-        int idPavilion = Integer.valueOf(idPavilionField.getText());
-        int idStand = Integer.valueOf(idStandField.getText());
+        setVisible(false);
+<<<<<<< HEAD:code/src/Presentacion/views/forms/ViewsFormPabellon.java
+        String aforo = aforoField.getText();
+        String m2_utiles = m2utilesField.getText();
+        String m2_totales = m2totField.getText();
+        try {
+            Tpabellon tPabellon = new Tpabellon(Integer.parseInt(aforo), Integer.parseInt(m2_utiles), Integer.parseInt(m2_totales), true);
+=======
+        String capacity = capacityField.getText();
+        String m2_utils = m2utilsField.getText();
+        String m2_total = m2totField.getText();
+        Tpabellon tPabellon = new Tpabellon(Integer.parseInt(capacity), Integer.parseInt(m2_utils), Integer.parseInt(m2_total), true);
+>>>>>>> a3d2ff1d069289d338f53e0ad38c39a79a83a6a3:code/src/Presentacion/views/forms/ViewsFormPavilion.java
 
-        Tasignacion tasignacion = new Tasignacion(idFair, idPavilion, idStand, mUsed, true);
+            if (!mod)  Controller.getInstance().execute(Event.INSERT_PAVILION, tPabellon);
+            else Controller.getInstance().execute(Event.MODIFY_PAVILION, tPabellon);
 
-        if (!mod)  Controller.getInstance().execute(Event.INSERT_ASIGNACION, tasignacion);
-        else Controller.getInstance().execute(Event.MODIFY_ASIGNACION, tasignacion);
+        }catch (NumberFormatException e){
+            throw new NumberFormatException("Debes insertar un numero valido en los campos." + ActionHelp.strHelpBasic());
+        }
     }
 
     private void cancelButtonStateChanged() throws Exception {
@@ -94,9 +94,9 @@ public class ViewsFormAsignacion extends JFrame {
     private void setupTitle(){
         title = new JLabel();
         if(mod)
-            title.setText("Modify Assignation");
+            title.setText("Modify Pavilion");
         else
-            title.setText("Create Assignation");
+            title.setText("Create Pavilion");
         title.setFont(fTitle);
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
@@ -121,7 +121,7 @@ public class ViewsFormAsignacion extends JFrame {
         formContainer = new JPanel();
         formContainer.setLayout(new FlowLayout());
 
-        formPanel = new JPanel();
+        JPanel formPanel = new JPanel();
         GridBagLayout formLayout = new GridBagLayout();
         formPanel.setLayout(formLayout);
 
@@ -141,50 +141,40 @@ public class ViewsFormAsignacion extends JFrame {
         formCon.anchor = GridBagConstraints.EAST;
 
 
-        metresLabel = createLabel("Name:");
-        idFairLabel = createLabel("Description:");
-        idPavilionLabel = createLabel("Start Date:");
-        idStandLabel = createLabel("End Date:");
+        JLabel aforoLabel = createLabel("Capacity:");
+        JLabel m2totLabel = createLabel("Total square-metres:");
+        JLabel m2utilesLabel = createLabel("Useful square-metres:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
 
         formCon.gridx = 0;
         formCon.gridy = 0;
-        formPanel.add(metresLabel, formCon);
+        formPanel.add(aforoLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 1;
-        formPanel.add(idFairLabel, formCon);
+        formPanel.add(m2totLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 2;
-        formPanel.add(idPavilionLabel, formCon);
-        formCon.gridx = 0;
-        formCon.gridy = 3;
-        formPanel.add(idStandLabel, formCon);
+        formPanel.add(m2utilesLabel, formCon);
 
-        metresField = setupTextField();
-        metresField.setMinimumSize(minDim);
-        metresField.setPreferredSize(prefDim);
-        metresField.setMaximumSize(maxDim);
-        metresField.setText(metres);
+        capacityField = setupTextField();
+        capacityField.setMinimumSize(minDim);
+        capacityField.setPreferredSize(prefDim);
+        capacityField.setMaximumSize(maxDim);
+        capacityField.setText(capacity);
 
-        idFairField = setupTextField();
-        idFairField.setMinimumSize(minDim);
-        idFairField.setPreferredSize(prefDim);
-        idFairField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
-        idFairField.setText(idFair);
+        m2totField = setupTextField();
+        m2totField.setMinimumSize(minDim);
+        m2totField.setPreferredSize(prefDim);
+        m2totField.setMaximumSize(maxDim);
+        m2totField.setText(m2tot);
 
-        idPavilionField = setupTextField();
-        idPavilionField.setMinimumSize(minDim);
-        idPavilionField.setPreferredSize(prefDim);
-        idPavilionField.setMaximumSize(maxDim);
-        idPavilionField.setText(idPavilion);
-
-        idStandField = setupTextField();
-        idStandField.setMinimumSize(minDim);
-        idStandField.setPreferredSize(prefDim);
-        idStandField.setMaximumSize(maxDim);
-        idStandField.setText(idStand);
+        m2utilsField = setupTextField();
+        m2utilsField.setMinimumSize(minDim);
+        m2utilsField.setPreferredSize(prefDim);
+        m2utilsField.setMaximumSize(maxDim);
+        m2utilsField.setText(m2utils);
 
         formCon.anchor = GridBagConstraints.WEST;
 
@@ -192,16 +182,13 @@ public class ViewsFormAsignacion extends JFrame {
 
         formCon.gridx = 1;
         formCon.gridy = 0;
-        formPanel.add(metresField, formCon);
+        formPanel.add(capacityField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 1;
-        formPanel.add(idFairField, formCon);
+        formPanel.add(m2totField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 2;
-        formPanel.add(idPavilionField, formCon);
-        formCon.gridx = 1;
-        formCon.gridy = 3;
-        formPanel.add(idStandField, formCon);
+        formPanel.add(m2utilsField, formCon);
         formContainer.add(formPanel);
     }
 
@@ -210,7 +197,7 @@ public class ViewsFormAsignacion extends JFrame {
         Dimension buttonDim = new Dimension(150, 80);
 
         //---- cancelButton ----
-        cancelButton = new JButton();
+        JButton cancelButton = new JButton();
         cancelButton.setText("Cancel");
         cancelButton.setFont(fButton);
         cancelButton.setBackground(cCancelButton);
@@ -229,7 +216,7 @@ public class ViewsFormAsignacion extends JFrame {
 
 
         //---- helpButton ----
-        helpButton = new JButton();
+        JButton helpButton = new JButton();
         helpButton.setText("Help");
         helpButton.setFont(fButton);
         helpButton.setBackground(cHelpButton);
@@ -244,7 +231,7 @@ public class ViewsFormAsignacion extends JFrame {
 
 
         //---- okButton ----
-        okButton = new JButton();
+        JButton okButton = new JButton();
         okButton.setText("Add");
         okButton.setFont(fButton);
         okButton.setBackground(cOkButton);
@@ -278,7 +265,7 @@ public class ViewsFormAsignacion extends JFrame {
 
         this.setMinimumSize(minScreenSize);
 
-        dialogPanel = new JPanel();
+        JPanel dialogPanel = new JPanel();
         BorderLayout dialogLayout = new BorderLayout();
         dialogPanel.setLayout(dialogLayout);
         dialogPanel.setBorder(BorderFactory.createEmptyBorder(20,50,20,50));
@@ -289,6 +276,9 @@ public class ViewsFormAsignacion extends JFrame {
         //======== this ========
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
+
+        ImageIcon img = new ImageIcon("Resources//Icon.png");
+        this.setIconImage(img.getImage());
 
         //======== contents ========
 

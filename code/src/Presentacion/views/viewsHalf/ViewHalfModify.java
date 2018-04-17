@@ -21,15 +21,10 @@ public class ViewHalfModify extends JFrame {
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
-    private JPanel dialogPanel;
     private JPanel centerPanel;
     private JPanel buttonBar;
     private JLabel title;
-    private JLabel labelSubID;
     private JComboBox<String> comboBoxMod;
-    private JButton okButton;
-    private JButton cancelButton;
-    private JButton helpButton;
     private JTextField textID;
 
     private Font fComboBox = new Font(Font.DIALOG, Font.PLAIN, 40);
@@ -148,7 +143,7 @@ public class ViewHalfModify extends JFrame {
         FlowLayout textFieldPanelLayout = new FlowLayout();
         textFieldPanel.setLayout(textFieldPanelLayout);
 
-        labelSubID = new JLabel();
+        JLabel labelSubID = new JLabel();
         labelSubID.setText("ID");
         labelSubID.setFont(fLabelSubId);
 
@@ -171,7 +166,7 @@ public class ViewHalfModify extends JFrame {
         Dimension buttonDim = new Dimension(150, 80);
 
         //---- cancelButton ----
-        cancelButton = new JButton();
+        JButton cancelButton = new JButton();
         cancelButton.setText("Cancel");
         cancelButton.setFont(fButton);
         cancelButton.setBackground(cCancelButton);
@@ -190,7 +185,7 @@ public class ViewHalfModify extends JFrame {
 
 
         //---- helpButton ----
-        helpButton = new JButton();
+        JButton helpButton = new JButton();
         helpButton.setText("Help");
         helpButton.setFont(fButton);
         helpButton.setBackground(cHelpButton);
@@ -205,7 +200,7 @@ public class ViewHalfModify extends JFrame {
 
 
         //---- okButton ----
-        okButton = new JButton();
+        JButton okButton = new JButton();
         okButton.setText("Modify");
         okButton.setFont(fButton);
         okButton.setBackground(cOkButton);
@@ -238,15 +233,16 @@ public class ViewHalfModify extends JFrame {
     private void initComponents() {
 
         //======== this ========
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
-        ImageIcon img = new ImageIcon("Icon.png");
+        ImageIcon img = new ImageIcon("Resources//Icon.png");
         this.setIconImage(img.getImage());
 
         //======== dialogPanel ========
 
-        dialogPanel = new JPanel();
+        JPanel dialogPanel = new JPanel();
         dialogPanel.setBorder(new LineBorder(Color.BLUE));
         dialogPanel.setBorder(new EmptyBorder(50, 50, 80, 50));
         this.setMinimumSize(minScreenSize);

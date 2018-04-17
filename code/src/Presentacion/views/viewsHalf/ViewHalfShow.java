@@ -23,7 +23,6 @@ public class ViewHalfShow extends JFrame {
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
-    private JPanel dialogPanel;
     private JPanel centerPanel;
     private JPanel buttonBar;
     private JLabel title;
@@ -34,9 +33,6 @@ public class ViewHalfShow extends JFrame {
     private JRadioButton radioButtonLeft;
     private JRadioButton radioButtonRight;
     private JRadioButton radioButtonOptional;
-    private JButton okButton;
-    private JButton cancelButton;
-    private JButton helpButton;
     private JTextField textID;
     private JTextField textDateStart;
     private JTextField textDateEnd;
@@ -349,7 +345,7 @@ public class ViewHalfShow extends JFrame {
         Dimension buttonDim = new Dimension(150, 80);
 
         //---- cancelButton ----
-        cancelButton = new JButton();
+        JButton cancelButton = new JButton();
         cancelButton.setText("Cancel");
         cancelButton.setFont(fButton);
         cancelButton.setBackground(cCancelButton);
@@ -368,7 +364,7 @@ public class ViewHalfShow extends JFrame {
 
 
         //---- helpButton ----
-        helpButton = new JButton();
+        JButton helpButton = new JButton();
         helpButton.setText("Help");
         helpButton.setFont(fButton);
         helpButton.setBackground(cHelpButton);
@@ -383,7 +379,7 @@ public class ViewHalfShow extends JFrame {
 
 
         //---- okButton ----
-        okButton = new JButton();
+        JButton okButton = new JButton();
         okButton.setText("Show");
         okButton.setFont(fButton);
         okButton.setBackground(cOkButton);
@@ -419,16 +415,13 @@ public class ViewHalfShow extends JFrame {
         Container contentPane = getContentPane(); 
         contentPane.setLayout(new BorderLayout());
 
-        URL path = getClass().getResource("Icon.png");
-        if(path!=null){
-            ImageIcon img = new ImageIcon(path);
-            this.setIconImage(img.getImage());
-        }
+        ImageIcon img = new ImageIcon("Resources//Icon.png");
+        this.setIconImage(img.getImage());
 
 
         //======== dialogPanel ========
 
-        dialogPanel = new JPanel();
+        JPanel dialogPanel = new JPanel();
         dialogPanel.setBorder(new LineBorder(Color.BLUE));
         dialogPanel.setBorder(new EmptyBorder(50, 50, 80, 50));
         this.setMinimumSize(minScreenSize);

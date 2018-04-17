@@ -11,33 +11,24 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class ViewsFormParticipacion extends JFrame {
+public class ViewsFormParticipation extends JFrame {
 
 
-    private String metres = "";
-    private String idFair = "";
-    private String idParticipant = "";
-    private String idStand = "";
+    private String metres;
+    private String idFair;
+    private String idParticipant;
+    private String idStand;
 
     private boolean mod;
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
-    private JPanel dialogPanel;
     private JLabel title;
-    private JPanel formPanel;
     private JPanel formContainer;
-    private JLabel metresLabel;
-    private JLabel idFairLabel;
-    private JLabel idParticipantLabel;
-    private JLabel idStandLabel;
     private JTextField metresField;
     private JTextField idFairField;
     private JTextField idParticipantField;
     private JTextField idStandField;
-    private JButton okButton;
-    private JButton cancelButton;
-    private JButton helpButton;
     private JPanel buttonBar;
 
 
@@ -51,7 +42,8 @@ public class ViewsFormParticipacion extends JFrame {
     private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
 
-    public ViewsFormParticipacion() {
+    public ViewsFormParticipation() {
+        super("Participation");
         mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -59,12 +51,13 @@ public class ViewsFormParticipacion extends JFrame {
     }
 
 
-    public ViewsFormParticipacion(Tparticipacion tParticipacion) {
+    public ViewsFormParticipation(Tparticipacion participation) {
+        super("Participation");
         mod = true;
 
-        idFair = (String.valueOf(tParticipacion.getFair_id()));
-        idParticipant = (String.valueOf(tParticipacion.getClient_id()));
-        idStand = (String.valueOf(tParticipacion.getStand_id()));
+        idFair = (String.valueOf(participation.getFair_id()));
+        idParticipant = (String.valueOf(participation.getClient_id()));
+        idStand = (String.valueOf(participation.getStand_id()));
 
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -78,10 +71,10 @@ public class ViewsFormParticipacion extends JFrame {
         int idParticipante = Integer.valueOf(idParticipantField.getText());
         int idStand = Integer.valueOf(idStandField.getText());
 
-        Tparticipacion tparticipacion = new Tparticipacion();
+        Tparticipacion participation = new Tparticipacion();
 
-        if (!mod)  Controller.getInstance().execute(Event.INSERT_PARTICIPACION, tparticipacion);
-        else Controller.getInstance().execute(Event.MODIFY_PARTICIPACION, tparticipacion);
+        if (!mod)  Controller.getInstance().execute(Event.INSERT_PARTICIPACION, participation);
+        else Controller.getInstance().execute(Event.MODIFY_PARTICIPACION, participation);
     }
 
     private void cancelButtonStateChanged() throws Exception {
@@ -124,7 +117,7 @@ public class ViewsFormParticipacion extends JFrame {
         formContainer = new JPanel();
         formContainer.setLayout(new FlowLayout());
 
-        formPanel = new JPanel();
+        JPanel formPanel = new JPanel();
         GridBagLayout formLayout = new GridBagLayout();
         formPanel.setLayout(formLayout);
 
@@ -144,10 +137,10 @@ public class ViewsFormParticipacion extends JFrame {
         formCon.anchor = GridBagConstraints.EAST;
 
 
-        metresLabel = createLabel("Metres:");
-        idFairLabel = createLabel("Fair id:");
-        idParticipantLabel = createLabel("Client id:");
-        idStandLabel = createLabel("Stand id:");
+        JLabel metresLabel = createLabel("Metres:");
+        JLabel idFairLabel = createLabel("Fair id:");
+        JLabel idParticipantLabel = createLabel("Client id:");
+        JLabel idStandLabel = createLabel("Stand id:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
@@ -213,7 +206,7 @@ public class ViewsFormParticipacion extends JFrame {
         Dimension buttonDim = new Dimension(150, 80);
 
         //---- cancelButton ----
-        cancelButton = new JButton();
+        JButton cancelButton = new JButton();
         cancelButton.setText("Cancel");
         cancelButton.setFont(fButton);
         cancelButton.setBackground(cCancelButton);
@@ -232,7 +225,7 @@ public class ViewsFormParticipacion extends JFrame {
 
 
         //---- helpButton ----
-        helpButton = new JButton();
+        JButton helpButton = new JButton();
         helpButton.setText("Help");
         helpButton.setFont(fButton);
         helpButton.setBackground(cHelpButton);
@@ -247,7 +240,7 @@ public class ViewsFormParticipacion extends JFrame {
 
 
         //---- okButton ----
-        okButton = new JButton();
+        JButton okButton = new JButton();
         okButton.setText("Add");
         okButton.setFont(fButton);
         okButton.setBackground(cOkButton);
@@ -281,7 +274,7 @@ public class ViewsFormParticipacion extends JFrame {
 
         this.setMinimumSize(minScreenSize);
 
-        dialogPanel = new JPanel();
+        JPanel dialogPanel = new JPanel();
         BorderLayout dialogLayout = new BorderLayout();
         dialogPanel.setLayout(dialogLayout);
         dialogPanel.setBorder(BorderFactory.createEmptyBorder(20,50,20,50));
@@ -292,6 +285,9 @@ public class ViewsFormParticipacion extends JFrame {
         //======== this ========
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
+
+        ImageIcon img = new ImageIcon("Resources//Icon.png");
+        this.setIconImage(img.getImage());
 
         //======== contents ========
 
