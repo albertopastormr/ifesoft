@@ -146,7 +146,7 @@ public class ASPabellonImpTest {
         ASPabellonImp asPabellon = new ASPabellonImp();
 
         Tpabellon pabellon = new Tpabellon(-1,100, 200, 200, true);
-        Tpabellon id2 = asPabellon.showById(pabellon);
+        Tpabellon id2 = asPabellon.showById(pabellon.getId());
     }
 
     @Test(expected = ASException.class)//Se pasa el test si se lanza la excepcion
@@ -154,7 +154,7 @@ public class ASPabellonImpTest {
         ASPabellonImp asPabellon = new ASPabellonImp();
 
         Tpabellon pabellon = null;
-        Tpabellon id1 = asPabellon.showById(pabellon);
+        Tpabellon id1 = asPabellon.showById(pabellon.getId());
     }
 
     @Test(expected = ASException.class)//Se pasa el test si se lanza la excepcion
@@ -162,7 +162,7 @@ public class ASPabellonImpTest {
         ASPabellonImp asPabellon = new ASPabellonImp();
 
         Tpabellon pabellon = new Tpabellon(23456, 100, 200, 200, true);
-        Tpabellon id1 = asPabellon.showById(pabellon);
+        Tpabellon id1 = asPabellon.showById(pabellon.getId());
     }
 
     @Test//Se pasa el test si se lanza la excepcion
@@ -180,7 +180,7 @@ public class ASPabellonImpTest {
         Tpabellon pabellon = new Tpabellon(100, 200, 200, true);
         int id1 = asPabellon.create(pabellon);
         pabellon.setId(id1);
-        Tpabellon id2 = asPabellon.showById(pabellon);
+        Tpabellon id2 = asPabellon.showById(pabellon.getId());
         assert (id2.getId() == pabellon.getId() && id2.getActive() == pabellon.getActive() &&
                 id2.getCapacity() == pabellon.getCapacity() && id2.getTotal_m2() == pabellon.getTotal_m2()
                 && id2.getUtil_m2() == pabellon.getUtil_m2());
