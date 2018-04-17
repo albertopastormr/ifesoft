@@ -17,20 +17,15 @@ import javax.swing.plaf.ColorUIResource;
 
 public class ViewHalfDrop extends JFrame {
 
-    private JFrame sureFrame;
+    private JDialog sureFrame;
     private boolean chosen = false;
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
-    private JPanel dialogPanel;
     private JPanel centerPanel;
     private JPanel buttonBar;
     private JLabel title;
-    private JLabel labelSubID;
     private JComboBox<String> comboBoxDrop;
-    private JButton okButton;
-    private JButton cancelButton;
-    private JButton helpButton;
     private JTextField textName;
 
     private Font fComboBox = new Font(Font.DIALOG, Font.PLAIN, 40);
@@ -65,8 +60,6 @@ public class ViewHalfDrop extends JFrame {
 
         private void delete(){
 
-
-           System.out.println("Hem arribat");
 
         switch (String.valueOf(comboBoxDrop.getSelectedItem())) {
             case "Fair":
@@ -107,7 +100,7 @@ public class ViewHalfDrop extends JFrame {
         }
 
         private void closeOkFrame(ActionEvent e){
-            System.out.println("HE ARRIBAT");
+
         sureFrame.setVisible(false);
 
             delete();
@@ -165,7 +158,7 @@ public class ViewHalfDrop extends JFrame {
         }
 
         private void setupSure(){
-            sureFrame = new JFrame();
+            sureFrame = new JDialog();
             sureFrame.setResizable(false);
             sureFrame.setAlwaysOnTop(true);
             sureFrame.setSize(new Dimension(1000, 300));
@@ -244,7 +237,7 @@ public class ViewHalfDrop extends JFrame {
             FlowLayout textFieldPanelLayout = new FlowLayout();
             textFieldPanel.setLayout(textFieldPanelLayout);
 
-            labelSubID = new JLabel();
+            JLabel labelSubID = new JLabel();
             labelSubID.setText("ID");
             labelSubID.setFont(fLabelSubId);
 
@@ -269,7 +262,7 @@ public class ViewHalfDrop extends JFrame {
             Dimension buttonDim = new Dimension(150, 80);
 
             //---- cancelButton ----
-            cancelButton = new JButton();
+            JButton cancelButton = new JButton();
             cancelButton.setText("Cancel");
             cancelButton.setFont(fButton);
             cancelButton.setBackground(cCancelButton);
@@ -284,7 +277,7 @@ public class ViewHalfDrop extends JFrame {
 
 
             //---- helpButton ----
-            helpButton = new JButton();
+            JButton helpButton = new JButton();
             helpButton.setText("Help");
             helpButton.setFont(fButton);
             helpButton.setBackground(cHelpButton);
@@ -299,7 +292,7 @@ public class ViewHalfDrop extends JFrame {
 
 
             //---- okButton ----
-            okButton = new JButton();
+            JButton okButton = new JButton();
             okButton.setText("Drop");
             okButton.setFont(fButton);
             okButton.setBackground(cOkButton);
@@ -336,7 +329,7 @@ public class ViewHalfDrop extends JFrame {
 
             //======== dialogPanel ========
 
-            dialogPanel = new JPanel();
+            JPanel dialogPanel = new JPanel();
             dialogPanel.setBorder(new LineBorder(Color.BLUE));
             dialogPanel.setBorder(new EmptyBorder(50, 50, 80, 50));
             this.setMinimumSize(minScreenSize);
