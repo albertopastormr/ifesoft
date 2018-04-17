@@ -60,18 +60,12 @@ public class ViewsFormPavilion extends JFrame {
 
     private void createButtonFormActionPerformed() throws Exception {
         setVisible(false);
-<<<<<<< HEAD:code/src/Presentacion/views/forms/ViewsFormPabellon.java
-        String aforo = aforoField.getText();
-        String m2_utiles = m2utilesField.getText();
-        String m2_totales = m2totField.getText();
         try {
-            Tpabellon tPabellon = new Tpabellon(Integer.parseInt(aforo), Integer.parseInt(m2_utiles), Integer.parseInt(m2_totales), true);
-=======
-        String capacity = capacityField.getText();
+       String capacity = capacityField.getText();
         String m2_utils = m2utilsField.getText();
         String m2_total = m2totField.getText();
         Tpabellon tPabellon = new Tpabellon(Integer.parseInt(capacity), Integer.parseInt(m2_utils), Integer.parseInt(m2_total), true);
->>>>>>> a3d2ff1d069289d338f53e0ad38c39a79a83a6a3:code/src/Presentacion/views/forms/ViewsFormPavilion.java
+
 
             if (!mod)  Controller.getInstance().execute(Event.INSERT_PAVILION, tPabellon);
             else Controller.getInstance().execute(Event.MODIFY_PAVILION, tPabellon);

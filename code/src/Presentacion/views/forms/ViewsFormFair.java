@@ -4,11 +4,7 @@ import Negocio.Feria.Tferia;
 import Presentacion.Controller;
 import Presentacion.utils.Utilities;
 import Presentacion.views.events.Event;
-<<<<<<< HEAD:code/src/Presentacion/views/forms/ViewsFormFeria.java
-import Presentacion.UIimp;
 import Presentacion.views.optionsPanel.PanelProblemUser;
-=======
->>>>>>> a3d2ff1d069289d338f53e0ad38c39a79a83a6a3:code/src/Presentacion/views/forms/ViewsFormFair.java
 
 import java.awt.*;
 import java.awt.event.*;

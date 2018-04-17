@@ -100,12 +100,7 @@ public class ViewHalfDrop extends JFrame {
 
         }
 
-<<<<<<< HEAD
         private void closeOkFrame(ActionEvent e) throws Exception {
-=======
-        private void closeOkFrame(ActionEvent e){
-
->>>>>>> a3d2ff1d069289d338f53e0ad38c39a79a83a6a3
         sureFrame.setVisible(false);
 
             delete();
