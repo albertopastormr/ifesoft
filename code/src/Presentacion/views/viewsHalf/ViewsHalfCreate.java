@@ -200,7 +200,7 @@ public class ViewsHalfCreate extends JFrame {
 
         ImageIcon img = new ImageIcon("Resources//Icon.png");
         this.setIconImage(img.getImage());
-        
+
         //======== dialogPanel ========
 
         JPanel dialogPanel = new JPanel();

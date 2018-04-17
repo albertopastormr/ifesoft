@@ -224,6 +224,7 @@ public class ViewHalfModify extends JFrame {
     private void initComponents() {
 
         //======== this ========
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
