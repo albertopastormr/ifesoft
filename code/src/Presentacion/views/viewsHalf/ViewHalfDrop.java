@@ -324,7 +324,7 @@ public class ViewHalfDrop extends JFrame {
             Container contentPane = getContentPane();
             contentPane.setLayout(new BorderLayout());
 
-            ImageIcon img = new ImageIcon("Icon.png");
+            ImageIcon img = new ImageIcon("Resources//Icon.png");
             this.setIconImage(img.getImage());
 
             //======== dialogPanel ========
