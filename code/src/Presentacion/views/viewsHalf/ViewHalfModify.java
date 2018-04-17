@@ -9,6 +9,7 @@ import Negocio.Stand.Tstand;
 import Presentacion.Controller;
 import Presentacion.UIimp;
 import Presentacion.views.events.Event;
+import Presentacion.views.optionsPanel.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -52,7 +53,7 @@ public class ViewHalfModify extends JFrame {
         this.setVisible(true);
     }
 
-    private void okButtonActionPerformed(ActionEvent e) {
+    private void okButtonActionPerformed(ActionEvent e) throws Exception {
 
         switch (String.valueOf(comboBoxMod.getSelectedItem())){
             case "Fair":
@@ -89,7 +90,7 @@ public class ViewHalfModify extends JFrame {
         }
     }
 
-    private void cancelButtonActionPerformed(ActionEvent e) {
+    private void cancelButtonActionPerformed(ActionEvent e) throws Exception {
         this.setVisible(false);
         Controller.getInstance().execute(Event.HOME, null);
     }
@@ -179,7 +180,11 @@ public class ViewHalfModify extends JFrame {
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cancelButtonActionPerformed(e);
+                try {
+                    cancelButtonActionPerformed(e);
+                } catch (Exception e1){
+                    new PanelProblemUser(e1.getMessage());
+                }
             }
         });
 
@@ -209,7 +214,11 @@ public class ViewHalfModify extends JFrame {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                okButtonActionPerformed(e);
+                try {
+                    okButtonActionPerformed(e);
+                } catch (Exception e1){
+                    new PanelProblemUser(e1.getMessage());
+                }
             }
         });
 

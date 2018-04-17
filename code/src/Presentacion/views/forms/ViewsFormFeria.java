@@ -5,6 +5,7 @@ import Presentacion.Controller;
 import Presentacion.utils.Utilities;
 import Presentacion.views.events.Event;
 import Presentacion.UIimp;
+import Presentacion.views.optionsPanel.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -78,7 +79,7 @@ public class ViewsFormFeria extends JFrame {
         this.setVisible(true);
     }
 
-    private void createButtonFormActionPerformed() {
+    private void createButtonFormActionPerformed() throws Exception {
         this.setVisible(false);
         String name = nameField.getText();
         String descrip = descField.getText();
@@ -90,7 +91,7 @@ public class ViewsFormFeria extends JFrame {
 
     }
 
-   private void cancelButtonStateChanged() {
+   private void cancelButtonStateChanged() throws Exception {
         this.setVisible(false);
         if (!mod) Controller.getInstance().execute(Event.CREATE_HALF, null);
         else Controller.getInstance().execute(Event.MODIFY_HALF, null);
@@ -228,7 +229,11 @@ public class ViewsFormFeria extends JFrame {
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cancelButtonStateChanged();
+                try {
+                    cancelButtonStateChanged();
+                }catch (Exception e1){
+                    new PanelProblemUser(e1.getMessage());
+                }
             }
         });
 
@@ -258,7 +263,11 @@ public class ViewsFormFeria extends JFrame {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                createButtonFormActionPerformed();
+                try {
+                    createButtonFormActionPerformed();
+                } catch (Exception e1){
+                    new PanelProblemUser(e1.getMessage());
+                }
             }
         });
 

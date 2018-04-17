@@ -8,6 +8,7 @@ import Negocio.Stand.Tstand;
 import Presentacion.Controller;
 import Presentacion.UIimp;
 import Presentacion.views.events.Event;
+import Presentacion.views.optionsPanel.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -63,7 +64,7 @@ public class ViewHalfDrop extends JFrame {
             setupSure();
         }
 
-        private void delete(){
+        private void delete() throws Exception {
 
         switch (String.valueOf(comboBoxDrop.getSelectedItem())) {
             case "Fair":
@@ -94,7 +95,7 @@ public class ViewHalfDrop extends JFrame {
          }
         }
 
-        private void cancelButtonActionPerformed(ActionEvent e) {
+        private void cancelButtonActionPerformed(ActionEvent e) throws Exception {
             this.setVisible(false);
             Controller.getInstance().execute(Event.HOME, null);
         }
@@ -103,7 +104,7 @@ public class ViewHalfDrop extends JFrame {
 
         }
 
-        private void closeOkFrame(ActionEvent e){
+        private void closeOkFrame(ActionEvent e) throws Exception {
         sureFrame.setVisible(false);
 
             delete();
@@ -145,7 +146,11 @@ public class ViewHalfDrop extends JFrame {
             acceptButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    closeOkFrame(e);
+                    try {
+                        closeOkFrame(e);
+                    } catch (Exception e1){
+                        new PanelProblemUser(e1.getMessage());
+                    }
                 }
             });
 
@@ -274,7 +279,11 @@ public class ViewHalfDrop extends JFrame {
             cancelButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    cancelButtonActionPerformed(e);
+                    try {
+                        cancelButtonActionPerformed(e);
+                    }catch (Exception e1){
+                        new PanelProblemUser(e1.getMessage());
+                    }
                 }
             });
 

@@ -2,7 +2,8 @@ package Presentacion;
 
 import Presentacion.views.events.Event;
 import Presentacion.views.events.EventGUI;
-import Presentacion.views.help.ActionHelp;
+import Presentacion.views.optionsPanel.ActionHelp;
+import Presentacion.views.optionsPanel.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -24,7 +25,7 @@ public class UIimp extends UI {
     private JButton exitButton;
     private JButton helpButton;
 
-    private Font fTitle = new Font(Font.MONOSPACED, Font.PLAIN, 60);;
+    private Font fTitle = new Font(Font.MONOSPACED, Font.PLAIN, 60);
     private Font fBigButton = new Font(Font.MONOSPACED, Font.PLAIN, 30);
     private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
 
@@ -64,22 +65,38 @@ public class UIimp extends UI {
 
     private void buttonCreateHomeActionPerformed() {
         this.setVisible(false);
-        Presentacion.Controller.getInstance().execute(Event.CREATE_HALF, null);
+        try {
+            Controller.getInstance().execute(Event.CREATE_HALF, null);
+        }catch (Exception e1){
+            new PanelProblemUser(e1.getMessage());
+        }
     }
 
     private void buttonShowHomeActionPerformed() {
         this.setVisible(false);
-        Presentacion.Controller.getInstance().execute(Event.SHOW_HALF, null);
+        try {
+            Controller.getInstance().execute(Event.SHOW_HALF, null);
+        }catch (Exception e1){
+            new PanelProblemUser(e1.getMessage());
+        }
     }
 
     private void buttonDropHomeActionPerformed() {
         this.setVisible(false);
-        Presentacion.Controller.getInstance().execute(Event.DROP_HALF, null);
+        try {
+            Controller.getInstance().execute(Event.DROP_HALF, null);
+        } catch (Exception e1){
+            new PanelProblemUser(e1.getMessage());
+        }
     }
 
     private void buttonModifyHomeActionPerformed() {
         this.setVisible(false);
-        Presentacion.Controller.getInstance().execute(Event.MODIFY_HALF, null);
+        try {
+            Controller.getInstance().execute(Event.MODIFY_HALF, null);
+        } catch (Exception e1){
+            new PanelProblemUser(e1.getMessage());
+        }
     }
 
     private void cancelButtonActionPerformed() {

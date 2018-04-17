@@ -20,21 +20,17 @@ import Negocio.Participante.Tparticipante;
 import Negocio.Stand.ASStand;
 import Negocio.Stand.IFASStand;
 import Negocio.Stand.Tstand;
-import Presentacion.utils.Utilities;
 import Presentacion.views.forms.*;
+import Presentacion.views.optionsPanel.ActionHelp;
 import Presentacion.views.shows.List.ListFairs;
 import Presentacion.views.shows.individual.ViewFair;
 import Presentacion.views.viewsHalf.*;
 import Presentacion.views.events.Event;
 import Presentacion.views.events.EventGUI;
 
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Collection;
-
 public class ControllerImp extends Controller {
 
-    private ASFeria asFeria;
+    private ASFeria asFair;
     private ASAsignacion asAssignation;
     private ASPabellon asPavilion;
     private ASStand asStand;
@@ -43,7 +39,7 @@ public class ControllerImp extends Controller {
     private UI gui;
 
     public ControllerImp(){
-        this.asFeria = IFASFeria.getInstance().generateASferia();
+        this.asFair = IFASFeria.getInstance().generateASferia();
         this.asAssignation = IFASAsignacion.getInstance().generateASAsignacion();
         this.asPavilion = IFASPabellon.getInstance().generateASPabellon();
         this.asStand = IFASStand.getInstance().generateASStand();
@@ -53,9 +49,14 @@ public class ControllerImp extends Controller {
     }
 
     @Override
-    public void execute(int event, Object data) {
+    public void execute(int event, Object data) throws Exception {
 
-        Tferia tFeria = null;
+        Tferia tFair = null;
+        Tpabellon tPavilion = null;
+        Tparticipante tClient = null;
+        Tasignacion tAssignation = null;
+        Tparticipacion tParticipation = null;
+        Tstand tStand = null;
 
         switch (event){
 
@@ -84,7 +85,7 @@ public class ControllerImp extends Controller {
 
             case Event.DROP_FERIA:
                 try {
-                    asFeria.drop((Tferia)data);
+                    asFair.drop((Tferia)data);
                 } catch (ASException e) {
                     e.printStackTrace();
                 }
@@ -151,16 +152,16 @@ public class ControllerImp extends Controller {
 
             case Event.MODIFY_FORM_FERIA:
                try {
-                    tFeria = asFeria.showById((Tferia) data);
-                    new ViewsFormFeria(tFeria);
+                    tFair = asFair.showById((Tferia) data);
+                    new ViewsFormFeria(tFair);
                 } catch (ASException e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.MODIFY_FAIR:
-                tFeria = (Tferia) data;
+                tFair = (Tferia) data;
                 try {
-                    int res = IFASFeria.getInstance().generateASferia().modify(tFeria);
+                    int res = IFASFeria.getInstance().generateASferia().modify(tFair);
                     if (res>0) gui.update(EventGUI.UPDATE_UPDATE_FERIA_OK, res);
                     else gui.update(EventGUI.UPDATE_UPDATE_FERIA_FAIL, null);
 
@@ -170,16 +171,41 @@ public class ControllerImp extends Controller {
                 break;
 
             case Event.INSERT_FAIR:
-                tFeria = (Tferia) data;
+                tFair = (Tferia) data;
                 try {
-                    int res = asFeria.create(tFeria);
+                    int res = asFair.create(tFair);
                     if (res>0) gui.update(EventGUI.UPDATE_CREATE_FERIA_OK, res);
                     else gui.update(EventGUI.UPDATE_CREATE_FERIA_FAIL, null);
 
                 } catch (ASException e) {
-                    e.printStackTrace();
+                    throw new Exception(e.getMessage() + ActionHelp.strHelpBasic());
                 }
                 break;
+
+            case Event.INSERT_PAVILION:
+                tPavilion = (Tpabellon) data;
+                try {
+                    int res = asPavilion.create(tPavilion);
+                    if (res>0) gui.update(EventGUI.UPDATE_CREATE_PAVILION_OK, res);
+                    else gui.update(EventGUI.UPDATE_CREATE_PAVILION_FAIL, null);
+
+                } catch (ASException e) {
+                    throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic());
+                }
+                break;
+
+            case Event.INSERT_STAND:
+                tStand = (Tstand) data;
+                try {
+                    int res = asStand.create(tStand);
+                    if (res>0) gui.update(EventGUI.UPDATE_CREATE_STAND_OK, res);
+                    else gui.update(EventGUI.UPDATE_CREATE_STAND_FAIL, null);
+
+                } catch (ASException e) {
+                    throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic());
+                }
+                break;
+
 
             /** ---------------------------- */
 
@@ -199,21 +225,21 @@ public class ControllerImp extends Controller {
                 break;
             case Event.SHOW_FAIR_INDIVIDUAL:
                 try {
-                    new ViewFair(asFeria.showById((Tferia) data));
+                    new ViewFair(asFair.showById((Tferia) data));
                 } catch (ASException e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.SHOW_FAIR_LIST:
                 try {
-                    new ListFairs(asFeria.list());
+                    new ListFairs(asFair.list());
                 } catch (ASException e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.SHOW_FAIR_LIST_DATES:
                 try {
-                    asFeria.listDates((Tferia) data);
+                    asFair.listDates((Tferia) data);
                 } catch (ASException e) {
                     e.printStackTrace();
                 }

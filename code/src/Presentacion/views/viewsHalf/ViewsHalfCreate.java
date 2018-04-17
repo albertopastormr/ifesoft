@@ -3,6 +3,7 @@ package Presentacion.views.viewsHalf;
 import Presentacion.Controller;
 import Presentacion.views.events.Event;
 import Presentacion.UIimp;
+import Presentacion.views.optionsPanel.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -47,7 +48,7 @@ public class ViewsHalfCreate extends JFrame {
         this.setVisible(true);
     }
 
-    private void nextButtonActionPerformed() {
+    private void nextButtonActionPerformed() throws Exception {
 
         switch (String.valueOf(comboBoxCreate.getSelectedItem())){
             case "Fair":
@@ -80,7 +81,7 @@ public class ViewsHalfCreate extends JFrame {
 
     }
 
-    private void backButtonActionPerformed() {
+    private void backButtonActionPerformed() throws Exception {
         this.setVisible(false);
         Controller.getInstance().execute(Event.HOME, null);
         // Volver a mostrar la primera
@@ -147,7 +148,11 @@ public class ViewsHalfCreate extends JFrame {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                backButtonActionPerformed();
+                try {
+                    backButtonActionPerformed();
+                } catch (Exception e1){
+                    new PanelProblemUser(e1.getMessage());
+                }
             }
         });
 
@@ -177,7 +182,11 @@ public class ViewsHalfCreate extends JFrame {
         nextButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                nextButtonActionPerformed();
+                try {
+                    nextButtonActionPerformed();
+                } catch (Exception e1){
+                    new PanelProblemUser(e1.getMessage());
+                }
             }
         });
 

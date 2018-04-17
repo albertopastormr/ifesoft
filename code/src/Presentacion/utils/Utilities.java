@@ -7,14 +7,14 @@ import java.util.Date;
 
 public class Utilities {
 
-    public static Date parseStringToDate(String dateStr){
+    public static Date parseStringToDate(String dateStr) throws Exception {
 
         Date date = null;
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         try {
             date = formatter.parse(dateStr);
         } catch (ParseException e) {
-            e.printStackTrace();
+            throw new Exception("FACHO EN LA FECHA: Inserta una fecha valida con el formato DD-MM-AAAA.\nPara mas informacion pulsa el boton de ayuda.");
         }
         return date;
     }

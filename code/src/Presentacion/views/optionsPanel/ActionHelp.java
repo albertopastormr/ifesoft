@@ -1,4 +1,4 @@
-package Presentacion.views.help;
+package Presentacion.views.optionsPanel;
 
 import javax.swing.*;
 
@@ -10,6 +10,10 @@ public class ActionHelp extends JOptionPane {
         super();
         this.message = message;
         iniGUI();
+    }
+
+    public static String strHelpBasic() {
+        return "\nPara mas informacion pulsa el boton de ayuda.";
     }
 
     private void iniGUI() {

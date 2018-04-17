@@ -4,6 +4,7 @@ import Negocio.Asignacion.Tasignacion;
 import Presentacion.Controller;
 import Presentacion.UIimp;
 import Presentacion.views.events.Event;
+import Presentacion.views.optionsPanel.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -67,7 +68,7 @@ public class ViewsFormAsignacion extends JFrame {
     }
 
 
-    private void createButtonFormActionPerformed() {
+    private void createButtonFormActionPerformed() throws Exception {
         this.setVisible(false);
         int mUsed = Integer.valueOf(metresField.getText());
         int idFair = Integer.valueOf(idFairField.getText());
@@ -80,7 +81,7 @@ public class ViewsFormAsignacion extends JFrame {
         else Controller.getInstance().execute(Event.MODIFY_ASIGNACION, tasignacion);
     }
 
-    private void cancelButtonStateChanged() {
+    private void cancelButtonStateChanged() throws Exception {
         this.setVisible(false);
         if (!mod) Controller.getInstance().execute(Event.CREATE_HALF, null);
         else Controller.getInstance().execute(Event.MODIFY_HALF, null);
@@ -218,7 +219,11 @@ public class ViewsFormAsignacion extends JFrame {
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cancelButtonStateChanged();
+                try {
+                    cancelButtonStateChanged();
+                } catch (Exception e1){
+                    new PanelProblemUser(e1.getMessage());
+                }
             }
         });
 
@@ -248,7 +253,11 @@ public class ViewsFormAsignacion extends JFrame {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                createButtonFormActionPerformed();
+                try {
+                    createButtonFormActionPerformed();
+                } catch (Exception e1){
+                    new PanelProblemUser(e1.getMessage());
+                }
             }
         });
 

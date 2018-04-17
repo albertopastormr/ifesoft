@@ -4,6 +4,7 @@ import Negocio.Stand.Tstand;
 import Presentacion.Controller;
 import Presentacion.UIimp;
 import Presentacion.views.events.Event;
+import Presentacion.views.optionsPanel.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -66,18 +67,18 @@ public class ViewsFormStand extends JFrame {
     }
 
 
-    private void createButtonFormActionPerformed() {
+    private void createButtonFormActionPerformed() throws Exception {
         setVisible(false);
         String coste = costField.getText();
         String m_usados = metresField.getText();
         String numero = numberField.getText();
         Tstand tStand = new Tstand(Integer.parseInt(coste), Integer.parseInt(m_usados), Integer.parseInt(numero), true);
 
-        if (!mod)  Controller.getInstance().execute(Presentacion.views.events.Event.INSERT_STAND, tStand);
+        if (!mod) Controller.getInstance().execute(Event.INSERT_STAND, tStand);
         else Controller.getInstance().execute(Event.MODIFY_STAND,tStand);
     }
 
-    private void cancelButtonStateChanged() {
+    private void cancelButtonStateChanged() throws Exception {
         this.setVisible(false);
         if (!mod) Controller.getInstance().execute(Event.CREATE_HALF, null);
         else Controller.getInstance().execute(Event.MODIFY_HALF, null);
@@ -201,7 +202,11 @@ public class ViewsFormStand extends JFrame {
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cancelButtonStateChanged();
+                try {
+                    cancelButtonStateChanged();
+                } catch (Exception e1){
+                    new PanelProblemUser(e1.getMessage());
+                }
             }
         });
 
@@ -231,7 +236,11 @@ public class ViewsFormStand extends JFrame {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                createButtonFormActionPerformed();
+                try {
+                    createButtonFormActionPerformed();
+                } catch (Exception e1){
+                    new PanelProblemUser(e1.getMessage());
+                }
             }
         });
 

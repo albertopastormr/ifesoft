@@ -4,6 +4,8 @@ import Negocio.Pabellon.Tpabellon;
 import Presentacion.Controller;
 import Presentacion.UIimp;
 import Presentacion.views.events.Event;
+import Presentacion.views.optionsPanel.ActionHelp;
+import Presentacion.views.optionsPanel.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -66,18 +68,23 @@ public class ViewsFormPabellon extends JFrame {
         this.setVisible(true);
     }
 
-    private void createButtonFormActionPerformed() {
+    private void createButtonFormActionPerformed() throws Exception {
         setVisible(false);
         String aforo = aforoField.getText();
         String m2_utiles = m2utilesField.getText();
         String m2_totales = m2totField.getText();
-        Tpabellon tPabellon = new Tpabellon(Integer.parseInt(aforo), Integer.parseInt(m2_utiles), Integer.parseInt(m2_totales), true);
+        try {
+            Tpabellon tPabellon = new Tpabellon(Integer.parseInt(aforo), Integer.parseInt(m2_utiles), Integer.parseInt(m2_totales), true);
 
-        if (!mod)  Controller.getInstance().execute(Event.INSERT_PAVILION, tPabellon);
-        else Controller.getInstance().execute(Event.MODIFY_PAVILION, tPabellon);
+            if (!mod)  Controller.getInstance().execute(Event.INSERT_PAVILION, tPabellon);
+            else Controller.getInstance().execute(Event.MODIFY_PAVILION, tPabellon);
+
+        }catch (NumberFormatException e){
+            throw new NumberFormatException("Debes insertar un numero valido en los campos." + ActionHelp.strHelpBasic());
+        }
     }
 
-    private void cancelButtonStateChanged() {
+    private void cancelButtonStateChanged() throws Exception {
         this.setVisible(false);
         if (!mod) Controller.getInstance().execute(Event.CREATE_HALF, null);
         else Controller.getInstance().execute(Event.MODIFY_HALF, null);
@@ -202,7 +209,11 @@ public class ViewsFormPabellon extends JFrame {
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cancelButtonStateChanged();
+                try {
+                    cancelButtonStateChanged();
+                } catch (Exception e1){
+                    new PanelProblemUser(e1.getMessage());
+                }
             }
         });
 
@@ -232,7 +243,11 @@ public class ViewsFormPabellon extends JFrame {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                createButtonFormActionPerformed();
+                try {
+                    createButtonFormActionPerformed();
+                } catch (Exception e1){
+                    new PanelProblemUser(e1.getMessage());
+                }
             }
         });
 

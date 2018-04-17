@@ -9,6 +9,7 @@ import Negocio.Stand.Tstand;
 import Presentacion.Controller;
 import Presentacion.utils.Utilities;
 import Presentacion.views.events.Event;
+import Presentacion.views.optionsPanel.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -73,12 +74,12 @@ public class ViewHalfShow extends JFrame {
         this.setVisible(true);
     }
 
-    private void okButtonActionPerformed(ActionEvent e) {
+    private void okButtonActionPerformed(ActionEvent e) throws Exception {
         viewLogicListener();
     }
 
 
-    private void cancelButtonActionPerformed(ActionEvent e) {
+    private void cancelButtonActionPerformed(ActionEvent e) throws Exception {
         this.setVisible(false);
         Controller.getInstance().execute(Event.HOME, null);
     }
@@ -305,7 +306,7 @@ public class ViewHalfShow extends JFrame {
         }
     }
 
-    private void viewLogicListener() {
+    private void viewLogicListener() throws Exception {
         switch (String.valueOf(comboBoxViews.getSelectedItem())){
             case "Fair":
                 this.setVisible(false);
@@ -357,7 +358,11 @@ public class ViewHalfShow extends JFrame {
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cancelButtonActionPerformed(e);
+                try {
+                    cancelButtonActionPerformed(e);
+                } catch (Exception e1){
+                    new PanelProblemUser(e1.getMessage());
+                }
             }
         });
 
@@ -387,7 +392,11 @@ public class ViewHalfShow extends JFrame {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                okButtonActionPerformed(e);
+                try {
+                    okButtonActionPerformed(e);
+                } catch (Exception e1){
+                    new PanelProblemUser(e1.getMessage());
+                }
             }
         });
 
