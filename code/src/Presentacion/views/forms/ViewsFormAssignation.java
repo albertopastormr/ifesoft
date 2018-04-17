@@ -36,6 +36,7 @@ public class ViewsFormAssignation extends JFrame {
     private Color cOkButton = new Color(26, 184, 59);
 
     public ViewsFormAssignation() {
+       super("Assignation");
         mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -44,6 +45,7 @@ public class ViewsFormAssignation extends JFrame {
 
 
     public ViewsFormAssignation(Tasignacion assignation) {
+        super("Assignation");
         mod = true;
         metres = assignation.getUsed_m2() + "";
 
@@ -267,6 +269,10 @@ public class ViewsFormAssignation extends JFrame {
         //======== this ========
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
+
+
+        ImageIcon img = new ImageIcon("Resources//Icon.png");
+        this.setIconImage(img.getImage());
 
         //======== contents ========
 

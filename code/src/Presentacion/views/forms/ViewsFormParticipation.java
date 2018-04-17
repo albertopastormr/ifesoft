@@ -42,6 +42,7 @@ public class ViewsFormParticipation extends JFrame {
     private Color cOkButton = new Color(26, 184, 59);
 
     public ViewsFormParticipation() {
+        super("Participation");
         mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -50,6 +51,7 @@ public class ViewsFormParticipation extends JFrame {
 
 
     public ViewsFormParticipation(Tparticipacion participation) {
+        super("Participation");
         mod = true;
 
         idFair = (String.valueOf(participation.getFair_id()));
@@ -274,6 +276,9 @@ public class ViewsFormParticipation extends JFrame {
         //======== this ========
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
+
+        ImageIcon img = new ImageIcon("Resources//Icon.png");
+        this.setIconImage(img.getImage());
 
         //======== contents ========
 

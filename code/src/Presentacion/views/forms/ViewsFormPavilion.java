@@ -36,6 +36,7 @@ public class ViewsFormPavilion extends JFrame {
     private Color cOkButton = new Color(26, 184, 59);
 
     public ViewsFormPavilion() {
+        super("Pavilion");
         mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -43,6 +44,7 @@ public class ViewsFormPavilion extends JFrame {
     }
 
     public ViewsFormPavilion(Tpabellon pavilion) {
+        super("Pavilion");
         mod = true;
 
         capacity = "" + pavilion.getCapacity();
@@ -252,6 +254,9 @@ public class ViewsFormPavilion extends JFrame {
         //======== this ========
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
+
+        ImageIcon img = new ImageIcon("Resources//Icon.png");
+        this.setIconImage(img.getImage());
 
         //======== contents ========
 

@@ -246,6 +246,9 @@ public class ViewsFormClient extends JFrame {
 
         this.setMinimumSize(minScreenSize);
 
+        ImageIcon img = new ImageIcon("Resources//Icon.png");
+        this.setIconImage(img.getImage());
+
         JPanel dialogPanel = new JPanel();
         BorderLayout dialogLayout = new BorderLayout();
         dialogPanel.setLayout(dialogLayout);

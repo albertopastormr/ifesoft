@@ -40,7 +40,7 @@ public class ViewsFormFair extends JFrame {
 
 
     public ViewsFormFair() {
-
+        super("Fair");
         mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -49,7 +49,7 @@ public class ViewsFormFair extends JFrame {
     }
 
     public ViewsFormFair(Tferia fair) {
-
+        super("Fair");
         mod = true;
 
         name = fair.getName();
@@ -274,6 +274,9 @@ public class ViewsFormFair extends JFrame {
         //======== this ========
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
+
+        ImageIcon img = new ImageIcon("Resources//Icon.png");
+        this.setIconImage(img.getImage());
 
         //======== contents ========
 

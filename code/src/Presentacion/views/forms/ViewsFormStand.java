@@ -12,27 +12,19 @@ import javax.swing.border.*;
 
 public class ViewsFormStand extends JFrame {
 
-    private String metres = "";
-    private String number = "";
-    private String cost = "";
+    private String metres;
+    private String number;
+    private String cost;
 
     private boolean mod;
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
-    private JPanel dialogPanel;
     private JLabel title;
-    private JPanel formPanel;
     private JPanel formContainer;
-    private JLabel metresLabel;
-    private JLabel numberLabel;
-    private JLabel costLabel;
     private JTextField metresField;
     private JTextField numberField;
     private JTextField costField;
-    private JButton okButton;
-    private JButton cancelButton;
-    private JButton helpButton;
     private JPanel buttonBar;
 
 
@@ -47,6 +39,7 @@ public class ViewsFormStand extends JFrame {
     private Color cOkButton = new Color(26, 184, 59);
 
     public ViewsFormStand() {
+        super("Stand");
         mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -54,6 +47,7 @@ public class ViewsFormStand extends JFrame {
     }
 
     public ViewsFormStand(Tstand tstand) {
+        super("Stand");
         mod = true;
 
         metres = "" + tstand.getTotal_m2();
@@ -68,10 +62,10 @@ public class ViewsFormStand extends JFrame {
 
     private void createButtonFormActionPerformed() {
         setVisible(false);
-        String coste = costField.getText();
-        String m_usados = metresField.getText();
-        String numero = numberField.getText();
-        Tstand tStand = new Tstand(Integer.parseInt(coste), Integer.parseInt(m_usados), Integer.parseInt(numero), true);
+        String cost = costField.getText();
+        String m_used = metresField.getText();
+        String number = numberField.getText();
+        Tstand tStand = new Tstand(Integer.parseInt(cost), Integer.parseInt(m_used), Integer.parseInt(number), true);
 
         if (!mod)  Controller.getInstance().execute(Presentacion.views.events.Event.INSERT_STAND, tStand);
         else Controller.getInstance().execute(Event.MODIFY_STAND,tStand);
@@ -116,7 +110,7 @@ public class ViewsFormStand extends JFrame {
         formContainer = new JPanel();
         formContainer.setLayout(new FlowLayout());
 
-        formPanel = new JPanel();
+        JPanel formPanel = new JPanel();
         GridBagLayout formLayout = new GridBagLayout();
         formPanel.setLayout(formLayout);
 
@@ -136,9 +130,9 @@ public class ViewsFormStand extends JFrame {
         formCon.anchor = GridBagConstraints.EAST;
 
 
-        metresLabel = createLabel("Metres:");
-        numberLabel = createLabel("Number:");
-        costLabel = createLabel("Cost:");
+        JLabel metresLabel = createLabel("Metres:");
+        JLabel numberLabel = createLabel("Number:");
+        JLabel costLabel = createLabel("Cost:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
@@ -192,7 +186,7 @@ public class ViewsFormStand extends JFrame {
         Dimension buttonDim = new Dimension(150, 80);
 
         //---- cancelButton ----
-        cancelButton = new JButton();
+        JButton cancelButton = new JButton();
         cancelButton.setText("Cancel");
         cancelButton.setFont(fButton);
         cancelButton.setBackground(cCancelButton);
@@ -207,7 +201,7 @@ public class ViewsFormStand extends JFrame {
 
 
         //---- helpButton ----
-        helpButton = new JButton();
+        JButton helpButton = new JButton();
         helpButton.setText("Help");
         helpButton.setFont(fButton);
         helpButton.setBackground(cHelpButton);
@@ -222,7 +216,7 @@ public class ViewsFormStand extends JFrame {
 
 
         //---- okButton ----
-        okButton = new JButton();
+        JButton okButton = new JButton();
         okButton.setText("Add");
         okButton.setFont(fButton);
         okButton.setBackground(cOkButton);
@@ -252,7 +246,7 @@ public class ViewsFormStand extends JFrame {
 
         this.setMinimumSize(minScreenSize);
 
-        dialogPanel = new JPanel();
+        JPanel dialogPanel = new JPanel();
         BorderLayout dialogLayout = new BorderLayout();
         dialogPanel.setLayout(dialogLayout);
         dialogPanel.setBorder(BorderFactory.createEmptyBorder(20,50,20,50));
@@ -263,6 +257,9 @@ public class ViewsFormStand extends JFrame {
         //======== this ========
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
+
+        ImageIcon img = new ImageIcon("Resources//Icon.png");
+        this.setIconImage(img.getImage());
 
         //======== contents ========
 

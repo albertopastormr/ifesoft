@@ -14,17 +14,12 @@ import Negocio.Participante.ASParticipante;
 import Negocio.Participante.Tparticipante;
 import Negocio.Stand.ASStand;
 import Negocio.Stand.Tstand;
-import Presentacion.utils.Utilities;
 import Presentacion.views.forms.*;
 import Presentacion.views.shows.List.ListFairs;
 import Presentacion.views.shows.individual.ViewFair;
 import Presentacion.views.viewsHalf.*;
 import Presentacion.views.events.Event;
 import Presentacion.views.events.EventGUI;
-
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Collection;
 
 public class ControllerImp extends Controller {
 
@@ -112,22 +107,22 @@ public class ControllerImp extends Controller {
             /** Form Views*/
 
             case Event.INSERT_FORM_FERIA:
-                new ViewsFormFeria();
+                new ViewsFormFair();
                 break;
             case Event.INSERT_FORM_ASIGNACION:
-                new ViewsFormAsignacion();
+                new ViewsFormAssignation();
                 break;
             case Event.INSERT_FORM_PARTICIPANTE:
-                new ViewsFormParticipante();
+                new ViewsFormClient();
                 break;
             case Event.INSERT_FORM_PABELLON:
-                new ViewsFormPabellon();
+                new ViewsFormPavilion();
                 break;
             case Event.INSERT_FORM_STAND:
                 new ViewsFormStand();
                 break;
             case Event.INSERT_FORM_PARTICIPACION:
-                new ViewsFormParticipacion();
+                new ViewsFormParticipation();
                 break;
 
 
@@ -136,7 +131,7 @@ public class ControllerImp extends Controller {
             case Event.MODIFY_FORM_FERIA:
                try {
                     tFeria = asFeria.showById((Tferia) data);
-                    new ViewsFormFeria(tFeria);
+                    new ViewsFormFair(tFeria);
                 } catch (ASException e) {
                     e.printStackTrace();
                 }
