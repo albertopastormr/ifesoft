@@ -23,7 +23,7 @@ public class Tparticipante {
 	}
 
 	public Tparticipante(String name, long phone,  Boolean active) {
-		id = -1;
+		this.id = -1;
 		this.name = name;
 		this.phone = phone;
 		this.active = active;

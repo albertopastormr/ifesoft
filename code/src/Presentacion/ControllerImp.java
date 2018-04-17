@@ -3,16 +3,22 @@ package Presentacion;
 import Exceptions.ASException;
 import Exceptions.DAOException;
 import Negocio.Asignacion.ASAsignacion;
+import Negocio.Asignacion.IFASAsignacion;
 import Negocio.Asignacion.Tasignacion;
 import Negocio.Feria.ASFeria;
+import Negocio.Feria.IFASFeria;
 import Negocio.Feria.Tferia;
 import Negocio.Pabellon.ASPabellon;
+import Negocio.Pabellon.IFASPabellon;
 import Negocio.Pabellon.Tpabellon;
 import Negocio.Participacion.ASParticipacion;
+import Negocio.Participacion.IFASParticipacion;
 import Negocio.Participacion.Tparticipacion;
 import Negocio.Participante.ASParticipante;
+import Negocio.Participante.IFASParticipante;
 import Negocio.Participante.Tparticipante;
 import Negocio.Stand.ASStand;
+import Negocio.Stand.IFASStand;
 import Negocio.Stand.Tstand;
 import Presentacion.views.forms.*;
 import Presentacion.views.shows.List.ListFairs;
@@ -24,12 +30,22 @@ import Presentacion.views.events.EventGUI;
 public class ControllerImp extends Controller {
 
     private ASFeria asFeria;
-    private ASAsignacion asAsignation;
+    private ASAsignacion asAssignation;
     private ASPabellon asPavilion;
     private ASStand asStand;
     private ASParticipante asClient;
     private ASParticipacion asParticipation;
     private UI gui;
+
+    public ControllerImp(){
+        this.asFeria = IFASFeria.getInstance().generateASferia();
+        this.asAssignation = IFASAsignacion.getInstance().generateASAsignacion();
+        this.asPavilion = IFASPabellon.getInstance().generateASPabellon();
+        this.asStand = IFASStand.getInstance().generateASStand();
+        this.asClient = IFASParticipante.getInstance().generateASParticipante();
+        this.asParticipation = IFASParticipacion.getInstance().generateASParticipacion();
+        this.gui = UI.getInstance();
+    }
 
     @Override
     public void execute(int event, Object data) {
@@ -70,7 +86,7 @@ public class ControllerImp extends Controller {
                 break;
             case Event.DROP_ASIGNACION:
                 try {
-                    asAsignation.drop((Tasignacion)data);
+                    asAssignation.drop((Tasignacion)data);
                 } catch (ASException | DAOException e) {
                     e.printStackTrace();
                 }
@@ -98,7 +114,7 @@ public class ControllerImp extends Controller {
                 break;
             case Event.DROP_PABELLON:
                 try {
-                    asAsignation.drop((Tasignacion)data);
+                    asAssignation.drop((Tasignacion)data);
                 } catch (ASException | DAOException e) {
                     e.printStackTrace();
                 }
@@ -139,7 +155,7 @@ public class ControllerImp extends Controller {
             case Event.MODIFY_FAIR:
                 tFeria = (Tferia) data;
                 try {
-                    int res = asFeria.modify(tFeria);
+                    int res = IFASFeria.getInstance().generateASferia().modify(tFeria);
                     if (res>0) gui.update(EventGUI.UPDATE_UPDATE_FERIA_OK, res);
                     else gui.update(EventGUI.UPDATE_UPDATE_FERIA_FAIL, null);
 
@@ -178,8 +194,7 @@ public class ControllerImp extends Controller {
                 break;
             case Event.SHOW_FAIR_INDIVIDUAL:
                 try {
-                    asFeria.showById((Tferia) data);
-                    new ViewFair();
+                    new ViewFair(asFeria.showById((Tferia) data));
                 } catch (ASException e) {
                     e.printStackTrace();
                 }
@@ -214,14 +229,14 @@ public class ControllerImp extends Controller {
                 break;
             case Event.SHOW_ASSIGANTION_FAIR:
                 try {
-                    asAsignation.showByIdFair((Tferia)data);
+                    asAssignation.showByIdFair((Tferia)data);
                 } catch (ASException | DAOException e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.SHOW_ASSIGNATION_PAVILION:
                 try {
-                    asAsignation.showByIdPavilion((Tpabellon)data);
+                    asAssignation.showByIdPavilion((Tpabellon)data);
                 } catch (ASException | DAOException e) {
                     e.printStackTrace();
                 }

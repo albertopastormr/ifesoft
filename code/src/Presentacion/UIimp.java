@@ -9,9 +9,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class UIimp extends JFrame implements UI {
-
-    Presentacion.Controller control;
+public class UIimp extends UI {
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
@@ -39,10 +37,6 @@ public class UIimp extends JFrame implements UI {
             "a really long message this is a really long message this is a really long message this is a really long message";
 
     public UIimp() {
-        super("IFESOFT SOFTWARE");
-
-        // Se le da un valor a controller
-        control = new ControllerImp();
 
         start();
         this.setBounds(100,100, minScreenSize.width, minScreenSize.height);

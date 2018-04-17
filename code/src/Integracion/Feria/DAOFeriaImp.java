@@ -134,7 +134,7 @@ public class DAOFeriaImp implements DAOFeria{
 				readFeria = new Tferia(rs.getInt("id"), rs.getString("name"),rs.getString("description"),rs.getDate("initDate"),rs.getDate("endDate"),rs.getBoolean("active") ) ;
 			}
 			else
-				throw new DAOException("Tferia" + name + " does not exist in ifesoft database\n");
+				return null;
 			ps.close();
 		}
 		catch (SQLException e){
@@ -174,12 +174,12 @@ public class DAOFeriaImp implements DAOFeria{
 			ps = connec.prepareStatement("SELECT * FROM feria WHERE id = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			//ps.close();
+			ps.close();
 			if (rs.next()){
 				readFeria = new Tferia(rs.getInt("id"), rs.getString("name"),rs.getString("description"),rs.getDate("initDate"),rs.getDate("endDate"),rs.getBoolean("active") ) ;
 			}
 			else
-				throw new DAOException("Tferia" + id + " does not exist in ifesoft database\n");
+				return null;
 			
 		}
 		catch (SQLException e){

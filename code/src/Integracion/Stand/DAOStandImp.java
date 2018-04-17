@@ -27,7 +27,7 @@ public class DAOStandImp implements DAOStand {
 		driverIdentify();
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if"); // Datos de acceso a la db: user//manager pw//manager-if
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'create' ID Stand "+ tStand.getId() +" no logrado\n");
 		}
@@ -73,7 +73,7 @@ public class DAOStandImp implements DAOStand {
 		driverIdentify();
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain);
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readAll' no logrado\n");
 		}
@@ -113,7 +113,7 @@ public class DAOStandImp implements DAOStand {
 		driverIdentify();
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain);
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readAssignation' no logrado\n");
 		}
@@ -197,7 +197,7 @@ public class DAOStandImp implements DAOStand {
 		driverIdentify();
 
 		try { // Conexion db
-			connec = DriverManager.getConnection(connectionChain,"manager","manager-if");
+			connec = DriverManager.getConnection(connectionChain);
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'readByID' ID Stand "+ id +" no logrado\n");
 		}

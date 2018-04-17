@@ -87,6 +87,6 @@ public class Tferia {
     }
 
     public boolean equals(Tferia feria) {
-        return name.equals(feria.name) && initDate == feria.initDate && endDate == feria.endDate;
+        return name.equals(feria.name) && initDate.equals(feria.initDate) && endDate.equals(feria.endDate);
     }
 }

@@ -19,8 +19,8 @@ public class DAOAsignacionImp implements DAOAsignacion {
 	 * @return Integer ID of tAsignacion created at database
 	 * @throws DAOException error from database
 	 */
-	public Integer create(Tasignacion tAsignacion) throws DAOException {
-		int id = -1;
+	public boolean create(Tasignacion tAsignacion) throws DAOException {
+		boolean create = false;
 
 		driverIdentify();
 		Connection connec = null;
@@ -42,14 +42,14 @@ public class DAOAsignacionImp implements DAOAsignacion {
 			ps.execute();
 			ps.close();
 
-			ps = connec.prepareStatement("SELECT LAST_INSERT_ID() FROM asignacion");
+			ps = connec.prepareStatement("SELECT * FROM asignacion");
 
 			ResultSet rs = ps.executeQuery();
 			ps.close();
 			if (rs.next())
-				id = rs.getInt("LAST_INSERT_ID()");
+				create = true;
 			else
-				return -1;
+				return false;
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'create' Asignacion ID Feria "+ tAsignacion.getFair_id() + " ID Pabellon " + tAsignacion.getPavilion_id() + " ID Stand " + tAsignacion.getStand_id()+" no logrado\n");
@@ -61,8 +61,9 @@ public class DAOAsignacionImp implements DAOAsignacion {
 				throw new DAOException("ERROR: cerrando conexion a DB para 'create' Asignacion ID Feria "+ tAsignacion.getFair_id() + " ID Pabellon " + tAsignacion.getPavilion_id() + " ID Stand " + tAsignacion.getStand_id()+" no logrado\n");
 			}
 		}
-		return id;
+		return create;
 	}
+
 
 	/***
 	 * reads every Tasignacion(collection) from database 'ifesoft' with any constraint
@@ -151,7 +152,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 	}
 
 	/***
-	 * reads a Tasignacion from database ifesoft by a fair name
+	 * reads a Tasignacion from database ifesoft by a fair id
 	 * @param id Tasignacion name to be read
 	 * @return Tasignacion read from database
 	 * @throws DAOException error from database
@@ -171,7 +172,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		try { // Tratamiento db
 			PreparedStatement ps;
 
-			ps = connec.prepareStatement("SELECT * FROM asignacion as JOIN feria f ON as.fair_id = f.id WHERE f.id = ?");
+			ps = connec.prepareStatement("SELECT * FROM asignacion WHERE fair_id = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			ps.close();
@@ -196,7 +197,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 	}
 
 	/***
-	 * reads a Tasignacion from database ifesoft by a pavilion name
+	 * reads a Collection<Tasignacion> from database ifesoft by a pavilion id
 	 * @param id Tasignacion name to be read
 	 * @return Tasignacion read from database
 	 * @throws DAOException error from database
@@ -216,7 +217,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 		try { // Tratamiento db
 			PreparedStatement ps;
 
-			ps = connec.prepareStatement("SELECT * FROM asignacion as JOIN pabellon pa ON as.pavilion_id = pa.id WHERE pa.id = ?");
+			ps = connec.prepareStatement("SELECT * FROM asignacion WHERE pavilion_id = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			ps.close();
@@ -238,6 +239,54 @@ public class DAOAsignacionImp implements DAOAsignacion {
 
 
 		return readAsignacionList;
+	}
+
+	/***
+	 * reads a Tasignacion from database ifesoft
+	 * @param fair_id
+	 * @param pavilion_id
+	 * @param stand_id
+	 * @return Tasignacion read from database
+	 * @throws DAOException error from database
+	 */
+	public Tasignacion readById(Integer fair_id, Integer pavilion_id, Integer stand_id) throws DAOException {
+		Tasignacion read = null;
+		driverIdentify();
+		Connection connec = null;
+
+		try { // Conexion db
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
+		} catch (SQLException e) {
+			throw new DAOException("ERROR: acceso a la conexion a DB para 'readById' Fair Id "+ fair_id + " Pavilion Id " + pavilion_id + " Stand Id " + stand_id +" no logrado\n");
+		}
+
+		try { // Tratamiento db
+			PreparedStatement ps;
+
+			ps = connec.prepareStatement("SELECT * FROM asignacion WHERE fair_id = ? AND pavilion_id = ? AND stand_id = ?");
+			ps.setInt(1, fair_id);
+			ps.setInt(2, pavilion_id);
+			ps.setInt(3, stand_id);
+			ResultSet rs = ps.executeQuery();
+			ps.close();
+
+			if (rs.next()){
+				read = new Tasignacion( rs.getInt("fair_id"), rs.getInt("pavilion_id"), rs.getInt("stand_id"), rs.getInt("used_m2"), rs.getBoolean("active")) ;
+			}
+		}
+		catch (SQLException e){
+			throw new DAOException("ERROR: tratamiento DB para 'readById' Fair Id "+ fair_id + " Pavilion Id " + pavilion_id + " Stand Id " + stand_id +" no logrado\n");
+		}
+		finally {
+			try { // Desconexion db
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrar DB para 'readById' Fair Id "+ fair_id + " Pavilion Id " + pavilion_id + " Stand Id " + stand_id +" no logrado\n");
+			}
+		}
+
+
+		return read;
 	}
 
 	/***
@@ -302,6 +351,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 			}
 		}
 	}
+
 
 	/***
 	 * deletes a tAsignacion from database

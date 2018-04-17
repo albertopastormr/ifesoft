@@ -15,11 +15,9 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
         if (feria != null && feria.getName() != null && feria.getDescription() != null && feria.getIniDate() != null && feria.getEndDate() != null) {
             try {
             	//CAMBIO LA OPERACION readByName por readBYID
-                Tferia read = daoFeria.readById(feria.getId());
+                Tferia read = daoFeria.readByName(feria.getName());
                 if (read == null) {
-                	//CURRENTDATE A QUE FECHA CORRESPONDE??
-                    Date currentDate = new Date();
-                    if (feria.getIniDate().after(currentDate) && feria.getEndDate().after(feria.getIniDate()))
+                    if (feria.getEndDate().after(feria.getIniDate()))
                         id = daoFeria.create(feria);
                     else
                         throw new ASException("ERROR: El intervalo de fechas no es correcto.\n");
@@ -30,8 +28,9 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
                             id = daoFeria.update(read);
                         } else
                             throw new ASException("ERROR: La feria " + feria.getName() + "ya esta activa.\n");
-                    } else
-                        throw new ASException("ERROR: El nombre " + feria.getName() + " ya esta siendo utilizado.\n");
+                    }
+                    else
+                        throw new ASException("ERROR: La feria " + feria.getName() + "ya esta siendo utilizada con id" + read.getId() + ".\n");
                 }
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
@@ -118,15 +117,15 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
         return collection;
     }
 
-    public Tferia showByName(Tferia feria) throws ASException {
+    public Tferia showByName(String name) throws ASException {
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-        if (feria != null) {
+        if (name != null) {
             try {
-                Tferia read = daoFeria.readByName(feria.getName());
+                Tferia read = daoFeria.readByName(name);
                 if (read != null)
                     return read;
                 else
-                    throw new ASException("ERROR: La feria " + feria.getName() + " no existe.\n");
+                    throw new ASException("ERROR: La feria " + name + " no existe.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }
@@ -135,15 +134,15 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
         //return null;
     }
 
-    public Tferia showById(Tferia feria) throws ASException {
+    public Tferia showById(Integer id) throws ASException {
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-        if (feria != null && feria.getId() != -1) {
+        if (id != -1) {
             try {
-                Tferia read = daoFeria.readById(feria.getId());
+                Tferia read = daoFeria.readById(id);
                 if (read != null)
                     return read;
                 else
-                    throw new ASException("ERROR: La feria " + feria.getId() + " no existe.\n");
+                    throw new ASException("ERROR: La feria " + id + " no existe.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }

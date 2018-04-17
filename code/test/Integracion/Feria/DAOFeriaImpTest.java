@@ -19,6 +19,7 @@ public class DAOFeriaImpTest {
 
 	@Before
 	public  void setUp() throws Exception {
+		// Borra todas las tuplas en la tabla 'feria' de la db
 		DAOFeriaImp dao = new DAOFeriaImp();
 		dao.deleteAll();
 	}

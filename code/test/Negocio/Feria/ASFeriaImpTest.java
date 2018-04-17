@@ -3,6 +3,9 @@ package Negocio.Feria;
 
 import Exceptions.ASException;
 import Exceptions.DAOException;
+import Integracion.Pabellon.DAOPabellon;
+import Negocio.Pabellon.IFDAOPabellon;
+import org.junit.Before;
 import org.junit.Test;
 import Integracion.Feria.DAOFeria;
 import static org.junit.Assert.*;
@@ -11,6 +14,12 @@ import java.util.Collection;
 import java.util.Date;
 
 public class ASFeriaImpTest {
+
+	@Before
+	public void setUp() throws Exception {
+		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
+		daoFeria.deleteAll();
+	}
 	//-------------------------------------TEST CREATE-------------------------------------------------------------
 	
 	///intenta crear una feria existente
@@ -23,7 +32,6 @@ public class ASFeriaImpTest {
 			System.out.println("Test Create Feria Existente"); //Probamos que la feria que intentamos crear existe ya en la bbdd
 	
 			DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-			daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
 			
 			//Insertamos una feria en la bbdd
 			Date dateIni = new Date((2018-1900), 2, 12);
@@ -45,8 +53,7 @@ public class ASFeriaImpTest {
 		System.out.println("Test Lee Feria Inexistente"); //Probamos que la feria que intentamos crear existe ya en la bbdd
 
 		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-		daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
-		
+
 		Date dateIni = new Date((2016-1900), 1, 12);
 		Date dateEnd = new Date((2016-1900), 1, 18);
 		Tferia feria = new Tferia(id, "IBM", "prueba de fecha", dateIni, dateEnd, false); //Generamos un transfer
@@ -59,8 +66,7 @@ public class ASFeriaImpTest {
 		ASFeriaImp asFeria = new ASFeriaImp();
 		Integer id = -1;
 		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-		daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
-		
+
 		Date dateIni = new Date((2019-1900), 1, 12);
 		Date dateEnd = new Date((2019-1900), 1, 18);
 		//En este caso le pasamos la descripcion a null y necesitaria una descripcion para poder crearse correctamente
@@ -74,7 +80,6 @@ public class ASFeriaImpTest {
 		ASFeriaImp asFeria = new ASFeriaImp();
 		Integer id = -1;
 		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-		daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
 		
 		Date dateIni = new Date((2016-1900), 1, 12);
 		Date dateEnd = new Date((2016-1900), 1, 18);
@@ -89,13 +94,12 @@ public class ASFeriaImpTest {
 		Integer id = -1;
 		System.out.println("Test crea Feria Inexistente"); //Probamos que la feria que intentamos crear existe ya en la bbdd
 
-		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-		daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
-		
+		ASFeriaImp asFeria = new ASFeriaImp();
+
 		Date dateIni = new Date((2016-1900), 1, 12);
 		Date dateEnd = new Date((2016-1900), 1, 18);
 		Tferia feria = new Tferia(id, "IBM", "prueba de fecha", dateIni, dateEnd, false); //Generamos un transfer
-		assertTrue(daoFeria.create(feria) > 0);
+		assertTrue(asFeria.create(feria) > 0);
 	}
 	
 	//---------------------------------------------------------------------------------------------------------------
@@ -130,7 +134,7 @@ public class ASFeriaImpTest {
 		Date dateIni = new Date((2016-1900), 1, 12);
 		Date dateEnd = new Date((2016-1900), 1, 18);
 
-		Tferia feria = new Tferia(223344, "IBM", "The feria IBM", dateIni , dateEnd, false);
+		Tferia feria = new Tferia(1, "IBM", "The feria IBM", dateIni , dateEnd, false);
 		asFeria.create(feria); //Creamos una feria IBM
 		assertTrue(asFeria.drop(feria) > 0); //Si se ha podido borrar la feria correctamente, nos devuelve el id de la feria borrada logicamente
 											//Y ademas el test sale correcto
@@ -153,11 +157,9 @@ public class ASFeriaImpTest {
 	@SuppressWarnings("deprecation")
 	@Test(expected=ASException.class)
 	public void testModifyFeriaInexistente() throws Exception {
-		Integer id = 223344;
+		Integer id = 1;
 		ASFeriaImp asFeria = new ASFeriaImp();
-		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-		daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
-		
+
 		Date dateIni = new Date((2018-1900), 11, 12);
 		Date dateEnd = new Date((2018-1900), 11, 18);
 		Tferia feria = new Tferia(id, "IBM", "Desription", dateIni, dateEnd, true);
@@ -168,19 +170,16 @@ public class ASFeriaImpTest {
 	@SuppressWarnings("deprecation")
 	@Test(expected=ASException.class)
 	public void testModifyFeriaFechaIncorrecta() throws Exception {
-		Integer id = 223344;
 		ASFeriaImp asFeria = new ASFeriaImp();
-		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-		daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
-		
+
 		Date dateIni = new Date((2018-1900), 11, 12);
 		Date dateEnd = new Date((2018-1900), 11, 18);
-		Tferia feria = new Tferia(id, "IBM", "Desription", dateIni, dateEnd, true);
+		Tferia feria = new Tferia(1, "IBM", "Desription", dateIni, dateEnd, true);
 		asFeria.create(feria);
 		
 		Date dateIni2 = new Date((2016-1900), 11, 12);
 		Date dateEnd2 = new Date((2016-1900), 11, 18);
-		Tferia feria2 = new Tferia(id, "IBM", "Description", dateIni2, dateEnd2, true );
+		Tferia feria2 = new Tferia(1, "IBM", "Description", dateIni2, dateEnd2, true );
 		asFeria.modify(feria2);
 	}
 	
@@ -190,17 +189,15 @@ public class ASFeriaImpTest {
 	public void testModify() throws Exception {
 		Integer id = 223344;
 		ASFeriaImp asFeria = new ASFeriaImp();
-		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-		daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
-		
+
 		Date dateIni = new Date((2018-1900), 11, 12);
 		Date dateEnd = new Date((2018-1900), 11, 18);
-		Tferia feria = new Tferia(id, "IBM", "Desription", dateIni, dateEnd, false);
+		Tferia feria = new Tferia(1,"IBM", "Desription", dateIni, dateEnd, false);
 		asFeria.create(feria);
 		
 		Date dateIni2 = new Date((2018-1900), 11, 13);
 		Date dateEnd2 = new Date((2018-1900), 11, 19);
-		Tferia feria2 = new Tferia(id, "IBM", "Description + more things", dateIni2, dateEnd2, true );
+		Tferia feria2 = new Tferia(1,"IBM", "Description + more things", dateIni2, dateEnd2, true );
 		asFeria.modify(feria2);
 	}
 	
@@ -214,9 +211,7 @@ public class ASFeriaImpTest {
 		ASFeriaImp asFeria = new ASFeriaImp();
 		Integer id1 = 223344, id2 = 556677;
         Collection<Tferia> collection;
-		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-		daoFeria.deleteAll();
-		
+
 		Date dateIni = new Date((2018-1900), 11, 12);
 		Date dateEnd = new Date((2018-1900), 11, 18);
 		Tferia feria = new Tferia(id1, "IBM", "Desription", dateIni, dateEnd, false);
@@ -242,9 +237,7 @@ public class ASFeriaImpTest {
 		ASFeriaImp asFeria = new ASFeriaImp();
 		Integer id1 = 223344, id2 = 556677;
         Collection<Tferia> collection;
-		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-		daoFeria.deleteAll();
-		
+
 		Date dateIni = new Date((2018-1900), 11, 12);
 		Date dateEnd = new Date((2018-1900), 11, 18);
 		Tferia feria = new Tferia(id1, "IBM", "Desription", dateIni, dateEnd, false);
@@ -266,8 +259,6 @@ public class ASFeriaImpTest {
 	public void showBynameInexistente() throws ASException, DAOException{
 		ASFeriaImp asFeria = new ASFeriaImp();
 		Integer id = -1;
-		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-		daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
 		Tferia feria = new Tferia(id, "IBM", "Description", null, null, null);
 		
 		asFeria.showByName(feria);
@@ -279,9 +270,7 @@ public class ASFeriaImpTest {
 	public void showByname() throws ASException, DAOException{
 		ASFeriaImp asFeria = new ASFeriaImp();
 		Integer id = -1;
-		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-		daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
-		
+
 		Date dateIni = new Date((2018-1900), 11, 12);
 		Date dateEnd = new Date((2018-1900), 11, 18);
 		Tferia feria = new Tferia(id, "IBM", "Description", dateIni, dateEnd, false);
@@ -300,8 +289,6 @@ public class ASFeriaImpTest {
 	public void showByIdInexistente() throws ASException, DAOException{
 		ASFeriaImp asFeria = new ASFeriaImp();
 		Integer id = 223344;
-		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-		daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
 		Tferia feria = new Tferia(id, "IBM", "Description", null, null, null);
 		
 		asFeria.showById(feria);
@@ -313,9 +300,7 @@ public class ASFeriaImpTest {
 	public void showById() throws ASException, DAOException{
 		ASFeriaImp asFeria = new ASFeriaImp();
 		Integer id = 223344;
-		DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-		daoFeria.deleteAll(); //Borramos todos los campos de la bbdd
-		
+
 		Date dateIni = new Date((2018-1900), 11, 12);
 		Date dateEnd = new Date((2018-1900), 11, 18);
 		Tferia feria = new Tferia(id, "IBM", "Description", dateIni, dateEnd, false);

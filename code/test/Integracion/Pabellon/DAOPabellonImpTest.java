@@ -11,8 +11,10 @@ import static org.junit.Assert.*;
 public class DAOPabellonImpTest {
 	private static Tpabellon tpabellonTest1 = new Tpabellon(1, 0, 0, 0,true);
 	private static Tpabellon tpabellonTest2 = new Tpabellon(2, 2, 2, 2,true);
+
 	@Before
 	public  void setUp() throws Exception {
+		// Borra todas las tuplas en la tabla 'pabellon' de la db
 		DAOPabellonImp dao = new DAOPabellonImp();
 		dao.deleteAll();
 	}
