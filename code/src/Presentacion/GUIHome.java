@@ -51,7 +51,9 @@ public class GUIHome extends UIimp {
     public void update(int event, Object object) {
         switch (event){
             case EventGUI.UPDATE_CREATE_FERIA_OK:
-                System.out.println("Yeeeeee 2");
+                Integer id = (Integer) object;
+                JOptionPane.showInternalMessageDialog(null, "Usuario creado con ID: " + id);
+                setVisible(true);
                 break;
             case EventGUI.UPDATE_CREATE_FERIA_FAIL:
 

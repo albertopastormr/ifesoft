@@ -49,9 +49,7 @@ public class GUICreate extends UIimp {
     public void update(int event, Object data) {
         switch (event){
             case EventGUI.UPDATE_CREATE_FERIA_OK:
-                Integer id = (Integer) data;
-                JOptionPane.showInternalMessageDialog(null, "Usuario creado con ID: " + id);
-                setVisible(true);
+
                 break;
 
         }
