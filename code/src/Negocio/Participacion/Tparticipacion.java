@@ -6,20 +6,17 @@ public class Tparticipacion {
 
 	private int fair_id; // Fair ==> Feria
 	private int client_id; // Client ==> participante
-	private int stand_id;
 	private Boolean active;
 
 	public Tparticipacion() {
 		this.fair_id = -1;
 		this.client_id = -1;
-		this.stand_id = -1;
 		this.active = null;
 	}
 
-	public Tparticipacion(int fair_id, int client_id, int stand_id, Boolean active) {
+	public Tparticipacion(int fair_id, int client_id, Boolean active) {
 		this.fair_id = fair_id;
 		this.client_id = client_id;
-		this.stand_id = stand_id;
 		this.active = active;
 	}
 
@@ -37,14 +34,6 @@ public class Tparticipacion {
 
 	public void setClient_id(int client_id) {
 		this.client_id = client_id;
-	}
-
-	public int getStand_id() {
-		return stand_id;
-	}
-
-	public void setStand_id(int stand_id) {
-		this.stand_id = stand_id;
 	}
 
 	public Boolean getActive() {

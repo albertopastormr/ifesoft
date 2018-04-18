@@ -1,10 +1,10 @@
 package Negocio.Stand;
 
-import java.sql.Date;
-
 public class Tstand {
 
     private int id;
+    private int assignation_id;
+    private int participation_id;
     private int num_at_fair;
     private double cost;
     private int total_m2;
@@ -12,22 +12,29 @@ public class Tstand {
 
 	public Tstand() {
 		this.id = -1;
+		this.assignation_id = -1;
+		this.participation_id = -1;
 		this.num_at_fair = -1;
 		this.cost = -1;
 		this.total_m2 = -1;
 		this.active = null;
 	}
 
-	public Tstand(int num_at_fair, double cost, int total_m2, Boolean active) {
+	public Tstand(int assignation_id, int participation_id, int num_at_fair, double cost, int total_m2, Boolean active) {
 		this.id = -1;
+		this.assignation_id = assignation_id;
+		this.participation_id = participation_id;
 		this.num_at_fair = num_at_fair;
 		this.cost = cost;
 		this.total_m2 = total_m2;
 		this.active = active;
 	}
 
-	public Tstand(int id, int num_at_fair, double cost, int total_m2, Boolean active) {
+	public Tstand(int id, int assignation_id, int participation_id, int num_at_fair, double cost, int total_m2, Boolean active) {
 		this.id = id;
+		this.assignation_id = assignation_id;
+		this.participation_id = participation_id;
+
 		this.num_at_fair = num_at_fair;
 		this.cost = cost;
 		this.total_m2 = total_m2;
@@ -40,6 +47,22 @@ public class Tstand {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getAssignation_id() {
+		return assignation_id;
+	}
+
+	public void setAssignation_id(int assignation_id) {
+		this.assignation_id = assignation_id;
+	}
+
+	public int getParticipation_id() {
+		return participation_id;
+	}
+
+	public void setParticipation_id(int participation_id) {
+		this.participation_id = participation_id;
 	}
 
 	public int getNum_at_fair() {

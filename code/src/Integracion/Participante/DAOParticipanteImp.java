@@ -34,35 +34,53 @@ public class DAOParticipanteImp implements DAOParticipante {
 		try { // Tratamiento db
 			if( tParticipante instanceof TparticipanteNacional) {
 				PreparedStatement ps;
-				ps = connec.prepareStatement("INSERT INTO participante_nacional(name, phone, active, region) VALUES (?,?,?,?)");
+				ps = connec.prepareStatement("INSERT INTO participante(name, phone, active, type) VALUES (?,?,?,?)");
 				ps.setString(1, tParticipante.getName());
 				ps.setLong(2, tParticipante.getPhone());
 				ps.setBoolean(3, tParticipante.getActive());
-				ps.setString(4, ((TparticipanteNacional) tParticipante).getRegion());
+				ps.setString(4, "nacional");
 				ps.execute();
+				ps.close();
 
 				ps = connec.prepareStatement("SELECT LAST_INSERT_ID() FROM participante");
-
 				ResultSet rs = ps.executeQuery();
-				if (rs.next())
-					id = rs.getInt("LAST_INSERT_ID()");
+
+				if (rs.next()) { // Insert para referenciar en la tabla part_nacional al ultimo participante insertado
+					int db_last_insert_id = rs.getInt("LAST_INSERT_ID()");
+					ps = connec.prepareStatement("INSERT INTO part_nacional(id, region) VALUES (?,?)");
+					ps.setInt(1, db_last_insert_id);
+					ps.setString(2, ((TparticipanteNacional) tParticipante).getRegion());
+					ps.execute();
+					ps.close();
+
+					id = db_last_insert_id;
+				}
 				else
 					return -1;
 			}
 			else if ( tParticipante instanceof  TparticipanteInternacional){
 				PreparedStatement ps;
-				ps = connec.prepareStatement("INSERT INTO participante_internacional(name, phone, active, country) VALUES (?,?,?,?)");
+				ps = connec.prepareStatement("INSERT INTO participante(name, phone, active, type) VALUES (?,?,?,?)");
 				ps.setString(1, tParticipante.getName());
 				ps.setLong(2, tParticipante.getPhone());
 				ps.setBoolean(3, tParticipante.getActive());
-				ps.setString(4, ((TparticipanteInternacional) tParticipante).getCountry());
+				ps.setString(4, "internacional");
 				ps.execute();
+				ps.close();
 
 				ps = connec.prepareStatement("SELECT LAST_INSERT_ID() FROM participante");
-
 				ResultSet rs = ps.executeQuery();
-				if (rs.next())
-					id = rs.getInt("LAST_INSERT_ID()");
+
+				if (rs.next()) { // Referencio en la tabla part_nacional al ultimo participante insertado
+					int db_last_insert_id = rs.getInt("LAST_INSERT_ID()");
+					ps = connec.prepareStatement("INSERT INTO part_internacional(id, country) VALUES (?,?)");
+					ps.setInt(1, db_last_insert_id);
+					ps.setString(2, ((TparticipanteInternacional) tParticipante).getCountry());
+					ps.execute();
+					ps.close();
+
+					id = db_last_insert_id;
+				}
 				else
 					return -1;
 			}
@@ -101,12 +119,40 @@ public class DAOParticipanteImp implements DAOParticipante {
 
 		try { // Tratamiento db
 			PreparedStatement ps;
+			ResultSet rs_general_table_client, rs_concrete_table_client;
 
-			ps = connec.prepareStatement("SELECT * FROM participante_nacional JOIN participante_internacional WHERE active = true");
+			ps = connec.prepareStatement("SELECT * FROM participante WHERE active = true");
+			rs_general_table_client = ps.executeQuery(); // Listado de todos los participantes activos
+			ps.close();
 
-			ResultSet rs = ps.executeQuery();
-			while (rs.next())
-				readParticipanteList.add( new Tparticipante(rs.getInt("id"), rs.getString("name"), rs.getLong("phone"),rs.getBoolean("active") ) );
+			while(rs_general_table_client.next()){
+				switch (rs_general_table_client.getString("type")){
+					case "nacional":{
+						ps = connec.prepareStatement("SELECT * FROM part_nacional WHERE id = ?");
+						ps.setInt(1, rs_general_table_client.getInt("id"));
+						rs_concrete_table_client = ps.executeQuery();
+						ps.close();
+
+						if (rs_concrete_table_client.next())
+							readParticipanteList.add( new TparticipanteNacional(rs_concrete_table_client.getInt("id"), rs_concrete_table_client.getString("name"), rs_concrete_table_client.getLong("phone"),rs_concrete_table_client.getBoolean("active"), rs_concrete_table_client.getString("region")));
+						else
+							throw new DAOException("ERROR: tablas de la bases de datos incoherentes");
+					}
+					break;
+					case "internacional":{
+						ps = connec.prepareStatement("SELECT * FROM part_internacional WHERE id =?");
+						ps.setInt(1, rs_general_table_client.getInt("id"));
+						rs_concrete_table_client = ps.executeQuery();
+						ps.close();
+
+						if (rs_concrete_table_client.next())
+							readParticipanteList.add( new TparticipanteNacional(rs_concrete_table_client.getInt("id"), rs_concrete_table_client.getString("name"), rs_concrete_table_client.getLong("phone"),rs_concrete_table_client.getBoolean("active"), rs_concrete_table_client.getString("country")));
+						else
+							throw new DAOException("ERROR: tablas de la bases de datos incoherentes");
+					}
+					break;
+				}
+			}
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'readAll' no logrado\n");
@@ -141,24 +187,39 @@ public class DAOParticipanteImp implements DAOParticipante {
 
 		try { // Tratamiento db
 			PreparedStatement ps;
+			ResultSet rs_general_table_client, rs_concrete_table_client;
 
-			ps = connec.prepareStatement("SELECT * FROM participante_nacional WHERE name = ?");
+			ps = connec.prepareStatement("SELECT * FROM participante WHERE name = ?");
 			ps.setString(1, name);
-			ResultSet rs = ps.executeQuery();
+			rs_general_table_client = ps.executeQuery(); // Listado de todos los participantes activos
 
-			if (rs.next()){
-				readParticipante = new TparticipanteNacional(rs.getInt("id"), rs.getString("name"), rs.getLong("phone"), rs.getBoolean("active"), rs.getString("region")) ;
-			}
-			else{ // En este caso no hay ningun participante nacional con ese id y se busca en los internacionales
-				ps = connec.prepareStatement("SELECT * FROM participante_internacional WHERE name = ?");
-				ps.setString(1, name);
-				rs = ps.executeQuery();
+			while(rs_general_table_client.next()){
+				switch (rs_general_table_client.getString("type")){
+					case "nacional":{
+						ps = connec.prepareStatement("SELECT * FROM part_nacional WHERE id = ?");
+						ps.setInt(1, rs_general_table_client.getInt("id"));
+						rs_concrete_table_client = ps.executeQuery();
+						ps.close();
 
-				if (rs.next()){
-					readParticipante = new TparticipanteInternacional(rs.getInt("id"), rs.getString("name"), rs.getLong("phone"), rs.getBoolean("active"), rs.getString("country")) ;
+						if (rs_concrete_table_client.next())
+							readParticipante = new TparticipanteNacional(rs_concrete_table_client.getInt("id"), rs_concrete_table_client.getString("name"), rs_concrete_table_client.getLong("phone"),rs_concrete_table_client.getBoolean("active"), rs_concrete_table_client.getString("region"));
+						else
+							throw new DAOException("ERROR: tablas de la bases de datos incoherentes");
+					}
+					break;
+					case "internacional":{
+						ps = connec.prepareStatement("SELECT * FROM part_internacional WHERE id =?");
+						ps.setInt(1, rs_general_table_client.getInt("id"));
+						rs_concrete_table_client = ps.executeQuery();
+						ps.close();
+
+						if (rs_concrete_table_client.next())
+							readParticipante = new TparticipanteNacional(rs_concrete_table_client.getInt("id"), rs_concrete_table_client.getString("name"), rs_concrete_table_client.getLong("phone"),rs_concrete_table_client.getBoolean("active"), rs_concrete_table_client.getString("country"));
+						else
+							throw new DAOException("ERROR: tablas de la bases de datos incoherentes");
+					}
+					break;
 				}
-				else
-					return null;
 			}
 		}
 		catch (SQLException e){
@@ -195,24 +256,40 @@ public class DAOParticipanteImp implements DAOParticipante {
 
 		try { // Tratamiento db
 			PreparedStatement ps;
+			ResultSet rs_general_table_client, rs_concrete_table_client;
 
-			ps = connec.prepareStatement("SELECT * FROM participante_nacional WHERE id = ?");
+			ps = connec.prepareStatement("SELECT * FROM participante WHERE id = ?");
 			ps.setInt(1, id);
-			ResultSet rs = ps.executeQuery();
+			rs_general_table_client = ps.executeQuery();
+			ps.close();
 
-			if (rs.next()){
-				readParticipante = new TparticipanteNacional(rs.getInt("id"), rs.getString("name"), rs.getLong("phone"), rs.getBoolean("active"), rs.getString("region")) ;
-			}
-			else{ // En este caso no hay ningun participante nacional con ese id y se busca en los internacionales
-				ps = connec.prepareStatement("SELECT * FROM participante_internacional WHERE id = ?");
-				ps.setInt(1, id);
-				rs = ps.executeQuery();
+			while(rs_general_table_client.next()){
+				switch (rs_general_table_client.getString("type")){
+					case "nacional":{
+						ps = connec.prepareStatement("SELECT * FROM part_nacional WHERE id = ?");
+						ps.setInt(1, rs_general_table_client.getInt("id"));
+						rs_concrete_table_client = ps.executeQuery();
+						ps.close();
 
-				if (rs.next()){
-					readParticipante = new TparticipanteInternacional(rs.getInt("id"), rs.getString("name"), rs.getLong("phone"), rs.getBoolean("active"), rs.getString("country")) ;
+						if (rs_concrete_table_client.next())
+							readParticipante = new TparticipanteNacional(rs_concrete_table_client.getInt("id"), rs_concrete_table_client.getString("name"), rs_concrete_table_client.getLong("phone"),rs_concrete_table_client.getBoolean("active"), rs_concrete_table_client.getString("region"));
+						else
+							throw new DAOException("ERROR: tablas de la bases de datos incoherentes");
+					}
+					break;
+					case "internacional":{
+						ps = connec.prepareStatement("SELECT * FROM part_internacional WHERE id =?");
+						ps.setInt(1, rs_general_table_client.getInt("id"));
+						rs_concrete_table_client = ps.executeQuery();
+						ps.close();
+
+						if (rs_concrete_table_client.next())
+							readParticipante = new TparticipanteNacional(rs_concrete_table_client.getInt("id"), rs_concrete_table_client.getString("name"), rs_concrete_table_client.getLong("phone"),rs_concrete_table_client.getBoolean("active"), rs_concrete_table_client.getString("country"));
+						else
+							throw new DAOException("ERROR: tablas de la bases de datos incoherentes");
+					}
+					break;
 				}
-				else
-					return null;
 			}
 		}
 		catch (SQLException e){
@@ -248,22 +325,27 @@ public class DAOParticipanteImp implements DAOParticipante {
 		try { // Tratamiento db
 			PreparedStatement ps;
 			if(tParticipante instanceof TparticipanteNacional) {
-				ps = connec.prepareStatement("UPDATE participante_nacional SET name = ? AND phone = ? AND active = ? AND region = ? WHERE id = ?");
+				ps = connec.prepareStatement("UPDATE participante SET name = ? AND phone = ? AND active = ? AND type = ? WHERE id = ?");
 				ps.setString(1, tParticipante.getName());
 				ps.setLong(2, tParticipante.getPhone());
 				ps.setBoolean(3, tParticipante.getActive());
-				ps.setString(4, ((TparticipanteNacional) tParticipante).getRegion());
+				ps.setString(4, "nacional");
 				ps.setInt(5, tParticipante.getId());
 				ps.execute();
 
-				ps = connec.prepareStatement("SELECT id FROM participante_nacional WHERE name = ?");
-				ps.setString(1, tParticipante.getName());
-				ResultSet rs = ps.executeQuery();
+				ps = connec.prepareStatement("UPDATE part_nacional SET region = ? WHERE id = ?");
+				ps.setString(1, ((TparticipanteNacional) tParticipante).getRegion());
+				ps.setInt(2, tParticipante.getId());
+				ps.execute();
 
+				ps = connec.prepareStatement("SELECT id FROM participante WHERE id = ?");
+				ps.setInt(1, tParticipante.getId());
+				ResultSet rs = ps.executeQuery(); // Comprobacion database sigue siendo coherente
 
 				if (rs.next()) {
-					id = rs.getInt("id");
-					if (!tParticipante.getActive()) {
+					id = rs.getInt("id"); // ID a devolver
+
+					if (!tParticipante.getActive()) { // Si se trata de un drop(active==false), se realiza drop en cascada
 						ps = connec.prepareStatement("UPDATE (participacion p JOIN stand s ON p.stand_id = s.id) JOIN asignacion a ON s.id = a.stand_id SET p.active = ? AND s.active = ? AND a.active = ? WHERE p.client_id = ?");
 						ps.setBoolean(1, tParticipante.getActive());
 						ps.setBoolean(2, tParticipante.getActive());
@@ -277,23 +359,27 @@ public class DAOParticipanteImp implements DAOParticipante {
 					return -1;
 			}
 			else if (tParticipante instanceof TparticipanteInternacional){
-				ps = connec.prepareStatement("UPDATE participante_internacional SET name = ? AND phone = ? AND active = ? AND country = ? WHERE id = ?");
+				ps = connec.prepareStatement("UPDATE participante SET name = ? AND phone = ? AND active = ? AND type = ? WHERE id = ?");
 				ps.setString(1, tParticipante.getName());
 				ps.setLong(2, tParticipante.getPhone());
 				ps.setBoolean(3, tParticipante.getActive());
-				ps.setString(4, ((TparticipanteInternacional) tParticipante).getCountry());
+				ps.setString(4, "internacional");
 				ps.setInt(5, tParticipante.getId());
 				ps.execute();
 
-				ps = connec.prepareStatement("SELECT id FROM participante_internacional WHERE name = ?");
-				ps.setString(1, tParticipante.getName());
-				ResultSet rs = ps.executeQuery();
+				ps = connec.prepareStatement("UPDATE part_nacional SET country = ? WHERE id = ?");
+				ps.setString(1, ((TparticipanteInternacional) tParticipante).getCountry());
+				ps.setInt(2, tParticipante.getId());
+				ps.execute();
 
+				ps = connec.prepareStatement("SELECT id FROM participante WHERE id = ?");
+				ps.setInt(1, tParticipante.getId());
+				ResultSet rs = ps.executeQuery(); // Comprobacion database sigue siendo coherente
 
 				if (rs.next()) {
 					id = rs.getInt("id");
 
-					if (!tParticipante.getActive()) {
+					if (!tParticipante.getActive()) { // Si se trata de un drop(active==false), se realiza drop en cascada
 						ps = connec.prepareStatement("UPDATE (participacion p JOIN stand s ON p.stand_id = s.id) JOIN asignacion a ON s.id = a.stand_id SET p.active = ? AND s.active = ? AND a.active = ? WHERE p.client_id = ?");
 						ps.setBoolean(1, tParticipante.getActive());
 						ps.setBoolean(2, tParticipante.getActive());
@@ -339,9 +425,32 @@ public class DAOParticipanteImp implements DAOParticipante {
 
 		try { // Tratamiento db
 			PreparedStatement ps;
+			ResultSet rs_general_table_client;
+
+			ps = connec.prepareStatement("SELECT * FROM participante WHERE id = ?");
+			ps.setInt(1, id);
+			rs_general_table_client = ps.executeQuery();
+
+			switch(rs_general_table_client.getString("type")){
+				case "nacional":{
+					ps = connec.prepareStatement("DELETE FROM part_nacional WHERE id = ?");
+					ps.setInt(1, id);
+					ps.execute();
+					ps.close();
+				}
+				break;
+				case "internacional":{
+					ps = connec.prepareStatement("DELETE FROM part_internacional WHERE id = ?");
+					ps.setInt(1, id);
+					ps.execute();
+					ps.close();
+				}
+				break;
+			}
 			ps = connec.prepareStatement("DELETE FROM participante WHERE id = ?");
 			ps.setInt(1, id);
 			ps.execute();
+			ps.close();
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento para 'delete' ID Participante "+ id +" no logrado\n");
@@ -374,6 +483,12 @@ public class DAOParticipanteImp implements DAOParticipante {
 
 		try { // Tratamiento db
 			PreparedStatement ps = connec.prepareStatement("SET FOREIGN_KEY_CHECKS = 0");
+			ps.execute(); // Foreign key checks disable para omitir errores
+			ps.close();
+			ps = connec.prepareStatement("TRUNCATE TABLE part_nacional");
+			ps.execute();
+			ps.close();
+			ps = connec.prepareStatement("TRUNCATE TABLE part_internacional");
 			ps.execute();
 			ps.close();
 			ps = connec.prepareStatement("TRUNCATE TABLE participante");

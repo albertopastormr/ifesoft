@@ -4,22 +4,22 @@ public class Tasignacion {
 
     private int fair_id; // Fair ==> Feria
     private int pavilion_id; // Pavilion ==> Pabellon
-    private int stand_id;
+    private int total_m2;
     private int used_m2;
     private Boolean active;
 
 	public Tasignacion() {
 		this.fair_id = -1;
 		this.pavilion_id = -1;
-		this.stand_id = -1;
+		this.total_m2 = -1;
 		this.used_m2 = -1;
 		this.active = null;
 	}
 
-	public Tasignacion(int fair_id, int pavilion_id, int stand_id, int used_m2, Boolean active) {
+	public Tasignacion(int fair_id, int pavilion_id, int total_m2, int used_m2, Boolean active) {
 		this.fair_id = fair_id;
 		this.pavilion_id = pavilion_id;
-		this.stand_id = stand_id;
+		this.total_m2 = total_m2;
 		this.used_m2 = used_m2;
 		this.active = active;
 	}
@@ -40,12 +40,12 @@ public class Tasignacion {
 		this.pavilion_id = pavilion_id;
 	}
 
-	public int getStand_id() {
-		return stand_id;
+	public int getTotal_m2() {
+		return total_m2;
 	}
 
-	public void setStand_id(int stand_id) {
-		this.stand_id = stand_id;
+	public void setTotal_m2(int total_m2) {
+		this.total_m2 = total_m2;
 	}
 
 	public int getUsed_m2() {

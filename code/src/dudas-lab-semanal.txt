@@ -1,7 +1,6 @@
 
 DUDAS PARA LAB:
 - Revisar test
-- Al leer participantes, cruzamos por las especialidades? tabla participante general vacia?
 - Constructor del controller en la superclase o en ControllerImp ?
 
 
