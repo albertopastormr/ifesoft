@@ -2,13 +2,43 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2980974-472a-449c-bff2-7e647a2902bf" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/code/Presentacion/tareasPendientes" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Presentacion/Controller.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Presentacion/tareasPendientes" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/ControllerImp.java" afterPath="$PROJECT_DIR$/src/Controller/ControllerImp.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/UIimp.java" afterPath="$PROJECT_DIR$/src/Presentacion/GUIHome.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/utils/Utilities.java" afterPath="$PROJECT_DIR$/src/Presentacion/Utils/Utilities.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/events/Event.java" afterPath="$PROJECT_DIR$/src/Presentacion/Events/Event.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/events/EventGUI.java" afterPath="$PROJECT_DIR$/src/Presentacion/Events/EventGUI.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/forms/ViewsFormAssignation.java" afterPath="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormAssignation.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/forms/ViewsFormClient.java" afterPath="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormClient.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/forms/ViewsFormFair.java" afterPath="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormFair.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/forms/ViewsFormParticipation.java" afterPath="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormParticipation.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/forms/ViewsFormPavilion.java" afterPath="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormPavilion.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/forms/ViewsFormStand.java" afterPath="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormStand.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/optionsPanel/ActionHelp.java" afterPath="$PROJECT_DIR$/src/Presentacion/Utils/ActionHelp.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/optionsPanel/PanelProblemUser.java" afterPath="$PROJECT_DIR$/src/Presentacion/Utils/PanelProblemUser.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/shows/List/ListAssignation.java" afterPath="$PROJECT_DIR$/src/Presentacion/Shows/List/GUIListAssignation.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/shows/List/ListClient.java" afterPath="$PROJECT_DIR$/src/Presentacion/Shows/List/GUIListClient.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/shows/List/ListFairs.java" afterPath="$PROJECT_DIR$/src/Presentacion/Shows/List/GUIListFairs.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/shows/List/ListParticipation.java" afterPath="$PROJECT_DIR$/src/Presentacion/Shows/List/GUIListParticipation.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/shows/List/ListPavilions.java" afterPath="$PROJECT_DIR$/src/Presentacion/Shows/List/GUIListPavilions.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/shows/List/ListStand.java" afterPath="$PROJECT_DIR$/src/Presentacion/Shows/List/GUIListStand.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/shows/List/TableList.java" afterPath="$PROJECT_DIR$/src/Presentacion/Shows/List/GUITableList.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/shows/individual/ViewClient.java" afterPath="$PROJECT_DIR$/src/Presentacion/Shows/individual/GUIViewClient.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/shows/individual/ViewFair.java" afterPath="$PROJECT_DIR$/src/Presentacion/Shows/individual/GUIViewFair.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/shows/individual/ViewPavilion.java" afterPath="$PROJECT_DIR$/src/Presentacion/Shows/individual/GUIViewPavilion.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/shows/individual/ViewStand.java" afterPath="$PROJECT_DIR$/src/Presentacion/Shows/individual/GUIViewStand.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/viewsHalf/ViewHalfDrop.java" afterPath="$PROJECT_DIR$/src/Presentacion/Drop/GUIDrop.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/viewsHalf/ViewHalfModify.java" afterPath="$PROJECT_DIR$/src/Presentacion/Create_Modify/Modify/GUIModify.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/viewsHalf/ViewHalfShow.java" afterPath="$PROJECT_DIR$/src/Presentacion/Shows/GUIShow.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Presentacion/views/viewsHalf/ViewsHalfCreate.java" afterPath="$PROJECT_DIR$/src/Presentacion/Create_Modify/Create/GUICreate.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Integracion/Participante/DAOParticipanteImp.java" afterPath="$PROJECT_DIR$/src/Integracion/Participante/DAOParticipanteImp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Negocio/Asignacion/Tasignacion.java" afterPath="$PROJECT_DIR$/src/Negocio/Asignacion/Tasignacion.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Negocio/Pabellon/Tpabellon.java" afterPath="$PROJECT_DIR$/src/Negocio/Pabellon/Tpabellon.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Negocio/Participacion/Tparticipacion.java" afterPath="$PROJECT_DIR$/src/Negocio/Participacion/Tparticipacion.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Negocio/Stand/Tstand.java" afterPath="$PROJECT_DIR$/src/Negocio/Stand/Tstand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/dudas-lab-semanal.txt" afterPath="$PROJECT_DIR$/src/dudas-lab-semanal.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/code/dudas-lab-semanal.txt" afterPath="$PROJECT_DIR$/out/production/code/dudas-lab-semanal.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/Controller.java" afterPath="$PROJECT_DIR$/src/Controller/Controller.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Presentacion/UI.java" afterPath="$PROJECT_DIR$/src/Presentacion/UI.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/Negocio/Feria/ASFeriaImpTest.java" afterPath="$PROJECT_DIR$/test/Negocio/Feria/ASFeriaImpTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,7 +54,7 @@
         <entry file="file://$PROJECT_DIR$/src/dudas-lab-semanal.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="450">
-              <caret line="15" column="44" lean-forward="true" selection-start-line="15" selection-start-column="44" selection-end-line="15" selection-end-column="44" />
+              <caret line="15" column="44" lean-forward="false" selection-start-line="15" selection-start-column="44" selection-end-line="15" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -34,7 +64,7 @@
         <entry file="file://$PROJECT_DIR$/src/Integracion/Participante/DAOParticipanteImp.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="750">
-              <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+              <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -43,8 +73,8 @@
       <file leaf-file-name="DAOParticipanteImpTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/Integracion/Participante/DAOParticipanteImpTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="660">
-              <caret line="31" column="31" lean-forward="true" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
+            <state relative-caret-position="450">
+              <caret line="24" column="5" lean-forward="true" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -54,7 +84,7 @@
         <entry file="file://$PROJECT_DIR$/src/Negocio/Participante/Tparticipante.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="780">
-              <caret line="26" column="25" lean-forward="true" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
+              <caret line="26" column="25" lean-forward="false" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -185,6 +215,12 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Negocio" type="462c0819:PsiDirectoryNode" />
               <item name="Stand" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="code" type="b2602c69:ProjectViewProjectNode" />
+              <item name="code" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Presentacion" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="code" type="b2602c69:ProjectViewProjectNode" />
@@ -442,14 +478,15 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293556" sideWeight="0.48245615" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.045346063" sideWeight="0.14473684" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4970167" sideWeight="0.14692983" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25715992" sideWeight="0.7266082" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4970167" sideWeight="0.8552632" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4970167" sideWeight="0.8530702" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15460527" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
@@ -464,7 +501,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="combo" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32970184" sideWeight="0.48391813" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -526,13 +562,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.12.jar!/org/junit/runner/JUnitCore.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="559">
-          <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Presentacion/UIimp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -748,9 +777,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="34" column="34" lean-forward="false" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
-          <folding>
-            <marker date="1524041427617" expanded="true" signature="10994:11156" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -863,7 +890,7 @@
     <entry file="file://$PROJECT_DIR$/src/dudas-lab-semanal.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
-          <caret line="15" column="44" lean-forward="true" selection-start-line="15" selection-start-column="44" selection-end-line="15" selection-end-column="44" />
+          <caret line="15" column="44" lean-forward="false" selection-start-line="15" selection-start-column="44" selection-end-line="15" selection-end-column="44" />
           <folding />
         </state>
       </provider>
@@ -871,7 +898,7 @@
     <entry file="file://$PROJECT_DIR$/src/Negocio/Participante/Tparticipante.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="780">
-          <caret line="26" column="25" lean-forward="true" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
+          <caret line="26" column="25" lean-forward="false" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
           <folding />
         </state>
       </provider>
@@ -898,15 +925,23 @@
     <entry file="file://$PROJECT_DIR$/src/Integracion/Participante/DAOParticipanteImp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="750">
-          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Presentacion/views/shows/List/ListPavilions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="125" column="0" lean-forward="true" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/Integracion/Participante/DAOParticipanteImpTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="31" column="31" lean-forward="true" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
+        <state relative-caret-position="450">
+          <caret line="24" column="5" lean-forward="true" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
           <folding />
         </state>
       </provider>
