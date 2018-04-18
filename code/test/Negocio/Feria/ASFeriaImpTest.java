@@ -261,7 +261,7 @@ public class ASFeriaImpTest {
 		Integer id = -1;
 		Tferia feria = new Tferia(id, "IBM", "Description", null, null, null);
 		
-		asFeria.showByName(feria);
+		asFeria.showByName(feria.getName());
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -277,7 +277,7 @@ public class ASFeriaImpTest {
 		id = asFeria.create(feria);
 		
 		Tferia feria2 = new Tferia(id, "IBM", "Description", dateIni, dateEnd, false);
-		feria2 = asFeria.showByName(feria2);
+		feria2 = asFeria.showByName(feria2.getName());
 		assertTrue(feria2 != null); 
 	}
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -291,7 +291,7 @@ public class ASFeriaImpTest {
 		Integer id = 223344;
 		Tferia feria = new Tferia(id, "IBM", "Description", null, null, null);
 		
-		asFeria.showById(feria);
+		asFeria.showById(feria.getId());
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -307,7 +307,7 @@ public class ASFeriaImpTest {
 		id = asFeria.create(feria);
 		
 		Tferia feria2 = new Tferia(id, "IBM", "Description", dateIni, dateEnd, false);
-		feria2 = asFeria.showById(feria2);
+		feria2 = asFeria.showById(feria2.getId());
 		assertTrue(feria2 != null); 
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------

@@ -12,4 +12,6 @@ public class EventGUI {
     public static final int UPDATE_CREATE_PAVILION_FAIL = 3249;
     public static final int UPDATE_CREATE_STAND_OK = 43521;
     public static final int UPDATE_CREATE_STAND_FAIL = 654523;
+    public static final int UPDATE_CREATE_CLIENT_OK = 56456;
+    public static final int UPDATE_CREATE_CLIENT_FAIL = 1223;
 }

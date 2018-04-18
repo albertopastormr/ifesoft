@@ -152,7 +152,7 @@ public class ControllerImp extends Controller {
 
             case Event.MODIFY_FORM_FERIA:
                try {
-                    tFair = asFair.showById((Tferia) data);
+                    tFair = asFair.showById((Integer) data);
                     new ViewsFormFair(tFair);
                 } catch (ASException e) {
                     e.printStackTrace();
@@ -225,7 +225,7 @@ public class ControllerImp extends Controller {
                 break;
             case Event.SHOW_FAIR_INDIVIDUAL:
                 try {
-                    new ViewFair(asFair.showById((Tferia) data));
+                    new ViewFair(asFair.showById((Integer) data));
                 } catch (ASException e) {
                     e.printStackTrace();
                 }
@@ -246,7 +246,7 @@ public class ControllerImp extends Controller {
                 break;
             case Event.SHOW_PAVILION_INDIVIDUAL:
                 try {
-                    asPavilion.showById((Tpabellon)data);
+                    asPavilion.showById((Integer)data);
                 } catch (ASException e) {
                     e.printStackTrace();
                 }
@@ -260,28 +260,28 @@ public class ControllerImp extends Controller {
                 break;
             case Event.SHOW_ASSIGANTION_FAIR:
                 try {
-                    asAssignation.showByIdFair((Tferia)data);
+                    asAssignation.showByIdFair((Integer)data);
                 } catch (ASException | DAOException e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.SHOW_ASSIGNATION_PAVILION:
                 try {
-                    asAssignation.showByIdPavilion((Tpabellon)data);
+                    asAssignation.showByIdPavilion((Integer)data);
                 } catch (ASException | DAOException e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.SHOW_PARTICIPATION_FAIR:
                 try {
-                    asParticipation.showByIdFair((Tferia)data);
+                    asParticipation.showByFairId((Integer) data);
                 } catch (ASException | DAOException e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.SHOW_PARTICIPACION_CLIENT:
                 try {
-                    asParticipation.showByIdClient((Tparticipante)data);
+                    asParticipation.showByClientId((Integer)data);
                 } catch (ASException | DAOException e) {
                     e.printStackTrace();
                 }
