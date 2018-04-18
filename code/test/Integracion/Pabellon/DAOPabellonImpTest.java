@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import static org.junit.Assert.*;
 
 public class DAOPabellonImpTest {
-	private static Tpabellon tpabellonTest1 = new Tpabellon(1, 0, 0, 0,true);
-	private static Tpabellon tpabellonTest2 = new Tpabellon(2, 2, 2, 2,true);
+	private static Tpabellon tpabellonTest1 = new Tpabellon(1, 0, 0,true);
+	private static Tpabellon tpabellonTest2 = new Tpabellon(2, 2, 2,true);
 
 	@Before
 	public  void setUp() throws Exception {
@@ -80,7 +80,6 @@ public class DAOPabellonImpTest {
 		assertEquals(first.getId(), second.getId());
 		assertEquals(first.getCapacity(),second.getCapacity());
 		assertEquals(first.getTotal_m2(),second.getTotal_m2());
-		assertEquals(first.getUtil_m2(),second.getUtil_m2());
 		assertEquals(first.getActive(), second.getActive());
 	}
 }

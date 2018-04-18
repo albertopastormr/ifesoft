@@ -25,11 +25,11 @@ public class DAOAsignacionImpTest {
 	private static Tferia tferiaTest1 = new Tferia("FITUR","Feria internacional turismo",new Date(117,0,4),new Date(117,0,4),true);
 	private static Tferia tferiaTest2 = new Tferia("VINECT","Feria internacional vinos",new Date(117,9,28),new Date(117,10,4),true);
 	// Tpabellon para probar
-	private static Tpabellon tpabellonTest1 = new Tpabellon(1, 0, 0, 0,true);
-	private static Tpabellon tpabellonTest2 = new Tpabellon(2, 2, 2, 2,true);
+	private static Tpabellon tpabellonTest1 = new Tpabellon(1, 0,  0,true);
+	private static Tpabellon tpabellonTest2 = new Tpabellon(2, 2,  2,true);
 	// Tstand para probar
-	private static Tstand tstandTest1 = new Tstand(1, 0, 0, 0,true);
-	private static Tstand tstandTest2 = new Tstand(2, 2, 2, 2,true);
+	private static Tstand tstandTest1 = new Tstand(1, 1, 1,0, 0, 0,true);
+	private static Tstand tstandTest2 = new Tstand(2,2,2, 2, 2, 2,true);
 
 
 	@Before
@@ -55,8 +55,8 @@ public class DAOAsignacionImpTest {
 	@Test
 	public void create() throws Exception {
 		DAOAsignacionImp dao = new DAOAsignacionImp();
-		assert  dao.create(tasignacionTest1);
-		assert dao.create(tasignacionTest2);
+		assert  (dao.create(tasignacionTest1) != -1 );
+		assert (dao.create(tasignacionTest2) != -1);
 	}
 
 	@Test
@@ -64,8 +64,8 @@ public class DAOAsignacionImpTest {
 		ArrayList<Tasignacion> out_list = new ArrayList<Tasignacion>();
 		ArrayList<Tasignacion> testList = new ArrayList<Tasignacion>();
 		DAOAsignacionImp dao = new DAOAsignacionImp();
-		assert dao.create(tasignacionTest1);
-		assert dao.create(tasignacionTest2);
+		assert (dao.create(tasignacionTest1) != -1);
+		assert (dao.create(tasignacionTest2) != -1);
 		out_list = (ArrayList<Tasignacion>) dao.readAll();
 		testList.add(tasignacionTest1);
 		testList.add(tasignacionTest2);
@@ -77,7 +77,7 @@ public class DAOAsignacionImpTest {
 	public void readByFairId() throws Exception {
 		DAOAsignacionImp dao = new DAOAsignacionImp();
 
-		assert  dao.create(tasignacionTest1);
+		assert  (dao.create(tasignacionTest1) != -1);
 		ArrayList<Tasignacion>  read = (ArrayList<Tasignacion>) dao.readByFairId(tasignacionTest1.getFair_id());
 
 		tasignacionEquals(tasignacionTest1, read.get(0));
@@ -87,7 +87,7 @@ public class DAOAsignacionImpTest {
 	public void readByPavilionId() throws Exception {
 		DAOAsignacionImp dao = new DAOAsignacionImp();
 
-		assert  dao.create(tasignacionTest1);
+		assert  (dao.create(tasignacionTest1) != -1);
 		ArrayList<Tasignacion>  read = (ArrayList<Tasignacion>) dao.readByPavilionId(tasignacionTest1.getPavilion_id());
 
 		tasignacionEquals(tasignacionTest1, read.get(0));
@@ -97,7 +97,7 @@ public class DAOAsignacionImpTest {
 	public void update() throws Exception {
 		DAOAsignacionImp dao = new DAOAsignacionImp();
 
-		assert  dao.create(tasignacionTest1);
+		assert  (dao.create(tasignacionTest1) != -1);
 		tasignacionTest1.setActive(false);
 		assert  dao.update(tasignacionTest1);
 
@@ -108,14 +108,15 @@ public class DAOAsignacionImpTest {
 	@Test
 	public void delete() throws Exception {
 		DAOAsignacionImp dao = new DAOAsignacionImp();
-		assert  dao.create(tasignacionTest1);
-		assert dao.delete(tasignacionTest1.getFair_id(), tasignacionTest1.getPavilion_id(), tasignacionTest1.getStand_id());
+		assert  (dao.create(tasignacionTest1) != -1);
+		assert dao.delete(tasignacionTest1.getId());
 	}
 
 	private void tasignacionEquals(Tasignacion first, Tasignacion second){
+		assertEquals(first.getId(), first.getId());
 		assertEquals(first.getFair_id(), second.getFair_id());
 		assertEquals(first.getPavilion_id(), second.getPavilion_id());
-		assertEquals(first.getStand_id(), second.getStand_id());
+		assertEquals(first.getTotal_m2(), second.getUsed_m2());
 		assertEquals(first.getActive(), second.getActive());
 	}
 }

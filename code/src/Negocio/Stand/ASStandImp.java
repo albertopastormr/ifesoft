@@ -2,7 +2,13 @@ package Negocio.Stand;
 
 import Exceptions.ASException;
 import Exceptions.DAOException;
+import Integracion.Asignacion.DAOAsignacion;
+import Integracion.Participacion.DAOParticipacion;
 import Integracion.Stand.DAOStand;
+import Negocio.Asignacion.IFDAOAsignacion;
+import Negocio.Asignacion.Tasignacion;
+import Negocio.Participacion.IFDAOParticipacion;
+import Negocio.Participacion.Tparticipacion;
 import Negocio.Stand.ASStand;
 import Negocio.Stand.IFDAOStand;
 import Negocio.Stand.Tstand;
@@ -15,8 +21,19 @@ public class ASStandImp implements ASStand {
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         if (stand != null) {
             try {
-                if (stand.getTotal_m2() >= 0 && stand.getCost() >= 0 && stand.getNum_at_fair() >= 0)
-                    id = daoStand.create(stand);
+                if (stand.getTotal_m2() >= 0 && stand.getAssignation_id() != -1 && stand.getParticipation_id() != -1 && stand.getCost() >= 0 && stand.getNum_at_fair() >= 0) {
+                    // Lectura Asignacion referenciada
+                    DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
+                    Tasignacion tasignacionRead = daoAsignacion.readById(stand.getAssignation_id());
+                    // Lectura Participacion referenciada
+                    DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
+                    Tparticipacion tparticipacionRead = daoParticipacion.readById(stand.getParticipation_id());
+
+                    if (tasignacionRead != null && tparticipacionRead != null)
+                        id = daoStand.create(stand);
+                    else
+                        throw new ASException("ERROR: Asignacion y Participacion referenciadas no existen en la base de datos\n");
+                }
                 else
                     throw new ASException("ERROR: Los datos del stand no son correctos.\n");
             } catch (Exception ex) {
@@ -53,8 +70,18 @@ public class ASStandImp implements ASStand {
             try {
                 Tstand read = daoStand.readById(stand.getId());
                 if (read != null) {
-                    if (stand.getTotal_m2() >= 0 && stand.getCost() >= 0 && stand.getNum_at_fair() >= 0) {
-                        id = daoStand.update(stand);
+                    if (stand.getTotal_m2() >= 0 && stand.getAssignation_id() != -1 && stand.getParticipation_id() != -1 && stand.getCost() >= 0 && stand.getNum_at_fair() >= 0) {
+                        // Lectura Asignacion referenciada
+                        DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
+                        Tasignacion tasignacionRead = daoAsignacion.readById(stand.getAssignation_id());
+                        // Lectura Participacion referenciada
+                        DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
+                        Tparticipacion tparticipacionRead = daoParticipacion.readById(stand.getParticipation_id());
+
+                        if(tasignacionRead != null && tparticipacionRead != null)
+                            id = daoStand.update(stand);
+                        else
+                            throw new ASException("ERROR: Asignacion y Participacion referenciadas no existen en la base de datos\n");
                     }
                     else
                         throw new ASException("ERROR: No se han introducido los datos del stand.\n");
@@ -96,15 +123,15 @@ public class ASStandImp implements ASStand {
     }
 
 
-    public Collection<Tstand> showByAssignation(Integer fair_id, Integer pavilion_id) throws ASException, DAOException {
+    public Collection<Tstand> showByAssignation(Integer id) throws ASException, DAOException {
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        if (fair_id != -1 && pavilion_id != -1) {
+        if (id != -1) {
             try {
-                Collection<Tstand> read = daoStand.readByAssignation(fair_id, pavilion_id);
+                Collection<Tstand> read = daoStand.readByAssignation(id);
                 if (read != null)
                     return read;
                 else
-                    throw new ASException("ERROR: No existe un stand en la feria " + fair_id + " y el pabellon " + pavilion_id + ".\n");
+                    throw new ASException("ERROR: No existe una asignacion" + id + ".\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }
@@ -115,15 +142,15 @@ public class ASStandImp implements ASStand {
 
 
 
-    public Collection<Tstand> showByParticipation(Integer fair_id, Integer client_id) throws ASException, DAOException {
+    public Collection<Tstand> showByParticipation(Integer id) throws ASException, DAOException {
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        if (fair_id != -1 && client_id != -1) {
+        if (id != -1) {
             try {
-                Collection<Tstand> read = daoStand.readByAssignation(fair_id, client_id);
+                Collection<Tstand> read = daoStand.readByAssignation(id);
                 if (read != null)
                     return read;
                 else
-                    throw new ASException("ERROR: No existe un stand en la feria " + fair_id + " con el participante " + client_id + ".\n");
+                    throw new ASException("ERROR: No existe una participacion " + id+".\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }

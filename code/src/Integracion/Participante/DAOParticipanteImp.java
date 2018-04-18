@@ -146,7 +146,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 						ps.close();
 
 						if (rs_concrete_table_client.next())
-							readParticipanteList.add( new TparticipanteNacional(rs_concrete_table_client.getInt("id"), rs_concrete_table_client.getString("name"), rs_concrete_table_client.getLong("phone"),rs_concrete_table_client.getBoolean("active"), rs_concrete_table_client.getString("country")));
+							readParticipanteList.add( new TparticipanteInternacional(rs_concrete_table_client.getInt("id"), rs_concrete_table_client.getString("name"), rs_concrete_table_client.getLong("phone"),rs_concrete_table_client.getBoolean("active"), rs_concrete_table_client.getString("country")));
 						else
 							throw new DAOException("ERROR: tablas de la bases de datos incoherentes");
 					}
@@ -214,7 +214,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 						ps.close();
 
 						if (rs_concrete_table_client.next())
-							readParticipante = new TparticipanteNacional(rs_concrete_table_client.getInt("id"), rs_concrete_table_client.getString("name"), rs_concrete_table_client.getLong("phone"),rs_concrete_table_client.getBoolean("active"), rs_concrete_table_client.getString("country"));
+							readParticipante = new TparticipanteInternacional(rs_concrete_table_client.getInt("id"), rs_concrete_table_client.getString("name"), rs_concrete_table_client.getLong("phone"),rs_concrete_table_client.getBoolean("active"), rs_concrete_table_client.getString("country"));
 						else
 							throw new DAOException("ERROR: tablas de la bases de datos incoherentes");
 					}
@@ -284,7 +284,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 						ps.close();
 
 						if (rs_concrete_table_client.next())
-							readParticipante = new TparticipanteNacional(rs_concrete_table_client.getInt("id"), rs_concrete_table_client.getString("name"), rs_concrete_table_client.getLong("phone"),rs_concrete_table_client.getBoolean("active"), rs_concrete_table_client.getString("country"));
+							readParticipante = new TparticipanteInternacional(rs_concrete_table_client.getInt("id"), rs_concrete_table_client.getString("name"), rs_concrete_table_client.getLong("phone"),rs_concrete_table_client.getBoolean("active"), rs_concrete_table_client.getString("country"));
 						else
 							throw new DAOException("ERROR: tablas de la bases de datos incoherentes");
 					}

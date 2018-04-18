@@ -53,11 +53,19 @@ public class DAOParticipanteImpTest {
 	public void readById() throws Exception {
 		DAOParticipanteImp dao = new DAOParticipanteImp();
 
+		// Test participanteNacional
 		int out_id = dao.create(tparticipanteTest1);
 		Tparticipante read = dao.readById(1);
 
 		assertEquals(tparticipanteTest1.getId(), out_id);
 		tparticipanteNacionalEquals(tparticipanteTest1, (TparticipanteNacional) read);
+
+		// Test participanteInternacional
+		out_id = dao.create(tparticipanteTest2);
+		read = dao.readById(1);
+
+		assertEquals(tparticipanteTest2.getId(), out_id);
+		tparticipanteInternacionalEquals(tparticipanteTest2, (TparticipanteInternacional) read);
 	}
 
 	@Test
@@ -72,6 +80,8 @@ public class DAOParticipanteImpTest {
 
 		Tparticipante read = dao.readById(tparticipanteTest1.getId());
 		tparticipanteNacionalEquals(tparticipanteTest1, (TparticipanteNacional) read);
+
+
 	}
 
 	@Test
@@ -82,10 +92,11 @@ public class DAOParticipanteImpTest {
 	}
 
 	private void tparticipanteEquals(Tparticipante first, Tparticipante second){
-		assertEquals(first.getId(), second.getId());
-		assertEquals(first.getName(),second.getName());
-		assertEquals(first.getPhone(),second.getPhone());
-		assertEquals(first.getActive(), second.getActive());
+		if(first instanceof  TparticipanteNacional)
+			tparticipanteNacionalEquals((TparticipanteNacional) first, (TparticipanteNacional) second);
+		else
+			tparticipanteInternacionalEquals((TparticipanteInternacional) first, (TparticipanteInternacional) second);
+
 	}
 
 	private void tparticipanteNacionalEquals(TparticipanteNacional first, TparticipanteNacional second){

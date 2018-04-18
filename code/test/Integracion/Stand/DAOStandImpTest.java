@@ -22,8 +22,8 @@ import static org.junit.Assert.*;
 
 public class DAOStandImpTest {
 
-	private static Tstand tstandTest1 = new Tstand(1, 0, 0, 0,true);
-	private static Tstand tstandTest2 = new Tstand(2, 2, 2, 2,true);
+	private static Tstand tstandTest1 = new Tstand(1,1,1, 0, 0, 0,true);
+	private static Tstand tstandTest2 = new Tstand(2,2,2, 2, 2, 2,true);
 
 	@Before
 	public  void setUp() throws Exception {
@@ -79,7 +79,7 @@ public class DAOStandImpTest {
 		Tasignacion tasignacionTest2 = new Tasignacion(1,1,2,1,true);
 		daoA.create(tasignacionTest1);
 		daoA.create(tasignacionTest2);
-		out_StandList = (ArrayList<Tstand>) daoS.readByAssignation(1,1);
+		out_StandList = (ArrayList<Tstand>) daoS.readByAssignation(1);
 		tstandEquals(testList.get(0),out_StandList.get(0));
 		tstandEquals(testList.get(1),out_StandList.get(1));
 		daoS.deleteAll();
@@ -110,7 +110,7 @@ public class DAOStandImpTest {
 		Tparticipacion tparticipacionTest2 = new Tparticipacion(1,2,1,true);
 		daoPt.create(tparticipacionTest1);
 		daoPt.create(tparticipacionTest2);
-		out_StandList = (ArrayList<Tstand>) daoS.readByAssignation(1,1);
+		out_StandList = (ArrayList<Tstand>) daoS.readByAssignation(1);
 		tstandEquals(testList.get(0),out_StandList.get(0));
 		tstandEquals(testList.get(1),out_StandList.get(1));
 		daoS.deleteAll();

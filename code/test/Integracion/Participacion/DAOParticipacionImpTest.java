@@ -28,8 +28,8 @@ public class DAOParticipacionImpTest {
 	private static TparticipanteNacional tparticipanteTest1 = new TparticipanteNacional("IBM", 778778778, true, "ALBACETE");
 	private static TparticipanteInternacional tparticipanteTest2 = new TparticipanteInternacional("GAMBAS VEGANAS", 887887887, true, "CATALONYA");
 	// Tstand para probar
-	private static Tstand tstandTest1 = new Tstand(1, 0, 0, 0,true);
-	private static Tstand tstandTest2 = new Tstand(2, 2, 2, 2,true);
+	private static Tstand tstandTest1 = new Tstand(1,1,1, 0, 0, 0,true);
+	private static Tstand tstandTest2 = new Tstand(2, 2,2,2, 2, 2,true);
 
 	@Before
 	public  void setUp() throws Exception {
@@ -53,8 +53,8 @@ public class DAOParticipacionImpTest {
 	@Test
 	public void create() throws Exception {
 		DAOParticipacionImp dao = new DAOParticipacionImp();
-		assert  dao.create(tparticipacionTest1);
-		assert dao.create(tparticipacionTest2);
+		assert  (dao.create(tparticipacionTest1) != -1);
+		assert (dao.create(tparticipacionTest2) != -1);
 	}
 
 	@Test
@@ -62,8 +62,8 @@ public class DAOParticipacionImpTest {
 		ArrayList<Tparticipacion> out_list = new ArrayList<Tparticipacion>();
 		ArrayList<Tparticipacion> testList = new ArrayList<Tparticipacion>();
 		DAOParticipacionImp dao = new DAOParticipacionImp();
-		assert dao.create(tparticipacionTest1);
-		assert dao.create(tparticipacionTest2);
+		assert (dao.create(tparticipacionTest1) != -1);
+		assert (dao.create(tparticipacionTest2) != -1);
 		out_list = (ArrayList<Tparticipacion>) dao.readAll();
 		testList.add(tparticipacionTest1);
 		testList.add(tparticipacionTest2);
@@ -75,7 +75,7 @@ public class DAOParticipacionImpTest {
 	public void readByFairId() throws Exception {
 		DAOParticipacionImp dao = new DAOParticipacionImp();
 
-		assert  dao.create(tparticipacionTest1);
+		assert  (dao.create(tparticipacionTest1) != -1);
 		ArrayList<Tparticipacion>  read = (ArrayList<Tparticipacion>) dao.readByFairId(tparticipacionTest1.getFair_id());
 
 		tparticipacionEquals(tparticipacionTest1, read.get(0));
@@ -85,7 +85,7 @@ public class DAOParticipacionImpTest {
 	public void readByClientId() throws Exception {
 		DAOParticipacionImp dao = new DAOParticipacionImp();
 
-		assert  dao.create(tparticipacionTest1);
+		assert  (dao.create(tparticipacionTest1) != -1);
 		ArrayList<Tparticipacion>  read = (ArrayList<Tparticipacion>) dao.readByClientId(tparticipacionTest1.getClient_id());
 
 		tparticipacionEquals(tparticipacionTest1, read.get(0));
@@ -95,7 +95,7 @@ public class DAOParticipacionImpTest {
 	public void update() throws Exception {
 		DAOParticipacionImp dao = new DAOParticipacionImp();
 
-		assert  dao.create(tparticipacionTest1);
+		assert  (dao.create(tparticipacionTest1) != -1);
 		tparticipacionTest1.setActive(false);
 		assert  dao.update(tparticipacionTest1);
 
@@ -107,14 +107,14 @@ public class DAOParticipacionImpTest {
 	@Test
 	public void delete() throws Exception {
 		DAOParticipacionImp dao = new DAOParticipacionImp();
-		assert  dao.create(tparticipacionTest1);
-		assert dao.delete(tparticipacionTest1.getFair_id(), tparticipacionTest1.getClient_id(), tparticipacionTest1.getStand_id());
+		assert  (dao.create(tparticipacionTest1) != -1);
+		assert dao.delete(tparticipacionTest1.getId());
 	}
 
 	private void tparticipacionEquals(Tparticipacion first, Tparticipacion second){
 		assertEquals(first.getFair_id(), second.getFair_id());
 		assertEquals(first.getClient_id(), second.getClient_id());
-		assertEquals(first.getStand_id(), second.getStand_id());
+
 		assertEquals(first.getActive(), second.getActive());
 	}
 }
