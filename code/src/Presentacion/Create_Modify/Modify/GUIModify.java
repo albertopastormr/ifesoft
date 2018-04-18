@@ -9,6 +9,7 @@ import Negocio.Stand.Tstand;
 import Controller.Controller;
 import Presentacion.Events.Event;
 import Presentacion.UI;
+import Presentacion.UIimp;
 import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
@@ -17,7 +18,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class GUIModify extends JFrame implements UI {
+public class GUIModify extends UIimp {
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 

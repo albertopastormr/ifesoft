@@ -8,6 +8,7 @@ import Negocio.Participante.Tparticipante;
 import Negocio.Stand.Tstand;
 import Controller.Controller;
 import Presentacion.UI;
+import Presentacion.UIimp;
 import Presentacion.Utils.Utilities;
 import Presentacion.Events.Event;
 import Presentacion.Utils.PanelProblemUser;
@@ -19,7 +20,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class GUIShow extends JFrame implements UI {
+public class GUIShow extends UIimp {
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
@@ -59,7 +60,6 @@ public class GUIShow extends JFrame implements UI {
     private boolean isHalfEntityList;
 
     public GUIShow() {
-        super("Show");
 
         this.isHalfEntity = false;
         this.isHalfEntityList = false;

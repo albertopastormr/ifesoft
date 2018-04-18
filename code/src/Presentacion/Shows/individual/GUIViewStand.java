@@ -2,12 +2,13 @@ package Presentacion.Shows.individual;
 
 import Negocio.Stand.Tstand;
 import Presentacion.UI;
+import Presentacion.UIimp;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIViewStand extends JFrame implements UI {
+public class GUIViewStand extends UIimp {
 
     private String metres;
     private String number;

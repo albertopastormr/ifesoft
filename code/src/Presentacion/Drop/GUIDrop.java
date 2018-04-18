@@ -8,6 +8,7 @@ import Negocio.Stand.Tstand;
 import Controller.Controller;
 import Presentacion.Events.Event;
 import Presentacion.UI;
+import Presentacion.UIimp;
 import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
@@ -16,7 +17,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class GUIDrop extends JFrame implements UI {
+public class GUIDrop extends UIimp {
 
     private JDialog sureFrame;
     private boolean chosen = false;
@@ -46,7 +47,6 @@ public class GUIDrop extends JFrame implements UI {
 
 
     public GUIDrop() {
-        super("Drop");
 
         initComponents();
         this.setBounds(100,100, 800,800);

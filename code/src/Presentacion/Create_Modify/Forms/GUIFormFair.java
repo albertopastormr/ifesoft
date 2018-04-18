@@ -3,6 +3,7 @@ package Presentacion.Create_Modify.Forms;
 import Negocio.Feria.Tferia;
 import Controller.Controller;
 import Presentacion.UI;
+import Presentacion.UIimp;
 import Presentacion.Utils.Utilities;
 import Presentacion.Events.Event;
 import Presentacion.Utils.PanelProblemUser;
@@ -11,7 +12,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIFormFair extends JFrame implements UI {
+public class GUIFormFair extends UIimp {
 
     private String name;
     private String description;
@@ -42,7 +43,6 @@ public class GUIFormFair extends JFrame implements UI {
 
 
     public GUIFormFair() {
-        super("Fair");
         mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -51,7 +51,6 @@ public class GUIFormFair extends JFrame implements UI {
     }
 
     public GUIFormFair(Tferia fair) {
-        super("Fair");
         mod = true;
 
         name = fair.getName();
