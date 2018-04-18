@@ -1,8 +1,8 @@
--- MySQL dump 10.16  Distrib 10.2.14-MariaDB, for Win64 (AMD64)
+-- MySQL dump 10.16  Distrib 10.1.32-MariaDB, for Win64 (AMD64)
 --
 -- Host: localhost    Database: ifesoft
 -- ------------------------------------------------------
--- Server version	10.2.14-MariaDB
+-- Server version	10.1.32-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,35 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `asignacion`
+-- Current Database: `ifesoft`
 --
 
-DROP TABLE IF EXISTS `asignacion`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `asignacion` (
-  `fair_id` int(11) NOT NULL,
-  `pavilion_id` int(11) NOT NULL,
-  `stand_id` int(11) NOT NULL,
-  `used_m2` int(11) NOT NULL,
-  `active` tinyint(1) NOT NULL,
-  PRIMARY KEY (`fair_id`,`pavilion_id`,`stand_id`),
-  KEY `pavilion_id` (`pavilion_id`),
-  KEY `stand_id` (`stand_id`),
-  CONSTRAINT `asignacion_ibfk_1` FOREIGN KEY (`fair_id`) REFERENCES `feria` (`id`),
-  CONSTRAINT `asignacion_ibfk_2` FOREIGN KEY (`pavilion_id`) REFERENCES `pabellon` (`id`),
-  CONSTRAINT `asignacion_ibfk_3` FOREIGN KEY (`stand_id`) REFERENCES `stand` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `ifesoft` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
---
--- Dumping data for table `asignacion`
---
+USE `ifesoft`;
 
-LOCK TABLES `asignacion` WRITE;
-/*!40000 ALTER TABLE `asignacion` DISABLE KEYS */;
-/*!40000 ALTER TABLE `asignacion` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `feria`
@@ -73,6 +51,7 @@ LOCK TABLES `feria` WRITE;
 /*!40000 ALTER TABLE `feria` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
 --
 -- Table structure for table `pabellon`
 --
@@ -84,7 +63,6 @@ CREATE TABLE `pabellon` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `capacity` int(11) NOT NULL,
   `total_m2` int(11) NOT NULL,
-  `util_m2` int(11) NOT NULL,
   `active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -99,35 +77,6 @@ LOCK TABLES `pabellon` WRITE;
 /*!40000 ALTER TABLE `pabellon` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `participacion`
---
-
-DROP TABLE IF EXISTS `participacion`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `participacion` (
-  `fair_id` int(11) NOT NULL,
-  `client_id` int(11) NOT NULL,
-  `stand_id` int(11) NOT NULL,
-  `active` tinyint(1) NOT NULL,
-  PRIMARY KEY (`fair_id`,`client_id`,`stand_id`),
-  KEY `client_id` (`client_id`),
-  KEY `stand_id` (`stand_id`),
-  CONSTRAINT `participacion_ibfk_1` FOREIGN KEY (`fair_id`) REFERENCES `feria` (`id`),
-  CONSTRAINT `participacion_ibfk_2` FOREIGN KEY (`client_id`) REFERENCES `participante` (`id`),
-  CONSTRAINT `participacion_ibfk_3` FOREIGN KEY (`stand_id`) REFERENCES `stand` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `participacion`
---
-
-LOCK TABLES `participacion` WRITE;
-/*!40000 ALTER TABLE `participacion` DISABLE KEYS */;
-/*!40000 ALTER TABLE `participacion` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `participante`
@@ -139,7 +88,8 @@ DROP TABLE IF EXISTS `participante`;
 CREATE TABLE `participante` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
-  `phone` int(11) NOT NULL,
+  `phone` varchar(9) NOT NULL,
+  `type` varchar(20) NOT NULL,
   `active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -154,53 +104,117 @@ LOCK TABLES `participante` WRITE;
 /*!40000 ALTER TABLE `participante` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+
+
 --
--- Table structure for table `participante_internacional`
+-- Table structure for table `part_internacional`
 --
 
-DROP TABLE IF EXISTS `participante_internacional`;
+DROP TABLE IF EXISTS `part_internacional`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `participante_internacional` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `part_internacional` (
+  `id` int(11) NOT NULL,
   `country` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `participante_internacional_ibfk_1` FOREIGN KEY (`id`) REFERENCES `participante` (`id`)
+  CONSTRAINT `part_internacional_ibfk_1` FOREIGN KEY (`id`) REFERENCES `participante` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `participante_internacional`
+-- Dumping data for table `part_internacional`
 --
 
-LOCK TABLES `participante_internacional` WRITE;
-/*!40000 ALTER TABLE `participante_internacional` DISABLE KEYS */;
-/*!40000 ALTER TABLE `participante_internacional` ENABLE KEYS */;
+LOCK TABLES `part_internacional` WRITE;
+/*!40000 ALTER TABLE `part_internacional` DISABLE KEYS */;
+/*!40000 ALTER TABLE `part_internacional` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `participante_nacional`
+-- Table structure for table `part_nacional`
 --
 
-DROP TABLE IF EXISTS `participante_nacional`;
+DROP TABLE IF EXISTS `part_nacional`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `participante_nacional` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `part_nacional` (
+  `id` int(11) NOT NULL,
   `region` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `participante_nacional_ibfk_1` FOREIGN KEY (`id`) REFERENCES `participante` (`id`)
+  CONSTRAINT `part_nacional_ibfk_1` FOREIGN KEY (`id`) REFERENCES `participante` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `participante_nacional`
+-- Dumping data for table `part_nacional`
 --
 
-LOCK TABLES `participante_nacional` WRITE;
-/*!40000 ALTER TABLE `participante_nacional` DISABLE KEYS */;
-/*!40000 ALTER TABLE `participante_nacional` ENABLE KEYS */;
+LOCK TABLES `part_nacional` WRITE;
+/*!40000 ALTER TABLE `part_nacional` DISABLE KEYS */;
+/*!40000 ALTER TABLE `part_nacional` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+
+--
+-- Table structure for table `asignacion`
+--
+
+DROP TABLE IF EXISTS `asignacion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `asignacion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fair_id` int(11) NOT null,
+  `pavilion_id` int(11) NOT null,
+  `total_m2` int(11) NOT NULL,
+  `used_m2` int(11) NOT NULL,
+  `active` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `asignacion_ibfk_1` FOREIGN KEY (`fair_id`) REFERENCES `feria` (`id`),
+  CONSTRAINT `asignacion_ibfk_2` FOREIGN KEY (`pavilion_id`) REFERENCES `pabellon` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `asignacion`
+--
+
+LOCK TABLES `asignacion` WRITE;
+/*!40000 ALTER TABLE `asignacion` DISABLE KEYS */;
+/*!40000 ALTER TABLE `asignacion` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+
+--
+-- Table structure for table `participacion`
+--
+
+DROP TABLE IF EXISTS `participacion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `participacion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fair_id` int(11) NOT null,
+  `client_id` int(11) NOT null,
+  `active` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `participacion_ibfk_1` FOREIGN KEY (`fair_id`) REFERENCES `feria` (`id`),
+  CONSTRAINT `participacion_ibfk_2` FOREIGN KEY (`client_id`) REFERENCES `participante` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `participacion`
+--
+
+LOCK TABLES `participacion` WRITE;
+/*!40000 ALTER TABLE `participacion` DISABLE KEYS */;
+/*!40000 ALTER TABLE `participacion` ENABLE KEYS */;
+UNLOCK TABLES;
+
 
 --
 -- Table structure for table `stand`
@@ -210,12 +224,15 @@ DROP TABLE IF EXISTS `stand`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `stand` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id`int(11) NOT NULL AUTO_INCREMENT primary key,
+  `assignation_id` int(11) NOT null,
+  `participation_id` int(11) NOT null,
   `num_at_fair` int(11) NOT NULL,
   `cost` double NOT NULL,
-  `total_m2` int(11) NOT NULL,
+  `used_m2` int(11) NOT NULL,
   `active` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`)
+  CONSTRAINT `stand_ibfk_1` FOREIGN KEY (`assignation_id`) REFERENCES `asignacion` (`id`),
+  CONSTRAINT `stand_ibfk_2` FOREIGN KEY (`participation_id`) REFERENCES `participacion` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -227,10 +244,6 @@ LOCK TABLES `stand` WRITE;
 /*!40000 ALTER TABLE `stand` DISABLE KEYS */;
 /*!40000 ALTER TABLE `stand` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping routines for database 'ifesoft'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -241,4 +254,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-03 21:01:05
+-- Dump completed on 2018-04-02 15:49:30
