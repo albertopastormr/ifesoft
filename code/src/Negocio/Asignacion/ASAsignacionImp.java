@@ -15,7 +15,6 @@ import Negocio.Asignacion.Tasignacion;
 import Negocio.Pabellon.Tpabellon;
 import Negocio.Pabellon.IFDAOPabellon;
 import Negocio.Feria.IFDAOFeria;
-import Negocio.Stand.IFDAOStand;
 
 import java.util.Collection;
 
@@ -43,7 +42,7 @@ public class ASAsignacionImp implements ASAsignacion {
                         if (asignacion.getUsed_m2() >= 0 && asignacion.getTotal_m2() >= asignacion.getUsed_m2() && asignacion.getTotal_m2() < transferPabellon.getTotal_m2())
                             create = daoAsignacion.create(asignacion);
                         else
-                            throw new ASException("ERROR: Los datos de la asignacion no son correctos.\n";
+                            throw new ASException("ERROR: Los datos de la asignacion no son correctos.\n");
                     }else
                         throw new ASException("ERROR: La feria (" + transferFeria.getName() + "), No existe");
                 } else
