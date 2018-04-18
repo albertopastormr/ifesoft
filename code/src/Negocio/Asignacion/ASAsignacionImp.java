@@ -37,7 +37,7 @@ public class ASAsignacionImp implements ASAsignacion {
                 //Los arrays de transfer estan vacios, luego la asignacion no existe y la creamos
                 if (readbyFairId.isEmpty() && readbyPavilionId.isEmpty()) {
                     //Si la feria existe y esta activa, el pabellon existe y esta activo podemos continuar
-                    if(daoFeria.readByName(fairName) != null  && transferFeria.getActive() == true && transferPabellon != null && transferPabellon.getActive() == true){
+                    if(daoFeria.readByName(fairName) != null  && transferFeria.getActive() == true && daoPabellon.readById(transferPabellon.getId()) != null && transferPabellon.getActive() == true){
                         //Si los metros cuadrados usados son > 0, los metros cuadrados contratados > m2 usados Y los m2 contratados son < m2 totales
                         //del pabellon  entonces podemos crear la asignación
                         if (asignacion.getUsed_m2() >= 0 && asignacion.getTotal_m2() >= asignacion.getUsed_m2() && asignacion.getTotal_m2() < transferPabellon.getTotal_m2())
