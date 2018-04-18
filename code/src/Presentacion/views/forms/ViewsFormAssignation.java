@@ -65,8 +65,8 @@ public class ViewsFormAssignation extends JFrame {
 
         Tasignacion tAssignation = new Tasignacion(idFair, idPavilion, idStand, mUsed, true);
 
-        if (!mod)  Controller.getInstance().execute(Event.INSERT_ASIGNACION, tAssignation);
-        else Controller.getInstance().execute(Event.MODIFY_ASIGNACION, tAssignation);
+        if (!mod)  Controller.getInstance().execute(Event.INSERT_ASSIGNATION, tAssignation);
+        else Controller.getInstance().execute(Event.MODIFY_ASSIGNATION, tAssignation);
     }
 
     private void cancelButtonStateChanged() throws Exception {
