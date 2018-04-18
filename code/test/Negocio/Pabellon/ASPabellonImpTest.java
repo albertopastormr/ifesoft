@@ -19,7 +19,7 @@ public class ASPabellonImpTest {
     public void createPabellonExistingId() throws Exception {
         ASPabellonImp asPabellon = new ASPabellonImp();
 
-        Tpabellon pabellon = new Tpabellon(100, 200, 200, false);
+        Tpabellon pabellon = new Tpabellon(100, 200, 200, true);
         int id1 = asPabellon.create(pabellon);
         Tpabellon pabellon2 = new Tpabellon(id1, 100, 50, 200, true);
         int id2 = asPabellon.create(pabellon2);
@@ -150,14 +150,6 @@ public class ASPabellonImpTest {
     }
 
     @Test(expected = ASException.class)//Se pasa el test si se lanza la excepcion
-    public void showPabellonNoTransfer() throws Exception {
-        ASPabellonImp asPabellon = new ASPabellonImp();
-
-        Tpabellon pabellon = null;
-        Tpabellon id1 = asPabellon.showById(pabellon.getId());
-    }
-
-    @Test(expected = ASException.class)//Se pasa el test si se lanza la excepcion
     public void showPabellonWhrongId() throws Exception {
         ASPabellonImp asPabellon = new ASPabellonImp();
 
@@ -166,11 +158,11 @@ public class ASPabellonImpTest {
     }
 
     @Test//Se pasa el test si se lanza la excepcion
-    public void showPabellonColection() throws Exception {
+    public void showPabellonCollection() throws Exception {
         ASPabellonImp asPabellon = new ASPabellonImp();
 
         Collection<Tpabellon> id1 = asPabellon.list();
-        assert (id1 == null);
+        assert (id1.isEmpty());
     }
 
     @Test

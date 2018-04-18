@@ -1,21 +1,15 @@
 
 DUDAS PARA LAB:
 - Revisar test
-- Al listar todos solo listamos por activos?
 - Al leer participantes, cruzamos por las especialidades? tabla participante general vacia?
-- Pabellon (create) Comprobar si id es diferente de -1? El id lo tiene que dar la bbdd, no?
 - Constructor del controller en la superclase o en ControllerImp ?
-- Antes de crear una asignacion/participacion, como tratamos que ya existan los modulos referenciados?
 
 
 CAMBIOS SRS:
-- Listar ferias: filtros en busqueda por fechas: los podemos cambiar?
-    mostramos solo modulos activos
 - Listar todas las ferias agregado
 - Listar todos los participantes agregado
-- Listar solo activos?
 - Listar stands por participacion: ahora se busca por ID de feria existente e ID participante existente
-- Todos los listar son por ID ahora y no por nombre
+- Todos los listar son por ID ahora y no por nombre`
 - Eliminado: mostrar feria actual en un pabellon mostrado y viceversa
 
 
@@ -25,11 +19,11 @@ PENDIENTE:
 . Problema: Create Asignacion: metros cuadrados
 . Problema: Create/modificacion Stand: metros cuadrados maximos que puede ocupar
 . Problema: lectura de participantes
+. Negocio: Asignacion/Participacion: preguntar si existen los modulos referenciados y si son validos los m2 contratados y asignados (generar DAOs)
+. Suprimir m2 utiles pabellon
+. Negocio: stand: comprobar si existe asignacion y participacion referenciada
+. Visualizar feria: Mostrar pabellones
 
 MODIFICACIONES PARA EL FINAL/DUDAS: (o por lo menos cuando este todo claro de como funciona)
-- Feria
-    . Listar ferias: solo nuevas o ferias pasadas (SRS)
-    . Visualizar feria: Mostrar pabellones
 - Pabellon
     . Operación para calcular el aforo maximo a partir de los m2 totales (Modificar y crear)
-    . Visualizar pabellon: Feria actual ocupandolo (SRS)

@@ -14,10 +14,10 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
         if (feria != null && feria.getName() != null && feria.getDescription() != null && feria.getIniDate() != null && feria.getEndDate() != null) {
             try {
-            	//CAMBIO LA OPERACION readByName por readBYID
                 Tferia read = daoFeria.readByName(feria.getName());
                 if (read == null) {
-                    if (feria.getEndDate().after(feria.getIniDate()))
+                    Date currentDate = new Date();
+                    if (feria.getIniDate().after(currentDate) && feria.getEndDate().after(feria.getIniDate()))
                         id = daoFeria.create(feria);
                     else
                         throw new ASException("ERROR: El intervalo de fechas no es correcto.\n");
@@ -102,9 +102,12 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
         Collection<Tferia> collection;
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
         if (feria == null || feria.getIniDate() == null || feria.getEndDate() == null) {
-            aux = new Date();
-            ini = new Date(aux.getYear(), 1, 1);
-            end = new Date(aux.getYear(), 12, 31);
+            ini = new Date();
+            ini.setMonth(1);
+            ini.setDate(1);
+            end = new Date();
+            end.setMonth(12);
+            end.setDate(31);
         } else {
             ini = feria.getIniDate();
             end = feria.getEndDate();
