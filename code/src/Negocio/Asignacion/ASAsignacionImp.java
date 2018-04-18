@@ -4,6 +4,7 @@ import Exceptions.ASException;
 import Exceptions.DAOException;
 import Integracion.Asignacion.DAOAsignacion;
 import Integracion.Pabellon.DAOPabellon;
+import Integracion.Feria.DAOFeria;
 import Integracion.Stand.DAOStand;
 import Negocio.Asignacion.ASAsignacion;
 import Negocio.Asignacion.IFDAOAsignacion;
@@ -13,6 +14,7 @@ import Negocio.Stand.Tstand;
 import Negocio.Asignacion.Tasignacion;
 import Negocio.Pabellon.Tpabellon;
 import Negocio.Pabellon.IFDAOPabellon;
+import Negocio.Feria.IFDAOFeria;
 import Negocio.Stand.IFDAOStand;
 
 import java.util.Collection;
@@ -23,6 +25,10 @@ public class ASAsignacionImp implements ASAsignacion {
         DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
         DAOPabellon daoPabellon = IFDAOPabellon.getInstance().generateDAOpabellon();
         Tpabellon transferPabellon = daoPabellon.readById(asignacion.getPavilion_id()); //Leemos el pabellon por ID para obtener atributos de el
+        DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
+        Tferia transferFeria = daoFeria.readById(asignacion.getFair_id());
+
+        String fairName = transferFeria.getName();
 
         if (asignacion != null && asignacion.getFair_id() != -1 && asignacion.getPavilion_id() != -1  && asignacion.getUsed_m2() != 0 && asignacion.getTotal_m2() > 0) {
             try {
@@ -30,12 +36,16 @@ public class ASAsignacionImp implements ASAsignacion {
                 Collection <Tasignacion> readbyPavilionId = daoAsignacion.readByPavilionId(asignacion.getPavilion_id());
                 //Los arrays de transfer estan vacios, luego la asignacion no existe y la creamos
                 if (readbyFairId.isEmpty() && readbyPavilionId.isEmpty()) {
-                    //Si los metros cuadrados usados son > 0, los metros cuadrados contratados > m2 usados Y los m2 contratados son < m2 totales
-                    //del pabellon  entonces podemos crear la asignación
-                    if (asignacion.getUsed_m2() >= 0 && asignacion.getTotal_m2() >= asignacion.getUsed_m2() && asignacion.getTotal_m2() < transferPabellon.getTotal_m2())
-                        create = daoAsignacion.create(asignacion);
-                    else
-                        throw new ASException("ERROR: Los datos de la asignacion no son correctos.\n");
+                    //Si la feria existe y esta activa podemos continuar
+                    if(daoFeria.readByName(fairName) != null  && transferFeria.getActive() == true){
+                        //Si los metros cuadrados usados son > 0, los metros cuadrados contratados > m2 usados Y los m2 contratados son < m2 totales
+                        //del pabellon  entonces podemos crear la asignación
+                        if (asignacion.getUsed_m2() >= 0 && asignacion.getTotal_m2() >= asignacion.getUsed_m2() && asignacion.getTotal_m2() < transferPabellon.getTotal_m2())
+                            create = daoAsignacion.create(asignacion);
+                        else
+                            throw new ASException("ERROR: Los datos de la asignacion no son correctos.\n";
+                    }else
+                        throw new ASException("ERROR: La feria (" + transferFeria.getName() + "), No existe");
                 } else
                     throw new ASException("ERROR: La asignacion Feria(" + asignacion.getFair_id() + ") Pabellon("+ asignacion.getPavilion_id()  +") ya existe.\n");
             } catch (Exception ex) {
