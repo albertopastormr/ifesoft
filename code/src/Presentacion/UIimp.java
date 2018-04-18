@@ -1,9 +1,10 @@
 package Presentacion;
 
-import Presentacion.views.events.Event;
-import Presentacion.views.events.EventGUI;
-import Presentacion.views.optionsPanel.ActionHelp;
-import Presentacion.views.optionsPanel.PanelProblemUser;
+import Controller.Controller;
+import Presentacion.Events.Event;
+import Presentacion.Events.EventGUI;
+import Presentacion.Utils.ActionHelp;
+import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -142,7 +143,7 @@ public class UIimp extends UI {
          centerConst.weightx = 0.5;
          centerConst.weighty = 0.5;
 
-         buttonCreateHome = createBigButton("Create");
+         buttonCreateHome = createBigButton("Create_Modify");
             buttonCreateHome.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {

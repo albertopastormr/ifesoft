@@ -29,7 +29,7 @@ public class ASFeriaImpTest {
 	public void createFeriaExistente() throws Exception, DAOException {
 			ASFeriaImp asFeria = new ASFeriaImp();
 			int id = -1;
-			System.out.println("Test Create Feria Existente"); //Probamos que la feria que intentamos crear existe ya en la bbdd
+			System.out.println("Test Create_Modify Feria Existente"); //Probamos que la feria que intentamos crear existe ya en la bbdd
 	
 			DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
 			
