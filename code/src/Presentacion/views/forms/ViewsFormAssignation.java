@@ -129,10 +129,10 @@ public class ViewsFormAssignation extends JFrame {
         formCon.anchor = GridBagConstraints.EAST;
 
 
-        JLabel metresLabel = createLabel("Name:");
-        JLabel idFairLabel = createLabel("Description:");
-        JLabel idPavilionLabel = createLabel("Start Date:");
-        JLabel idStandLabel = createLabel("End Date:");
+        JLabel metresLabel = createLabel("Metres:");
+        JLabel idFairLabel = createLabel("Fair ID:");
+        JLabel idPavilionLabel = createLabel("Pavilion ID:");
+        JLabel idStandLabel = createLabel("Stand ID:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
