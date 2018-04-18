@@ -12,8 +12,8 @@ public interface DAOAsignacion {
 	Collection<Tasignacion> readByFairName(String name) throws DAOException;
 	Collection<Tasignacion> readByFairId(Integer id) throws DAOException;
 	Collection<Tasignacion> readByPavilionId(Integer id) throws DAOException;
-	Tasignacion readById(Integer fair_id, Integer pavilion_id, Integer stand_id) throws DAOException;
+	Tasignacion readById(Integer id) throws DAOException;
 	boolean update(Tasignacion tasignacion) throws DAOException;
-	boolean delete(Integer fair_id, Integer client_id, Integer stand_id) throws DAOException;
+	boolean delete(Integer id) throws DAOException;
 	void deleteAll() throws DAOException;
 }

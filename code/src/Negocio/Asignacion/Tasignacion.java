@@ -2,13 +2,15 @@ package Negocio.Asignacion;
 
 public class Tasignacion {
 
-    private int fair_id; // Fair ==> Feria
+	private int id;
+	private int fair_id; // Fair ==> Feria
     private int pavilion_id; // Pavilion ==> Pabellon
     private int total_m2;
     private int used_m2;
     private Boolean active;
 
 	public Tasignacion() {
+		this.id = -1;
 		this.fair_id = -1;
 		this.pavilion_id = -1;
 		this.total_m2 = -1;
@@ -17,11 +19,29 @@ public class Tasignacion {
 	}
 
 	public Tasignacion(int fair_id, int pavilion_id, int total_m2, int used_m2, Boolean active) {
+		this.id = -1;
 		this.fair_id = fair_id;
 		this.pavilion_id = pavilion_id;
 		this.total_m2 = total_m2;
 		this.used_m2 = used_m2;
 		this.active = active;
+	}
+
+	public Tasignacion(int id, int fair_id, int pavilion_id, int total_m2, int used_m2, Boolean active) {
+		this.id = id;
+		this.fair_id = fair_id;
+		this.pavilion_id = pavilion_id;
+		this.total_m2 = total_m2;
+		this.used_m2 = used_m2;
+		this.active = active;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getFair_id() {

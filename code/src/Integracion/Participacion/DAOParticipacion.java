@@ -13,8 +13,8 @@ public interface DAOParticipacion {
 	Collection<Tparticipacion> readByClientName(String nombre) throws DAOException;
 	Collection<Tparticipacion> readByFairId(Integer id) throws DAOException;
 	Collection<Tparticipacion> readByClientId(Integer id) throws DAOException;
-	Tparticipacion readById(Integer fair_id, Integer client_id, Integer stand_id) throws DAOException;
+	Tparticipacion readById(Integer id) throws DAOException;
 	boolean update(Tparticipacion tParticipacion) throws DAOException;
-	boolean delete(Integer fair_id, Integer pavilion_id, Integer stand_id) throws DAOException;
+	boolean delete(Integer id) throws DAOException;
 	void deleteAll() throws DAOException;
 }
