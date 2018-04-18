@@ -34,10 +34,10 @@ public class ASFeriaImpTest {
 			DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
 			
 			//Insertamos una feria en la bbdd
-			Date dateIni = new Date((2018-1900), 2, 12);
-			Date dateEnd = new Date((2018-1900), 2, 18);
+			Date dateIni = new Date((4018-1900), 2, 12);
+			Date dateEnd = new Date((4018-1900), 2, 18);
 	
-			Tferia feria = new Tferia(id, "IBM", "IBM prueba existente", dateIni , dateEnd, false); //Generamos un transfer
+			Tferia feria = new Tferia(id, "IBM", "IBM prueba existente", dateIni , dateEnd, true); //Generamos un transfer
 			daoFeria.create(feria); //Creamos una feria con los datos intoducidos en el transfer anterior
 			
 			Tferia feria2 = new Tferia(id, "IBM", "IBM prueba existente", dateIni, dateEnd, false);
@@ -96,8 +96,8 @@ public class ASFeriaImpTest {
 
 		ASFeriaImp asFeria = new ASFeriaImp();
 
-		Date dateIni = new Date((2016-1900), 1, 12);
-		Date dateEnd = new Date((2016-1900), 1, 18);
+		Date dateIni = new Date((4016-1900), 1, 12);
+		Date dateEnd = new Date((4016-1900), 1, 18);
 		Tferia feria = new Tferia(id, "IBM", "prueba de fecha", dateIni, dateEnd, false); //Generamos un transfer
 		assertTrue(asFeria.create(feria) > 0);
 	}
@@ -131,8 +131,8 @@ public class ASFeriaImpTest {
 	@Test
 	public void dropFeria() throws Exception {
 		ASFeriaImp asFeria = new ASFeriaImp();		
-		Date dateIni = new Date((2016-1900), 1, 12);
-		Date dateEnd = new Date((2016-1900), 1, 18);
+		Date dateIni = new Date((4016-1900), 1, 12);
+		Date dateEnd = new Date((4016-1900), 1, 18);
 
 		Tferia feria = new Tferia(1, "IBM", "The feria IBM", dateIni , dateEnd, false);
 		asFeria.create(feria); //Creamos una feria IBM
