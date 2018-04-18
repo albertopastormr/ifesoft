@@ -103,16 +103,18 @@ public class ASAsignacionImp implements ASAsignacion {
         return collection;
     }
 
-    public Tasignacion show(Integer fair_id, Integer pavilion_id, Integer stand_id) throws ASException {
+    //Tomado como show by id asignation
+    //public Tasignacion show(Integer fair_id, Integer pavilion_id, Integer stand_id) throws ASException {
+    public Tasignacion show(Integer asignation_id) throws ASException {
         DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
         Tasignacion read = null;
-        if (fair_id != -1 && pavilion_id != -1 && stand_id != -1) {
+        if (asignation_id != -1) {
             try {
-                read = daoAsignacion.readById(fair_id, pavilion_id, stand_id);
+                read = daoAsignacion.readById(asignation_id);
                 if (read != null)
                     return read;
                 else
-                    throw new ASException("ERROR: La asignacion Feria(" + fair_id + ") Pabellon("+ pavilion_id + ") Stand("+ stand_id +") no existe.\n");
+                    throw new ASException("ERROR: La asignacion Feria(" + asignation_id + " no existe.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }
