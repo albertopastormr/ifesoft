@@ -67,6 +67,21 @@ public class DAOFeriaImpTest {
 
 		dao.delete(out_id);
 	}
+	
+	@Test
+	public void readByDates() throws Exception {
+		ArrayList<Tferia> out_list = new ArrayList<Tferia>();
+		ArrayList<Tferia> testList = new ArrayList<Tferia>();
+		DAOFeriaImp dao = new DAOFeriaImp();
+		testList.add(tferiaTest1);
+		testList.add(tferiaTest2);
+		dao.create(tferiaTest1);
+		dao.create(tferiaTest2);
+		out_list = (ArrayList<Tferia>) dao.readByDates(tferiaTest1.getIniDate(), tferiaTest2.getEndDate());
+		for(int i = 0; i < out_list.size();++i) 
+			tferiaEquals(testList.get(i),out_list.get(i));
+		dao.deleteAll();
+	}
 	@Test
 	public void readById() throws Exception {
 
