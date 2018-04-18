@@ -18,8 +18,8 @@ public class DAOParticipacionImp implements DAOParticipacion {
 	 * @return Integer ID Tparticipacion created
 	 * @throws DAOException error from database
 	 */
-	public boolean create(Tparticipacion tParticipacion) throws DAOException {
-		boolean create = false;
+	public Integer create(Tparticipacion tParticipacion) throws DAOException {
+		Integer id = -1;
 
 		Connection connec = null;
 		driverIdentify();
@@ -38,13 +38,14 @@ public class DAOParticipacionImp implements DAOParticipacion {
 			ps.setBoolean(3, tParticipacion.getActive());
 			ps.execute();
 
-			ps = connec.prepareStatement("SELECT * FROM participacion");
-
+			ps = connec.prepareStatement("SELECT LAST_INSERT_ID() FROM asignacion");
 			ResultSet rs = ps.executeQuery();
+			ps.close();
+
 			if (rs.next())
-				create = true;
+				id = rs.getInt("LAST_INSERT_ID()");
 			else
-				 return false;
+				return -1;
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'create' Participacion con ID Feria "+ tParticipacion.getFair_id() + " ID Participante " + tParticipacion.getClient_id()+" no logrado\n");
@@ -57,7 +58,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 			}
 		}
 
-		return create;
+		return id;
 	}
 
 	/***
@@ -349,7 +350,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 			if (rs.next()) {
 				if (!tParticipacion.getActive()) { // Caso desactivado tAsignacion
 					// Desactivado de los stands y participacion relacionados con la participacion a desactivar
-					ps = connec.prepareStatement("UPDATE stand s JOIN participacion a ON s.id = a.stand_id SET s.active = ? AND a.active = ? WHERE s.assignation_id = ?");
+					ps = connec.prepareStatement("UPDATE stand s JOIN participacion a ON s.id = a.stand_id SET s.active = ? AND a.active = ? WHERE s.participation_id = ?");
 					ps.setBoolean(1, tParticipacion.getActive());
 					ps.setBoolean(2, tParticipacion.getActive());
 					ps.setInt(3, tParticipacion.getId());
