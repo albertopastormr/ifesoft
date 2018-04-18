@@ -9,7 +9,7 @@ import Negocio.Participante.Tparticipante;
 import java.util.Collection;
 
 public interface ASAsignacion {
-    boolean create(Tasignacion asignacion) throws ASException, DAOException;
+    Integer create(Tasignacion asignacion) throws ASException, DAOException;
 
     boolean drop(Tasignacion asignacion) throws ASException, DAOException;
 

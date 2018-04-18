@@ -3,23 +3,36 @@ package Negocio.Asignacion;
 import Exceptions.ASException;
 import Exceptions.DAOException;
 import Integracion.Asignacion.DAOAsignacion;
+import Integracion.Pabellon.DAOPabellon;
+import Integracion.Stand.DAOStand;
 import Negocio.Asignacion.ASAsignacion;
 import Negocio.Asignacion.IFDAOAsignacion;
 import Negocio.Asignacion.Tasignacion;
 import Negocio.Feria.Tferia;
+import Negocio.Stand.Tstand;
 import Negocio.Asignacion.Tasignacion;
+import Negocio.Pabellon.Tpabellon;
+import Negocio.Pabellon.IFDAOPabellon;
+import Negocio.Stand.IFDAOStand;
 
 import java.util.Collection;
 
 public class ASAsignacionImp implements ASAsignacion {
-    public boolean create(Tasignacion asignacion) throws ASException {
-        boolean create = false;
+    public Integer create(Tasignacion asignacion) throws ASException, DAOException {
+        Integer create = -1;
         DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
-        if (asignacion != null && asignacion.getFair_id() != -1 && asignacion.getPavilion_id() != -1 && asignacion.getStand_id() != -1 && asignacion.getUsed_m2() != 0) {
+        DAOPabellon daoPabellon = IFDAOPabellon.getInstance().generateDAOpabellon();
+        Tpabellon transferPabellon = daoPabellon.readById(asignacion.getPavilion_id()); //Leemos el pabellon por ID para obtener atributos de el
+
+        if (asignacion != null && asignacion.getFair_id() != -1 && asignacion.getPavilion_id() != -1  && asignacion.getUsed_m2() != 0 && asignacion.getTotal_m2() > 0) {
             try {
-                Tasignacion read = daoAsignacion.readById(asignacion.getFair_id(), asignacion.getPavilion_id(), asignacion.getStand_id());
-                if (read == null) {
-                    if (asignacion.getUsed_m2() >= 0)
+                Collection<Tasignacion> readbyFairId = daoAsignacion.readByFairId(asignacion.getFair_id());
+                Collection <Tasignacion> readbyPavilionId = daoAsignacion.readByPavilionId(asignacion.getPavilion_id());
+                //Los arrays de transfer estan vacios, luego la asignacion no existe y la creamos
+                if (readbyFairId.isEmpty() && readbyPavilionId.isEmpty()) {
+                    //Si los metros cuadrados usados son > 0, los metros cuadrados contratados > m2 usados Y los m2 contratados son < m2 totales
+                    //del pabellon  entonces podemos crear la asignación
+                    if (asignacion.getUsed_m2() >= 0 && asignacion.getTotal_m2() >= asignacion.getUsed_m2() && asignacion.getTotal_m2() < transferPabellon.getTotal_m2())
                         create = daoAsignacion.create(asignacion);
                     else
                         throw new ASException("ERROR: Los datos de la asignacion no son correctos.\n");
