@@ -59,12 +59,12 @@ public class Event {
     public static final int MODIFY_CLIENT = 240;
     public static final int INSERT_PAVILION = 234234;
     public static final int MODIFY_PAVILION = 32523;
-    public static final int INSERT_ASIGNACION = 234234;
-    public static final int MODIFY_ASIGNACION = 32523;
+    public static final int INSERT_ASSIGNATION = 111112;
+    public static final int MODIFY_ASSIGNATION = 325235;
     public static final int INSERT_STAND = 23455234;
     public static final int MODIFY_STAND = 3432523;
-    public static final int INSERT_PARTICIPACION = 23455234;
-    public static final int MODIFY_PARTICIPACION = 3432523;
+    public static final int INSERT_PARTICIPACION = 44345;
+    public static final int MODIFY_PARTICIPACION = 56789;
 
     /** EVENTOS SHOWS DE LISTAR E INDIVIDUALES */
 

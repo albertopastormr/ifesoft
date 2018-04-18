@@ -206,6 +206,28 @@ public class ControllerImp extends Controller {
                 }
                 break;
 
+            case Event.INSERT_ASSIGNATION:
+                tAssignation = (Tasignacion) data;
+                try {
+                    boolean res = asAssignation.create(tAssignation);
+                    if (res) gui.update(EventGUI.UPDATE_CREATE_ASSIGNATION_OK, res);
+                    else gui.update(EventGUI.UPDATE_CREATE_ASSIGNATION_FAIL, null);
+
+                } catch (ASException e) {
+                    throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic());
+                }
+                break;
+            case Event.INSERT_PARTICIPACION:
+                tParticipation = (Tparticipacion) data;
+                try {
+                    boolean res = asParticipation.create(tParticipation);
+                    if (res) gui.update(EventGUI.UPDATE_CREATE_PARTICIPATION_OK, res);
+                    else gui.update(EventGUI.UPDATE_CREATE_PARTICIPATION_FAIL, null);
+
+                } catch (ASException e) {
+                    throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic());
+                }
+                break;
 
             /** ---------------------------- */
 
