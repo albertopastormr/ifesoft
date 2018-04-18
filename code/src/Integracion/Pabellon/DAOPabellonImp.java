@@ -32,11 +32,10 @@ public class DAOPabellonImp implements DAOPabellon {
 
 		try { // Tratamiento db
 			PreparedStatement ps;
-			ps = connec.prepareStatement("INSERT INTO pabellon(capacity, total_m2, util_m2, active) VALUES (?,?,?,?)");
+			ps = connec.prepareStatement("INSERT INTO pabellon(capacity, total_m2, active) VALUES (?,?,?)");
 			ps.setInt(1, tPabellon.getCapacity());
 			ps.setInt(2, tPabellon.getTotal_m2());
-			ps.setInt(3, tPabellon.getUtil_m2());
-			ps.setBoolean(4, tPabellon.getActive());
+			ps.setBoolean(3, tPabellon.getActive());
 			ps.execute();
 
 
@@ -85,7 +84,7 @@ public class DAOPabellonImp implements DAOPabellon {
 
 			ResultSet rs = ps.executeQuery();
 			while (rs.next())
-				readPabellonList.add( new Tpabellon(rs.getInt("id"), rs.getInt("capacity"), rs.getInt("total_m2"), rs.getInt("util_m2"), rs.getBoolean("active") ) );
+				readPabellonList.add( new Tpabellon(rs.getInt("id"), rs.getInt("capacity"), rs.getInt("total_m2"), rs.getBoolean("active") ) );
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'readAll' no logrado\n");
@@ -126,7 +125,7 @@ public class DAOPabellonImp implements DAOPabellon {
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()){
-				readPabellon = new Tpabellon(rs.getInt("id"), rs.getInt("capacity"), rs.getInt("total_m2"), rs.getInt("util_m2"), rs.getBoolean("active") ) ;
+				readPabellon = new Tpabellon(rs.getInt("id"), rs.getInt("capacity"), rs.getInt("total_m2"), rs.getBoolean("active") ) ;
 			}
 			else
 				return null;
@@ -163,12 +162,11 @@ public class DAOPabellonImp implements DAOPabellon {
 
 		try { // Tratamiento db
 			PreparedStatement ps;
-			ps = connec.prepareStatement("UPDATE pabellon SET capacity = ? AND total_m2 = ? AND util_m2 = ? AND active = ? WHERE id = ?");
+			ps = connec.prepareStatement("UPDATE pabellon SET capacity = ? AND total_m2 = ? AND active = ? WHERE id = ?");
 			ps.setInt(1, tPabellon.getCapacity());
 			ps.setInt(2, tPabellon.getTotal_m2());
-			ps.setInt(3, tPabellon.getUtil_m2());
-			ps.setBoolean(4, tPabellon.getActive());
-			ps.setInt(5, tPabellon.getId());
+			ps.setBoolean(3, tPabellon.getActive());
+			ps.setInt(4, tPabellon.getId());
 			ps.execute();
 			ps.close();
 
