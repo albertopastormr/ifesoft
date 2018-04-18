@@ -37,7 +37,7 @@ public class ASAsignacionImp implements ASAsignacion {
                     else
                         throw new ASException("ERROR: Los datos de la asignacion no son correctos.\n");
                 } else
-                    throw new ASException("ERROR: La asignacion Feria(" + asignacion.getFair_id() + ") Pabellon("+ asignacion.getPavilion_id() + ") Stand("+ asignacion.getStand_id() +") ya existe.\n");
+                    throw new ASException("ERROR: La asignacion Feria(" + asignacion.getFair_id() + ") Pabellon("+ asignacion.getPavilion_id()  +") ya existe.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }
