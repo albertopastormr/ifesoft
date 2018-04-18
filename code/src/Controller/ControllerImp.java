@@ -314,6 +314,13 @@ public class ControllerImp extends Controller {
                     e.printStackTrace();
                 }
                 break;
+
+            case Event.SHOW_REGION_PABELLON:
+
+                break;
+            case Event.SHOW_PAIS_PABELLON:
+
+                break;
         }
     }
 }

@@ -9,7 +9,7 @@ import java.util.*;
 
 public class GUIListFairs extends UIimp {
 
-    String[] columnNames = {"NAME","DESCRIPTION","DATE START","DATE END"};
+    String[] columnNames = {"ID FAIR","NAME","DESCRIPTION","DATE START","DATE END"};
     Object[][] data;
 
     Collection<Tferia> tferias;
@@ -44,10 +44,11 @@ public class GUIListFairs extends UIimp {
         int i = 0;
 
         for (Tferia tferia: transfer){
-            this.data[i][0] = tferia.getName();
-            this.data[i][1] = tferia.getDescription();
-            this.data[i][2] = tferia.getIniDate();
-            this.data[i][3] = tferia.getEndDate();
+            this.data[i][0] = tferia.getId();
+            this.data[i][1] = tferia.getName();
+            this.data[i][2] = tferia.getDescription();
+            this.data[i][3] = tferia.getIniDate();
+            this.data[i][4] = tferia.getEndDate();
             i++;
         }
 

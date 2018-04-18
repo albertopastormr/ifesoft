@@ -11,7 +11,7 @@ import java.util.Collection;
 
 public class GUIListAssignation extends UIimp {
 
-    String[] columnNames = {"ID FAIR","ID PAVILION","ID STAND","USED M2"};
+    String[] columnNames = {"ID ASSIGNATION" ,"ID FAIR","ID PAVILION", "USED M2", "TOTAL M2"};
     Object[][] data;
 
     JTable table;
@@ -66,10 +66,11 @@ public class GUIListAssignation extends UIimp {
         int i = 0;
 
         for (Tasignacion tassignation: transfer){
-            this.data[i][0] = tassignation.getFair_id();
-            this.data[i][1] = tassignation.getPavilion_id();
-            this.data[i][2] = tassignation.getStand_id();
+            this.data[i][0] = tassignation.getId();
+            this.data[i][1] = tassignation.getFair_id();
+            this.data[i][2] = tassignation.getPavilion_id();
             this.data[i][3] = tassignation.getUsed_m2();
+            this.data[i][4] = tassignation.getTotal_m2();
             i++;
         }
 

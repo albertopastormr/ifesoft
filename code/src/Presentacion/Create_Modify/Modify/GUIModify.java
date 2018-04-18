@@ -60,12 +60,12 @@ public class GUIModify extends UIimp {
             case "Pavilion":
                 this.setVisible(false);
                 Controller.getInstance().execute(Event.INSERT_FORM_PABELLON,
-                        new Tpabellon(Integer.parseInt(textID.getText()) ,-1,-1 ,-1,null));
+                        new Tpabellon(Integer.parseInt(textID.getText()) ,-1,-1 ,null));
                 break;
             case "Stand":
                 this.setVisible(false);
                 Controller.getInstance().execute(Event.INSERT_FORM_STAND,
-                        new Tstand(Integer.parseInt(textID.getText()) ,-1,-1 ,-1,null));
+                        new Tstand(Integer.parseInt(textID.getText()), -1, -1, -1, -1, null));
                 break;
             case "Client":
                 this.setVisible(false);

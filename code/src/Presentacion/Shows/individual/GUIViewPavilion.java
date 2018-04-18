@@ -46,7 +46,6 @@ public class GUIViewPavilion extends UIimp {
 
         capacity = tpabellon.getCapacity() +"";
         m2tot = tpabellon.getTotal_m2() +"";
-        m2util = tpabellon.getUtil_m2() +"";
         id = tpabellon.getId() +"";
 
         initComponents();

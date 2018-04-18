@@ -17,7 +17,6 @@ public class GUIFormParticipation extends UIimp {
     private String metres;
     private String idFair;
     private String idParticipant;
-    private String idStand;
 
     private boolean mod;
 
@@ -28,7 +27,6 @@ public class GUIFormParticipation extends UIimp {
     private JTextField metresField;
     private JTextField idFairField;
     private JTextField idParticipantField;
-    private JTextField idStandField;
     private JPanel buttonBar;
 
 
@@ -55,7 +53,7 @@ public class GUIFormParticipation extends UIimp {
 
         idFair = (String.valueOf(participation.getFair_id()));
         idParticipant = (String.valueOf(participation.getClient_id()));
-        idStand = (String.valueOf(participation.getStand_id()));
+
 
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -67,7 +65,6 @@ public class GUIFormParticipation extends UIimp {
         int mUsed = Integer.valueOf(metresField.getText());
         int idFair = Integer.valueOf(idFairField.getText());
         int idParticipante = Integer.valueOf(idParticipantField.getText());
-        int idStand = Integer.valueOf(idStandField.getText());
 
         Tparticipacion participation = new Tparticipacion();
 
@@ -174,12 +171,6 @@ public class GUIFormParticipation extends UIimp {
         idParticipantField.setMaximumSize(maxDim);
         idParticipantField.setText(idParticipant);
 
-        idStandField = setupTextField();
-        idStandField.setMinimumSize(minDim);
-        idStandField.setPreferredSize(prefDim);
-        idStandField.setMaximumSize(maxDim);
-        idStandField.setText(idStand);
-
         formCon.anchor = GridBagConstraints.WEST;
 
         formCon.insets = new Insets(20,10,20,0);
@@ -195,7 +186,6 @@ public class GUIFormParticipation extends UIimp {
         formPanel.add(idParticipantField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 3;
-        formPanel.add(idStandField, formCon);
         formContainer.add(formPanel);
     }
 

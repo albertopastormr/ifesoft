@@ -44,9 +44,9 @@ public class GUIListParticipation extends UIimp {
         int i = 0;
 
         for (Tparticipacion tparticipation: transfer){
-            this.data[i][0] = tparticipation.getFair_id();
-            this.data[i][1] = tparticipation.getClient_id();
-            this.data[i][2] = tparticipation.getStand_id();
+            this.data[i][0] = tparticipation.getId();
+            this.data[i][1] = tparticipation.getFair_id();
+            this.data[i][2] = tparticipation.getClient_id();
             i++;
         }
 

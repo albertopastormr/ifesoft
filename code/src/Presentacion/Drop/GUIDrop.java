@@ -73,7 +73,7 @@ public class GUIDrop extends UIimp {
                 break;
             case "Stand":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_HALF_STAND, new Tstand(Integer.parseInt(textName.getText()), -1, -1, null));
+                Controller.getInstance().execute(Event.DROP_HALF_STAND, new Tstand(Integer.parseInt(textName.getText()), -1, -1, -1,-1, null));
                 break;
             case "Client":
                 this.setVisible(false);

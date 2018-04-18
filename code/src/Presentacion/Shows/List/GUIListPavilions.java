@@ -60,8 +60,7 @@ public class GUIListPavilions extends UIimp {
         for (Tpabellon tpavilion: transfer){
             this.data[i][0] = tpavilion.getId();
             this.data[i][1] = tpavilion.getTotal_m2();
-            this.data[i][2] = tpavilion.getUtil_m2();
-            this.data[i][3] = tpavilion.getCapacity();
+            this.data[i][2] = tpavilion.getCapacity();
             i++;
         }
 

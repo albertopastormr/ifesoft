@@ -83,4 +83,6 @@ public class Event {
     public static final int SHOW_PARTICIPACION_CLIENT = 334123;
     public static final int SHOW_STAND_INDIVIDUAL = 34574;
     public static final int SHOW_STAND_LIST = 99987;
+    public static final int SHOW_REGION_PABELLON = 234231;
+    public static final int SHOW_PAIS_PABELLON = 123412;
 }

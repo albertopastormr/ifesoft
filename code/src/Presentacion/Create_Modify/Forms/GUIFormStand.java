@@ -64,10 +64,10 @@ public class GUIFormStand extends UIimp {
         String cost = costField.getText();
         String m_used = metresField.getText();
         String number = numberField.getText();
-        Tstand tStand = new Tstand(Integer.parseInt(cost), Integer.parseInt(m_used), Integer.parseInt(number), true);
+        //Tstand tStand = new Tstand(Integer.parseInt(cost), Integer.parseInt(m_used), Integer.parseInt(number), true);
 
-        if (!mod) Controller.getInstance().execute(Event.INSERT_STAND, tStand);
-        else Controller.getInstance().execute(Event.MODIFY_STAND,tStand);
+        //if (!mod) Controller.getInstance().execute(Event.INSERT_STAND, tStand);
+        //else Controller.getInstance().execute(Event.MODIFY_STAND,tStand);
     }
 
     private void cancelButtonStateChanged() throws Exception {
