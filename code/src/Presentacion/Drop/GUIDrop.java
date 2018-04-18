@@ -7,6 +7,7 @@ import Negocio.Participante.Tparticipante;
 import Negocio.Stand.Tstand;
 import Controller.Controller;
 import Presentacion.Events.Event;
+import Presentacion.UI;
 import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
@@ -15,7 +16,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class ViewHalfDrop extends JFrame {
+public class GUIDrop extends JFrame implements UI {
 
     private JDialog sureFrame;
     private boolean chosen = false;
@@ -44,7 +45,7 @@ public class ViewHalfDrop extends JFrame {
     private Color cTextFieldBG = new Color(243,243,243);
 
 
-    public ViewHalfDrop() {
+    public GUIDrop() {
         super("Drop");
 
         initComponents();
@@ -374,4 +375,9 @@ public class ViewHalfDrop extends JFrame {
             pack();
             setLocationRelativeTo(getOwner());
         }
+
+    @Override
+    public void update(int event, Object data) {
+
     }
+}

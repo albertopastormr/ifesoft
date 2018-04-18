@@ -1,31 +1,32 @@
 package Presentacion.Create_Modify.Forms;
 
-import Negocio.Participante.Tparticipante;
+import Negocio.Pabellon.Tpabellon;
 import Controller.Controller;
 import Presentacion.Events.Event;
+import Presentacion.UI;
+import Presentacion.Utils.ActionHelp;
 import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class ViewsFormClient extends JFrame {
+public class GUIFormPavilion extends JFrame implements UI {
 
-    private String name;
-    private String phone;
-    private String specialization;
-
-    private boolean mod;
+    private String capacity;
+    private String m2tot;
+    private String m2utils;
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
     private JLabel title;
     private JPanel formContainer;
-    private JTextField nameField;
-    private JTextField phoneField;
-    private JTextField specializationField;
+    private JTextField capacityField;
+    private JTextField m2totField;
+    private JTextField m2utilsField;
     private JPanel buttonBar;
 
+    private boolean mod;
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
     private Font fLabel = new Font(Font.DIALOG, Font.PLAIN, 30);
@@ -37,21 +38,21 @@ public class ViewsFormClient extends JFrame {
     private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
 
-    // CONSTRUCTOR OPTION CREATE
-    public ViewsFormClient() {
+    public GUIFormPavilion() {
+        super("Pavilion");
         mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
-    // CONSTRUCTOR OPTION MODIFY
-    public ViewsFormClient(Tparticipante client) {
+    public GUIFormPavilion(Tpabellon pavilion) {
+        super("Pavilion");
         mod = true;
 
-        name = client.getName();
-        phone = "" + (client.getPhone());
-        //specialization = client.getSpecialization();
+        capacity = "" + pavilion.getCapacity();
+        m2tot = "" + pavilion.getTotal_m2();
+        m2utils = "" + pavilion.getUtil_m2();
 
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -60,13 +61,19 @@ public class ViewsFormClient extends JFrame {
 
     private void createButtonFormActionPerformed() throws Exception {
         setVisible(false);
-        String name = nameField.getText();
-        String numPhone = phoneField.getText();
-        String specialization = specializationField.getText();
-        Tparticipante client = new Tparticipante(name, Integer.parseInt(numPhone), Boolean.parseBoolean(specialization));
+        try {
+       String capacity = capacityField.getText();
+        String m2_utils = m2utilsField.getText();
+        String m2_total = m2totField.getText();
+        Tpabellon tPabellon = new Tpabellon(Integer.parseInt(capacity), Integer.parseInt(m2_utils), Integer.parseInt(m2_total), true);
 
-        if (!mod)  Controller.getInstance().execute(Presentacion.Events.Event.INSERT_CLIENT, client);
-        else Controller.getInstance().execute(Event.MODIFY_CLIENT, client);
+
+            if (!mod)  Controller.getInstance().execute(Event.INSERT_PAVILION, tPabellon);
+            else Controller.getInstance().execute(Event.MODIFY_PAVILION, tPabellon);
+
+        }catch (NumberFormatException e){
+            throw new NumberFormatException("Debes insertar un numero valido en los campos." + ActionHelp.strHelpBasic());
+        }
     }
 
     private void cancelButtonStateChanged() throws Exception {
@@ -82,9 +89,9 @@ public class ViewsFormClient extends JFrame {
     private void setupTitle(){
         title = new JLabel();
         if(mod)
-            title.setText("Modify Client");
+            title.setText("Modify Pavilion");
         else
-            title.setText("Create_Modify Client");
+            title.setText("Create_Modify Pavilion");
         title.setFont(fTitle);
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
@@ -129,40 +136,40 @@ public class ViewsFormClient extends JFrame {
         formCon.anchor = GridBagConstraints.EAST;
 
 
-        JLabel nameLabel = createLabel("Name:");
-        JLabel phoneLabel = createLabel("Phone:");
-        JLabel specializationLabel = createLabel("Specialization");
+        JLabel aforoLabel = createLabel("Capacity:");
+        JLabel m2totLabel = createLabel("Total square-metres:");
+        JLabel m2utilesLabel = createLabel("Useful square-metres:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
 
         formCon.gridx = 0;
         formCon.gridy = 0;
-        formPanel.add(nameLabel, formCon);
+        formPanel.add(aforoLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 1;
-        formPanel.add(phoneLabel, formCon);
+        formPanel.add(m2totLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 2;
-        formPanel.add(specializationLabel, formCon);
+        formPanel.add(m2utilesLabel, formCon);
 
-        nameField = setupTextField();
-        nameField.setMinimumSize(minDim);
-        nameField.setPreferredSize(prefDim);
-        nameField.setMaximumSize(maxDim);
-        nameField.setText(name);
+        capacityField = setupTextField();
+        capacityField.setMinimumSize(minDim);
+        capacityField.setPreferredSize(prefDim);
+        capacityField.setMaximumSize(maxDim);
+        capacityField.setText(capacity);
 
-        phoneField = setupTextField();
-        phoneField.setMinimumSize(minDim);
-        phoneField.setPreferredSize(prefDim);
-        phoneField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
-        phoneField.setText(phone);
+        m2totField = setupTextField();
+        m2totField.setMinimumSize(minDim);
+        m2totField.setPreferredSize(prefDim);
+        m2totField.setMaximumSize(maxDim);
+        m2totField.setText(m2tot);
 
-        specializationField = setupTextField();
-        specializationField.setMinimumSize(minDim);
-        specializationField.setPreferredSize(prefDim);
-        specializationField.setMaximumSize(maxDim);
-        specializationField.setText(specialization);
+        m2utilsField = setupTextField();
+        m2utilsField.setMinimumSize(minDim);
+        m2utilsField.setPreferredSize(prefDim);
+        m2utilsField.setMaximumSize(maxDim);
+        m2utilsField.setText(m2utils);
 
         formCon.anchor = GridBagConstraints.WEST;
 
@@ -170,13 +177,13 @@ public class ViewsFormClient extends JFrame {
 
         formCon.gridx = 1;
         formCon.gridy = 0;
-        formPanel.add(nameField, formCon);
+        formPanel.add(capacityField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 1;
-        formPanel.add(phoneField, formCon);
+        formPanel.add(m2totField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 2;
-        formPanel.add(specializationField, formCon);
+        formPanel.add(m2utilsField, formCon);
         formContainer.add(formPanel);
     }
 
@@ -253,9 +260,6 @@ public class ViewsFormClient extends JFrame {
 
         this.setMinimumSize(minScreenSize);
 
-        ImageIcon img = new ImageIcon("Resources//Icon.png");
-        this.setIconImage(img.getImage());
-
         JPanel dialogPanel = new JPanel();
         BorderLayout dialogLayout = new BorderLayout();
         dialogPanel.setLayout(dialogLayout);
@@ -267,6 +271,9 @@ public class ViewsFormClient extends JFrame {
         //======== this ========
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
+
+        ImageIcon img = new ImageIcon("Resources//Icon.png");
+        this.setIconImage(img.getImage());
 
         //======== contents ========
 
@@ -283,5 +290,10 @@ public class ViewsFormClient extends JFrame {
         contentPane.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
+    }
+
+    @Override
+    public void update(int event, Object data) {
+
     }
 }

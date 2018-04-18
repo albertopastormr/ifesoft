@@ -1,16 +1,17 @@
 package Presentacion.Shows.individual;
 
-import Negocio.Stand.Tstand;
+import Negocio.Participante.Tparticipante;
+import Presentacion.UI;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class ViewStand extends JFrame {
+public class GUIViewClient extends JFrame implements UI {
 
-    private String metres;
-    private String number;
-    private String cost;
+    private String name;
+    private String phone;
+    //private String specialization;
     private String id;
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
@@ -26,30 +27,32 @@ public class ViewStand extends JFrame {
 
     private Color cBackButton = new Color(146, 35, 59);
 
-    public ViewStand() {
+    /*
+    SOLO PARA DEPURAR
+     */
+    public GUIViewClient() {
 
-        metres = "6789";
-        number = "42";
-        cost = "1 millón de camellos";
-        id = "7";
-
-        initComponents();
-        this.setBounds(100,100, 800,800);
-        this.setVisible(true);
-    }
-
-    public ViewStand(Tstand tstand) {
-
-        metres = "" + tstand.getTotal_m2();
-        number = "" + tstand.getNum_at_fair();
-        cost = "" + tstand.getCost();
-        id = "" + tstand.getId();
+        id = "5";
+        name = "Paco's Pizza";
+        phone = "12 34 56 789";
+        //specialization =tclient.getSpec() + "";
 
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
+    public GUIViewClient(Tparticipante tclient) {
+
+        id = tclient.getId() + "";
+        name = tclient.getName();
+        phone =tclient.getPhone() + "";
+        //specialization =tclient.getSpec() + "";
+
+        initComponents();
+        this.setBounds(100,100, 800,800);
+        this.setVisible(true);
+    }
 
     private void backButtonActionPerformed() {
         this.setVisible(false);
@@ -59,7 +62,7 @@ public class ViewStand extends JFrame {
 
     private void setupTitle(){
         title = new JLabel();
-        title.setText("Stand: " + id);
+        title.setText("Client: " + id);
         title.setFont(fTitle);
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
@@ -71,7 +74,6 @@ public class ViewStand extends JFrame {
         label.setFont(fLabel);
         return label;
     }
-
 
     private void setupForm() {
 
@@ -98,37 +100,44 @@ public class ViewStand extends JFrame {
         formCon.anchor = GridBagConstraints.EAST;
 
 
-        JLabel metresLabel = createLabel("Metres:");
-        JLabel numberLabel = createLabel("Number:");
-        JLabel costLabel = createLabel("Cost:");
+
+        JLabel nameLabel = createLabel("Name:");
+        JLabel phoneLabel = createLabel("Phone:");
+        //JLabel specializationLabel = createLabel("Specialization");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
 
+
         formCon.gridx = 0;
         formCon.gridy = 0;
-        formPanel.add(metresLabel, formCon);
+        formPanel.add(nameLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 1;
-        formPanel.add(numberLabel, formCon);
+        formPanel.add(phoneLabel, formCon);
+        /*
         formCon.gridx = 0;
         formCon.gridy = 2;
-        formPanel.add(costLabel, formCon);
+        formPanel.add(specializationLabel, formCon);
+        */
 
-        JLabel metresField = createLabel(metres);
-        metresField.setMinimumSize(minDim);
-        metresField.setPreferredSize(prefDim);
-        metresField.setMaximumSize(maxDim);
 
-        JLabel numberField = createLabel(number);
-        numberField.setMinimumSize(minDim);
-        numberField.setPreferredSize(prefDim);
-        numberField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
+        JLabel nameField = createLabel(name);
+        nameField.setMinimumSize(minDim);
+        nameField.setPreferredSize(prefDim);
+        nameField.setMaximumSize(maxDim);
 
-        JLabel costField = createLabel(cost);
-        costField.setMinimumSize(minDim);
-        costField.setPreferredSize(prefDim);
-        costField.setMaximumSize(maxDim);
+        JLabel phoneField = createLabel(phone);
+        phoneField.setMinimumSize(minDim);
+        phoneField.setPreferredSize(prefDim);
+        phoneField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
+
+        /*
+        JLabel specializationField = createLabel(specialization);
+        specializationField.setMinimumSize(minDim);
+        specializationField.setPreferredSize(prefDim);
+        specializationField.setMaximumSize(maxDim);
+        */
 
         formCon.anchor = GridBagConstraints.WEST;
 
@@ -137,13 +146,14 @@ public class ViewStand extends JFrame {
 
         formCon.gridx = 1;
         formCon.gridy = 0;
-        formPanel.add(metresField, formCon);
+        formPanel.add(nameField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 1;
-        formPanel.add(numberField, formCon);
+        formPanel.add(phoneField, formCon);
+        /*
         formCon.gridx = 1;
         formCon.gridy = 2;
-        formPanel.add(costField, formCon);
+        formPanel.add(specializationField, formCon);*/
         formContainer.add(formPanel);
     }
 
@@ -206,5 +216,10 @@ public class ViewStand extends JFrame {
         contentPane.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
+    }
+
+    @Override
+    public void update(int event, Object data) {
+
     }
 }

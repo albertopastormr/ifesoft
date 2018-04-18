@@ -1,24 +1,26 @@
 package Presentacion.Shows.List;
 
+import Presentacion.UI;
+
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class TableList extends AbstractTableModel {
+public class GUITableList extends AbstractTableModel implements UI {
 
     private String[] columnNames;
     private Object[][] rowData;
     private int initNumOfRows;
     private int currNumOfCols;
 
-    public TableList(JPanel mainPanel ,String[] columnNames ,Object[][] data) {
+    public GUITableList(JPanel mainPanel , String[] columnNames , Object[][] data) {
         this.columnNames = columnNames;
         this.initNumOfRows = 1;
         iniComponet(mainPanel, data);
     }
 
-    public TableList(JPanel mainPanel ,String[] columnNames ,Object[][] data, int initNumOfRows, int currNumOfCols) {
+    public GUITableList(JPanel mainPanel , String[] columnNames , Object[][] data, int initNumOfRows, int currNumOfCols) {
         this.columnNames = columnNames;
         this.initNumOfRows = initNumOfRows;
         this.currNumOfCols = currNumOfCols;
@@ -76,4 +78,8 @@ public class TableList extends AbstractTableModel {
         }
     }
 
+    @Override
+    public void update(int event, Object data) {
+
+    }
 }

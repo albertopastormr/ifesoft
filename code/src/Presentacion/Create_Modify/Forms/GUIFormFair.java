@@ -1,7 +1,9 @@
 package Presentacion.Create_Modify.Forms;
 
-import Negocio.Asignacion.Tasignacion;
+import Negocio.Feria.Tferia;
 import Controller.Controller;
+import Presentacion.UI;
+import Presentacion.Utils.Utilities;
 import Presentacion.Events.Event;
 import Presentacion.Utils.PanelProblemUser;
 
@@ -9,9 +11,12 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class ViewsFormAssignation extends JFrame {
+public class GUIFormFair extends JFrame implements UI {
 
-    private String metres;
+    private String name;
+    private String description;
+    private String iniDate;
+    private String finDate;
 
     private boolean mod;
 
@@ -19,12 +24,11 @@ public class ViewsFormAssignation extends JFrame {
 
     private JLabel title;
     private JPanel formContainer;
-    private JTextField metresField;
-    private JTextField idFairField;
-    private JTextField idPavilionField;
-    private JTextField idStandField;
+    private JTextField nameField;
+    private JTextField descField;
+    private JTextField iniDateField;
+    private JTextField finDateField;
     private JPanel buttonBar;
-
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
     private Font fLabel = new Font(Font.DIALOG, Font.PLAIN, 30);
@@ -36,40 +40,43 @@ public class ViewsFormAssignation extends JFrame {
     private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
 
-    public ViewsFormAssignation() {
-       super("Assignation");
+
+    public GUIFormFair() {
+        super("Fair");
         mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
+
     }
 
-
-    public ViewsFormAssignation(Tasignacion assignation) {
-        super("Assignation");
+    public GUIFormFair(Tferia fair) {
+        super("Fair");
         mod = true;
-        metres = assignation.getUsed_m2() + "";
+
+        name = fair.getName();
+        description = fair.getDescription();
+        iniDate = Utilities.parseDateToString(fair.getIniDate());
+        finDate = Utilities.parseDateToString(fair.getEndDate());
 
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
-
     private void createButtonFormActionPerformed() throws Exception {
         this.setVisible(false);
-        int mUsed = Integer.valueOf(metresField.getText());
-        int idFair = Integer.valueOf(idFairField.getText());
-        int idPavilion = Integer.valueOf(idPavilionField.getText());
-        int idStand = Integer.valueOf(idStandField.getText());
+        String name = nameField.getText();
+        String description = descField.getText();
+        String dateStart = iniDateField.getText();
+        String dateEnd = finDateField.getText();
 
-        Tasignacion tAssignation = new Tasignacion(idFair, idPavilion, idStand, mUsed, true);
+        if(!mod) Controller.getInstance().execute(Event.INSERT_FAIR, new Tferia(name, description, Utilities.parseStringToDate(dateStart), Utilities.parseStringToDate(dateEnd)));
+        else Controller.getInstance().execute(Event.MODIFY_FAIR, new Tferia(name, description, Utilities.parseStringToDate(dateStart), Utilities.parseStringToDate(dateEnd)));
 
-        if (!mod)  Controller.getInstance().execute(Event.INSERT_ASSIGNATION, tAssignation);
-        else Controller.getInstance().execute(Event.MODIFY_ASSIGNATION, tAssignation);
     }
 
-    private void cancelButtonStateChanged() throws Exception {
+   private void cancelButtonStateChanged() throws Exception {
         this.setVisible(false);
         if (!mod) Controller.getInstance().execute(Event.CREATE_HALF, null);
         else Controller.getInstance().execute(Event.MODIFY_HALF, null);
@@ -82,9 +89,9 @@ public class ViewsFormAssignation extends JFrame {
     private void setupTitle(){
         title = new JLabel();
         if(mod)
-            title.setText("Modify Assignation");
+            title.setText("Modify Fair");
         else
-            title.setText("Create_Modify Assignation");
+            title.setText("Create_Modify Fair");
         title.setFont(fTitle);
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
@@ -129,53 +136,50 @@ public class ViewsFormAssignation extends JFrame {
         formCon.anchor = GridBagConstraints.EAST;
 
 
-        JLabel metresLabel = createLabel("Metres:");
-        JLabel idFairLabel = createLabel("Fair ID:");
-        JLabel idPavilionLabel = createLabel("Pavilion ID:");
-        JLabel idStandLabel = createLabel("Stand ID:");
+        JLabel nameLabel = createLabel("Name:");
+        JLabel descLabel = createLabel("Description:");
+        JLabel iniDateLabel = createLabel("Start Date:");
+        JLabel finDateLabel = createLabel("End Date:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
 
         formCon.gridx = 0;
         formCon.gridy = 0;
-        formPanel.add(metresLabel, formCon);
+        formPanel.add(nameLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 1;
-        formPanel.add(idFairLabel, formCon);
+        formPanel.add(descLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 2;
-        formPanel.add(idPavilionLabel, formCon);
+        formPanel.add(iniDateLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 3;
-        formPanel.add(idStandLabel, formCon);
+        formPanel.add(finDateLabel, formCon);
 
-        metresField = setupTextField();
-        metresField.setMinimumSize(minDim);
-        metresField.setPreferredSize(prefDim);
-        metresField.setMaximumSize(maxDim);
-        metresField.setText(metres);
+        nameField = setupTextField();
+        nameField.setMinimumSize(minDim);
+        nameField.setPreferredSize(prefDim);
+        nameField.setMaximumSize(maxDim);
+        nameField.setText(name);
 
-        idFairField = setupTextField();
-        idFairField.setMinimumSize(minDim);
-        idFairField.setPreferredSize(prefDim);
-        idFairField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
-        String idFair = "";
-        idFairField.setText(idFair);
+        descField = setupTextField();
+        descField.setMinimumSize(new Dimension(minDim.width, minDim.height + 100));
+        descField.setPreferredSize(new Dimension(prefDim.width, prefDim.height + 100));
+        descField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
+        descField.setText(description);
 
-        idPavilionField = setupTextField();
-        idPavilionField.setMinimumSize(minDim);
-        idPavilionField.setPreferredSize(prefDim);
-        idPavilionField.setMaximumSize(maxDim);
-        String idPavilion = "";
-        idPavilionField.setText(idPavilion);
+        iniDateField = setupTextField();
+        iniDateField.setMinimumSize(minDim);
+        iniDateField.setPreferredSize(prefDim);
+        iniDateField.setMaximumSize(maxDim);
+        iniDateField.setText(iniDate);
 
-        idStandField = setupTextField();
-        idStandField.setMinimumSize(minDim);
-        idStandField.setPreferredSize(prefDim);
-        idStandField.setMaximumSize(maxDim);
-        String idStand = "";
-        idStandField.setText(idStand);
+        finDateField = setupTextField();
+        finDateField.setMinimumSize(minDim);
+        finDateField.setPreferredSize(prefDim);
+        finDateField.setMaximumSize(maxDim);
+        finDateField.setText(finDate);
 
         formCon.anchor = GridBagConstraints.WEST;
 
@@ -183,16 +187,16 @@ public class ViewsFormAssignation extends JFrame {
 
         formCon.gridx = 1;
         formCon.gridy = 0;
-        formPanel.add(metresField, formCon);
+        formPanel.add(nameField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 1;
-        formPanel.add(idFairField, formCon);
+        formPanel.add(descField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 2;
-        formPanel.add(idPavilionField, formCon);
+        formPanel.add(iniDateField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 3;
-        formPanel.add(idStandField, formCon);
+        formPanel.add(finDateField, formCon);
         formContainer.add(formPanel);
     }
 
@@ -212,7 +216,7 @@ public class ViewsFormAssignation extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     cancelButtonStateChanged();
-                } catch (Exception e1){
+                }catch (Exception e1){
                     new PanelProblemUser(e1.getMessage());
                 }
             }
@@ -261,6 +265,8 @@ public class ViewsFormAssignation extends JFrame {
         buttonBar.add(Box.createHorizontalStrut(500));
         buttonBar.add(okButton);
 
+
+
     }
 
     private void initComponents() {
@@ -278,7 +284,6 @@ public class ViewsFormAssignation extends JFrame {
         //======== this ========
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
-
 
         ImageIcon img = new ImageIcon("Resources//Icon.png");
         this.setIconImage(img.getImage());
@@ -298,5 +303,10 @@ public class ViewsFormAssignation extends JFrame {
         contentPane.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
+    }
+
+    @Override
+    public void update(int event, Object data) {
+
     }
 }

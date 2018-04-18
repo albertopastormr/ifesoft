@@ -1,21 +1,20 @@
 package Presentacion.Create_Modify.Forms;
 
-import Negocio.Participacion.Tparticipacion;
+import Negocio.Participante.Tparticipante;
 import Controller.Controller;
 import Presentacion.Events.Event;
+import Presentacion.UI;
 import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class ViewsFormParticipation extends JFrame {
+public class GUIFormClient extends JFrame implements UI {
 
-
-    private String metres;
-    private String idFair;
-    private String idParticipant;
-    private String idStand;
+    private String name;
+    private String phone;
+    private String specialization;
 
     private boolean mod;
 
@@ -23,10 +22,9 @@ public class ViewsFormParticipation extends JFrame {
 
     private JLabel title;
     private JPanel formContainer;
-    private JTextField metresField;
-    private JTextField idFairField;
-    private JTextField idParticipantField;
-    private JTextField idStandField;
+    private JTextField nameField;
+    private JTextField phoneField;
+    private JTextField specializationField;
     private JPanel buttonBar;
 
 
@@ -40,22 +38,21 @@ public class ViewsFormParticipation extends JFrame {
     private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
 
-    public ViewsFormParticipation() {
-        super("Participation");
+    // CONSTRUCTOR OPTION CREATE
+    public GUIFormClient() {
         mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
-
-    public ViewsFormParticipation(Tparticipacion participation) {
-        super("Participation");
+    // CONSTRUCTOR OPTION MODIFY
+    public GUIFormClient(Tparticipante client) {
         mod = true;
 
-        idFair = (String.valueOf(participation.getFair_id()));
-        idParticipant = (String.valueOf(participation.getClient_id()));
-        idStand = (String.valueOf(participation.getStand_id()));
+        name = client.getName();
+        phone = "" + (client.getPhone());
+        //specialization = client.getSpecialization();
 
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -63,16 +60,14 @@ public class ViewsFormParticipation extends JFrame {
     }
 
     private void createButtonFormActionPerformed() throws Exception {
-        this.setVisible(false);
-        int mUsed = Integer.valueOf(metresField.getText());
-        int idFair = Integer.valueOf(idFairField.getText());
-        int idParticipante = Integer.valueOf(idParticipantField.getText());
-        int idStand = Integer.valueOf(idStandField.getText());
+        setVisible(false);
+        String name = nameField.getText();
+        String numPhone = phoneField.getText();
+        String specialization = specializationField.getText();
+        Tparticipante client = new Tparticipante(name, Integer.parseInt(numPhone), Boolean.parseBoolean(specialization));
 
-        Tparticipacion participation = new Tparticipacion();
-
-        if (!mod)  Controller.getInstance().execute(Event.INSERT_PARTICIPACION, participation);
-        else Controller.getInstance().execute(Event.MODIFY_PARTICIPACION, participation);
+        if (!mod)  Controller.getInstance().execute(Presentacion.Events.Event.INSERT_CLIENT, client);
+        else Controller.getInstance().execute(Event.MODIFY_CLIENT, client);
     }
 
     private void cancelButtonStateChanged() throws Exception {
@@ -88,9 +83,9 @@ public class ViewsFormParticipation extends JFrame {
     private void setupTitle(){
         title = new JLabel();
         if(mod)
-            title.setText("Modify Participation");
+            title.setText("Modify Client");
         else
-            title.setText("Create_Modify Participation");
+            title.setText("Create_Modify Client");
         title.setFont(fTitle);
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
@@ -135,50 +130,40 @@ public class ViewsFormParticipation extends JFrame {
         formCon.anchor = GridBagConstraints.EAST;
 
 
-        JLabel metresLabel = createLabel("Metres:");
-        JLabel idFairLabel = createLabel("Fair id:");
-        JLabel idParticipantLabel = createLabel("Client id:");
-        JLabel idStandLabel = createLabel("Stand id:");
+        JLabel nameLabel = createLabel("Name:");
+        JLabel phoneLabel = createLabel("Phone:");
+        JLabel specializationLabel = createLabel("Specialization");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
 
         formCon.gridx = 0;
         formCon.gridy = 0;
-        formPanel.add(metresLabel, formCon);
+        formPanel.add(nameLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 1;
-        formPanel.add(idFairLabel, formCon);
+        formPanel.add(phoneLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 2;
-        formPanel.add(idParticipantLabel, formCon);
-        formCon.gridx = 0;
-        formCon.gridy = 3;
-        formPanel.add(idStandLabel, formCon);
+        formPanel.add(specializationLabel, formCon);
 
-        metresField = setupTextField();
-        metresField.setMinimumSize(minDim);
-        metresField.setPreferredSize(prefDim);
-        metresField.setMaximumSize(maxDim);
-        metresField.setText(metres);
+        nameField = setupTextField();
+        nameField.setMinimumSize(minDim);
+        nameField.setPreferredSize(prefDim);
+        nameField.setMaximumSize(maxDim);
+        nameField.setText(name);
 
-        idFairField = setupTextField();
-        idFairField.setMinimumSize(minDim);
-        idFairField.setPreferredSize(prefDim);
-        idFairField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
-        idFairField.setText(idFair);
+        phoneField = setupTextField();
+        phoneField.setMinimumSize(minDim);
+        phoneField.setPreferredSize(prefDim);
+        phoneField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
+        phoneField.setText(phone);
 
-        idParticipantField = setupTextField();
-        idParticipantField.setMinimumSize(minDim);
-        idParticipantField.setPreferredSize(prefDim);
-        idParticipantField.setMaximumSize(maxDim);
-        idParticipantField.setText(idParticipant);
-
-        idStandField = setupTextField();
-        idStandField.setMinimumSize(minDim);
-        idStandField.setPreferredSize(prefDim);
-        idStandField.setMaximumSize(maxDim);
-        idStandField.setText(idStand);
+        specializationField = setupTextField();
+        specializationField.setMinimumSize(minDim);
+        specializationField.setPreferredSize(prefDim);
+        specializationField.setMaximumSize(maxDim);
+        specializationField.setText(specialization);
 
         formCon.anchor = GridBagConstraints.WEST;
 
@@ -186,16 +171,13 @@ public class ViewsFormParticipation extends JFrame {
 
         formCon.gridx = 1;
         formCon.gridy = 0;
-        formPanel.add(metresField, formCon);
+        formPanel.add(nameField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 1;
-        formPanel.add(idFairField, formCon);
+        formPanel.add(phoneField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 2;
-        formPanel.add(idParticipantField, formCon);
-        formCon.gridx = 1;
-        formCon.gridy = 3;
-        formPanel.add(idStandField, formCon);
+        formPanel.add(specializationField, formCon);
         formContainer.add(formPanel);
     }
 
@@ -272,6 +254,9 @@ public class ViewsFormParticipation extends JFrame {
 
         this.setMinimumSize(minScreenSize);
 
+        ImageIcon img = new ImageIcon("Resources//Icon.png");
+        this.setIconImage(img.getImage());
+
         JPanel dialogPanel = new JPanel();
         BorderLayout dialogLayout = new BorderLayout();
         dialogPanel.setLayout(dialogLayout);
@@ -283,9 +268,6 @@ public class ViewsFormParticipation extends JFrame {
         //======== this ========
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
-
-        ImageIcon img = new ImageIcon("Resources//Icon.png");
-        this.setIconImage(img.getImage());
 
         //======== contents ========
 
@@ -302,5 +284,10 @@ public class ViewsFormParticipation extends JFrame {
         contentPane.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
+    }
+
+    @Override
+    public void update(int event, Object data) {
+
     }
 }

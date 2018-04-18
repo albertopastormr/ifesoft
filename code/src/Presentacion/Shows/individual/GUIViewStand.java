@@ -1,57 +1,50 @@
-package Presentacion.Create_Modify.Forms;
+package Presentacion.Shows.individual;
 
 import Negocio.Stand.Tstand;
-import Controller.Controller;
-import Presentacion.Events.Event;
-import Presentacion.Utils.PanelProblemUser;
+import Presentacion.UI;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class ViewsFormStand extends JFrame {
+public class GUIViewStand extends JFrame implements UI {
 
     private String metres;
     private String number;
     private String cost;
-
-    private boolean mod;
+    private String id;
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
     private JLabel title;
     private JPanel formContainer;
-    private JTextField metresField;
-    private JTextField numberField;
-    private JTextField costField;
     private JPanel buttonBar;
 
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
     private Font fLabel = new Font(Font.DIALOG, Font.PLAIN, 30);
-    private Font fField = new Font(Font.DIALOG, Font.PLAIN, 30);
     private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
 
-    private Color cField = new Color(243,243,243);
-    private Color cHelpButton = new Color(66,35,146);
-    private Color cCancelButton = new Color(146, 35, 59);
-    private Color cOkButton = new Color(26, 184, 59);
+    private Color cBackButton = new Color(146, 35, 59);
 
-    public ViewsFormStand() {
-        super("Stand");
-        mod = false;
+    public GUIViewStand() {
+
+        metres = "6789";
+        number = "42";
+        cost = "1 millón de camellos";
+        id = "7";
+
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
-    public ViewsFormStand(Tstand tstand) {
-        super("Stand");
-        mod = true;
+    public GUIViewStand(Tstand tstand) {
 
         metres = "" + tstand.getTotal_m2();
         number = "" + tstand.getNum_at_fair();
         cost = "" + tstand.getCost();
+        id = "" + tstand.getId();
 
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -59,32 +52,15 @@ public class ViewsFormStand extends JFrame {
     }
 
 
-    private void createButtonFormActionPerformed() throws Exception {
-        setVisible(false);
-        String cost = costField.getText();
-        String m_used = metresField.getText();
-        String number = numberField.getText();
-        Tstand tStand = new Tstand(Integer.parseInt(cost), Integer.parseInt(m_used), Integer.parseInt(number), true);
-
-        if (!mod) Controller.getInstance().execute(Event.INSERT_STAND, tStand);
-        else Controller.getInstance().execute(Event.MODIFY_STAND,tStand);
-    }
-
-    private void cancelButtonStateChanged() throws Exception {
+    private void backButtonActionPerformed() {
         this.setVisible(false);
-        if (!mod) Controller.getInstance().execute(Event.CREATE_HALF, null);
-        else Controller.getInstance().execute(Event.MODIFY_HALF, null);
+
+        //TODO
     }
 
-    private void helpButtonActionPerformed() {
-
-    }
     private void setupTitle(){
         title = new JLabel();
-        if(mod)
-            title.setText("Modify Stand");
-        else
-            title.setText("Create_Modify Stand");
+        title.setText("Stand: " + id);
         title.setFont(fTitle);
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
@@ -97,12 +73,6 @@ public class ViewsFormStand extends JFrame {
         return label;
     }
 
-    private JTextField setupTextField(){
-        JTextField field = new JTextField();
-        field.setFont(fField);
-        field.setBackground(cField);
-        return field;
-    }
 
     private void setupForm() {
 
@@ -146,27 +116,25 @@ public class ViewsFormStand extends JFrame {
         formCon.gridy = 2;
         formPanel.add(costLabel, formCon);
 
-        metresField = setupTextField();
+        JLabel metresField = createLabel(metres);
         metresField.setMinimumSize(minDim);
         metresField.setPreferredSize(prefDim);
         metresField.setMaximumSize(maxDim);
-        metresField.setText(metres);
 
-        numberField = setupTextField();
+        JLabel numberField = createLabel(number);
         numberField.setMinimumSize(minDim);
         numberField.setPreferredSize(prefDim);
         numberField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
-        numberField.setText(number);
 
-        costField = setupTextField();
+        JLabel costField = createLabel(cost);
         costField.setMinimumSize(minDim);
         costField.setPreferredSize(prefDim);
         costField.setMaximumSize(maxDim);
-        costField.setText(cost);
 
         formCon.anchor = GridBagConstraints.WEST;
 
         formCon.insets = new Insets(20,10,20,0);
+
 
         formCon.gridx = 1;
         formCon.gridy = 0;
@@ -184,55 +152,17 @@ public class ViewsFormStand extends JFrame {
 
         Dimension buttonDim = new Dimension(150, 80);
 
-        //---- cancelButton ----
-        JButton cancelButton = new JButton();
-        cancelButton.setText("Cancel");
-        cancelButton.setFont(fButton);
-        cancelButton.setBackground(cCancelButton);
-        cancelButton.setForeground(Color.WHITE);
-        cancelButton.setPreferredSize(buttonDim);
-        cancelButton.addActionListener(new ActionListener() {
+
+        JButton backButton = new JButton();
+        backButton.setText("Back");
+        backButton.setFont(fButton);
+        backButton.setBackground(cBackButton);
+        backButton.setForeground(Color.WHITE);
+        backButton.setPreferredSize(buttonDim);
+        backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    cancelButtonStateChanged();
-                } catch (Exception e1){
-                    new PanelProblemUser(e1.getMessage());
-                }
-            }
-        });
-
-
-        //---- helpButton ----
-        JButton helpButton = new JButton();
-        helpButton.setText("Help");
-        helpButton.setFont(fButton);
-        helpButton.setBackground(cHelpButton);
-        helpButton.setForeground(Color.WHITE);
-        helpButton.setPreferredSize(buttonDim);
-        helpButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                helpButtonActionPerformed();
-            }
-        });
-
-
-        //---- okButton ----
-        JButton okButton = new JButton();
-        okButton.setText("Add");
-        okButton.setFont(fButton);
-        okButton.setBackground(cOkButton);
-        okButton.setForeground(Color.WHITE);
-        okButton.setPreferredSize(buttonDim);
-        okButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    createButtonFormActionPerformed();
-                } catch (Exception e1){
-                    new PanelProblemUser(e1.getMessage());
-                }
+                backButtonActionPerformed();
             }
         });
 
@@ -240,10 +170,7 @@ public class ViewsFormStand extends JFrame {
         FlowLayout layout = new FlowLayout();
         layout.setHgap(25);
         buttonBar.setLayout(layout);
-        buttonBar.add(cancelButton);
-        buttonBar.add(helpButton);
-        buttonBar.add(Box.createHorizontalStrut(500));
-        buttonBar.add(okButton);
+        buttonBar.add(backButton);
 
 
 
@@ -265,9 +192,6 @@ public class ViewsFormStand extends JFrame {
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
-        ImageIcon img = new ImageIcon("Resources//Icon.png");
-        this.setIconImage(img.getImage());
-
         //======== contents ========
 
         //----Title----
@@ -283,5 +207,10 @@ public class ViewsFormStand extends JFrame {
         contentPane.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
+    }
+
+    @Override
+    public void update(int event, Object data) {
+
     }
 }

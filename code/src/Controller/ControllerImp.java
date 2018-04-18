@@ -20,16 +20,16 @@ import Negocio.Participante.Tparticipante;
 import Negocio.Stand.ASStand;
 import Negocio.Stand.IFASStand;
 import Negocio.Stand.Tstand;
-import Presentacion.Create_Modify.Create.ViewsHalfCreate;
+import Presentacion.Create_Modify.Create.GUICreate;
 import Presentacion.Create_Modify.Forms.*;
-import Presentacion.Create_Modify.Modify.ViewHalfModify;
-import Presentacion.Drop.ViewHalfDrop;
-import Presentacion.Shows.ViewHalfShow;
+import Presentacion.Create_Modify.Modify.GUIModify;
+import Presentacion.Drop.GUIDrop;
+import Presentacion.Shows.GUIShow;
 import Presentacion.UI;
-import Presentacion.UIimp;
+import Presentacion.GUIHome;
 import Presentacion.Utils.ActionHelp;
-import Presentacion.Shows.List.ListFairs;
-import Presentacion.Shows.individual.ViewFair;
+import Presentacion.Shows.List.GUIListFairs;
+import Presentacion.Shows.individual.GUIViewFair;
 import Presentacion.Events.Event;
 import Presentacion.Events.EventGUI;
 
@@ -68,22 +68,22 @@ public class ControllerImp extends Controller {
             /** Main Views*/
 
             case Event.HOME:
-                new UIimp();
+                new GUIHome();
                 break;
 
             /** Half Views*/
 
             case Event.CREATE_HALF:
-                new ViewsHalfCreate();
+                new GUICreate();
                 break;
             case Event.MODIFY_HALF:
-                new ViewHalfModify();
+                new GUIModify();
                 break;
             case Event.SHOW_HALF:
-                new ViewHalfShow();
+                new GUIShow();
                 break;
             case Event.DROP_HALF:
-                new ViewHalfDrop();
+                new GUIDrop();
                 break;
 
             /** DROPS*/
@@ -134,22 +134,22 @@ public class ControllerImp extends Controller {
             /** Form Views*/
 
             case Event.INSERT_FORM_FERIA:
-                new ViewsFormFair();
+                new GUIFormFair();
                 break;
             case Event.INSERT_FORM_ASIGNACION:
-                new ViewsFormAssignation();
+                new GUIFormAssignation();
                 break;
             case Event.INSERT_FORM_PARTICIPANTE:
-                new ViewsFormClient();
+                new GUIFormClient();
                 break;
             case Event.INSERT_FORM_PABELLON:
-                new ViewsFormPavilion();
+                new GUIFormPavilion();
                 break;
             case Event.INSERT_FORM_STAND:
-                new ViewsFormStand();
+                new GUIFormStand();
                 break;
             case Event.INSERT_FORM_PARTICIPACION:
-                new ViewsFormParticipation();
+                new GUIFormParticipation();
                 break;
 
 
@@ -158,7 +158,7 @@ public class ControllerImp extends Controller {
             case Event.MODIFY_FORM_FERIA:
                try {
                     tFair = asFair.showById((Integer) data);
-                    new ViewsFormFair(tFair);
+                    new GUIFormFair(tFair);
                 } catch (ASException e) {
                     e.printStackTrace();
                 }
@@ -252,14 +252,14 @@ public class ControllerImp extends Controller {
                 break;
             case Event.SHOW_FAIR_INDIVIDUAL:
                 try {
-                    new ViewFair(asFair.showById((Integer) data));
+                    new GUIViewFair(asFair.showById((Integer) data));
                 } catch (ASException e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.SHOW_FAIR_LIST:
                 try {
-                    new ListFairs(asFair.list());
+                    new GUIListFairs(asFair.list());
                 } catch (ASException e) {
                     e.printStackTrace();
                 }

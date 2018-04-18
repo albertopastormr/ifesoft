@@ -1,11 +1,12 @@
 package Presentacion.Shows.List;
 
 import Negocio.Stand.Tstand;
+import Presentacion.UI;
 
 import javax.swing.*;
 import java.util.Collection;
 
-public class ListStand extends JFrame {
+public class GUIListStand extends JFrame implements UI {
 
     String[] columnNames = {"COST","NUMBER AT FEAR","M2"};
     Object[][] data;
@@ -13,7 +14,7 @@ public class ListStand extends JFrame {
     Collection<Tstand> tstand;
 
 
-    public ListStand(Collection<Tstand> tferias){
+    public GUIListStand(Collection<Tstand> tferias){
         super();
         this.tstand = tferias;
         this.initGUI();
@@ -30,7 +31,7 @@ public class ListStand extends JFrame {
 
         changeTransferToCollection(tstand);
 
-        new TableList(mainPanel, columnNames, data);
+        new GUITableList(mainPanel, columnNames, data);
 
         this.add(mainPanel);
         this.pack();
@@ -50,4 +51,8 @@ public class ListStand extends JFrame {
 
     }
 
+    @Override
+    public void update(int event, Object data) {
+
+    }
 }

@@ -1,11 +1,12 @@
 package Presentacion.Shows.List;
 
 import Negocio.Feria.Tferia;
+import Presentacion.UI;
 
 import javax.swing.*;
 import java.util.*;
 
-public class ListFairs extends JFrame {
+public class GUIListFairs extends JFrame implements UI {
 
     String[] columnNames = {"NAME","DESCRIPTION","DATE START","DATE END"};
     Object[][] data;
@@ -13,7 +14,7 @@ public class ListFairs extends JFrame {
     Collection<Tferia> tferias;
 
 
-    public ListFairs(Collection<Tferia> tferias){
+    public GUIListFairs(Collection<Tferia> tferias){
         super();
         this.tferias = tferias;
         this.initGUI();
@@ -30,7 +31,7 @@ public class ListFairs extends JFrame {
 
         changeTransferToCollection(tferias);
 
-        new TableList(mainPanel, columnNames, data);
+        new GUITableList(mainPanel, columnNames, data);
 
         this.add(mainPanel);
         this.pack();
@@ -48,6 +49,11 @@ public class ListFairs extends JFrame {
             this.data[i][3] = tferia.getEndDate();
             i++;
         }
+
+    }
+
+    @Override
+    public void update(int event, Object data) {
 
     }
 }

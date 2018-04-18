@@ -1,11 +1,12 @@
 package Presentacion.Shows.List;
 
 import Negocio.Participacion.Tparticipacion;
+import Presentacion.UI;
 
 import javax.swing.*;
 import java.util.Collection;
 
-public class ListParticipation extends JFrame {
+public class GUIListParticipation extends JFrame implements UI {
 
     String[] columnNames = {"ID FAIR","ID CLIENT","ID STAND","USED M2"};
     Object[][] data;
@@ -13,7 +14,7 @@ public class ListParticipation extends JFrame {
     Collection<Tparticipacion> tparticipation;
 
 
-    public ListParticipation(Collection<Tparticipacion> tassignation){
+    public GUIListParticipation(Collection<Tparticipacion> tassignation){
         super();
         this.tparticipation = tassignation;
         this.initGUI();
@@ -30,7 +31,7 @@ public class ListParticipation extends JFrame {
 
         changeTransferToCollection(tparticipation);
 
-        new TableList(mainPanel, columnNames, data);
+        new GUITableList(mainPanel, columnNames, data);
 
         this.add(mainPanel);
         this.pack();
@@ -50,4 +51,8 @@ public class ListParticipation extends JFrame {
 
     }
 
+    @Override
+    public void update(int event, Object data) {
+
+    }
 }

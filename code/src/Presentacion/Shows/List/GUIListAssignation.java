@@ -1,13 +1,14 @@
 package Presentacion.Shows.List;
 
 import Negocio.Asignacion.Tasignacion;
+import Presentacion.UI;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.Collection;
 
-public class ListAssignation extends JFrame {
+public class GUIListAssignation extends JFrame implements UI {
 
     String[] columnNames = {"ID FAIR","ID PAVILION","ID STAND","USED M2"};
     Object[][] data;
@@ -17,7 +18,7 @@ public class ListAssignation extends JFrame {
     Collection<Tasignacion> tAssignaction;
 
 
-    public ListAssignation(Collection<Tasignacion> tassignation){
+    public GUIListAssignation(Collection<Tasignacion> tassignation){
         super();
         this.setLayout(new BorderLayout());
         this.tAssignaction = tassignation;
@@ -73,4 +74,8 @@ public class ListAssignation extends JFrame {
 
     }
 
+    @Override
+    public void update(int event, Object data) {
+
+    }
 }

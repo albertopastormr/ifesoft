@@ -1,31 +1,32 @@
 package Presentacion.Create_Modify.Forms;
 
-import Negocio.Pabellon.Tpabellon;
+import Negocio.Stand.Tstand;
 import Controller.Controller;
 import Presentacion.Events.Event;
-import Presentacion.Utils.ActionHelp;
+import Presentacion.UI;
 import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class ViewsFormPavilion extends JFrame {
+public class GUIFormStand extends JFrame implements UI {
 
-    private String capacity;
-    private String m2tot;
-    private String m2utils;
+    private String metres;
+    private String number;
+    private String cost;
+
+    private boolean mod;
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
     private JLabel title;
     private JPanel formContainer;
-    private JTextField capacityField;
-    private JTextField m2totField;
-    private JTextField m2utilsField;
+    private JTextField metresField;
+    private JTextField numberField;
+    private JTextField costField;
     private JPanel buttonBar;
 
-    private boolean mod;
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
     private Font fLabel = new Font(Font.DIALOG, Font.PLAIN, 30);
@@ -37,42 +38,37 @@ public class ViewsFormPavilion extends JFrame {
     private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
 
-    public ViewsFormPavilion() {
-        super("Pavilion");
+    public GUIFormStand() {
+        super("Stand");
         mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
-    public ViewsFormPavilion(Tpabellon pavilion) {
-        super("Pavilion");
+    public GUIFormStand(Tstand tstand) {
+        super("Stand");
         mod = true;
 
-        capacity = "" + pavilion.getCapacity();
-        m2tot = "" + pavilion.getTotal_m2();
-        m2utils = "" + pavilion.getUtil_m2();
+        metres = "" + tstand.getTotal_m2();
+        number = "" + tstand.getNum_at_fair();
+        cost = "" + tstand.getCost();
 
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
+
     private void createButtonFormActionPerformed() throws Exception {
         setVisible(false);
-        try {
-       String capacity = capacityField.getText();
-        String m2_utils = m2utilsField.getText();
-        String m2_total = m2totField.getText();
-        Tpabellon tPabellon = new Tpabellon(Integer.parseInt(capacity), Integer.parseInt(m2_utils), Integer.parseInt(m2_total), true);
+        String cost = costField.getText();
+        String m_used = metresField.getText();
+        String number = numberField.getText();
+        Tstand tStand = new Tstand(Integer.parseInt(cost), Integer.parseInt(m_used), Integer.parseInt(number), true);
 
-
-            if (!mod)  Controller.getInstance().execute(Event.INSERT_PAVILION, tPabellon);
-            else Controller.getInstance().execute(Event.MODIFY_PAVILION, tPabellon);
-
-        }catch (NumberFormatException e){
-            throw new NumberFormatException("Debes insertar un numero valido en los campos." + ActionHelp.strHelpBasic());
-        }
+        if (!mod) Controller.getInstance().execute(Event.INSERT_STAND, tStand);
+        else Controller.getInstance().execute(Event.MODIFY_STAND,tStand);
     }
 
     private void cancelButtonStateChanged() throws Exception {
@@ -84,13 +80,12 @@ public class ViewsFormPavilion extends JFrame {
     private void helpButtonActionPerformed() {
 
     }
-
     private void setupTitle(){
         title = new JLabel();
         if(mod)
-            title.setText("Modify Pavilion");
+            title.setText("Modify Stand");
         else
-            title.setText("Create_Modify Pavilion");
+            title.setText("Create_Modify Stand");
         title.setFont(fTitle);
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
@@ -135,40 +130,40 @@ public class ViewsFormPavilion extends JFrame {
         formCon.anchor = GridBagConstraints.EAST;
 
 
-        JLabel aforoLabel = createLabel("Capacity:");
-        JLabel m2totLabel = createLabel("Total square-metres:");
-        JLabel m2utilesLabel = createLabel("Useful square-metres:");
+        JLabel metresLabel = createLabel("Metres:");
+        JLabel numberLabel = createLabel("Number:");
+        JLabel costLabel = createLabel("Cost:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
 
         formCon.gridx = 0;
         formCon.gridy = 0;
-        formPanel.add(aforoLabel, formCon);
+        formPanel.add(metresLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 1;
-        formPanel.add(m2totLabel, formCon);
+        formPanel.add(numberLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 2;
-        formPanel.add(m2utilesLabel, formCon);
+        formPanel.add(costLabel, formCon);
 
-        capacityField = setupTextField();
-        capacityField.setMinimumSize(minDim);
-        capacityField.setPreferredSize(prefDim);
-        capacityField.setMaximumSize(maxDim);
-        capacityField.setText(capacity);
+        metresField = setupTextField();
+        metresField.setMinimumSize(minDim);
+        metresField.setPreferredSize(prefDim);
+        metresField.setMaximumSize(maxDim);
+        metresField.setText(metres);
 
-        m2totField = setupTextField();
-        m2totField.setMinimumSize(minDim);
-        m2totField.setPreferredSize(prefDim);
-        m2totField.setMaximumSize(maxDim);
-        m2totField.setText(m2tot);
+        numberField = setupTextField();
+        numberField.setMinimumSize(minDim);
+        numberField.setPreferredSize(prefDim);
+        numberField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
+        numberField.setText(number);
 
-        m2utilsField = setupTextField();
-        m2utilsField.setMinimumSize(minDim);
-        m2utilsField.setPreferredSize(prefDim);
-        m2utilsField.setMaximumSize(maxDim);
-        m2utilsField.setText(m2utils);
+        costField = setupTextField();
+        costField.setMinimumSize(minDim);
+        costField.setPreferredSize(prefDim);
+        costField.setMaximumSize(maxDim);
+        costField.setText(cost);
 
         formCon.anchor = GridBagConstraints.WEST;
 
@@ -176,13 +171,13 @@ public class ViewsFormPavilion extends JFrame {
 
         formCon.gridx = 1;
         formCon.gridy = 0;
-        formPanel.add(capacityField, formCon);
+        formPanel.add(metresField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 1;
-        formPanel.add(m2totField, formCon);
+        formPanel.add(numberField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 2;
-        formPanel.add(m2utilsField, formCon);
+        formPanel.add(costField, formCon);
         formContainer.add(formPanel);
     }
 
@@ -289,5 +284,10 @@ public class ViewsFormPavilion extends JFrame {
         contentPane.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
+    }
+
+    @Override
+    public void update(int event, Object data) {
+
     }
 }

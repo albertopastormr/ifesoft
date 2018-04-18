@@ -1,17 +1,20 @@
 package Presentacion.Shows.individual;
 
-import Negocio.Pabellon.Tpabellon;
+import Negocio.Feria.Tferia;
+import Presentacion.UI;
+import Presentacion.Utils.Utilities;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class ViewPavilion extends JFrame {
+public class GUIViewFair extends JFrame implements UI {
 
-    private String capacity;
-    private String m2tot;
-    private String m2util;
     private String id;
+    private String name;
+    private String description;
+    private String iniDate;
+    private String finDate;
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
@@ -19,33 +22,21 @@ public class ViewPavilion extends JFrame {
     private JPanel formContainer;
     private JPanel buttonBar;
 
+
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
     private Font fLabel = new Font(Font.DIALOG, Font.PLAIN, 30);
+    private Font fField = new Font(Font.DIALOG, Font.PLAIN, 30);
     private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
 
-    private Color cBackButton = new Color(146, 35, 59);
+    private Color cCancelButton = new Color(146, 35, 59);
 
-    /*
-    SOLO PARA DEPURAR
-     */
-    public ViewPavilion() {
+    public GUIViewFair(Tferia tferia) {
 
-        capacity = "7";
-        m2tot = "420";
-        m2util = "69";
-        id = "1";
-
-        initComponents();
-        this.setBounds(100,100, 800,800);
-        this.setVisible(true);
-    }
-
-    public ViewPavilion(Tpabellon tpabellon) {
-
-        capacity = tpabellon.getCapacity() +"";
-        m2tot = tpabellon.getTotal_m2() +"";
-        m2util = tpabellon.getUtil_m2() +"";
-        id = tpabellon.getId() +"";
+        id = tferia.getId() + "";
+        name = tferia.getName();
+        description = tferia.getDescription();
+        iniDate = Utilities.parseDateToString(tferia.getIniDate());
+        finDate = Utilities.parseDateToString(tferia.getEndDate());
 
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -60,7 +51,7 @@ public class ViewPavilion extends JFrame {
 
     private void setupTitle(){
         title = new JLabel();
-        title.setText("Pavilion: " + id);
+        title.setText("Fair: " + id);
         title.setFont(fTitle);
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
@@ -98,37 +89,52 @@ public class ViewPavilion extends JFrame {
         formCon.anchor = GridBagConstraints.EAST;
 
 
-        JLabel aforoLabel = createLabel("Capacity:");
-        JLabel m2totLabel = createLabel("Total square-metres:");
-        JLabel m2utilesLabel = createLabel("Useful square-metres:");
+        JLabel nameLabel = createLabel("Name:");
+        JLabel descLabel = createLabel("Description:");
+        JLabel iniDateLabel = createLabel("Start Date:");
+        JLabel finDateLabel = createLabel("End Date:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
 
         formCon.gridx = 0;
         formCon.gridy = 0;
-        formPanel.add(aforoLabel, formCon);
+        formPanel.add(nameLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 1;
-        formPanel.add(m2totLabel, formCon);
+        formPanel.add(descLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 2;
-        formPanel.add(m2utilesLabel, formCon);
+        formPanel.add(iniDateLabel, formCon);
+        formCon.gridx = 0;
+        formCon.gridy = 3;
+        formPanel.add(finDateLabel, formCon);
 
-        JLabel aforoField = createLabel(capacity);
-        aforoField.setMinimumSize(minDim);
-        aforoField.setPreferredSize(prefDim);
-        aforoField.setMaximumSize(maxDim);
+        JLabel nameField = createLabel(name);
+        nameField.setMinimumSize(minDim);
+        nameField.setPreferredSize(prefDim);
+        nameField.setMaximumSize(maxDim);
 
-        JLabel m2totField = createLabel(m2tot);
-        m2totField.setMinimumSize(minDim);
-        m2totField.setPreferredSize(prefDim);
-        m2totField.setMaximumSize(maxDim);
+        JTextArea descField = new JTextArea();
+        descField.setMinimumSize(new Dimension(minDim.width, minDim.height + 100));
+        descField.setPreferredSize(new Dimension(prefDim.width, prefDim.height + 100));
+        descField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
+        descField.setLineWrap(true);
+        descField.setEditable(false);
+        descField.setFont(fLabel);
+        descField.setBackground(this.getBackground());
+        descField.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        descField.setText(description);
 
-        JLabel m2utilesField = createLabel(m2util);
-        m2utilesField.setMinimumSize(minDim);
-        m2utilesField.setPreferredSize(prefDim);
-        m2utilesField.setMaximumSize(maxDim);
+        JLabel iniDateField = createLabel(iniDate);
+        iniDateField.setMinimumSize(minDim);
+        iniDateField.setPreferredSize(prefDim);
+        iniDateField.setMaximumSize(maxDim);
+
+        JLabel finDateField = createLabel(finDate);
+        finDateField.setMinimumSize(minDim);
+        finDateField.setPreferredSize(prefDim);
+        finDateField.setMaximumSize(maxDim);
 
         formCon.anchor = GridBagConstraints.WEST;
 
@@ -136,13 +142,16 @@ public class ViewPavilion extends JFrame {
 
         formCon.gridx = 1;
         formCon.gridy = 0;
-        formPanel.add(aforoField, formCon);
+        formPanel.add(nameField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 1;
-        formPanel.add(m2totField, formCon);
+        formPanel.add(descField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 2;
-        formPanel.add(m2utilesField, formCon);
+        formPanel.add(iniDateField, formCon);
+        formCon.gridx = 1;
+        formCon.gridy = 3;
+        formPanel.add(finDateField, formCon);
         formContainer.add(formPanel);
     }
 
@@ -154,7 +163,7 @@ public class ViewPavilion extends JFrame {
         JButton backButton = new JButton();
         backButton.setText("Back");
         backButton.setFont(fButton);
-        backButton.setBackground(cBackButton);
+        backButton.setBackground(cCancelButton);
         backButton.setForeground(Color.WHITE);
         backButton.setPreferredSize(buttonDim);
         backButton.addActionListener(new ActionListener() {
@@ -205,5 +214,10 @@ public class ViewPavilion extends JFrame {
         contentPane.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
+    }
+
+    @Override
+    public void update(int event, Object data) {
+
     }
 }

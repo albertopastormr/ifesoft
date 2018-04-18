@@ -1,11 +1,12 @@
 package Presentacion.Shows.List;
 
 import Negocio.Participante.Tparticipante;
+import Presentacion.UI;
 
 import javax.swing.*;
 import java.util.Collection;
 
-public class ListClient extends JFrame {
+public class GUIListClient extends JFrame implements UI {
 
     String[] columnNames = {"NAME","PHONE NUMBER"};
     Object[][] data;
@@ -13,7 +14,7 @@ public class ListClient extends JFrame {
     Collection<Tparticipante> tclient;
 
 
-    public ListClient(Collection<Tparticipante> tclient){
+    public GUIListClient(Collection<Tparticipante> tclient){
         super();
         this.tclient = tclient;
         this.initGUI();
@@ -30,7 +31,7 @@ public class ListClient extends JFrame {
 
         changeTransferToCollection(tclient);
 
-        new TableList(mainPanel, columnNames, data);
+        new GUITableList(mainPanel, columnNames, data);
 
         this.add(mainPanel);
         this.pack();
@@ -50,4 +51,8 @@ public class ListClient extends JFrame {
     }
 
 
+    @Override
+    public void update(int event, Object data) {
+
+    }
 }

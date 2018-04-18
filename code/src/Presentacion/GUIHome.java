@@ -11,7 +11,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class UIimp extends UI {
+public class GUIHome extends JFrame implements UI {
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
@@ -38,9 +38,9 @@ public class UIimp extends UI {
     String helpMessage = "<html>this is a really long message<br>this is a really long message this is a really long message this is " +
             "a really long message this is a really long message this is a really long message this is a really long message";
 
-    public UIimp() {
-
-        start();
+    public GUIHome() {
+        initComponents();
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setBounds(100,100, minScreenSize.width, minScreenSize.height);
         this.setVisible(true);
     }
@@ -56,12 +56,6 @@ public class UIimp extends UI {
                 break;
 
         }
-    }
-
-    @Override
-    public void start() {
-        initComponents();
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     private void buttonCreateHomeActionPerformed() {

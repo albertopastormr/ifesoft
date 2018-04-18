@@ -7,6 +7,7 @@ import Negocio.Participacion.Tparticipacion;
 import Negocio.Participante.Tparticipante;
 import Negocio.Stand.Tstand;
 import Controller.Controller;
+import Presentacion.UI;
 import Presentacion.Utils.Utilities;
 import Presentacion.Events.Event;
 import Presentacion.Utils.PanelProblemUser;
@@ -18,7 +19,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class ViewHalfShow extends JFrame {
+public class GUIShow extends JFrame implements UI {
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
@@ -57,7 +58,7 @@ public class ViewHalfShow extends JFrame {
     private boolean isHalfEntity;
     private boolean isHalfEntityList;
 
-    public ViewHalfShow() {
+    public GUIShow() {
         super("Show");
 
         this.isHalfEntity = false;
@@ -521,5 +522,10 @@ public class ViewHalfShow extends JFrame {
 
         this.isHalfEntity = false;
         this.isHalfEntityList = false;
+    }
+
+    @Override
+    public void update(int event, Object data) {
+
     }
 }

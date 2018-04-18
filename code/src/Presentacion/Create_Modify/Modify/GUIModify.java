@@ -1,7 +1,14 @@
-package Presentacion.Create_Modify.Create;
+package Presentacion.Create_Modify.Modify;
 
+import Negocio.Asignacion.Tasignacion;
+import Negocio.Feria.Tferia;
+import Negocio.Pabellon.Tpabellon;
+import Negocio.Participacion.Tparticipacion;
+import Negocio.Participante.Tparticipante;
+import Negocio.Stand.Tstand;
 import Controller.Controller;
 import Presentacion.Events.Event;
+import Presentacion.UI;
 import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
@@ -10,16 +17,15 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class ViewsHalfCreate extends JFrame {
+public class GUIModify extends JFrame implements UI {
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
     private JPanel centerPanel;
     private JPanel buttonBar;
     private JLabel title;
-    //private JLabel labelSubID;
-    private JComboBox<String> comboBoxCreate;
-    //private JTextField textField;
+    private JComboBox<String> comboBoxMod;
+    private JTextField textID;
 
     private Font fComboBox = new Font(Font.DIALOG, Font.PLAIN, 40);
     private Font fTitle  = new Font(Font.MONOSPACED, Font.BOLD, 80);
@@ -36,60 +42,63 @@ public class ViewsHalfCreate extends JFrame {
     private Color cComboBoxSelectedFont = new Color(52, 56, 58);
     private Color cTextFieldBG = new Color(243,243,243);
 
-    public ViewsHalfCreate() {
-        super("Create_Modify");
+    public GUIModify() {
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
-    private void nextButtonActionPerformed() throws Exception {
+    private void okButtonActionPerformed(ActionEvent e) throws Exception {
 
-        switch (String.valueOf(comboBoxCreate.getSelectedItem())){
+        switch (String.valueOf(comboBoxMod.getSelectedItem())){
             case "Fair":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_FERIA, null);
+                Controller.getInstance().execute(Event.INSERT_FORM_FERIA,
+                        new Tferia( Integer.parseInt(textID.getText()) ,null,null ,null ,null, null));
                 break;
             case "Pavilion":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_PABELLON, null);
+                Controller.getInstance().execute(Event.INSERT_FORM_PABELLON,
+                        new Tpabellon(Integer.parseInt(textID.getText()) ,-1,-1 ,-1,null));
                 break;
             case "Stand":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_STAND, null);
+                Controller.getInstance().execute(Event.INSERT_FORM_STAND,
+                        new Tstand(Integer.parseInt(textID.getText()) ,-1,-1 ,-1,null));
                 break;
             case "Client":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_PARTICIPANTE, null);
+                Controller.getInstance().execute(Event.INSERT_FORM_PARTICIPANTE,
+                        new Tparticipante(Integer.parseInt(textID.getText()) ,null ,-1 ,null));
                 break;
             case "Assignation":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_ASIGNACION, null);
+                Controller.getInstance().execute(Event.INSERT_FORM_ASIGNACION,
+                        new Tasignacion(Integer.parseInt(textID.getText()) ,-1 ,-1 ,-1 ,null));
                 break;
             case "Participation":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_PARTICIPANTE, null);
+                Controller.getInstance().execute(Event.INSERT_FORM_PARTICIPACION,
+                        new Tparticipacion(Integer.parseInt(textID.getText()) ,-1 ,-1 ,null));
                 break;
 
         }
-
-
     }
 
-    private void backButtonActionPerformed() throws Exception {
+    private void cancelButtonActionPerformed(ActionEvent e) throws Exception {
         this.setVisible(false);
         Controller.getInstance().execute(Event.HOME, null);
-        // Volver a mostrar la primera
     }
 
-    private void helpButtonHalfCreateActionPerformed() {
+    private void helpButtonActionPerformed(ActionEvent e) {
+
     }
 
 
     private void setUpTitle(){
 
         title = new JLabel();
-        title .setText("Create_Modify");
+        title .setText("Modify");
         title .setFont(fTitle);
         title .setHorizontalAlignment(JLabel.CENTER);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
@@ -111,22 +120,45 @@ public class ViewsHalfCreate extends JFrame {
         UIManager.put("ComboBox.disabledForeground", new ColorUIResource(cComboBoxFont));
 
 
-        comboBoxCreate = new JComboBox<>();
-        comboBoxCreate.getEditor().getEditorComponent().setBackground(cComboBoxActive);
-        comboBoxCreate.setFont(fComboBox);
-        comboBoxCreate.setForeground(cComboBoxFont);
-        comboBoxCreate.setMinimumSize(new Dimension(200, 50));
-        comboBoxCreate.setMaximumSize(new Dimension(800, 50));
+        comboBoxMod = new JComboBox<>();
+        comboBoxMod.getEditor().getEditorComponent().setBackground(cComboBoxActive);
+        comboBoxMod.setFont(fComboBox);
+        comboBoxMod.setForeground(cComboBoxFont);
+        comboBoxMod.setMinimumSize(new Dimension(200, 50));
+        comboBoxMod.setMaximumSize(new Dimension(800, 50));
 
-        comboBoxCreate.addItem("Assignation");
-        comboBoxCreate.addItem("Fair");
-        comboBoxCreate.addItem("Client");
-        comboBoxCreate.addItem("Pavilion");
-        comboBoxCreate.addItem("Participation");
-        comboBoxCreate.addItem("Stand");
+        comboBoxMod.addItem("Assignation");
+        comboBoxMod.addItem("Fair");
+        comboBoxMod.addItem("Participant");
+        comboBoxMod.addItem("Pavilion");
+        comboBoxMod.addItem("Participation");
+        comboBoxMod.addItem("Stand");
 
-        comboBoxCreate.setBorder(BorderFactory.createEmptyBorder(0,0, 20, 0));
-        centerPanel.add(comboBoxCreate);
+        comboBoxMod.setBorder(BorderFactory.createEmptyBorder(0,0, 20, 0));
+        centerPanel.add(comboBoxMod);
+
+        //===== TextField =====
+
+        JPanel textFieldPanel = new JPanel();
+        FlowLayout textFieldPanelLayout = new FlowLayout();
+        textFieldPanel.setLayout(textFieldPanelLayout);
+
+        JLabel labelSubID = new JLabel();
+        labelSubID.setText("ID");
+        labelSubID.setFont(fLabelSubId);
+
+        textFieldPanel.add(labelSubID);
+
+        textID = new JTextField();
+        textID.setFont(fTextField);
+        textID.setBackground(cTextFieldBG);
+        textID.setMinimumSize(new Dimension(200, 50));
+        textID.setPreferredSize(new Dimension(400, 50));
+        textID.setMaximumSize(new Dimension(400, 50));
+
+        textFieldPanel.add(textID);
+
+        centerPanel.add(textFieldPanel);
     }
 
     private void setUpButtonBar(){
@@ -134,17 +166,17 @@ public class ViewsHalfCreate extends JFrame {
         Dimension buttonDim = new Dimension(150, 80);
 
         //---- cancelButton ----
-        JButton backButton = new JButton();
-        backButton.setText("Back");
-        backButton.setFont(fButton);
-        backButton.setBackground(cCancelButton);
-        backButton.setForeground(Color.WHITE);
-        backButton.setPreferredSize(buttonDim);
-        backButton.addActionListener(new ActionListener() {
+        JButton cancelButton = new JButton();
+        cancelButton.setText("Cancel");
+        cancelButton.setFont(fButton);
+        cancelButton.setBackground(cCancelButton);
+        cancelButton.setForeground(Color.WHITE);
+        cancelButton.setPreferredSize(buttonDim);
+        cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    backButtonActionPerformed();
+                    cancelButtonActionPerformed(e);
                 } catch (Exception e1){
                     new PanelProblemUser(e1.getMessage());
                 }
@@ -162,23 +194,23 @@ public class ViewsHalfCreate extends JFrame {
         helpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                helpButtonHalfCreateActionPerformed();
+                helpButtonActionPerformed(e);
             }
         });
 
 
         //---- okButton ----
-        JButton nextButton = new JButton();
-        nextButton.setText("Next");
-        nextButton.setFont(fButton);
-        nextButton.setBackground(cOkButton);
-        nextButton.setForeground(Color.WHITE);
-        nextButton.setPreferredSize(buttonDim);
-        nextButton.addActionListener(new ActionListener() {
+        JButton okButton = new JButton();
+        okButton.setText("Modify");
+        okButton.setFont(fButton);
+        okButton.setBackground(cOkButton);
+        okButton.setForeground(Color.WHITE);
+        okButton.setPreferredSize(buttonDim);
+        okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    nextButtonActionPerformed();
+                    okButtonActionPerformed(e);
                 } catch (Exception e1){
                     new PanelProblemUser(e1.getMessage());
                 }
@@ -189,10 +221,10 @@ public class ViewsHalfCreate extends JFrame {
         FlowLayout layout = new FlowLayout();
         layout.setHgap(25);
         buttonBar.setLayout(layout);
-        buttonBar.add(backButton);
+        buttonBar.add(cancelButton);
         buttonBar.add(helpButton);
         buttonBar.add(Box.createHorizontalStrut(500));
-        buttonBar.add(nextButton);
+        buttonBar.add(okButton);
 
 
 
@@ -200,9 +232,8 @@ public class ViewsHalfCreate extends JFrame {
 
     private void initComponents() {
 
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
         //======== this ========
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
@@ -247,5 +278,10 @@ public class ViewsHalfCreate extends JFrame {
         contentPane.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
+    }
+
+    @Override
+    public void update(int event, Object data) {
+
     }
 }

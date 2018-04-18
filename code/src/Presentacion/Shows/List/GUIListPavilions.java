@@ -3,6 +3,7 @@ package Presentacion.Shows.List;
 import Negocio.Pabellon.Tpabellon;
 import Controller.Controller;
 import Presentacion.Events.Event;
+import Presentacion.UI;
 import Presentacion.Utils.PanelProblemUser;
 
 import javax.swing.*;
@@ -14,7 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
 
-public class ListPavilions extends JFrame {
+public class GUIListPavilions extends JFrame implements UI {
 
     private String[] columnNames = {"NUMBER","TOTAL M2","UTIL M2","CAPACITY"};
     private Object[][] data;
@@ -37,7 +38,7 @@ public class ListPavilions extends JFrame {
     private Color cHelpButton = new Color(66,35,146);
     private Color cCancelButton = new Color(146, 35, 59);
 
-    public ListPavilions(Collection<Tpabellon> tpavilions){
+    public GUIListPavilions(Collection<Tpabellon> tpavilions){
         super("List Pavilions");
         this.tPavilions = tpavilions;
         this.initComponents();
@@ -219,4 +220,8 @@ public class ListPavilions extends JFrame {
         setLocationRelativeTo(getOwner());
     }
 
+    @Override
+    public void update(int event, Object data) {
+
+    }
 }
