@@ -4,6 +4,7 @@ import Negocio.Pabellon.Tpabellon;
 import Controller.Controller;
 import Presentacion.Events.Event;
 import Presentacion.UI;
+import Presentacion.UIimp;
 import Presentacion.Utils.ActionHelp;
 import Presentacion.Utils.PanelProblemUser;
 
@@ -11,7 +12,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIFormPavilion extends JFrame implements UI {
+public class GUIFormPavilion extends UIimp {
 
     private String capacity;
     private String m2tot;
@@ -39,7 +40,7 @@ public class GUIFormPavilion extends JFrame implements UI {
     private Color cOkButton = new Color(26, 184, 59);
 
     public GUIFormPavilion() {
-        super("Pavilion");
+
         mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -47,7 +48,6 @@ public class GUIFormPavilion extends JFrame implements UI {
     }
 
     public GUIFormPavilion(Tpabellon pavilion) {
-        super("Pavilion");
         mod = true;
 
         capacity = "" + pavilion.getCapacity();

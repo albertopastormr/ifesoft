@@ -7,7 +7,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class GUITableList extends AbstractTableModel implements UI {
+public class GUITableList extends AbstractTableModel {
 
     private String[] columnNames;
     private Object[][] rowData;
@@ -76,10 +76,5 @@ public class GUITableList extends AbstractTableModel implements UI {
             currNumOfCols++;
             fireTableStructureChanged();
         }
-    }
-
-    @Override
-    public void update(int event, Object data) {
-
     }
 }

@@ -1,6 +1,8 @@
 package Presentacion;
 
 import Controller.Controller;
+import Presentacion.Create_Modify.Create.GUICreate;
+import Presentacion.Create_Modify.Forms.GUIFormFair;
 import Presentacion.Events.Event;
 import Presentacion.Events.EventGUI;
 import Presentacion.Utils.ActionHelp;
@@ -11,7 +13,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class GUIHome extends JFrame implements UI {
+public class GUIHome extends UIimp {
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
@@ -49,7 +51,7 @@ public class GUIHome extends JFrame implements UI {
     public void update(int event, Object object) {
         switch (event){
             case EventGUI.UPDATE_CREATE_FERIA_OK:
-
+                System.out.println("Yeeeeee 2");
                 break;
             case EventGUI.UPDATE_CREATE_FERIA_FAIL:
 

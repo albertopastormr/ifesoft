@@ -4,13 +4,14 @@ import Negocio.Stand.Tstand;
 import Controller.Controller;
 import Presentacion.Events.Event;
 import Presentacion.UI;
+import Presentacion.UIimp;
 import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIFormStand extends JFrame implements UI {
+public class GUIFormStand extends UIimp {
 
     private String metres;
     private String number;
@@ -39,7 +40,6 @@ public class GUIFormStand extends JFrame implements UI {
     private Color cOkButton = new Color(26, 184, 59);
 
     public GUIFormStand() {
-        super("Stand");
         mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -47,7 +47,6 @@ public class GUIFormStand extends JFrame implements UI {
     }
 
     public GUIFormStand(Tstand tstand) {
-        super("Stand");
         mod = true;
 
         metres = "" + tstand.getTotal_m2();

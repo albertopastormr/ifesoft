@@ -2,7 +2,9 @@ package Presentacion.Create_Modify.Create;
 
 import Controller.Controller;
 import Presentacion.Events.Event;
+import Presentacion.Events.EventGUI;
 import Presentacion.UI;
+import Presentacion.UIimp;
 import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
@@ -11,7 +13,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class GUICreate extends JFrame implements UI {
+public class GUICreate extends UIimp {
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
@@ -45,7 +47,14 @@ public class GUICreate extends JFrame implements UI {
 
     @Override
     public void update(int event, Object data) {
+        switch (event){
+            case EventGUI.UPDATE_CREATE_FERIA_OK:
+                Integer id = (Integer) data;
+                JOptionPane.showInternalMessageDialog(null, "Usuario creado con ID: " + id);
+                setVisible(true);
+                break;
 
+        }
     }
 
     private void nextButtonActionPerformed() throws Exception {

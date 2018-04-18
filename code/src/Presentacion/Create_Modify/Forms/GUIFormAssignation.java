@@ -4,13 +4,14 @@ import Negocio.Asignacion.Tasignacion;
 import Controller.Controller;
 import Presentacion.Events.Event;
 import Presentacion.UI;
+import Presentacion.UIimp;
 import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIFormAssignation extends JFrame implements UI {
+public class GUIFormAssignation extends UIimp {
 
     private String metres;
 
@@ -38,7 +39,6 @@ public class GUIFormAssignation extends JFrame implements UI {
     private Color cOkButton = new Color(26, 184, 59);
 
     public GUIFormAssignation() {
-       super("Assignation");
         mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -47,7 +47,6 @@ public class GUIFormAssignation extends JFrame implements UI {
 
 
     public GUIFormAssignation(Tasignacion assignation) {
-        super("Assignation");
         mod = true;
         metres = assignation.getUsed_m2() + "";
 

@@ -2,11 +2,12 @@ package Presentacion.Shows.List;
 
 import Negocio.Stand.Tstand;
 import Presentacion.UI;
+import Presentacion.UIimp;
 
 import javax.swing.*;
 import java.util.Collection;
 
-public class GUIListStand extends JFrame implements UI {
+public class GUIListStand extends UIimp {
 
     String[] columnNames = {"COST","NUMBER AT FEAR","M2"};
     Object[][] data;

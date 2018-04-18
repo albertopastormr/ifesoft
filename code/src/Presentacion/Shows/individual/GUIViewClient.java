@@ -2,12 +2,13 @@ package Presentacion.Shows.individual;
 
 import Negocio.Participante.Tparticipante;
 import Presentacion.UI;
+import Presentacion.UIimp;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIViewClient extends JFrame implements UI {
+public class GUIViewClient extends UIimp {
 
     private String name;
     private String phone;

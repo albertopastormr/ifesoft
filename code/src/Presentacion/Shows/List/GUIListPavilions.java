@@ -4,6 +4,7 @@ import Negocio.Pabellon.Tpabellon;
 import Controller.Controller;
 import Presentacion.Events.Event;
 import Presentacion.UI;
+import Presentacion.UIimp;
 import Presentacion.Utils.PanelProblemUser;
 
 import javax.swing.*;
@@ -15,7 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
 
-public class GUIListPavilions extends JFrame implements UI {
+public class GUIListPavilions extends UIimp {
 
     private String[] columnNames = {"NUMBER","TOTAL M2","UTIL M2","CAPACITY"};
     private Object[][] data;
@@ -39,7 +40,6 @@ public class GUIListPavilions extends JFrame implements UI {
     private Color cCancelButton = new Color(146, 35, 59);
 
     public GUIListPavilions(Collection<Tpabellon> tpavilions){
-        super("List Pavilions");
         this.tPavilions = tpavilions;
         this.initComponents();
     }

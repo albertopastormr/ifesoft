@@ -4,13 +4,14 @@ import Negocio.Participante.Tparticipante;
 import Controller.Controller;
 import Presentacion.Events.Event;
 import Presentacion.UI;
+import Presentacion.UIimp;
 import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIFormClient extends JFrame implements UI {
+public class GUIFormClient extends UIimp {
 
     private String name;
     private String phone;

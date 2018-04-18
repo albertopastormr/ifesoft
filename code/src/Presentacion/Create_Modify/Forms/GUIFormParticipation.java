@@ -4,13 +4,14 @@ import Negocio.Participacion.Tparticipacion;
 import Controller.Controller;
 import Presentacion.Events.Event;
 import Presentacion.UI;
+import Presentacion.UIimp;
 import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIFormParticipation extends JFrame implements UI {
+public class GUIFormParticipation extends UIimp {
 
 
     private String metres;
@@ -42,7 +43,6 @@ public class GUIFormParticipation extends JFrame implements UI {
     private Color cOkButton = new Color(26, 184, 59);
 
     public GUIFormParticipation() {
-        super("Participation");
         mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -51,7 +51,6 @@ public class GUIFormParticipation extends JFrame implements UI {
 
 
     public GUIFormParticipation(Tparticipacion participation) {
-        super("Participation");
         mod = true;
 
         idFair = (String.valueOf(participation.getFair_id()));
