@@ -16,7 +16,6 @@ public class ASParticipacionImp implements ASParticipacion {
         DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
         if (participacion != null && participacion.getId() != -1 && participacion.getFair_id() != -1 && participacion.getClient_id() != -1) {
             try {
-
                 return daoParticipacion.create(participacion);
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());

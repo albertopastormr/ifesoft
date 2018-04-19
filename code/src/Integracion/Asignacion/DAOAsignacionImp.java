@@ -286,6 +286,51 @@ public class DAOAsignacionImp implements DAOAsignacion {
 	}
 
 	/***
+	 * reads a Tasignacion from database ifesoft
+	 * @param fair_id
+	 * @param pavilion_id
+	 * @return Tasignacion read from database
+	 * @throws DAOException error from database
+	 */
+	public Tasignacion readByFairIdPavilionId(Integer fair_id, Integer pavilion_id) throws DAOException {
+		driverIdentify();
+		Connection connec = null;
+
+		try { // Conexion db
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
+		} catch (SQLException e) {
+			throw new DAOException("ERROR: acceso a la conexion a DB para 'readById' Participacion con Feria ID " + fair_id + " y Pabellon ID "+pavilion_id +" no logrado\n");
+		}
+
+		try { // Tratamiento db
+			PreparedStatement ps;
+
+			ps = connec.prepareStatement("SELECT * FROM asignacion WHERE fair_id = ? AND pavilion_id = ?");
+			ps.setInt(1, fair_id);
+			ps.setInt(2, pavilion_id);
+			ResultSet rs = ps.executeQuery();
+			ps.close();
+
+			if (rs.next()){
+				return new Tasignacion(rs.getInt("id"), rs.getInt("fair_id"), rs.getInt("pavilion_id"),rs.getInt("total_m2"),rs.getInt("used_m2"), rs.getBoolean("active")) ;
+			}
+			else
+				return null;
+		}
+		catch (SQLException e){
+			throw new DAOException("ERROR: tratamiento DB para 'readById' Participacion con Feria ID " + fair_id + " y Pabellon ID "+pavilion_id +" no logrado\n");
+		}
+		finally {
+			try { // Desconexion db
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrar DB para 'readById' Participacion con Feria ID " + fair_id + " y Pabellon ID "+pavilion_id +" no logrado\n");
+			}
+		}
+	}
+
+
+	/***
 	 * Updates the database ifesoft information of a tAsignacion(param) which already exists
 	 * @param tAsignacion it needs a valid ID read from db
 	 * @return Integer id tAsignacion updated at database

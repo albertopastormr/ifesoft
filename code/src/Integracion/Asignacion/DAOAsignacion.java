@@ -13,6 +13,7 @@ public interface DAOAsignacion {
 	Collection<Tasignacion> readByFairId(Integer id) throws DAOException;
 	Collection<Tasignacion> readByPavilionId(Integer id) throws DAOException;
 	Tasignacion readById(Integer id) throws DAOException;
+	Tasignacion readByFairIdPavilionId(Integer fair_id, Integer pavilion_id) throws DAOException;
 	Integer update(Tasignacion tasignacion) throws DAOException;
 	boolean delete(Integer id) throws DAOException;
 	void deleteAll() throws DAOException;

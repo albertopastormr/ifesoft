@@ -316,6 +316,50 @@ public class DAOParticipacionImp implements DAOParticipacion {
 	}
 
 	/***
+	 * reads a Tparticipacion from database ifesoft
+	 * @param fair_id
+	 * @param client_id
+	 * @return Tparticipacion read from database
+	 * @throws DAOException error from database
+	 */
+	public Tparticipacion readByFairIdClientId(Integer fair_id, Integer client_id) throws DAOException {
+		driverIdentify();
+		Connection connec = null;
+
+		try { // Conexion db
+			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
+		} catch (SQLException e) {
+			throw new DAOException("ERROR: acceso a la conexion a DB para 'readById' Participacion con Feria ID " + fair_id + " y Participante ID "+client_id +" no logrado\n");
+		}
+
+		try { // Tratamiento db
+			PreparedStatement ps;
+
+			ps = connec.prepareStatement("SELECT * FROM participacion WHERE fair_id = ? AND client_id = ?");
+			ps.setInt(1, fair_id);
+			ps.setInt(2, client_id);
+			ResultSet rs = ps.executeQuery();
+			ps.close();
+
+			if (rs.next()){
+				return new Tparticipacion(rs.getInt("id"), rs.getInt("fair_id"), rs.getInt("client_id"), rs.getBoolean("active")) ;
+			}
+			else
+				return null;
+		}
+		catch (SQLException e){
+			throw new DAOException("ERROR: tratamiento DB para 'readById' Participacion con Feria ID " + fair_id + " y Participante ID "+client_id +" no logrado\n");
+		}
+		finally {
+			try { // Desconexion db
+				connec.close();
+			} catch (SQLException e) {
+				throw new DAOException("ERROR: cerrar DB para 'readById' Participacion con Feria ID " + fair_id + " y Participante ID "+client_id +" no logrado\n");
+			}
+		}
+	}
+
+	/***
 	 * Updates the database ifesoft information of a tParticipacion(param) which already exists
 	 * @param tParticipacion it needs a valid ID read from db
 	 * @return ID of the Tparticipacion updated at database
