@@ -10,13 +10,12 @@ import java.util.Collection;
 
 public class ASParticipanteImp implements ASParticipante {
     public Integer create(Tparticipante participante) throws ASException {
-        int id = -1;
         DAOParticipante daoParticipante = IFDAOParticipante.getInstance().generateDAOparticipante();
         if (participante != null && participante.getName() != null && participante.getPhone() > -1) {
             try {
                 Tparticipante read = daoParticipante.readByName(participante.getName());
                 if (read == null)
-                    id = daoParticipante.create(participante);
+                    return daoParticipante.create(participante);
                 else
                     throw new ASException("ERROR: El participante " + participante.getName() + "ya existe.\n");
             } catch (Exception ex) {
@@ -24,18 +23,16 @@ public class ASParticipanteImp implements ASParticipante {
             }
         } else
             throw new ASException("ERROR: No se han introducido los datos del participante.\n");
-        return id;
     }
 
     public Integer drop(Tparticipante participante) throws ASException {
-        int id = -1;
         DAOParticipante daoParticipante = IFDAOParticipante.getInstance().generateDAOparticipante();
         if (participante != null && participante.getId() > -1) {
             try {
                 Tparticipante read = daoParticipante.readById(participante.getId());
                 if (read != null) {
                     read.setActive(false);
-                    id = daoParticipante.update(read);
+                    return daoParticipante.update(read);
                 } else
                     throw new ASException("ERROR: El participante " + participante.getId() + " no existe.\n");
             } catch (Exception ex) {
@@ -43,11 +40,9 @@ public class ASParticipanteImp implements ASParticipante {
             }
         } else
             throw new ASException("ERROR: No se han introducido los datos del participante.\n");
-        return id;
     }
 
     public Integer modify(Tparticipante participante) throws ASException {
-        int id = -1;
         DAOParticipante daoParticipante = IFDAOParticipante.getInstance().generateDAOparticipante();
         if (participante != null && participante.getName() != null && participante.getId() != -1 && participante.getPhone() != -1) {
             try {
@@ -55,7 +50,7 @@ public class ASParticipanteImp implements ASParticipante {
                 if (read != null) {
                     Tparticipante nameOK = daoParticipante.readByName(participante.getName());
                     if (nameOK == null || nameOK.getName().equals(read.getName())) {
-                        id = daoParticipante.update(participante);
+                        return daoParticipante.update(participante);
                     } else
                         throw new ASException("ERROR: El nuevo nombre para el participante " + participante.getName() + " ya esta siendo usado.\n");
                 } else
@@ -65,7 +60,6 @@ public class ASParticipanteImp implements ASParticipante {
             }
         } else
             throw new ASException("ERROR: No se han introducido los datos del participante.\n");
-        return id;
     }
 
     public Collection<Tparticipante> list() throws ASException {

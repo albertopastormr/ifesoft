@@ -21,7 +21,7 @@ public class ASPabellonImpTest {
 
         Tpabellon pabellon = new Tpabellon(100, 200, 200, true);
         int id1 = asPabellon.create(pabellon);
-        Tpabellon pabellon2 = new Tpabellon(id1, 100, 50, 200, true);
+        Tpabellon pabellon2 = new Tpabellon(id1, 50, 200, true);
         int id2 = asPabellon.create(pabellon2);
     }
 
@@ -55,7 +55,7 @@ public class ASPabellonImpTest {
 
         Tpabellon pabellon = new Tpabellon(100, 200, 200, false);
         int id1 = asPabellon.create(pabellon);
-        Tpabellon pabellon2 = new Tpabellon(id1, 100, 200, 200, true);
+        Tpabellon pabellon2 = new Tpabellon(id1, 100, 200, true);
         int id2 = asPabellon.create(pabellon2);
         assert (id1 > 0 && id2 == id1);
     }
@@ -74,7 +74,7 @@ public class ASPabellonImpTest {
     public void dropPabellonWhrongId() throws Exception {
         ASPabellonImp asPabellon = new ASPabellonImp();
 
-        Tpabellon pabellon = new Tpabellon(23456, 100, 200, 200, true);
+        Tpabellon pabellon = new Tpabellon(23456, 200, 200, true);
         int id1 = asPabellon.drop(pabellon);
     }
 
@@ -96,7 +96,7 @@ public class ASPabellonImpTest {
     public void modifyPabellonNoId() throws Exception {
         ASPabellonImp asPabellon = new ASPabellonImp();
 
-        Tpabellon pabellon2 = new Tpabellon(-1, 100, 50, 200, true);
+        Tpabellon pabellon2 = new Tpabellon(-1, 50, 200, true);
         int id2 = asPabellon.modify(pabellon2);
     }
 
@@ -106,7 +106,7 @@ public class ASPabellonImpTest {
 
         Tpabellon pabellon1 = new Tpabellon(100, 200, 200, true);
         int id1 = asPabellon.create(pabellon1);
-        Tpabellon pabellon = new Tpabellon(id1, 1000, 20, 10, true);
+        Tpabellon pabellon = new Tpabellon(id1, 20, 10, true);
         int id2 = asPabellon.modify(pabellon);
     }
 
@@ -124,7 +124,7 @@ public class ASPabellonImpTest {
 
         Tpabellon pabellon1 = new Tpabellon(100, 200, 200, true);
         int id1 = asPabellon.create(pabellon1);
-        Tpabellon pabellon = new Tpabellon(id1, 100, 200, 500, true);
+        Tpabellon pabellon = new Tpabellon(id1, 100, 500, true);
         int id2 = asPabellon.modify(pabellon);
     }
 
@@ -134,7 +134,7 @@ public class ASPabellonImpTest {
 
         Tpabellon pabellon = new Tpabellon(100, 200, 200, true);
         int id1 = asPabellon.create(pabellon);
-        Tpabellon pabellon2 = new Tpabellon(id1, 50, 200, 150, true);
+        Tpabellon pabellon2 = new Tpabellon(id1, 50, 150, true);
         int id2 = asPabellon.create(pabellon2);
         assert (id1 > 0 && id2 == id1);
     }
@@ -145,7 +145,7 @@ public class ASPabellonImpTest {
     public void showPabellonNoId() throws Exception {
         ASPabellonImp asPabellon = new ASPabellonImp();
 
-        Tpabellon pabellon = new Tpabellon(-1,100, 200, 200, true);
+        Tpabellon pabellon = new Tpabellon(-1,100, 200, true);
         Tpabellon id2 = asPabellon.showById(pabellon.getId());
     }
 
@@ -153,7 +153,7 @@ public class ASPabellonImpTest {
     public void showPabellonWhrongId() throws Exception {
         ASPabellonImp asPabellon = new ASPabellonImp();
 
-        Tpabellon pabellon = new Tpabellon(23456, 100, 200, 200, true);
+        Tpabellon pabellon = new Tpabellon(23456, 100, 200, true);
         Tpabellon id1 = asPabellon.showById(pabellon.getId());
     }
 
@@ -174,8 +174,7 @@ public class ASPabellonImpTest {
         pabellon.setId(id1);
         Tpabellon id2 = asPabellon.showById(pabellon.getId());
         assert (id2.getId() == pabellon.getId() && id2.getActive() == pabellon.getActive() &&
-                id2.getCapacity() == pabellon.getCapacity() && id2.getTotal_m2() == pabellon.getTotal_m2()
-                && id2.getUtil_m2() == pabellon.getUtil_m2());
+                id2.getCapacity() == pabellon.getCapacity() && id2.getTotal_m2() == pabellon.getTotal_m2());
     }
     //-------------------------------------------------------------------------------------------------------------
 

@@ -12,24 +12,21 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 public class ASPabellonImp implements ASPabellon {
     public Integer create(Tpabellon pabellon) throws ASException {
-        int id = -1;
         DAOPabellon daoPabellon = IFDAOPabellon.getInstance().generateDAOpabellon();
         if (pabellon != null && pabellon.getTotal_m2() >= 0 && pabellon.getCapacity() >= 0) {
             try {
                 Tpabellon read = daoPabellon.readById(pabellon.getId());
                 if (read == null) {
-                	 id = daoPabellon.create(pabellon);
-                	/* elimino este if pq ya se comprueba arriba
-                    if (pabellon.getTotal_m2() >= 0 && pabellon.getTotal_m2() >= pabellon.getUtil_m2())
-                        id = daoPabellon.create(pabellon);
+                    if (pabellon.getTotal_m2() / pabellon.getCapacity() >= 1)
+                        return daoPabellon.create(pabellon);
                     else
-                        throw new ASException("ERROR: Los datos del pabellon no son correctos.\n"); */
+                        throw new ASException("ERROR: La capacidad del pabellon es demasiado alta respecto a los metros de este.\n");
                 } else {
                     if (!read.getActive()) {
                         read.setActive(true);
-                        id = daoPabellon.update(read);
+                        return daoPabellon.update(read);
                     } else
-                        throw new ASException("ERROR: El pabellon " + pabellon.getId() + "ya existe.\n");
+                        throw new ASException("ERROR: El pabellon " + pabellon.getId() + " ya existe.\n");
                 }
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
@@ -37,18 +34,16 @@ public class ASPabellonImp implements ASPabellon {
         } else
         	// introduzco la excepcion de arriba aqui
             throw new ASException("ERROR: No se han introducido los datos del pabellon o son incorrectos.\n");
-        return id;
     }
 
     public Integer drop(Tpabellon pabellon) throws ASException {
-        int id = -1;
         DAOPabellon daoPabellon = IFDAOPabellon.getInstance().generateDAOpabellon();
         if (pabellon != null && pabellon.getId() != -1) {
             try {
                 Tpabellon read = daoPabellon.readById(pabellon.getId());
                 if (read != null) {
                     read.setActive(false);
-                    id = daoPabellon.update(read);
+                    return daoPabellon.update(read);
                 } else
                     throw new ASException("ERROR: El pabellon " + pabellon.getId() + " no existe.\n");
             } catch (Exception ex) {
@@ -56,22 +51,18 @@ public class ASPabellonImp implements ASPabellon {
             }
         } else
             throw new ASException("ERROR: No se han introducido los datos del pabellon.\n");
-        return id;
     }
 
     public Integer modify(Tpabellon pabellon) throws ASException {
-        int id = -1;
         DAOPabellon daoPabellon = IFDAOPabellon.getInstance().generateDAOpabellon();
         if (pabellon != null && pabellon.getId() != -1) {
             try {
                 Tpabellon read = daoPabellon.readById(pabellon.getId());
                 if (read != null) {
-                	 id = daoPabellon.update(pabellon);
-                	/* este if sobra con las modificaciones
-                    if (pabellon.getTotal_m2() >= pabellon.getUtil_m2()) {
-                        id = daoPabellon.update(pabellon);
+                    if (pabellon.getTotal_m2() / pabellon.getCapacity() >= 1) {
+                       return daoPabellon.update(pabellon);
                     } else
-                        throw new ASException("Error: Los metros cuadrados totales son menores a los utiles.\n");*/
+                        throw new ASException("ERROR: La capacidad del pabellon es demasiado alta respecto a los metros de este.\n");
                 } else
                     throw new ASException("ERROR: El pabellon " + pabellon.getId() + " no existe.\n");
             } catch (Exception ex) {
@@ -79,7 +70,6 @@ public class ASPabellonImp implements ASPabellon {
             }
         } else
             throw new ASException("ERROR: No se han introducido los datos del pabellon.\n");
-        return id;
     }
 
     public Collection<Tpabellon> list() throws ASException {
