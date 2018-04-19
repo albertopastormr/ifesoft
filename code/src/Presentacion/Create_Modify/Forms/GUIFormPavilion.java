@@ -45,6 +45,19 @@ public class GUIFormPavilion extends UIimp {
     private Color cComboBoxFont = new Color(84, 91, 94);
     private Color cComboBoxSelectedFont = new Color(52, 56, 58);
 
+    String helpMessage = "<html><head><link href=\"popup.css\" rel=\"stylesheet\" type=\"text/css\"><script>\n" +
+            "// When the user clicks on <div>, open the popup\n" +
+            "function myFunction() {\n" +
+            "    var popup = document.getElementById(\"myPopup\");\n" +
+            "    popup.classList.toggle(\"show\");\n" +
+            "}\n" +
+            "</script>" +
+            "</head>" +
+            "<body>" +
+            "<div class=\"popup\" onclick=\"myFunction()\">HELP\n" +
+            "  <span class=\"popuptext\" id=\"myPopup\">Here you can insert Pavilion's data just by inserting them into the text areas, then click 'Next' to continue or 'Cancel' to go back. </span>\n" +
+            "</div></body></html>";
+
     public GUIFormPavilion() {
 
         mod = false;
@@ -104,7 +117,7 @@ public class GUIFormPavilion extends UIimp {
     }
 
     private void helpButtonActionPerformed() {
-
+        new ActionHelp(helpMessage);
     }
 
     private void setupTitle(){

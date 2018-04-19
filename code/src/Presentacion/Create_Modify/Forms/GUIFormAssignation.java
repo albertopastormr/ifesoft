@@ -5,6 +5,7 @@ import Controller.Controller;
 import Presentacion.Events.Event;
 import Presentacion.UI;
 import Presentacion.UIimp;
+import Presentacion.Utils.ActionHelp;
 import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
@@ -37,6 +38,19 @@ public class GUIFormAssignation extends UIimp {
     private Color cHelpButton = new Color(66,35,146);
     private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
+
+    String helpMessage = "<html><head><link href=\"popup.css\" rel=\"stylesheet\" type=\"text/css\"><script>\n" +
+            "// When the user clicks on <div>, open the popup\n" +
+            "function myFunction() {\n" +
+            "    var popup = document.getElementById(\"myPopup\");\n" +
+            "    popup.classList.toggle(\"show\");\n" +
+            "}\n" +
+            "</script>" +
+            "</head>" +
+            "<body>" +
+            "<div class=\"popup\" onclick=\"myFunction()\">HELP\n" +
+            "  <span class=\"popuptext\" id=\"myPopup\">Here you can insert Assignation's data just by inserting them into the text areas, then click 'Next' to continue or 'Cancel' to go back. </span>\n" +
+            "</div></body></html>";
 
     public GUIFormAssignation() {
         mod = false;
@@ -76,7 +90,7 @@ public class GUIFormAssignation extends UIimp {
     }
 
     private void helpButtonActionPerformed() {
-
+        new ActionHelp(helpMessage);
     }
 
     private void setupTitle(){

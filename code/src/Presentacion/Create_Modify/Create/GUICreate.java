@@ -5,6 +5,7 @@ import Presentacion.Events.Event;
 import Presentacion.Events.EventGUI;
 import Presentacion.UI;
 import Presentacion.UIimp;
+import Presentacion.Utils.ActionHelp;
 import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
@@ -39,20 +40,23 @@ public class GUICreate extends UIimp {
     private Color cComboBoxSelectedFont = new Color(52, 56, 58);
     private Color cTextFieldBG = new Color(243,243,243);
 
+    String helpMessage = "<html><head><link href=\"popup.css\" rel=\"stylesheet\" type=\"text/css\"><script>\n" +
+            "// When the user clicks on <div>, open the popup\n" +
+            "function myFunction() {\n" +
+            "    var popup = document.getElementById(\"myPopup\");\n" +
+            "    popup.classList.toggle(\"show\");\n" +
+            "}\n" +
+            "</script>" +
+            "</head>" +
+            "<body>" +
+            "<div class=\"popup\" onclick=\"myFunction()\">HELP\n" +
+            "  <span class=\"popuptext\" id=\"myPopup\">Here you have the possibility to Create a Fair or other entities that you can choose by clicking on the comboBox.<br>Click 'Next' to confirm or 'Cancel' to go back to the previous page. </span>\n" +
+            "</div></body></html>";
+
     public GUICreate() {
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
-    }
-
-    @Override
-    public void update(int event, Object data) {
-        switch (event){
-            case EventGUI.UPDATE_CREATE_FERIA_OK:
-
-                break;
-
-        }
     }
 
     private void nextButtonActionPerformed() throws Exception {
@@ -95,6 +99,7 @@ public class GUICreate extends UIimp {
     }
 
     private void helpButtonHalfCreateActionPerformed() {
+        new ActionHelp(helpMessage);
     }
 
 

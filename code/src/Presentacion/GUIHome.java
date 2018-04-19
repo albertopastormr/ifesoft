@@ -37,8 +37,18 @@ public class GUIHome extends UIimp {
     private Color cHelpButton = new Color(66,35,146);
     private Color cExitButton = new Color(146, 35, 59);
 
-    String helpMessage = "<html>this is a really long message<br>this is a really long message this is a really long message this is " +
-            "a really long message this is a really long message this is a really long message this is a really long message";
+    String helpMessage = "<html><head><link href=\"popup.css\" rel=\"stylesheet\" type=\"text/css\"><script>\n" +
+            "// When the user clicks on <div>, open the popup\n" +
+            "function myFunction() {\n" +
+            "    var popup = document.getElementById(\"myPopup\");\n" +
+            "    popup.classList.toggle(\"show\");\n" +
+            "}\n" +
+            "</script>" +
+            "</head>" +
+            "<body>" +
+            "<div class=\"popup\" onclick=\"myFunction()\">HELP\n" +
+            "  <span class=\"popuptext\" id=\"myPopup\">Here you have the possibility to Create, Modify, Show or Delete Fairs or other entities just by clicking on the specific button.</span>\n" +
+            "</div></body></html>";
 
     public GUIHome() {
         initComponents();
