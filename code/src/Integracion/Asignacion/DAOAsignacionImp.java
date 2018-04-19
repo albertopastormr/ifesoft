@@ -291,7 +291,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 	 * @return Integer id tAsignacion updated at database
 	 * @throws DAOException error from database
 	 */
-	public boolean update(Tasignacion tAsignacion) throws DAOException {
+	public Integer update(Tasignacion tAsignacion) throws DAOException {
 
 		driverIdentify();
 		Connection connec = null;
@@ -314,10 +314,10 @@ public class DAOAsignacionImp implements DAOAsignacion {
 
 			ps = connec.prepareStatement("SELECT id FROM asignacion WHERE id = ?");
 			ps.setInt(1, tAsignacion.getId());
-			ResultSet rs = ps.executeQuery();
+			ResultSet rs_id = ps.executeQuery();
 			ps.close();
 
-			if (rs.next()) {
+			if (rs_id.next()) {
 				if (!tAsignacion.getActive()) { // Caso desactivado tAsignacion
 					// Desactivado de los stands y participacion relacionados con la asignacion a desactivar
 					ps = connec.prepareStatement("UPDATE stand s JOIN participacion p ON s.id = p.stand_id SET s.active = ? AND p.active = ? WHERE s.assignation_id = ?");
@@ -327,10 +327,10 @@ public class DAOAsignacionImp implements DAOAsignacion {
 					ps.execute();
 					ps.close();
 				}
-				return tAsignacion.getId() == rs.getInt("id");
+				return  rs_id.getInt("id");
 			}
 			else
-				return false;
+				return -1;
 
 		}
 		catch (SQLException e){

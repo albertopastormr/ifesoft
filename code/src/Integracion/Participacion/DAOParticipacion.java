@@ -14,7 +14,7 @@ public interface DAOParticipacion {
 	Collection<Tparticipacion> readByFairId(Integer id) throws DAOException;
 	Collection<Tparticipacion> readByClientId(Integer id) throws DAOException;
 	Tparticipacion readById(Integer id) throws DAOException;
-	boolean update(Tparticipacion tParticipacion) throws DAOException;
+	Integer update(Tparticipacion tParticipacion) throws DAOException;
 	boolean delete(Integer id) throws DAOException;
 	void deleteAll() throws DAOException;
 }

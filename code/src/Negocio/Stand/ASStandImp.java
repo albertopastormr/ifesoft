@@ -29,8 +29,14 @@ public class ASStandImp implements ASStand {
                     DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
                     Tparticipacion tparticipacionRead = daoParticipacion.readById(stand.getParticipation_id());
 
-                    if (tasignacionRead != null && tparticipacionRead != null)
-                        id = daoStand.create(stand);
+                    if(tasignacionRead != null && tparticipacionRead != null ) {
+                        if (tasignacionRead.getUsed_m2() + stand.getTotal_m2() <= tasignacionRead.getTotal_m2()) {
+                            id = daoStand.create(stand);
+                            tasignacionRead.setTotal_m2(tasignacionRead.getTotal_m2() + stand.getTotal_m2());
+                            daoAsignacion.update(tasignacionRead);
+                        } else
+                            throw new ASException("ERROR: Los m2 solicitados superan el limite de la asignacion contrada para la feria " + tasignacionRead.getFair_id() + " en el pabellon " + tasignacionRead.getPavilion_id() + "\n");
+                    }
                     else
                         throw new ASException("ERROR: Asignacion y Participacion referenciadas no existen en la base de datos\n");
                 }
@@ -78,8 +84,15 @@ public class ASStandImp implements ASStand {
                         DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
                         Tparticipacion tparticipacionRead = daoParticipacion.readById(stand.getParticipation_id());
 
-                        if(tasignacionRead != null && tparticipacionRead != null)
-                            id = daoStand.update(stand);
+                        if(tasignacionRead != null && tparticipacionRead != null ) {
+                            if(tasignacionRead.getUsed_m2() + stand.getTotal_m2() <= tasignacionRead.getTotal_m2()){
+                                id = daoStand.update(stand);
+                                tasignacionRead.setTotal_m2(tasignacionRead.getTotal_m2() + stand.getTotal_m2());
+                                daoAsignacion.update(tasignacionRead);
+                            }
+                            else
+                                throw new ASException("ERROR: Los m2 solicitados superan el limite de la asignacion contrada para la feria "+tasignacionRead.getFair_id() +" en el pabellon "+tasignacionRead.getPavilion_id()+ "\n");
+                        }
                         else
                             throw new ASException("ERROR: Asignacion y Participacion referenciadas no existen en la base de datos\n");
                     }
