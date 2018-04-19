@@ -8,15 +8,15 @@ import Negocio.Participante.Tparticipante;
 import java.util.Collection;
 
 public interface ASParticipacion {
-    boolean create(Tparticipacion participacion) throws ASException, DAOException;
+    Integer create(Tparticipacion participacion) throws ASException, DAOException;
 
-    boolean drop(Tparticipacion participacion) throws ASException, DAOException;
+    Integer drop(Tparticipacion participacion) throws ASException, DAOException;
 
-    boolean modify(Tparticipacion participacion) throws ASException, DAOException;
+    Integer modify(Tparticipacion participacion) throws ASException, DAOException;
 
     Collection<Tparticipacion> list() throws ASException, DAOException;
 
-    Tparticipacion show(Integer fair_id, Integer client_id, Integer stand_id) throws ASException, DAOException;
+    Tparticipacion show(Integer participation_id) throws ASException, DAOException;
 
     Collection<Tparticipacion> showByFairId(Integer fair_id) throws ASException, DAOException;
 

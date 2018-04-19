@@ -55,41 +55,37 @@ public class ASAsignacionImp implements ASAsignacion {
         return create;
     }
 
-    public boolean drop(Tasignacion asignacion) throws ASException {
-        boolean drop = false;
+    public Integer drop(Tasignacion asignacion) throws ASException {
         DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
         if (asignacion != null) {
             asignacion.setActive(false);
             try {
-                Tasignacion read = daoAsignacion.readById(asignacion.getFair_id(), asignacion.getPavilion_id(), asignacion.getStand_id());
+                Tasignacion read = daoAsignacion.readById(asignacion.getId());
                 if (read != null)
-                    drop = daoAsignacion.update(asignacion);
+                    return daoAsignacion.update(asignacion);
                 else
-                    throw new ASException("ERROR: La asignacion Feria(" + asignacion.getFair_id() + ") Pabellon("+ asignacion.getPavilion_id() + ") Stand("+ asignacion.getStand_id() +") no existe.\n");
+                    throw new ASException("ERROR: La asignacion " + asignacion.getId()+"  no existe.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }
         } else
             throw new ASException("ERROR: No se han introducido los datos del asignacion.\n");
-        return drop;
     }
 
-    public boolean modify(Tasignacion asignacion) throws ASException {
-        boolean modify = false;
+    public Integer modify(Tasignacion asignacion) throws ASException {
         DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
-        if (asignacion != null && asignacion.getFair_id() != -1 && asignacion.getPavilion_id() != -1 && asignacion.getStand_id() != -1 && asignacion.getUsed_m2() >= 0) {
+        if (asignacion != null && asignacion.getId() != -1 && asignacion.getFair_id() != -1 && asignacion.getPavilion_id() != -1  && asignacion.getUsed_m2() >= 0) {
             try {
-                Tasignacion read = daoAsignacion.readById(asignacion.getFair_id(), asignacion.getPavilion_id(), asignacion.getStand_id());
+                Tasignacion read = daoAsignacion.readById(asignacion.getId());
                 if (read != null) {
-                    modify =  daoAsignacion.update(asignacion);
+                   return daoAsignacion.update(asignacion);
                 } else
-                    throw new ASException("ERROR: La asignacion Feria(" + asignacion.getFair_id() + ") Pabellon("+ asignacion.getPavilion_id() + ") Stand("+ asignacion.getStand_id() +") no existe.\n");
+                    throw new ASException("ERROR: La asignacion "+asignacion.getId() +" no existe.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }
         } else
             throw new ASException("ERROR: No se han introducido los datos del asignacion.\n");
-        return modify;
     }
 
     public Collection<Tasignacion> list() throws ASException {
@@ -114,7 +110,7 @@ public class ASAsignacionImp implements ASAsignacion {
                 if (read != null)
                     return read;
                 else
-                    throw new ASException("ERROR: La asignacion Feria(" + asignation_id + " no existe.\n");
+                    throw new ASException("ERROR: La asignacion " + asignation_id + " no existe.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }
