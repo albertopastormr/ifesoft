@@ -27,7 +27,6 @@ import Presentacion.Drop.GUIDrop;
 import Presentacion.Shows.GUIShow;
 import Presentacion.GUIHome;
 import Presentacion.UI;
-import Presentacion.UIimp;
 import Presentacion.Utils.ActionHelp;
 import Presentacion.Shows.List.GUIListFairs;
 import Presentacion.Shows.individual.GUIViewFair;
@@ -89,7 +88,7 @@ public class ControllerImp extends Controller {
 
             /** DROPS*/
 
-            case Event.DROP_FERIA:
+            case Event.DROP_FAIR:
                 try {
                     asFair.drop((Tferia)data);
                 } catch (ASException e) {
@@ -215,8 +214,8 @@ public class ControllerImp extends Controller {
             case Event.INSERT_ASSIGNATION:
                 tAssignation = (Tasignacion) data;
                 try {
-                    boolean res = asAssignation.create(tAssignation);
-                    if (res) gui.update(EventGUI.UPDATE_CREATE_ASSIGNATION_OK, res);
+                    int res = asAssignation.create(tAssignation);
+                    if (res>0) gui.update(EventGUI.UPDATE_CREATE_ASSIGNATION_OK, res);
                     else gui.update(EventGUI.UPDATE_CREATE_ASSIGNATION_FAIL, null);
 
                 } catch (ASException e) {
@@ -226,8 +225,8 @@ public class ControllerImp extends Controller {
             case Event.INSERT_PARTICIPACION:
                 tParticipation = (Tparticipacion) data;
                 try {
-                    boolean res = asParticipation.create(tParticipation);
-                    if (res) gui.update(EventGUI.UPDATE_CREATE_PARTICIPATION_OK, res);
+                    int res = asParticipation.create(tParticipation);
+                    if (res>0) gui.update(EventGUI.UPDATE_CREATE_PARTICIPATION_OK, res);
                     else gui.update(EventGUI.UPDATE_CREATE_PARTICIPATION_FAIL, null);
 
                 } catch (ASException e) {
@@ -242,16 +241,16 @@ public class ControllerImp extends Controller {
                     asClient.showById((Tparticipante) data);
                 } catch (ASException e) {
                     e.printStackTrace();
-                }
-                break;
-            case Event.SHOW_CLIENT_LIST:
-                try {
-                    asClient.list();
-                } catch (ASException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case Event.SHOW_FAIR_INDIVIDUAL:
+        }
+        break;
+        case Event.SHOW_CLIENT_LIST:
+        try {
+            asClient.list();
+        } catch (ASException e) {
+            e.printStackTrace();
+        }
+        break;
+        case Event.SHOW_FAIR_INDIVIDUAL:
                 try {
                     new GUIViewFair(asFair.showById((Integer) data));
                 } catch (ASException e) {

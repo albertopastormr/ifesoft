@@ -7,7 +7,6 @@ import Negocio.Participante.Tparticipante;
 import Negocio.Stand.Tstand;
 import Controller.Controller;
 import Presentacion.Events.Event;
-import Presentacion.UI;
 import Presentacion.UIimp;
 import Presentacion.Utils.PanelProblemUser;
 
@@ -65,7 +64,7 @@ public class GUIDrop extends UIimp {
         switch (String.valueOf(comboBoxDrop.getSelectedItem())) {
             case "Fair":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_HALF_FERIA, new Tferia(textName.getText(), null, null, null));
+                Controller.getInstance().execute(Event.DROP_FAIR, new Tferia( Integer.parseInt(textName.getText()), null, null,null, null, null));
                 break;
             case "Pavilion":
                 this.setVisible(false);

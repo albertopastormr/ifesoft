@@ -31,7 +31,7 @@ public class Event {
     // ASIGNACION
     public static final int DROP_HALF_ASIGNACION = 92143;
 
-    public static final int DROP_FERIA = 9213;
+    public static final int DROP_FAIR = 9213;
     public static final int DROP_STAND = 921398;
     public static final int DROP_ASIGNACION = 921334;
     public static final int DROP_CLIENT = 921343;
