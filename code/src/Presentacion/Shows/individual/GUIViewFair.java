@@ -3,7 +3,7 @@ package Presentacion.Shows.individual;
 import Negocio.Feria.Tferia;
 import Presentacion.UI;
 import Presentacion.UIimp;
-import Presentacion.Utils.Utilities;
+import Presentacion.utils.Utilities;
 
 import java.awt.*;
 import java.awt.event.*;

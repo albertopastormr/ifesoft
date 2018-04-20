@@ -9,9 +9,9 @@ import Negocio.Stand.Tstand;
 import Controller.Controller;
 import Presentacion.UI;
 import Presentacion.UIimp;
-import Presentacion.Utils.Utilities;
+import Presentacion.utils.Utilities;
 import Presentacion.Events.Event;
-import Presentacion.Utils.PanelProblemUser;
+import Presentacion.utils.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;

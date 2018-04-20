@@ -34,11 +34,13 @@ public class DAOStandImp implements DAOStand {
 
 		try { // Tratamiento db
 			PreparedStatement ps;
-			ps = connec.prepareStatement("INSERT INTO stand(num_at_fair, cost, total_m2, active) VALUES (?,?,?,?)");
-			ps.setInt(1, tStand.getNum_at_fair());
-			ps.setDouble(2, tStand.getCost());
-			ps.setDouble(3, tStand.getTotal_m2());
-			ps.setBoolean(4, tStand.getActive());
+			ps = connec.prepareStatement("INSERT INTO stand(assignation_id, participation_id, num_at_fair, cost, used_m2, active) VALUES (?,?,?,?,?,?)");
+			ps.setInt(1, tStand.getAssignation_id());
+			ps.setInt(2, tStand.getParticipation_id());
+			ps.setInt(3, tStand.getNum_at_fair());
+			ps.setDouble(4, tStand.getCost());
+			ps.setDouble(5, tStand.getTotal_m2());
+			ps.setBoolean(6, tStand.getActive());
 			ps.execute();
 
 			ps = connec.prepareStatement("SELECT LAST_INSERT_ID() FROM stand");
@@ -87,7 +89,7 @@ public class DAOStandImp implements DAOStand {
 
 			ResultSet rs = ps.executeQuery();
 			while (rs.next())
-				readStandList.add( new Tstand(rs.getInt("id"),rs.getInt("assignation_id"),rs.getInt("participation_id"), rs.getInt("num_at_fair"), rs.getDouble("cost"), rs.getInt("total_m2"),rs.getBoolean("active") ) );
+				readStandList.add( new Tstand(rs.getInt("id"),rs.getInt("assignation_id"),rs.getInt("participation_id"), rs.getInt("num_at_fair"), rs.getDouble("cost"), rs.getInt("used_m2"),rs.getBoolean("active") ) );
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'readAll' no logrado\n");
@@ -167,7 +169,7 @@ public class DAOStandImp implements DAOStand {
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next())
-				readStandList.add(  new Tstand(rs.getInt("id"),rs.getInt("assignation_id"),rs.getInt("participation_id"), rs.getInt("num_at_fair"), rs.getDouble("cost"), rs.getInt("total_m2"), rs.getBoolean("active") ));
+				readStandList.add(  new Tstand(rs.getInt("id"),rs.getInt("assignation_id"),rs.getInt("participation_id"), rs.getInt("num_at_fair"), rs.getDouble("cost"), rs.getInt("used_m2"), rs.getBoolean("active") ));
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'readAll' no logrado\n");
@@ -208,7 +210,7 @@ public class DAOStandImp implements DAOStand {
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()){
-				readStand = new Tstand(rs.getInt("id"),rs.getInt("assignation_id"),rs.getInt("participation_id"), rs.getInt("num_at_fair"), rs.getDouble("cost"), rs.getInt("total_m2"), rs.getBoolean("active") ) ;
+				readStand = new Tstand(rs.getInt("id"),rs.getInt("assignation_id"),rs.getInt("participation_id"), rs.getInt("num_at_fair"), rs.getDouble("cost"), rs.getInt("used_m2"), rs.getBoolean("active") ) ;
 			}
 			else
 				return null;
@@ -245,7 +247,7 @@ public class DAOStandImp implements DAOStand {
 
 		try { // Tratamiento db
 			PreparedStatement ps;
-			ps = connec.prepareStatement("UPDATE stand SET num_at_fair = ? AND cost = ? AND total_m2 = ? AND active = ? WHERE id = ?");
+			ps = connec.prepareStatement("UPDATE stand SET num_at_fair = ? AND cost = ? AND used_m2 = ? AND active = ? WHERE id = ?");
 			ps.setInt(1, tStand.getNum_at_fair());
 			ps.setDouble(2, tStand.getCost());
 			ps.setInt(3, tStand.getTotal_m2());

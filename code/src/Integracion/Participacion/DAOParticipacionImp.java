@@ -38,7 +38,7 @@ public class DAOParticipacionImp implements DAOParticipacion {
 			ps.setBoolean(3, tParticipacion.getActive());
 			ps.execute();
 
-			ps = connec.prepareStatement("SELECT LAST_INSERT_ID() FROM asignacion");
+			ps = connec.prepareStatement("SELECT LAST_INSERT_ID() FROM participacion");
 			ResultSet rs = ps.executeQuery();
 			ps.close();
 
@@ -391,8 +391,8 @@ public class DAOParticipacionImp implements DAOParticipacion {
 
 			if (rs_id.next()) {
 				if (!tParticipacion.getActive()) { // Caso desactivado tAsignacion
-					// Desactivado de los stands y participacion relacionados con la participacion a desactivar
-					ps = connec.prepareStatement("UPDATE stand s JOIN participacion a ON s.id = a.stand_id SET s.active = ? AND a.active = ? WHERE s.participation_id = ?");
+					// Desactivado de los stands y asignaciones relacionados con la participacion a desactivar
+					ps = connec.prepareStatement("UPDATE stand s JOIN asignacion a ON s.assignation_id = a.id SET s.active = ? AND a.active = ? WHERE s.participation_id = ?");
 					ps.setBoolean(1, tParticipacion.getActive());
 					ps.setBoolean(2, tParticipacion.getActive());
 					ps.setInt(3, tParticipacion.getId());
@@ -437,10 +437,15 @@ public class DAOParticipacionImp implements DAOParticipacion {
 
 
 		try { // Tratamiento db
-			PreparedStatement ps;
+			PreparedStatement ps = connec.prepareStatement("SET FOREIGN_KEY_CHECKS = 0");
+			ps.execute();
+			ps.close();
 			ps = connec.prepareStatement("DELETE FROM participacion WHERE id = ?");
 			ps.setInt(1, id);
 			ps.execute();
+			ps = connec.prepareStatement("SET FOREIGN_KEY_CHECKS = 1");
+			ps.execute();
+			ps.close();
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento para 'delete' Participacion con ID Participacion " + id +" no logrado\n");

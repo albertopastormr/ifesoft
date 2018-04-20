@@ -4,10 +4,10 @@ import Negocio.Feria.Tferia;
 import Controller.Controller;
 import Presentacion.UI;
 import Presentacion.UIimp;
-import Presentacion.Utils.ActionHelp;
-import Presentacion.Utils.Utilities;
+import Presentacion.utils.ActionHelp;
+import Presentacion.utils.Utilities;
 import Presentacion.Events.Event;
-import Presentacion.Utils.PanelProblemUser;
+import Presentacion.utils.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;

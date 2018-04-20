@@ -1,7 +1,5 @@
 package Controller;
 
-import Exceptions.ASException;
-import Exceptions.DAOException;
 import Negocio.Asignacion.ASAsignacion;
 import Negocio.Asignacion.IFASAsignacion;
 import Negocio.Asignacion.Tasignacion;
@@ -27,7 +25,7 @@ import Presentacion.Drop.GUIDrop;
 import Presentacion.Shows.GUIShow;
 import Presentacion.GUIHome;
 import Presentacion.UI;
-import Presentacion.Utils.ActionHelp;
+import Presentacion.utils.ActionHelp;
 import Presentacion.Shows.List.GUIListFairs;
 import Presentacion.Shows.individual.GUIViewFair;
 import Presentacion.Events.Event;
@@ -91,42 +89,42 @@ public class ControllerImp extends Controller {
             case Event.DROP_FAIR:
                 try {
                     asFair.drop((Tferia)data);
-                } catch (ASException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.DROP_ASIGNACION:
                 try {
                     asAssignation.drop((Tasignacion)data);
-                } catch (ASException | DAOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.DROP_PARTICIPACION:
                 try {
                     asParticipation.drop((Tparticipacion)data);
-                } catch (ASException | DAOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.DROP_STAND:
                 try {
                     asStand.drop((Tstand)data);
-                } catch (ASException | DAOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.DROP_CLIENT:
                 try {
                     asClient.drop((Tparticipante)data);
-                } catch (ASException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.DROP_PABELLON:
                 try {
                     asAssignation.drop((Tasignacion)data);
-                } catch (ASException | DAOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
@@ -159,7 +157,7 @@ public class ControllerImp extends Controller {
                try {
                     tFair = asFair.showById((Integer) data);
                     new GUIFormFair(tFair);
-                } catch (ASException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
@@ -170,7 +168,7 @@ public class ControllerImp extends Controller {
                     if (res>0) gui.update(EventGUI.UPDATE_UPDATE_FERIA_OK, res);
                     else gui.update(EventGUI.UPDATE_UPDATE_FERIA_FAIL, null);
 
-                } catch (ASException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
@@ -182,7 +180,7 @@ public class ControllerImp extends Controller {
                     if (res>0) gui.update(EventGUI.UPDATE_CREATE_FERIA_OK, res);
                     else gui.update(EventGUI.UPDATE_CREATE_FERIA_FAIL, null);
 
-                } catch (ASException e) {
+                } catch (Exception e) {
                     throw new Exception(e.getMessage() + ActionHelp.strHelpBasic());
                 }
                 break;
@@ -194,7 +192,7 @@ public class ControllerImp extends Controller {
                     if (res>0) gui.update(EventGUI.UPDATE_CREATE_PAVILION_OK, res);
                     else gui.update(EventGUI.UPDATE_CREATE_PAVILION_FAIL, null);
 
-                } catch (ASException e) {
+                } catch (Exception e) {
                     throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic());
                 }
                 break;
@@ -206,7 +204,7 @@ public class ControllerImp extends Controller {
                     if (res>0) gui.update(EventGUI.UPDATE_CREATE_STAND_OK, res);
                     else gui.update(EventGUI.UPDATE_CREATE_STAND_FAIL, null);
 
-                } catch (ASException e) {
+                } catch (Exception e) {
                     throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic());
                 }
                 break;
@@ -218,7 +216,7 @@ public class ControllerImp extends Controller {
                     if (res>0) gui.update(EventGUI.UPDATE_CREATE_ASSIGNATION_OK, res);
                     else gui.update(EventGUI.UPDATE_CREATE_ASSIGNATION_FAIL, null);
 
-                } catch (ASException e) {
+                } catch (Exception e) {
                     throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic());
                 }
                 break;
@@ -229,7 +227,7 @@ public class ControllerImp extends Controller {
                     if (res>0) gui.update(EventGUI.UPDATE_CREATE_PARTICIPATION_OK, res);
                     else gui.update(EventGUI.UPDATE_CREATE_PARTICIPATION_FAIL, null);
 
-                } catch (ASException e) {
+                } catch (Exception e) {
                     throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic());
                 }
                 break;
@@ -239,77 +237,77 @@ public class ControllerImp extends Controller {
             case Event.SHOW_CLIENT_INDIVIDUAL:
                 try {
                     asClient.showById((Tparticipante) data);
-                } catch (ASException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
         }
         break;
         case Event.SHOW_CLIENT_LIST:
         try {
             asClient.list();
-        } catch (ASException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         break;
         case Event.SHOW_FAIR_INDIVIDUAL:
                 try {
                     new GUIViewFair(asFair.showById((Integer) data));
-                } catch (ASException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.SHOW_FAIR_LIST:
                 try {
                     new GUIListFairs(asFair.list());
-                } catch (ASException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.SHOW_FAIR_LIST_DATES:
                 try {
                     asFair.listDates((Tferia) data);
-                } catch (ASException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.SHOW_PAVILION_INDIVIDUAL:
                 try {
                     asPavilion.showById((Integer)data);
-                } catch (ASException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.SHOW_PAVILION_LIST:
                 try {
                     asPavilion.list();
-                } catch (ASException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.SHOW_ASSIGANTION_FAIR:
                 try {
                     asAssignation.showByIdFair((Integer)data);
-                } catch (ASException | DAOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.SHOW_ASSIGNATION_PAVILION:
                 try {
                     asAssignation.showByIdPavilion((Integer)data);
-                } catch (ASException | DAOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.SHOW_PARTICIPATION_FAIR:
                 try {
                     asParticipation.showByFairId((Integer) data);
-                } catch (ASException | DAOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case Event.SHOW_PARTICIPACION_CLIENT:
                 try {
                     asParticipation.showByClientId((Integer)data);
-                } catch (ASException | DAOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;

@@ -8,7 +8,7 @@ import Negocio.Stand.Tstand;
 import Controller.Controller;
 import Presentacion.Events.Event;
 import Presentacion.UIimp;
-import Presentacion.Utils.PanelProblemUser;
+import Presentacion.utils.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;

@@ -13,8 +13,8 @@ import static org.junit.Assert.*;
 
 public class DAOParticipanteImpTest {
 
-	private static TparticipanteNacional tparticipanteTest1 = new TparticipanteNacional("IBM", 778778778, true, "ALBACETE");
-	private static TparticipanteInternacional tparticipanteTest2 = new TparticipanteInternacional("GAMBAS VEGANAS", 887887887, true, "CATALONYA");
+	private static TparticipanteNacional tparticipanteTest1 = new TparticipanteNacional(1,"IBM", 778778778, true, "ALBACETE");
+	private static TparticipanteInternacional tparticipanteTest2 = new TparticipanteInternacional(1,"GAMBAS VEGANAS", 887887887, true, "CATALONYA");
 
 
 	@Before
@@ -40,6 +40,8 @@ public class DAOParticipanteImpTest {
 		ArrayList<Tparticipante> out_list = new ArrayList<Tparticipante>();
 		ArrayList<Tparticipante> testList = new ArrayList<Tparticipante>();
 		DAOParticipanteImp dao = new DAOParticipanteImp();
+		tparticipanteTest1.setActive(true);
+		tparticipanteTest2.setActive(true);
 		dao.create(tparticipanteTest1);
 		dao.create(tparticipanteTest2);
 		out_list = (ArrayList<Tparticipante>) dao.readAll();
@@ -61,10 +63,10 @@ public class DAOParticipanteImpTest {
 		tparticipanteNacionalEquals(tparticipanteTest1, (TparticipanteNacional) read);
 
 		// Test participanteInternacional
-		out_id = dao.create(tparticipanteTest2);
+		int out_id2 = dao.create(tparticipanteTest2);
 		read = dao.readById(1);
 
-		assertEquals(tparticipanteTest2.getId(), out_id);
+		assertEquals(tparticipanteTest2.getId(), out_id2);
 		tparticipanteInternacionalEquals(tparticipanteTest2, (TparticipanteInternacional) read);
 	}
 

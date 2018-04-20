@@ -222,10 +222,15 @@ public class DAOPabellonImp implements DAOPabellon {
 
 
 		try { // Tratamiento db
-			PreparedStatement ps;
+			PreparedStatement ps = connec.prepareStatement("SET FOREIGN_KEY_CHECKS = 0");
+			ps.execute();
+			ps.close();
 			ps = connec.prepareStatement("DELETE FROM pabellon WHERE id = ?");
 			ps.setInt(1, id);
 			ps.execute();
+			ps = connec.prepareStatement("SET FOREIGN_KEY_CHECKS = 1");
+			ps.execute();
+			ps.close();
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento para 'delete' ID Pabellon "+ id +" no logrado\n");

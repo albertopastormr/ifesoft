@@ -5,8 +5,8 @@ import Presentacion.Create_Modify.Create.GUICreate;
 import Presentacion.Create_Modify.Forms.GUIFormFair;
 import Presentacion.Events.Event;
 import Presentacion.Events.EventGUI;
-import Presentacion.Utils.ActionHelp;
-import Presentacion.Utils.PanelProblemUser;
+import Presentacion.utils.ActionHelp;
+import Presentacion.utils.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
