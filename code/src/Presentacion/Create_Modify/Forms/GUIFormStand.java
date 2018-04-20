@@ -40,18 +40,10 @@ public class GUIFormStand extends UIimp {
     private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
 
-    String helpMessage = "<html><head><link href=\"popup.css\" rel=\"stylesheet\" type=\"text/css\"><script>\n" +
-            "// When the user clicks on <div>, open the popup\n" +
-            "function myFunction() {\n" +
-            "    var popup = document.getElementById(\"myPopup\");\n" +
-            "    popup.classList.toggle(\"show\");\n" +
-            "}\n" +
-            "</script>" +
-            "</head>" +
-            "<body>" +
-            "<div class=\"popup\" onclick=\"myFunction()\">HELP\n" +
-            "  <span class=\"popuptext\" id=\"myPopup\">Here you can insert Stand's data just by inserting them into the text areas, then click 'Next' to continue or 'Cancel' to go back. </span>\n" +
-            "</div></body></html>";
+    String helpMessage = "<html><h1>STAND'S FORM HELP </1>Here you can <b>insert</b> <u>Stand</u>'s data just by " +
+            "inserting them into the text areas, then click <b>'Next'</b> to continue or <b>'Cancel'</b>" +
+            " to go back."+
+            "</html>";
 
     public GUIFormStand() {
         mod = false;

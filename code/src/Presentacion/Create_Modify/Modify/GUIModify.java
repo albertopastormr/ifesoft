@@ -43,6 +43,11 @@ public class GUIModify extends UIimp {
     private Color cComboBoxSelectedFont = new Color(52, 56, 58);
     private Color cTextFieldBG = new Color(243,243,243);
 
+    String helpMessage = "<html><h1>MODIFY PAGE HELP</1>Here you have the possibility to <b>Modify</b> a <u>Fair</u>" +
+            " or other entities that you can choose by clicking on the comboBox." +
+            "<br>Click <b>'Next'</b> to confirm or <b>'Cancel'</b> to go back to the previous page." +
+            "</html>";
+
     public GUIModify() {
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -91,8 +96,9 @@ public class GUIModify extends UIimp {
         Controller.getInstance().execute(Event.HOME, null);
     }
 
-    private void helpButtonActionPerformed(ActionEvent e) {
+    private void helpButtonHalfCreateActionPerformed() {
 
+        new Presentacion.utils.ActionHelp(helpMessage);
     }
 
 

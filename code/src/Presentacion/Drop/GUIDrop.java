@@ -44,6 +44,11 @@ public class GUIDrop extends UIimp {
     private Color cComboBoxSelectedFont = new Color(52, 56, 58);
     private Color cTextFieldBG = new Color(243,243,243);
 
+    String helpMessage = "<html><h1>DROP PAGE HELP</1>Here you have the possibility to <b>Delete</b> a <u>Fair</u>" +
+            " or other entities that you can choose by clicking on the comboBox." +
+            "<br>Click <b>'Next'</b> to confirm or <b>'Cancel'</b> to go back to the previous page." +
+            "</html>";
+
 
     public GUIDrop() {
 
@@ -56,6 +61,11 @@ public class GUIDrop extends UIimp {
 
             chosen = false;
             setupSure();
+        }
+
+        private void helpButtonHalfCreateActionPerformed() {
+
+            new Presentacion.utils.ActionHelp(helpMessage);
         }
 
         private void delete() throws Exception {
