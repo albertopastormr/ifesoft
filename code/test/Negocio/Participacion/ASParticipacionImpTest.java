@@ -2,7 +2,6 @@ package Negocio.Participacion;
 
 import Integracion.Feria.DAOFeria;
 import Integracion.Participacion.DAOParticipacion;
-import Exceptions.ASException;
 import Integracion.Participante.DAOParticipante;
 import Negocio.Feria.ASFeriaImp;
 import Negocio.Feria.IFDAOFeria;
@@ -10,6 +9,9 @@ import Negocio.Feria.Tferia;
 import Negocio.Participante.ASParticipanteImp;
 import Negocio.Participante.IFDAOParticipante;
 import Negocio.Participante.Tparticipante;
+
+import Exceptions.ASException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,29 +42,37 @@ public class ASParticipacionImpTest {
         asParticipante.create(new Tparticipante("IBM", 666666666, true));
         asParticipante.create(new Tparticipante("JaponShop", 916666666, true));
     }
-/*
+
     //-------------------------------------TEST CREATE-------------------------------------------------------------
     @Test(expected = ASException.class)//Se pasa el test si se lanza la excepcion
     public void createParticipacionExistingId() throws Exception {
         ASParticipacionImp asParticipacion = new ASParticipacionImp();
+        ASFeriaImp asFeria = new ASFeriaImp();
+        ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipacion participacion = new Tparticipacion(100, 200, 200, true);
+        Tparticipante ibm = asParticipante.showByName(new Tparticipante("IBM", -1, true));
+        Tparticipante japonShop = asParticipante.showByName(new Tparticipante("JaponShop", -1, true));
+        Tferia ielectronics = asFeria.showByName("iElectronics");
+        Tferia expomanga = asFeria.showByName("ExpoManga");
+
+
+        Tparticipacion participacion = new Tparticipacion( ielectronics.getId(), ibm.getId(), true);
         int id1 = asParticipacion.create(participacion);
-        Tparticipacion participacion2 = new Tparticipacion(id1, 50, 200, true);
+        Tparticipacion participacion2 = new Tparticipacion(id1, expomanga.getId(), japonShop.getId(), true);
         int id2 = asParticipacion.create(participacion2);
     }
 
     @Test(expected = ASException.class)//Se pasa el test si se lanza la excepcion
-    public void createParticipacionWrongCapacity() throws Exception {
-        ASParticipacionImp asParticipacion = new ASParticipacionImp();
-
-        Tparticipacion participacion = new Tparticipacion(1000, 20, 10, true);
-        int id1 = asParticipacion.create(participacion);
-    }
-
-    @Test(expected = ASException.class)//Se pasa el test si se lanza la excepcion
+    @SuppressWarnings("all")
     public void createParticipacionNoData() throws Exception {
         ASParticipacionImp asParticipacion = new ASParticipacionImp();
+        ASFeriaImp asFeria = new ASFeriaImp();
+        ASParticipanteImp asParticipante = new ASParticipanteImp();
+
+        Tparticipante ibm = asParticipante.showByName(new Tparticipante("IBM", -1, true));
+        Tparticipante japonShop = asParticipante.showByName(new Tparticipante("JaponShop", -1, true));
+        Tferia ielectronics = asFeria.showByName("iElectronics");
+        Tferia expomanga = asFeria.showByName("ExpoManga");
 
         Tparticipacion participacion = null;
         int id1 = asParticipacion.create(participacion);
@@ -138,6 +148,7 @@ public class ASParticipacionImpTest {
     }
 
     @Test(expected = ASException.class)//Se pasa el test si se lanza la excepcion
+    @SuppressWarnings("all")
     public void modifyParticipacionNoData() throws Exception {
         ASParticipacionImp asParticipacion = new ASParticipacionImp();
 
@@ -204,5 +215,5 @@ public class ASParticipacionImpTest {
                 id2.getClient_id() == participacion.getClient_id() && id2.getFair_id() == participacion.getFair_id());
     }
     //-------------------------------------------------------------------------------------------------------------
-*/
+
 }
