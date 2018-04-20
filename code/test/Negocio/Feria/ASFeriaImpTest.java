@@ -169,15 +169,16 @@ public class ASFeriaImpTest {
 	@Test(expected=ASException.class)
 	public void testModifyFeriaFechaIncorrecta() throws Exception {
 		ASFeriaImp asFeria = new ASFeriaImp();
+		Integer idFair = -1;
 
 		Date dateIni = new Date((2018-1900), 11, 12);
 		Date dateEnd = new Date((2018-1900), 11, 18);
 		Tferia feria = new Tferia(1, "IBM", "Desription", dateIni, dateEnd, true);
-		asFeria.create(feria);
+		idFair = asFeria.create(feria);
 		
 		Date dateIni2 = new Date((2016-1900), 11, 12);
 		Date dateEnd2 = new Date((2016-1900), 11, 18);
-		Tferia feria2 = new Tferia(1, "IBM", "Description", dateIni2, dateEnd2, true );
+		Tferia feria2 = new Tferia(idFair, "IBM", "Description", dateIni2, dateEnd2, true );
 		asFeria.modify(feria2);
 	}
 	
