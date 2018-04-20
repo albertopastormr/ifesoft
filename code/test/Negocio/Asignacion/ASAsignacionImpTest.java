@@ -183,7 +183,7 @@ public class ASAsignacionImpTest {
     @Test(expected = ASException.class)
     //Metodo donde queremos borrar una asignacion que supuestamente esta borrada ya, tiene el booleano a false
     public void dropAsignationWithActiveFalse() throws ASException, SQLException, DAOException{
-        Integer asignationId = -1;
+        int asignationId = -1;
         ASAsignacionImp asAsignation = new ASAsignacionImp();
         DAOAsignacion daoAsignation = IFDAOAsignacion.getInstance().generateDAOasignacion();
         daoAsignation.deleteAll(); //Vaciamos la bbdd de asignaciones
