@@ -92,8 +92,6 @@ public class ASFeriaImpTest {
 	@Test
 	public void createFeria() throws Exception, DAOException {
 		Integer id = -1;
-		System.out.println("Test crea Feria Inexistente"); //Probamos que la feria que intentamos crear existe ya en la bbdd
-
 		ASFeriaImp asFeria = new ASFeriaImp();
 
 		Date dateIni = new Date((4016-1900), 1, 12);
