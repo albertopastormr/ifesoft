@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b2980974-472a-449c-bff2-7e647a2902bf" name="Default" comment="Codigo negocio completo (menos stand)">
+    <list default="true" id="b2980974-472a-449c-bff2-7e647a2902bf" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Negocio/Participante/ASParticipanteImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Negocio/Participante/ASParticipanteImp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/Negocio/Participacion/ASParticipacionImpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/Negocio/Participacion/ASParticipacionImpTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/Negocio/Participante/ASParticipanteImpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/Negocio/Participante/ASParticipanteImpTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,11 +18,12 @@
       <file leaf-file-name="ASParticipacionImpTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/Negocio/Participacion/ASParticipacionImpTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="472">
-              <caret line="78" column="5" lean-forward="true" selection-start-line="78" selection-start-column="5" selection-end-line="78" selection-end-column="5" />
+            <state relative-caret-position="621">
+              <caret line="290" column="98" selection-start-line="290" selection-start-column="98" selection-end-line="290" selection-end-column="98" />
               <folding>
                 <element signature="e#587#619#0" expanded="true" />
-                <element signature="e#2899#2924#0" expanded="true" />
+                <element signature="e#2883#2907#0" expanded="true" />
+                <element signature="e#6935#6959#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -125,17 +124,6 @@
             <path>
               <item name="code" type="b2602c69:ProjectViewProjectNode" />
               <item name="code" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="code" type="b2602c69:ProjectViewProjectNode" />
-              <item name="code" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Negocio" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="code" type="b2602c69:ProjectViewProjectNode" />
-              <item name="code" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -143,6 +131,13 @@
               <item name="code" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="Negocio" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="code" type="b2602c69:ProjectViewProjectNode" />
+              <item name="code" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="Negocio" type="462c0819:PsiDirectoryNode" />
+              <item name="Asignacion" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="code" type="b2602c69:ProjectViewProjectNode" />
@@ -300,7 +295,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ASParticipanteImpTest.dropParticipante">
+  <component name="RunManager">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HEIGHT" value="0" />
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
@@ -309,93 +304,6 @@
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-    </configuration>
-    <configuration name="ASFeriaImpTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="code" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="Negocio.Feria.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="Negocio.Feria" />
-      <option name="MAIN_CLASS_NAME" value="Negocio.Feria.ASFeriaImpTest" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
-    </configuration>
-    <configuration name="ASPabellonImpTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="code" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="Negocio.Pabellon.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="Negocio.Pabellon" />
-      <option name="MAIN_CLASS_NAME" value="Negocio.Pabellon.ASPabellonImpTest" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
-    </configuration>
-    <configuration name="ASParticipanteImpTest.dropParticipante" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="code" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="Negocio.Participante" />
-      <option name="MAIN_CLASS_NAME" value="Negocio.Participante.ASParticipanteImpTest" />
-      <option name="METHOD_NAME" value="dropParticipante" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
-    </configuration>
-    <configuration name="DAOParticipanteImpTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="code" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="Integracion.Participante.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="Integracion.Participante" />
-      <option name="MAIN_CLASS_NAME" value="Integracion.Participante.DAOParticipanteImpTest" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
@@ -454,20 +362,6 @@
       <option name="PROGRAM_PARAMETERS" />
       <predefined_log_file id="idea.log" enabled="true" />
     </configuration>
-    <list>
-      <item itemvalue="JUnit.DAOParticipanteImpTest" />
-      <item itemvalue="JUnit.ASPabellonImpTest" />
-      <item itemvalue="JUnit.ASFeriaImpTest" />
-      <item itemvalue="JUnit.ASParticipanteImpTest.dropParticipante" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JUnit.ASParticipanteImpTest.dropParticipante" />
-        <item itemvalue="JUnit.ASFeriaImpTest" />
-        <item itemvalue="JUnit.ASPabellonImpTest" />
-        <item itemvalue="JUnit.DAOParticipanteImpTest" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -562,7 +456,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Codigo negocio completo (menos stand)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Codigo negocio completo (menos stand)" />
+    <MESSAGE value="ASParticipanteImpTest" />
+    <option name="LAST_COMMIT_MESSAGE" value="ASParticipanteImpTest" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -870,16 +765,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/Negocio/Asignacion/ASAsignacionImpTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/Negocio/Feria/ASFeriaImpTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-799">
@@ -911,13 +796,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/test/Negocio/Asignacion/ASAsignacionImpTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="621">
+          <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test/Negocio/Participacion/ASParticipacionImpTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="472">
-          <caret line="78" column="5" lean-forward="true" selection-start-line="78" selection-start-column="5" selection-end-line="78" selection-end-column="5" />
+        <state relative-caret-position="621">
+          <caret line="290" column="98" selection-start-line="290" selection-start-column="98" selection-end-line="290" selection-end-column="98" />
           <folding>
             <element signature="e#587#619#0" expanded="true" />
-            <element signature="e#2899#2924#0" expanded="true" />
+            <element signature="e#2883#2907#0" expanded="true" />
+            <element signature="e#6935#6959#0" expanded="true" />
           </folding>
         </state>
       </provider>
