@@ -43,6 +43,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
+<<<<<<< HEAD
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
       <file leaf-file-name="DAOAsignacionImpTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/Integracion/Asignacion/DAOAsignacionImpTest.java">
@@ -90,6 +91,50 @@
             <state relative-caret-position="778">
               <caret line="139" column="21" lean-forward="true" selection-start-line="139" selection-start-column="21" selection-end-line="139" selection-end-column="21" />
               <folding />
+=======
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="ASParticipacionImpTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/Negocio/Participacion/ASParticipacionImpTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="246">
+              <caret line="50" column="35" selection-start-line="50" selection-start-column="35" selection-end-line="50" selection-end-column="35" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#589#621#0" expanded="true" />
+                <element signature="e#2882#2906#0" expanded="true" />
+                <element signature="e#10198#10222#0" expanded="true" />
+              </folding>
+>>>>>>> 153f1308da6ab30b93fb364e94d4932c4fc8d801
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ASAsignacionImpTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test/Negocio/Asignacion/ASAsignacionImpTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="450">
+              <caret line="209" column="5" lean-forward="true" selection-start-line="209" selection-start-column="5" selection-end-line="209" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ASFeriaImpTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/Negocio/Feria/ASFeriaImpTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret line="116" column="54" lean-forward="true" selection-start-line="116" selection-start-column="54" selection-end-line="116" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ASAsignacionImp.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Negocio/Asignacion/ASAsignacionImp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="61" column="22" lean-forward="true" selection-start-line="61" selection-start-column="22" selection-end-line="61" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -145,6 +190,7 @@
         <option value="$PROJECT_DIR$/src/Integracion/Participacion/DAOParticipacion.java" />
         <option value="$PROJECT_DIR$/src/Integracion/Asignacion/DAOAsignacion.java" />
         <option value="$PROJECT_DIR$/src/Negocio/Participacion/ASParticipacionImp.java" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/src/dudas-lab-semanal.txt" />
         <option value="$PROJECT_DIR$/src/Negocio/Participante/TparticipanteInternacional.java" />
         <option value="$PROJECT_DIR$/src/Controller/ControllerImp.java" />
@@ -173,6 +219,17 @@
         <option value="$PROJECT_DIR$/test/Integracion/Participacion/DAOParticipacionImpTest.java" />
         <option value="$PROJECT_DIR$/test/Integracion/Participante/DAOParticipanteImpTest.java" />
         <option value="$PROJECT_DIR$/src/Integracion/Participante/DAOParticipanteImp.java" />
+=======
+        <option value="$PROJECT_DIR$/src/Negocio/Asignacion/ASAsignacion.java" />
+        <option value="$PROJECT_DIR$/src/Negocio/Participacion/ASParticipacion.java" />
+        <option value="$PROJECT_DIR$/src/Negocio/Feria/ASFeriaImp.java" />
+        <option value="$PROJECT_DIR$/test/Negocio/Feria/ASFeriaImpTest.java" />
+        <option value="$PROJECT_DIR$/src/Negocio/Participante/ASParticipanteImp.java" />
+        <option value="$PROJECT_DIR$/test/Negocio/Participante/ASParticipanteImpTest.java" />
+        <option value="$PROJECT_DIR$/test/Negocio/Participacion/ASParticipacionImpTest.java" />
+        <option value="$PROJECT_DIR$/src/Negocio/Asignacion/ASAsignacionImp.java" />
+        <option value="$PROJECT_DIR$/test/Negocio/Asignacion/ASAsignacionImpTest.java" />
+>>>>>>> 153f1308da6ab30b93fb364e94d4932c4fc8d801
       </list>
     </option>
   </component>
@@ -200,7 +257,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+<<<<<<< HEAD
       <pane id="PackagesPane" />
+=======
+>>>>>>> 153f1308da6ab30b93fb364e94d4932c4fc8d801
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -212,6 +272,7 @@
               <item name="code" type="b2602c69:ProjectViewProjectNode" />
               <item name="code" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+<<<<<<< HEAD
             </path>
             <path>
               <item name="code" type="b2602c69:ProjectViewProjectNode" />
@@ -230,10 +291,13 @@
               <item name="code" type="b2602c69:ProjectViewProjectNode" />
               <item name="code" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
+=======
+>>>>>>> 153f1308da6ab30b93fb364e94d4932c4fc8d801
             </path>
             <path>
               <item name="code" type="b2602c69:ProjectViewProjectNode" />
               <item name="code" type="462c0819:PsiDirectoryNode" />
+<<<<<<< HEAD
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="Integracion" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -278,13 +342,26 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="Integracion" type="462c0819:PsiDirectoryNode" />
               <item name="Stand" type="462c0819:PsiDirectoryNode" />
+=======
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Negocio" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="code" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+>>>>>>> 153f1308da6ab30b93fb364e94d4932c4fc8d801
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+<<<<<<< HEAD
       <pane id="Scope" />
       <pane id="Scratches" />
+=======
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+>>>>>>> 153f1308da6ab30b93fb364e94d4932c4fc8d801
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -292,6 +369,7 @@
     <property name="full.screen.before.presentation.mode" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
+<<<<<<< HEAD
   <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
     <UpdatedFiles>
       <FILE-GROUP>
@@ -1055,6 +1133,8 @@
       </FILE-GROUP>
     </UpdatedFiles>
   </component>
+=======
+>>>>>>> 153f1308da6ab30b93fb364e94d4932c4fc8d801
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -1336,6 +1416,7 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
+<<<<<<< HEAD
     <frame x="-11" y="-11" width="2758" height="1846" extended-state="6" />
     <editor active="true" />
     <layout>
@@ -1365,6 +1446,39 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995227" sideWeight="0.49853802" order="5" side_tool="false" content_ui="tabs" />
+=======
+    <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="bottom" id="TODO" order="10" />
+      <window_info anchor="right" id="Palette&#9;" order="0" />
+      <window_info anchor="bottom" id="Event Log" order="0" sideWeight="0.5005208" side_tool="true" weight="0.32943678" />
+      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.7266082" weight="0.25715992" />
+      <window_info anchor="bottom" id="Version Control" order="2" />
+      <window_info anchor="bottom" id="Terminal" order="3" sideWeight="0.8330893" visible="true" weight="0.10313901" />
+      <window_info id="Designer" order="1" />
+      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.18740849" />
+      <window_info anchor="right" id="Database" order="8" />
+      <window_info id="Structure" order="5" side_tool="true" weight="0.25" />
+      <window_info id="UI Designer" order="2" />
+      <window_info anchor="bottom" id="Debug" order="7" sideWeight="0.8874269" weight="0.2661098" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="7" weight="0.25" />
+      <window_info anchor="right" id="Capture Analysis" order="2" />
+      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
+      <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info anchor="right" id="Commander" order="5" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="6" weight="0.25" />
+      <window_info id="Image Layers" order="6" />
+      <window_info anchor="bottom" id="Message" order="4" />
+      <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
+      <window_info id="Capture Tool" order="0" />
+      <window_info anchor="bottom" id="Find" order="5" sideWeight="0.49853802" weight="0.32995227" />
+      <window_info anchor="bottom" id="Messages" order="1" sideWeight="0.478125" weight="0.32943678" />
+      <window_info anchor="right" id="Maven Projects" order="1" />
+>>>>>>> 153f1308da6ab30b93fb364e94d4932c4fc8d801
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -1705,9 +1819,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Presentacion/popup.css">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+=======
+        <state relative-caret-position="119">
+          <caret line="92" column="36" lean-forward="true" selection-start-line="92" selection-start-column="36" selection-end-line="92" selection-end-column="36" />
+>>>>>>> 153f1308da6ab30b93fb364e94d4932c4fc8d801
         </state>
       </provider>
     </entry>
@@ -1727,6 +1846,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/test/Integracion/Stand/DAOStandImpTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -1736,6 +1856,9 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Integracion/Participacion/DAOParticipacionImp.java">
+=======
+    <entry file="file://$PROJECT_DIR$/src/Negocio/Asignacion/Tasignacion.java">
+>>>>>>> 153f1308da6ab30b93fb364e94d4932c4fc8d801
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="718">
           <caret line="439" column="12" lean-forward="false" selection-start-line="439" selection-start-column="12" selection-end-line="447" selection-end-column="23" />
@@ -1743,6 +1866,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/Integracion/Asignacion/DAOAsignacionImp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="748">
@@ -1756,6 +1880,12 @@
         <state relative-caret-position="583">
           <caret line="227" column="62" lean-forward="false" selection-start-line="227" selection-start-column="62" selection-end-line="227" selection-end-column="62" />
           <folding />
+=======
+    <entry file="file://$PROJECT_DIR$/test/Negocio/Participante/ASParticipanteImpTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="723">
+          <caret line="212" column="5" lean-forward="true" selection-start-line="212" selection-start-column="5" selection-end-line="212" selection-end-column="5" />
+>>>>>>> 153f1308da6ab30b93fb364e94d4932c4fc8d801
         </state>
       </provider>
     </entry>
@@ -1775,16 +1905,29 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/Negocio/Participacion/Tparticipacion.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="960">
           <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
           <folding>
             <element signature="e#714#715#0" expanded="true" />
+=======
+    <entry file="file://$PROJECT_DIR$/test/Negocio/Participacion/ASParticipacionImpTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="50" column="35" selection-start-line="50" selection-start-column="35" selection-end-line="50" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#589#621#0" expanded="true" />
+            <element signature="e#2882#2906#0" expanded="true" />
+            <element signature="e#10198#10222#0" expanded="true" />
+>>>>>>> 153f1308da6ab30b93fb364e94d4932c4fc8d801
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/Integracion/Stand/DAOStandImp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="744">
@@ -1800,6 +1943,28 @@
           <folding>
             <element signature="e#870#1063#0" expanded="true" />
             <element signature="e#1062#1063#0" expanded="true" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/Negocio/Asignacion/ASAsignacionImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="61" column="22" lean-forward="true" selection-start-line="61" selection-start-column="22" selection-end-line="61" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/Negocio/Feria/ASFeriaImpTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="116" column="54" lean-forward="true" selection-start-line="116" selection-start-column="54" selection-end-line="116" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/Negocio/Asignacion/ASAsignacionImpTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="209" column="5" lean-forward="true" selection-start-line="209" selection-start-column="5" selection-end-line="209" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+>>>>>>> 153f1308da6ab30b93fb364e94d4932c4fc8d801
           </folding>
         </state>
       </provider>

@@ -56,7 +56,7 @@ public class ASAsignacionImp implements ASAsignacion {
             try {
                 Tasignacion transferAsignation = daoAsignacion.readById(asignacion.getId());
                 //Si es distinto de null quiere decir que tenemos una asignacion activa con ese id, por lo que podemos borrarla.
-                if (transferAsignation != null) {
+                if (transferAsignation != null && transferAsignation.getActive() == true) {
                     transferAsignation.setActive(false);
                     return daoAsignacion.update(transferAsignation);
                 } else
