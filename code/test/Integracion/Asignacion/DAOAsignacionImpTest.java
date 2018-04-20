@@ -59,6 +59,8 @@ public class DAOAsignacionImpTest {
 		ArrayList<Tasignacion> out_list = new ArrayList<Tasignacion>();
 		ArrayList<Tasignacion> testList = new ArrayList<Tasignacion>();
 		DAOAsignacionImp dao = new DAOAsignacionImp();
+		tasignacionTest1.setActive(true);
+		tasignacionTest2.setActive(true);
 		assert (dao.create(tasignacionTest1) != -1);
 		assert (dao.create(tasignacionTest2) != -1);
 		out_list = (ArrayList<Tasignacion>) dao.readAll();

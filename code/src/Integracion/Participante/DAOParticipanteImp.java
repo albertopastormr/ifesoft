@@ -325,7 +325,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 		try { // Tratamiento db
 			PreparedStatement ps;
 			if(tParticipante instanceof TparticipanteNacional) {
-				ps = connec.prepareStatement("UPDATE participante SET name = ? AND phone = ? AND active = ? AND type = ? WHERE id = ?");
+				ps = connec.prepareStatement("UPDATE participante SET name = ?, phone = ?, active = ?, type = ? WHERE id = ?");
 				ps.setString(1, tParticipante.getName());
 				ps.setLong(2, tParticipante.getPhone());
 				ps.setBoolean(3, tParticipante.getActive());
@@ -359,7 +359,7 @@ public class DAOParticipanteImp implements DAOParticipante {
 					return -1;
 			}
 			else if (tParticipante instanceof TparticipanteInternacional){
-				ps = connec.prepareStatement("UPDATE participante SET name = ? AND phone = ? AND active = ? AND type = ? WHERE id = ?");
+				ps = connec.prepareStatement("UPDATE participante SET name = ?, phone = ?, active = ?, type = ? WHERE id = ?");
 				ps.setString(1, tParticipante.getName());
 				ps.setLong(2, tParticipante.getPhone());
 				ps.setBoolean(3, tParticipante.getActive());

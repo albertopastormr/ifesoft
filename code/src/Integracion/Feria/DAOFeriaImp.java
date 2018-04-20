@@ -327,9 +327,14 @@ public class DAOFeriaImp implements DAOFeria{
 
 
 		try { // Tratamiento db
-			PreparedStatement ps;
+			PreparedStatement ps = connec.prepareStatement("SET FOREIGN_KEY_CHECKS = 0");
+			ps.execute(); // Foreign key checks disable para omitir errores
+			ps.close();
 			ps = connec.prepareStatement("DELETE FROM feria WHERE id = ?");
 			ps.setInt(1, id);
+			ps.execute();
+			ps.close();
+			ps = connec.prepareStatement("SET FOREIGN_KEY_CHECKS = 1");
 			ps.execute();
 			ps.close();
 		}

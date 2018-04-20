@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 public class DAOParticipanteImpTest {
 
 	private static TparticipanteNacional tparticipanteTest1 = new TparticipanteNacional(1,"IBM", 778778778, true, "ALBACETE");
-	private static TparticipanteInternacional tparticipanteTest2 = new TparticipanteInternacional(1,"GAMBAS VEGANAS", 887887887, true, "CATALONYA");
+	private static TparticipanteInternacional tparticipanteTest2 = new TparticipanteInternacional(2,"GAMBAS VEGANAS", 887887887, true, "CATALONYA");
 
 
 	@Before
@@ -64,7 +64,7 @@ public class DAOParticipanteImpTest {
 
 		// Test participanteInternacional
 		int out_id2 = dao.create(tparticipanteTest2);
-		read = dao.readById(1);
+		read = dao.readById(2);
 
 		assertEquals(tparticipanteTest2.getId(), out_id2);
 		tparticipanteInternacionalEquals(tparticipanteTest2, (TparticipanteInternacional) read);
