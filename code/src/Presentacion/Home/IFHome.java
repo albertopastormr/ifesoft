@@ -1,3 +1,21 @@
+package Presentacion.Home;
+
+import Presentacion.UI;
+
+public abstract class IFHome {
+
+    private static IFHome instance;
+
+    public static IFHome getInstance() {
+        if (instance == null)
+            instance = new IFHomeImp();
+        return instance;
+    }
+
+    public abstract UI generateHome();
+
+}
+
 /*
 
 TENERMOS UN IF EN CADA FUNCION O MODULO DE TAL MODO QUE AISLAMOS MAS LAS FUNCIONES DE CADA UNO

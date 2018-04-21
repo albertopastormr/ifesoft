@@ -1,8 +1,9 @@
-package Presentacion;
+package Presentacion.Home;
 
 import Controller.Controller;
 import Presentacion.Events.Event;
 import Presentacion.Events.EventGUI;
+import Presentacion.UI;
 import Presentacion.Utils.ActionHelp;
 import Presentacion.Utils.PanelProblemUser;
 
