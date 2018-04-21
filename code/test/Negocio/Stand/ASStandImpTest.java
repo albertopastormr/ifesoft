@@ -17,6 +17,8 @@ import Negocio.Participacion.Tparticipacion;
 import Negocio.Participante.ASParticipanteImp;
 import Negocio.Participante.Tparticipante;
 import org.junit.Test;
+import static org.junit.Assert.assertTrue;
+
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -124,4 +126,122 @@ public class ASStandImpTest {
 
 
     //-----------------------------------------------------------------------------------------------------------------------
+
+    //--------------------------------------------TEST DROP-------------------------------------------------------------------
+
+    //iNTENTAMOS BORRAR UN STAND INEXISTENTE EN LA BBDD
+    @Test(expected = ASException.class)
+    public void dropNotExist() throws ASException, DAOException, SQLException{
+        int idStand = 223344;
+        ASStandImp asStand = new ASStandImp();
+        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
+        daoStand.deleteAll(); //Vaciamos la bbdd de stands
+
+        Tstand tStand = new Tstand(idStand, 223344, 223344, 223344, 200, 20, false);
+        asStand.drop(tStand);
+    }
+
+    //Borramos un stand correctamente
+    @Test(expected = ASException.class)
+    public void dropStandCorrectly() throws ASException, SQLException, DAOException {
+        ASStandImp asStand = new ASStandImp();
+        int idStand = -1, idFeria = -1, idPabellon = -1, idAsignacion = -1, idParticipacion = -1, idParticipante = -1;
+        ASAsignacionImp asAsignation = new ASAsignacionImp();
+        DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
+        daoAsignacion.deleteAll(); //Vaciamos la bbdd de asignaciones
+        ASParticipanteImp asParticipante = new ASParticipanteImp();
+        ASParticipacionImp asParticipacion = new ASParticipacionImp();
+
+        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
+        daoStand.deleteAll(); //Vaciamos la bbdd de stands
+
+        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacion
+        idFeria = addFairToBbdd();
+        idPabellon = addPavilionToBbdd();
+
+        //Creamos una asignacion y no la participacion asi sera esa la que este a null
+        Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
+        idAsignacion = asAsignation.create(transferAsignation);
+
+        //Creamos un participante
+        Tparticipante tParticipante = new Tparticipante("UCM", -1, true);
+        idParticipante = asParticipante.create(tParticipante);
+
+
+        //Creamos la participacion
+        Tparticipacion participation = new Tparticipacion(idFeria, idParticipante, false);
+        idParticipacion = asParticipacion.create(participation);
+
+
+        //Ahora intentamos crear un stand a partir de un id asignacion valido y un id de participacion  valido.
+        Tstand tStand = new Tstand(idStand, idAsignacion, idParticipacion, 223344, 200, 20, false);
+        idStand = asStand.create(tStand);
+
+        Tstand tStand2 = new Tstand(idStand, idAsignacion, idParticipacion, 223344, 200, 20, false);
+
+
+        assertTrue(asStand.drop(tStand2) > 0);
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------
+
+    //---------------------------------------------TEST MODIFY------------------------------------------------------------------------
+
+    //------------------------------------------------------------------------------------------------------------------
+
+    //-----------------------------------------------TEST LIST---------------------------------------------------------------
+
+    //Comprobamos que se puede listar correctamente los stand validos
+    @Test
+    public void listStand() throws DAOException, SQLException, ASException{
+        int idStand = -1, idFeria = -1, idPabellon = -1, idAsignacion = -1, idParticipacion = -1, idParticipante = -1;
+        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
+        daoStand.deleteAll(); //Vaciamos la bbdd de stands
+        ASStandImp asStand = new ASStandImp();
+        ASParticipanteImp asParticipante = new ASParticipanteImp();
+        ASParticipacionImp asParticipacion = new ASParticipacionImp();
+        ASAsignacionImp asAsignation = new ASAsignacionImp();
+
+
+        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacion
+        idFeria = addFairToBbdd();
+        idPabellon = addPavilionToBbdd();
+
+        //Creamos una asignacion y no la participacion asi sera esa la que este a null
+        Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
+        idAsignacion = asAsignation.create(transferAsignation);
+
+        //Creamos un participante
+        Tparticipante tParticipante = new Tparticipante("UCM", -1, true);
+        idParticipante = asParticipante.create(tParticipante);
+
+
+        //Creamos la participacion
+        Tparticipacion participation = new Tparticipacion(idFeria, idParticipante, false);
+        idParticipacion = asParticipacion.create(participation);
+
+
+        //Ahora intentamos crear un stand a partir de un id asignacion valido y un id de participacion  valido.
+        Tstand tStand = new Tstand(idStand, idAsignacion, idParticipacion, 223344, 200, 20, false);
+        idStand = asStand.create(tStand);
+
+        Tstand tStand2 = new Tstand(idStand, idAsignacion, idParticipacion, 223344, 200, 20, false);
+        asStand.create(tStand2);
+
+        //Listamos todos los stands creados
+        asStand.list();
+    }
+    //-----------------------------------------------------------------------------------------------------------------------
+
+    //----------------------------------------------TEST SHOWBYID----------------------------------------------------------------
+
+    //---------------------------------------------------------------------------------------------------------------------------
+
+    //----------------------------------------------TEST SHOW BY ID PARTICIPATION---------------------------------------------------
+
+    //------------------------------------------------------------------------------------------------------------------------------
+
+    //----------------------------------------------TEST SHOW BY ID ASSIGNATION-------------------------------------------------------
+
+    //-----------------------------------------------------------------------------------------------------------------------------
 }
