@@ -2,13 +2,12 @@ package Presentacion.Shows.individual;
 
 import Negocio.Pabellon.Tpabellon;
 import Presentacion.UI;
-import Presentacion.UIimp;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIViewPavilion extends UIimp {
+public class GUIViewPavilion extends JFrame implements UI {
 
     private String capacity;
     private String m2tot;

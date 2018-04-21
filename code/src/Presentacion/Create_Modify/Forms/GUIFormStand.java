@@ -4,15 +4,14 @@ import Negocio.Stand.Tstand;
 import Controller.Controller;
 import Presentacion.Events.Event;
 import Presentacion.UI;
-import Presentacion.UIimp;
-import Presentacion.utils.ActionHelp;
-import Presentacion.utils.PanelProblemUser;
+import Presentacion.Utils.ActionHelp;
+import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIFormStand extends UIimp {
+public class GUIFormStand extends JFrame implements UI {
 
     private String metres;
     private String number;

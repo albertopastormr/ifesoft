@@ -2,12 +2,11 @@ package Presentacion.Shows.List;
 
 import Negocio.Participante.Tparticipante;
 import Presentacion.UI;
-import Presentacion.UIimp;
 
 import javax.swing.*;
 import java.util.Collection;
 
-public class GUIListClient extends UIimp {
+public class GUIListClient extends JFrame implements UI {
 
     String[] columnNames = {"NAME","PHONE NUMBER"};
     Object[][] data;

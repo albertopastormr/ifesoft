@@ -2,14 +2,13 @@ package Presentacion.Shows.individual;
 
 import Negocio.Feria.Tferia;
 import Presentacion.UI;
-import Presentacion.UIimp;
-import Presentacion.utils.Utilities;
+import Presentacion.Utils.Utilities;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIViewFair extends UIimp {
+public class GUIViewFair extends JFrame implements UI {
 
     private String id;
     private String name;

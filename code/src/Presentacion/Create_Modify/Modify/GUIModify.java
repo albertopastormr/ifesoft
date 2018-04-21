@@ -9,8 +9,7 @@ import Negocio.Stand.Tstand;
 import Controller.Controller;
 import Presentacion.Events.Event;
 import Presentacion.UI;
-import Presentacion.UIimp;
-import Presentacion.utils.PanelProblemUser;
+import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -18,7 +17,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class GUIModify extends UIimp {
+public class GUIModify extends JFrame implements UI {
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
@@ -98,7 +97,7 @@ public class GUIModify extends UIimp {
 
     private void helpButtonHalfCreateActionPerformed() {
 
-        new Presentacion.utils.ActionHelp(helpMessage);
+        new Presentacion.Utils.ActionHelp(helpMessage);
     }
 
 
@@ -201,7 +200,7 @@ public class GUIModify extends UIimp {
         helpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                helpButtonActionPerformed(e);
+                //helpButtonActionPerformed(e);
             }
         });
 

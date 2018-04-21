@@ -1,3 +1,8 @@
+/*
+
+TENERMOS UN IF EN CADA FUNCION O MODULO DE TAL MODO QUE AISLAMOS MAS LAS FUNCIONES DE CADA UNO
+
+
 package Presentacion;
 
 import Presentacion.Create_Modify.Forms.*;
@@ -80,3 +85,4 @@ public class IFASUpdate {
 
     public abstract ASUpdate generateASUpdate();
 }
+*/

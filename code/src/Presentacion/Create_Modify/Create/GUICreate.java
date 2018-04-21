@@ -2,11 +2,9 @@ package Presentacion.Create_Modify.Create;
 
 import Controller.Controller;
 import Presentacion.Events.Event;
-import Presentacion.Events.EventGUI;
 import Presentacion.UI;
-import Presentacion.UIimp;
-import Presentacion.utils.ActionHelp;
-import Presentacion.utils.PanelProblemUser;
+import Presentacion.Utils.ActionHelp;
+import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -14,7 +12,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class GUICreate extends UIimp {
+public class GUICreate extends JFrame implements UI {
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
@@ -257,5 +255,10 @@ public class GUICreate extends UIimp {
         contentPane.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
+    }
+
+    @Override
+    public void update(int event, Object data) {
+
     }
 }

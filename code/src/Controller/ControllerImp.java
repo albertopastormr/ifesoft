@@ -20,12 +20,14 @@ import Negocio.Stand.IFASStand;
 import Negocio.Stand.Tstand;
 import Presentacion.Create_Modify.Create.GUICreate;
 import Presentacion.Create_Modify.Forms.*;
+import Presentacion.Create_Modify.IFCreateModifyForm;
+import Presentacion.Create_Modify.IFCreateModifyFormImp;
 import Presentacion.Create_Modify.Modify.GUIModify;
 import Presentacion.Drop.GUIDrop;
 import Presentacion.Shows.GUIShow;
 import Presentacion.GUIHome;
 import Presentacion.UI;
-import Presentacion.utils.ActionHelp;
+import Presentacion.Utils.ActionHelp;
 import Presentacion.Shows.List.GUIListFairs;
 import Presentacion.Shows.individual.GUIViewFair;
 import Presentacion.Events.Event;
@@ -50,7 +52,6 @@ public class ControllerImp extends Controller {
         this.asStand = IFASStand.getInstance().generateASStand();
         this.asClient = IFASParticipante.getInstance().generateASParticipante();
         this.asParticipation = IFASParticipacion.getInstance().generateASParticipacion();
-        this.gui = UI.getInstance();
     }
 
     @Override
@@ -74,10 +75,10 @@ public class ControllerImp extends Controller {
             /** Half Views*/
 
             case Event.CREATE_HALF:
-                new GUICreate();
+                IFCreateModifyForm.getInstance().generateSpecificView(event, data);
                 break;
             case Event.MODIFY_HALF:
-                new GUIModify();
+                IFCreateModifyForm.getInstance().generateSpecificView(event, data);
                 break;
             case Event.SHOW_HALF:
                 new GUIShow();
@@ -181,7 +182,7 @@ public class ControllerImp extends Controller {
                     int res = asFair.create(tFair);
                     if (res>0) gui.update(EventGUI.UPDATE_CREATE_FERIA_OK, res);
                     JOptionPane.showMessageDialog(null,"The Fair has been created successfully");
-                    else gui.update(EventGUI.UPDATE_CREATE_FERIA_FAIL, null);
+                    //else gui.update(EventGUI.UPDATE_CREATE_FERIA_FAIL, null);
                     JOptionPane.showMessageDialog(null, "A problem in the creation process occurred, insert Fair's data another time please", "Error",
                             JOptionPane.ERROR_MESSAGE);
 
@@ -196,7 +197,7 @@ public class ControllerImp extends Controller {
                     int res = asPavilion.create(tPavilion);
                     if (res>0) gui.update(EventGUI.UPDATE_CREATE_PAVILION_OK, res);
                     JOptionPane.showMessageDialog(null, "The Pavilion has been created successfully");
-                    else gui.update(EventGUI.UPDATE_CREATE_PAVILION_FAIL, null);
+                    //else gui.update(EventGUI.UPDATE_CREATE_PAVILION_FAIL, null);
                     JOptionPane.showMessageDialog(null, "A problem in the creation process occurred, insert Pavilion's data another time please", "Error",
                             JOptionPane.ERROR_MESSAGE);
 
@@ -211,7 +212,7 @@ public class ControllerImp extends Controller {
                     int res = asStand.create(tStand);
                     if (res>0) gui.update(EventGUI.UPDATE_CREATE_STAND_OK, res);
                     JOptionPane.showMessageDialog(null,"The Stand has been created successfully");
-                    else gui.update(EventGUI.UPDATE_CREATE_STAND_FAIL, null);
+                    //else gui.update(EventGUI.UPDATE_CREATE_STAND_FAIL, null);
                     JOptionPane.showMessageDialog(null, "A problem in the creation process occurred, insert Stand's data another time please", "Error",
                             JOptionPane.ERROR_MESSAGE);
 
@@ -226,7 +227,7 @@ public class ControllerImp extends Controller {
                     int res = asAssignation.create(tAssignation);
                     if (res>0) gui.update(EventGUI.UPDATE_CREATE_ASSIGNATION_OK, res);
                     JOptionPane.showMessageDialog(null,"The Assignation has been created successfully");
-                    else gui.update(EventGUI.UPDATE_CREATE_ASSIGNATION_FAIL, null);
+                   // else gui.update(EventGUI.UPDATE_CREATE_ASSIGNATION_FAIL, null);
                     JOptionPane.showMessageDialog(null, "A problem in the creation process occurred, insert Assignation's data another time please", "Error",
                             JOptionPane.ERROR_MESSAGE);
 
@@ -240,7 +241,7 @@ public class ControllerImp extends Controller {
                     int res = asParticipation.create(tParticipation);
                     if (res>0) gui.update(EventGUI.UPDATE_CREATE_PARTICIPATION_OK, res);
                     JOptionPane.showMessageDialog(null, "The Participation has been created successfully");
-                    else gui.update(EventGUI.UPDATE_CREATE_PARTICIPATION_FAIL, null);
+                    //else gui.update(EventGUI.UPDATE_CREATE_PARTICIPATION_FAIL, null);
                     JOptionPane.showMessageDialog(null, "A problem in the creation process occurred, insert Participation's data another time please", "Error",
                             JOptionPane.ERROR_MESSAGE);
 
@@ -249,7 +250,7 @@ public class ControllerImp extends Controller {
                 }
                 break;
             case Event.INSERT_CLIENT:
-                tClient = (Tclient) data;
+                /*tClient = (Tclient) data;
                 try {
                     int res = asClient.create(tClient);
                     if (res>0) gui.update(EventGUI.UPDATE_CREATE_CLIENT_OK, res);
@@ -261,7 +262,7 @@ public class ControllerImp extends Controller {
                 } catch (Exception e) {
                     throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic());
                 }
-                break;
+                break;*/
 
             /** ---------------------------- */
 

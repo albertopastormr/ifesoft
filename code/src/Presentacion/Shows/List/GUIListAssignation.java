@@ -2,14 +2,13 @@ package Presentacion.Shows.List;
 
 import Negocio.Asignacion.Tasignacion;
 import Presentacion.UI;
-import Presentacion.UIimp;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.Collection;
 
-public class GUIListAssignation extends UIimp {
+public class GUIListAssignation extends JFrame implements UI {
 
     String[] columnNames = {"ID ASSIGNATION" ,"ID FAIR","ID PAVILION", "USED M2", "TOTAL M2"};
     Object[][] data;

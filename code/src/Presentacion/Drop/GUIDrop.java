@@ -3,12 +3,12 @@ package Presentacion.Drop;
 import Negocio.Asignacion.Tasignacion;
 import Negocio.Feria.Tferia;
 import Negocio.Pabellon.Tpabellon;
-import Negocio.Participante.Tparticipante;
+//import Negocio.Participante.Tparticipante;
 import Negocio.Stand.Tstand;
 import Controller.Controller;
 import Presentacion.Events.Event;
-import Presentacion.UIimp;
-import Presentacion.utils.PanelProblemUser;
+import Presentacion.UI;
+import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -16,7 +16,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class GUIDrop extends UIimp {
+public class GUIDrop extends JFrame implements UI {
 
     private JDialog sureFrame;
     private boolean chosen = false;
@@ -65,7 +65,7 @@ public class GUIDrop extends UIimp {
 
         private void helpButtonHalfCreateActionPerformed() {
 
-            new Presentacion.utils.ActionHelp(helpMessage);
+            new Presentacion.Utils.ActionHelp(helpMessage);
         }
 
         private void delete() throws Exception {
@@ -86,15 +86,15 @@ public class GUIDrop extends UIimp {
                 break;
             case "Client":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_HALF_PARTICIPANTE, new Tparticipante(Integer.parseInt(textName.getText()), null, -1, null));
+                //Controller.getInstance().execute(Event.DROP_HALF_PARTICIPANTE, new Tparticipante(Integer.parseInt(textName.getText()), null, -1, null));
                 break;
             case "Assignation":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_HALF_ASIGNACION, new Tasignacion(Integer.parseInt(textName.getText()), -1, -1, -1, null));
+                //Controller.getInstance().execute(Event.DROP_HALF_ASIGNACION, new Tasignacion(Integer.parseInt(textName.getText()), -1, -1, -1, null));
                 break;
             case "Participation":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_HALF_PARTICIPACION, new Tparticipante(Integer.parseInt(textName.getText()), null, -1, null));
+                //Controller.getInstance().execute(Event.DROP_HALF_PARTICIPACION, new Tparticipante(Integer.parseInt(textName.getText()), null, -1, null));
                 break;
 
          }

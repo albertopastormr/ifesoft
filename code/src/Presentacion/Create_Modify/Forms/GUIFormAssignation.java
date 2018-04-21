@@ -4,15 +4,14 @@ import Negocio.Asignacion.Tasignacion;
 import Controller.Controller;
 import Presentacion.Events.Event;
 import Presentacion.UI;
-import Presentacion.UIimp;
-import Presentacion.utils.ActionHelp;
-import Presentacion.utils.PanelProblemUser;
+import Presentacion.Utils.ActionHelp;
+import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIFormAssignation extends UIimp {
+public class GUIFormAssignation extends JFrame implements UI {
 
     private String metres;
 

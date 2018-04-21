@@ -2,13 +2,12 @@ package Presentacion.Shows.individual;
 
 import Negocio.Participante.Tparticipante;
 import Presentacion.UI;
-import Presentacion.UIimp;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIViewClient extends UIimp {
+public class GUIViewClient extends JFrame implements UI {
 
     private String name;
     private String phone;
@@ -27,21 +26,6 @@ public class GUIViewClient extends UIimp {
     private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
 
     private Color cBackButton = new Color(146, 35, 59);
-
-    /*
-    SOLO PARA DEPURAR
-     */
-    public GUIViewClient() {
-
-        id = "5";
-        name = "Paco's Pizza";
-        phone = "12 34 56 789";
-        //specialization =tclient.getSpec() + "";
-
-        initComponents();
-        this.setBounds(100,100, 800,800);
-        this.setVisible(true);
-    }
 
     public GUIViewClient(Tparticipante tclient) {
 

@@ -1,19 +1,17 @@
 package Presentacion;
 
 import Controller.Controller;
-import Presentacion.Create_Modify.Create.GUICreate;
-import Presentacion.Create_Modify.Forms.GUIFormFair;
 import Presentacion.Events.Event;
 import Presentacion.Events.EventGUI;
-import Presentacion.utils.ActionHelp;
-import Presentacion.utils.PanelProblemUser;
+import Presentacion.Utils.ActionHelp;
+import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class GUIHome extends UIimp {
+public class GUIHome extends JFrame implements UI {
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
