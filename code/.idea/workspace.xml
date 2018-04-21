@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fddda741-1ed1-49e6-b793-75ee41e1eeb6" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Presentacion/Shows/GUIShow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentacion/Shows/GUIShow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Presentacion/Shows/individual/GUIViewClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentacion/Shows/individual/GUIViewClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Presentacion/Shows/individual/GUIViewFair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentacion/Shows/individual/GUIViewFair.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Presentacion/Shows/individual/GUIViewPavilion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentacion/Shows/individual/GUIViewPavilion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Presentacion/Shows/individual/GUIViewStand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentacion/Shows/individual/GUIViewStand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormAssignation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormAssignation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormFair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormFair.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormParticipation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormParticipation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormPavilion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormPavilion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormStand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormStand.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,104 +19,56 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GUIViewClient.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Presentacion/Shows/individual/GUIViewClient.java">
+      <file leaf-file-name="GUIFormAssignation.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormAssignation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3750">
-              <caret line="250" lean-forward="true" selection-start-line="250" selection-end-line="250" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1927#1928#0" expanded="true" />
-                <element signature="e#1989#1990#0" expanded="true" />
-                <element signature="e#5186#5356#0" expanded="true" />
-                <element signature="e#5355#5356#0" expanded="true" />
-                <element signature="e#5868#6039#0" expanded="true" />
-                <element signature="e#6038#6039#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="366">
+              <caret line="41" column="13" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GUIViewFair.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Presentacion/Shows/individual/GUIViewFair.java">
+      <file leaf-file-name="GUIFormClient.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3675">
-              <caret line="245" lean-forward="true" selection-start-line="245" selection-end-line="245" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1710#1711#0" expanded="true" />
-                <element signature="e#1772#1773#0" expanded="true" />
-                <element signature="e#5662#5832#0" expanded="true" />
-                <element signature="e#5831#5832#0" expanded="true" />
-                <element signature="e#6344#6515#0" expanded="true" />
-                <element signature="e#6514#6515#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="434">
+              <caret line="45" column="76" selection-start-line="45" selection-start-column="76" selection-end-line="45" selection-end-column="76" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GUIViewPavilion.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Presentacion/Shows/individual/GUIViewPavilion.java">
+      <file leaf-file-name="GUIFormFair.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormFair.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3540">
-              <caret line="236" lean-forward="true" selection-start-line="236" selection-end-line="236" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1744#1745#0" expanded="true" />
-                <element signature="e#1806#1807#0" expanded="true" />
-                <element signature="e#4886#5056#0" expanded="true" />
-                <element signature="e#5055#5056#0" expanded="true" />
-                <element signature="e#5568#5739#0" expanded="true" />
-                <element signature="e#5738#5739#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="102">
+              <caret line="50" column="46" selection-start-line="50" selection-start-column="46" selection-end-line="50" selection-end-column="46" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GUIViewStand.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Presentacion/Shows/individual/GUIViewStand.java">
+      <file leaf-file-name="GUIFormParticipation.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormParticipation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3570">
-              <caret line="238" lean-forward="true" selection-start-line="238" selection-end-line="238" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1730#1731#0" expanded="true" />
-                <element signature="e#1792#1793#0" expanded="true" />
-                <element signature="e#4865#5035#0" expanded="true" />
-                <element signature="e#5034#5035#0" expanded="true" />
-                <element signature="e#5547#5718#0" expanded="true" />
-                <element signature="e#5717#5718#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="130">
+              <caret line="49" column="49" selection-start-line="49" selection-start-column="49" selection-end-line="49" selection-end-column="49" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GUIShow.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Presentacion/Shows/GUIShow.java">
+      <file leaf-file-name="GUIFormPavilion.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormPavilion.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7518">
-              <caret line="536" lean-forward="true" selection-start-line="536" selection-end-line="536" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#3130#3131#0" expanded="true" />
-                <element signature="e#3192#3193#0" expanded="true" />
-                <element signature="e#5192#5354#0" expanded="true" />
-                <element signature="e#5353#5354#0" expanded="true" />
-                <element signature="e#5575#5738#0" expanded="true" />
-                <element signature="e#5737#5738#0" expanded="true" />
-                <element signature="e#5983#6149#0" expanded="true" />
-                <element signature="e#6148#6149#0" expanded="true" />
-                <element signature="e#13814#14130#0" expanded="true" />
-                <element signature="e#14129#14130#0" expanded="true" />
-                <element signature="e#14462#14633#0" expanded="true" />
-                <element signature="e#14632#14633#0" expanded="true" />
-                <element signature="e#14947#15259#0" expanded="true" />
-                <element signature="e#15258#15259#0" expanded="true" />
-                <element signature="e#16694#16922#0" expanded="true" />
-                <element signature="e#16921#16922#0" expanded="true" />
-                <element signature="e#17545#17689#0" expanded="true" />
-                <element signature="e#17688#17689#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="206">
+              <caret line="52" column="88" selection-start-line="52" selection-start-column="88" selection-end-line="52" selection-end-column="88" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GUIFormStand.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormStand.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="462">
+              <caret line="46" column="38" selection-start-line="46" selection-start-column="38" selection-end-line="46" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -164,6 +115,12 @@
         <option value="$PROJECT_DIR$/src/Presentacion/Shows/individual/GUIViewPavilion.java" />
         <option value="$PROJECT_DIR$/src/Presentacion/Shows/individual/GUIViewStand.java" />
         <option value="$PROJECT_DIR$/src/Presentacion/Shows/GUIShow.java" />
+        <option value="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormAssignation.java" />
+        <option value="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormFair.java" />
+        <option value="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormParticipation.java" />
+        <option value="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormPavilion.java" />
+        <option value="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormClient.java" />
+        <option value="$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormStand.java" />
       </list>
     </option>
   </component>
@@ -210,15 +167,15 @@
               <item name="code" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Presentacion" type="462c0819:PsiDirectoryNode" />
-              <item name="Shows" type="462c0819:PsiDirectoryNode" />
+              <item name="Create_Modify" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="code" type="b2602c69:ProjectViewProjectNode" />
               <item name="code" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Presentacion" type="462c0819:PsiDirectoryNode" />
-              <item name="Shows" type="462c0819:PsiDirectoryNode" />
-              <item name="individual" type="462c0819:PsiDirectoryNode" />
+              <item name="Create_Modify" type="462c0819:PsiDirectoryNode" />
+              <item name="Forms" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="code" type="b2602c69:ProjectViewProjectNode" />
@@ -637,46 +594,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.12.jar!/org/junit/runners/model/FrameworkMethod.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="29" selection-start-line="29" selection-end-line="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.12.jar!/org/junit/internal/runners/statements/InvokeMethod.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-25650" />
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.12.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.12.jar!/org/junit/runners/ParentRunner.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="203" selection-start-line="203" selection-end-line="203" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Negocio/Participante/Tparticipante.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="990">
-          <caret line="33" selection-start-line="33" selection-end-line="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/Integracion/Participante/DAOParticipanteImpTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="900">
@@ -1016,6 +933,48 @@
             <element signature="e#17545#17689#0" expanded="true" />
             <element signature="e#17688#17689#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="45" column="76" selection-start-line="45" selection-start-column="76" selection-end-line="45" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormAssignation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="41" column="13" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormFair.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="50" column="46" selection-start-line="50" selection-start-column="46" selection-end-line="50" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormParticipation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="49" column="49" selection-start-line="49" selection-start-column="49" selection-end-line="49" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormPavilion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="52" column="88" selection-start-line="52" selection-start-column="88" selection-end-line="52" selection-end-column="88" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Presentacion/Create_Modify/Forms/GUIFormStand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="46" column="38" selection-start-line="46" selection-start-column="38" selection-end-line="46" selection-end-column="38" />
         </state>
       </provider>
     </entry>

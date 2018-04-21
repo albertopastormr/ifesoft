@@ -39,8 +39,11 @@ public class GUIFormClient extends JFrame implements UI {
     private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
 
-    String helpMessage = "<html><h1>CLIENT INFO</1>Here you can <b>insert</b> <u>Client</u>'s data just by inserting them into the" +
+    String helpMessage = "<html><h1>CLIENT INFO</1>Here you can <b>insert</b> " +
+            "<u>Client</u>'s data just by inserting them into the" +
             " text areas, then click <b>'Next'</b> to continue or <b>'Cancel'</b> to go back." +
+            "In the first field you have to insert the name of the client, in the second one its telephone" +
+            " number and in the last one the specialization of this company." +
             "</html>";
 
     // CONSTRUCTOR OPTION CREATE

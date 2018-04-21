@@ -41,7 +41,10 @@ public class GUIFormStand extends JFrame implements UI {
 
     String helpMessage = "<html><h1>STAND'S FORM HELP </1>Here you can <b>insert</b> <u>Stand</u>'s data just by " +
             "inserting them into the text areas, then click <b>'Next'</b> to continue or <b>'Cancel'</b>" +
-            " to go back."+
+            " to go back." +
+            "In the first field you have to insert the metres occupied by the stand," +
+            "in the second one its number and" +
+            "in the last one its cost."+
             "</html>";
 
     public GUIFormStand() {

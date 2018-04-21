@@ -43,7 +43,12 @@ public class GUIFormFair extends JFrame implements UI {
     private Color cOkButton = new Color(26, 184, 59);
 
     String helpMessage = "<html><h1>FAIR INFO</1>Here you can <b>insert</b> <u>Fair</u>'s data just by inserting" +
-            " them into the text areas, then click <b>'Next'</b> to continue or <b>'Cancel'</b> to go back." +
+            " them into the text areas, then click <b>'Next'</b> " +
+            "to continue or <b>'Cancel'</b> to go back." +
+            "In the first field you have to insert the name of the fair," +
+            "in the second one description to give some information and define the theme of the fair," +
+            "in the third field you have to write the starting date " +
+            "and in the last one the end date." +
             "</html>";
 
 

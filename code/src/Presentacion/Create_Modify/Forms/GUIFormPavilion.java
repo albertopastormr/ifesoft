@@ -46,7 +46,11 @@ public class GUIFormPavilion extends JFrame implements UI {
 
     String helpMessage = "<html><h1>PAVILION'S FORM HELP </1>Here you can <b>insert</b> <u>Pavilion</u>'s data" +
             " just by inserting them into the text areas," +
-            " then click <b>'Next'</b> to continue or <b>'Cancel'</b> to go back." +
+            " then click <b>'Next'</b> to continue or <b>'Cancel'</b>" +
+            " to go back." +
+            "In the first field you have to define the total capacity of the pavillion," +
+            "in the second one the total square meters that can be used for company stands and" +
+            "in the last one the square meters not yet occupied and therefore available. " +
             "</html>";
 
     public GUIFormPavilion() {
@@ -97,7 +101,7 @@ public class GUIFormPavilion extends JFrame implements UI {
             else Controller.getInstance().execute(Event.MODIFY_PAVILION, tPabellon);
 
         }catch (NumberFormatException e){
-            throw new NumberFormatException("Debes insertar un numero valido en los campos." + ActionHelp.strHelpBasic());
+            throw new NumberFormatException("You have to insert a valid number in the fields." + ActionHelp.strHelpBasic());
         }
     }
 

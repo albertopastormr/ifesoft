@@ -42,7 +42,12 @@ public class GUIFormParticipation extends JFrame implements UI{
 
     String helpMessage = "<html><h1>PARTICIPATION'S FORM HELP </1>Here you can <b>insert</b> <u>Participation</u>" +
             "'s data just " +
-            "by inserting them into the text areas, then click <b>'Next'</b> to continue or <b>'Cancel'</b> to go back." +
+            "by inserting them into the text areas, then click <b>'Next'</b> " +
+            "to continue or <b>'Cancel'</b> to go back." +
+            "In the first field you have to insert the metres used by the stand of the client in the fair," +
+            "in the second one the ID of the fair in which the client will take part," +
+            "in the third one the ID of the client and" +
+            "in the last one the ID of its stand." +
             "</html>";
 
     public GUIFormParticipation() {
