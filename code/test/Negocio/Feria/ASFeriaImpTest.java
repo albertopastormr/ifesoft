@@ -38,7 +38,7 @@ public class ASFeriaImpTest {
 			Date dateEnd = new Date((4018-1900), 2, 18);
 	
 			Tferia feria = new Tferia(id, "IBM", "IBM prueba existente", dateIni , dateEnd, true); //Generamos un transfer
-			daoFeria.create(feria); //Creamos una feria con los datos intoducidos en el transfer anterior
+			id = asFeria.create(feria); //Creamos una feria con los datos intoducidos en el transfer anterior
 			
 			Tferia feria2 = new Tferia(id, "IBM", "IBM prueba existente", dateIni, dateEnd, false);
 			asFeria.create(feria2); //A partir de aqui le estamos diciendo al test que si intentamos crear feria2 y se lanza una excepcion se 
