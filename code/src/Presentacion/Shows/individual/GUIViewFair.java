@@ -29,6 +29,12 @@ public class GUIViewFair extends JFrame implements UI {
     private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
 
     private Color cCancelButton = new Color(146, 35, 59);
+    private Color cHelpButton = new Color(66,35,146);
+
+    String helpMessage = "<html><h1>SHOW INDIVIDUAL FAIR HELP</h1>Here you have the possibility to" +
+            "<b>See</b> the data of the specific <u>Fair</u> that you chose." +
+            "</html>" +
+            "";
 
     public GUIViewFair(Tferia tferia) {
 
@@ -47,6 +53,10 @@ public class GUIViewFair extends JFrame implements UI {
         this.setVisible(false);
 
         //TODO
+    }
+
+    private void helpButtonActionPerformed(ActionEvent e) {
+        new Presentacion.utils.ActionHelp(helpMessage);
     }
 
     private void setupTitle(){
@@ -179,7 +189,19 @@ public class GUIViewFair extends JFrame implements UI {
         buttonBar.setLayout(layout);
         buttonBar.add(backButton);
 
-
+        //---- helpButton ----
+        JButton helpButton = new JButton();
+        helpButton.setText("Help");
+        helpButton.setFont(fButton);
+        helpButton.setBackground(cHelpButton);
+        helpButton.setForeground(Color.WHITE);
+        helpButton.setPreferredSize(buttonDim);
+        helpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                helpButtonActionPerformed(e);
+            }
+        });
 
     }
 

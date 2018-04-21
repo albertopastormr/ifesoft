@@ -58,6 +58,12 @@ public class GUIShow extends JFrame implements UI {
     private boolean isHalfEntity;
     private boolean isHalfEntityList;
 
+    String helpMessage = "<html><h1>SHOW PAGE HELP</h1>Here you have the possibility to" +
+            "<b>See</b> <u>Fairs</u> or other entities just" +
+            " by choosing one with the comboBox. <br>You can choose between showing just a specific one" +
+            " finding it by its ID or a list.</html>" +
+            "";
+
     public GUIShow() {
 
         this.isHalfEntity = false;
@@ -80,7 +86,7 @@ public class GUIShow extends JFrame implements UI {
     }
 
     private void helpButtonActionPerformed(ActionEvent e) {
-
+        new Presentacion.utils.ActionHelp(helpMessage);
     }
 
     private void setUpTitle(){
@@ -113,12 +119,12 @@ public class GUIShow extends JFrame implements UI {
         comboBoxViews.setMinimumSize(new Dimension(200, 50));
         comboBoxViews.setMaximumSize(new Dimension(800, 50));
 
-            comboBoxViews.addItem("Pavilion");
-            comboBoxViews.addItem("Assignation");
-            comboBoxViews.addItem("Fair");
-            comboBoxViews.addItem("Client");
-            comboBoxViews.addItem("Participation");
-            comboBoxViews.addItem("Stand");
+        comboBoxViews.addItem("Pavilion");
+        comboBoxViews.addItem("Assignation");
+        comboBoxViews.addItem("Fair");
+        comboBoxViews.addItem("Client");
+        comboBoxViews.addItem("Participation");
+        comboBoxViews.addItem("Stand");
 
         comboBoxViews.setBorder(BorderFactory.createEmptyBorder(0,0, 20, 0));
         centerPanel.add(comboBoxViews);
@@ -134,7 +140,7 @@ public class GUIShow extends JFrame implements UI {
         radioButtonLeft.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               changeVisibleLeft();
+                changeVisibleLeft();
             }
         });
 
@@ -411,7 +417,7 @@ public class GUIShow extends JFrame implements UI {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         //======== this ========
-        Container contentPane = getContentPane(); 
+        Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
         ImageIcon img = new ImageIcon("Resources//Icon.png");

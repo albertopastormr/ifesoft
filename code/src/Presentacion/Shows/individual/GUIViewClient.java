@@ -26,7 +26,31 @@ public class GUIViewClient extends JFrame implements UI {
     private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
 
     private Color cBackButton = new Color(146, 35, 59);
+    private Color cHelpButton = new Color(66,35,146);
 
+<<<<<<< HEAD
+    /*
+    SOLO PARA DEPURAR
+     */
+            String helpMessage = "<html><h1>SHOW INDIVIDUAL CLIENT HELP</h1>Here you have the possibility to" +
+            "<b>See</b> the data of the specific <u>Client</u>" +
+            " that you chose.</html>" +
+            "";
+
+    public GUIViewClient() {
+
+        id = "5";
+        name = "Paco's Pizza";
+        phone = "12 34 56 789";
+        //specialization =tclient.getSpec() + "";
+
+        initComponents();
+        this.setBounds(100,100, 800,800);
+        this.setVisible(true);
+    }
+
+=======
+        >>>>>>> c82a17eed939c3787345dff35afee6eb7077438a
     public GUIViewClient(Tparticipante tclient) {
         super();
         id = tclient.getId() + "";
@@ -43,6 +67,10 @@ public class GUIViewClient extends JFrame implements UI {
         this.setVisible(false);
 
         //TODO
+    }
+
+    private void helpButtonActionPerformed(ActionEvent e) {
+        new Presentacion.utils.ActionHelp(helpMessage);
     }
 
     private void setupTitle(){
@@ -166,7 +194,19 @@ public class GUIViewClient extends JFrame implements UI {
         buttonBar.setLayout(layout);
         buttonBar.add(backButton);
 
-
+        //---- helpButton ----
+        JButton helpButton = new JButton();
+        helpButton.setText("Help");
+        helpButton.setFont(fButton);
+        helpButton.setBackground(cHelpButton);
+        helpButton.setForeground(Color.WHITE);
+        helpButton.setPreferredSize(buttonDim);
+        helpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                helpButtonActionPerformed(e);
+            }
+        });
 
     }
 
