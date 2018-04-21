@@ -28,7 +28,7 @@ public class GUIViewClient extends JFrame implements UI {
     private Color cBackButton = new Color(146, 35, 59);
 
     public GUIViewClient(Tparticipante tclient) {
-
+        super();
         id = tclient.getId() + "";
         name = tclient.getName();
         phone =tclient.getPhone() + "";

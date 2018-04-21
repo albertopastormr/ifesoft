@@ -33,24 +33,24 @@ public class Event {
 
     public static final int DROP_FAIR = 9213;
     public static final int DROP_STAND = 921398;
-    public static final int DROP_ASIGNACION = 921334;
+    public static final int DROP_ASSIGNATION = 921334;
     public static final int DROP_CLIENT = 921343;
-    public static final int DROP_PABELLON = 921312;
-    public static final int DROP_PARTICIPACION = 921376;
+    public static final int DROP_PAVILION = 921312;
+    public static final int DROP_PARTICIPATION = 921376;
 
     /** PAGINAS MAS ESPECIFICAS DE CADA ACCION */
-    public static final int INSERT_FORM_FERIA = 10;
-    public static final int MODIFY_FORM_FERIA = 11;
-    public static final int INSERT_FORM_ASIGNACION = 100;
-    public static final int MODIFY_FORM_ASIGNACION = 1123;
-    public static final int INSERT_FORM_PABELLON = 102141;
-    public static final int MODIFY_FORM_PABELLON= 114324;
-    public static final int INSERT_FORM_PARTICIPACION = 103463;
-    public static final int MODIFY_FORM_PARTICIPACION = 11123123;
+    public static final int INSERT_FORM_FAIR = 10;
+    public static final int MODIFY_FORM_FAIR = 11;
+    public static final int INSERT_FORM_ASSIGNATION = 100;
+    public static final int MODIFY_FORM_ASSIGNATION = 1123;
+    public static final int INSERT_FORM_PAVILION = 102141;
+    public static final int MODIFY_FORM_PAVILION = 114324;
+    public static final int INSERT_FORM_PARTICIPATION = 103463;
+    public static final int MODIFY_FORM_PARTICIPATION = 11123123;
     public static final int INSERT_FORM_STAND = 1011334;
     public static final int MODIFY_FORM_STAND = 119899;
-    public static final int INSERT_FORM_PARTICIPANTE = 3242324;
-    public static final int MODIFY_FORM_PARTICIPANTE = 98349;
+    public static final int INSERT_FORM_CLIENT = 3242324;
+    public static final int MODIFY_FORM_CLIENT = 98349;
 
     /** EVENTOS FINALES CON NEGOCIO */
     public static final int INSERT_FAIR = 12;
@@ -85,4 +85,8 @@ public class Event {
     public static final int SHOW_STAND_LIST = 99987;
     public static final int SHOW_REGION_PABELLON = 234231;
     public static final int SHOW_PAIS_PABELLON = 123412;
+    public static final int SHOW_ASSIGNATION_INDIVIDUAL = 124121;
+    public static final int SHOW_PARTICIPATION_INDIVIDUAL = 9191928;
+    public static final int SHOW_STAND_ASSIGNATION = 1231463;
+    public static final int SHOW_STAND_PARTICIPATION = 736363;
 }

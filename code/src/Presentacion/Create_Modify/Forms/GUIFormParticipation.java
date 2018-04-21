@@ -301,6 +301,8 @@ public class GUIFormParticipation extends JFrame implements UI{
 
     @Override
     public void update(int event, Object data) {
-
+        //JOptionPane.showMessageDialog(null, "The Participation has been created successfully");
+        //JOptionPane.showMessageDialog(null, "A problem in the creation process occurred, insert Participation's data another time please", "Error",
+        //                            JOptionPane.ERROR_MESSAGE);
     }
 }

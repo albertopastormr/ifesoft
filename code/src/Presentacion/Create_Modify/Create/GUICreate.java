@@ -54,11 +54,11 @@ public class GUICreate extends JFrame implements UI {
         switch (String.valueOf(comboBoxCreate.getSelectedItem())){
             case "Fair":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_FERIA, null);
+                Controller.getInstance().execute(Event.INSERT_FORM_FAIR, null);
                 break;
             case "Pavilion":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_PABELLON, null);
+                Controller.getInstance().execute(Event.INSERT_FORM_PAVILION, null);
                 break;
             case "Stand":
                 this.setVisible(false);
@@ -66,15 +66,15 @@ public class GUICreate extends JFrame implements UI {
                 break;
             case "Client":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_PARTICIPANTE, null);
+                Controller.getInstance().execute(Event.INSERT_FORM_CLIENT, null);
                 break;
             case "Assignation":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_ASIGNACION, null);
+                Controller.getInstance().execute(Event.INSERT_FORM_ASSIGNATION, null);
                 break;
             case "Participation":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_PARTICIPANTE, null);
+                Controller.getInstance().execute(Event.INSERT_FORM_CLIENT, null);
                 break;
 
         }

@@ -306,6 +306,8 @@ public class GUIFormAssignation extends JFrame implements UI {
 
     @Override
     public void update(int event, Object data) {
-
+        //JOptionPane.showMessageDialog(null,"The Assignation has been created successfully");
+        //JOptionPane.showMessageDialog(null, "A problem in the creation process occurred, insert Assignation's data another time please", "Error",
+        //                            JOptionPane.ERROR_MESSAGE);
     }
 }
