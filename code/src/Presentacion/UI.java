@@ -1,4 +1,6 @@
-package Presentacion;
+//La vamos a quitar?
+
+/*package Presentacion;
 
 import javax.swing.*;
 
@@ -14,3 +16,4 @@ public abstract class UI extends JFrame {
         return uIimp;
     }
 }
+*/
