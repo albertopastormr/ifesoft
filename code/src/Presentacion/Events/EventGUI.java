@@ -29,4 +29,15 @@ public class EventGUI {
     public static final int UPDATE_PARTICIPATION_FAIL = 8836748;
     public static final int UPDATE_STAND_OK = 786234;
     public static final int UPDATE_STAND_FAIL = 746385;
+    public static final int UPDATE_DROP_FAIR_OK = 64536;
+    public static final int UPDATE_DROP_FAIR_FAIL = 887446;
+    public static final int UPDATE_DROP_STAND_FAIL = 75868;
+    public static final int UPDATE_DROP_STAND_OK = 345;
+    public static final int UPDATE_DROP_PAVILION_FAIL = 998;
+    public static final int UPDATE_DROP_PARTICIPATION_OK = 8877;
+    public static final int UPDATE_DROP_ASSIGNATION_FAIL = 98986;
+    public static final int UPDATE_DROP_ASSIGNATION_OK = 66554;
+    public static final int UPDATE_DROP_CLIENT_FAIL = 991166;
+    public static final int UPDATE_DROP_CLIENT_OK = 666;
+    public static final int UPDATE_DROP_PAVILION_OK = 99774422;
 }

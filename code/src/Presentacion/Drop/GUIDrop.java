@@ -4,6 +4,8 @@ import Negocio.Asignacion.Tasignacion;
 import Negocio.Feria.Tferia;
 import Negocio.Pabellon.Tpabellon;
 //import Negocio.Participante.Tparticipante;
+import Negocio.Participacion.Tparticipacion;
+import Negocio.Participante.Tparticipante;
 import Negocio.Stand.Tstand;
 import Controller.Controller;
 import Presentacion.Events.Event;
@@ -78,23 +80,23 @@ public class GUIDrop extends JFrame implements UI {
                 break;
             case "Pavilion":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_HALF_PABELLON, new Tpabellon(Integer.parseInt(textName.getText()), -1, -1, null));
-                break;
-            case "Stand":
-                this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_HALF_STAND, new Tstand(Integer.parseInt(textName.getText()), -1, -1, -1,-1, null));
+                Controller.getInstance().execute(Event.DROP_PAVILION, new Tpabellon(Integer.parseInt(textName.getText()), -1, -1, null));
                 break;
             case "Client":
                 this.setVisible(false);
-                //Controller.getInstance().execute(Event.DROP_HALF_PARTICIPANTE, new Tparticipante(Integer.parseInt(textName.getText()), null, -1, null));
+                Controller.getInstance().execute(Event.DROP_CLIENT, new Tparticipante(Integer.parseInt(textName.getText()), null, -1, null));
                 break;
             case "Assignation":
                 this.setVisible(false);
-                //Controller.getInstance().execute(Event.DROP_HALF_ASIGNACION, new Tasignacion(Integer.parseInt(textName.getText()), -1, -1, -1, null));
+                Controller.getInstance().execute(Event.DROP_ASSIGNATION, new Tasignacion(Integer.parseInt(textName.getText()), -1, -1, -1, null));
                 break;
             case "Participation":
                 this.setVisible(false);
-                //Controller.getInstance().execute(Event.DROP_HALF_PARTICIPACION, new Tparticipante(Integer.parseInt(textName.getText()), null, -1, null));
+                Controller.getInstance().execute(Event.DROP_PARTICIPATION, new Tparticipacion(Integer.parseInt(textName.getText()), -1, -1, null));
+                break;
+            case "Stand":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.DROP_STAND, new Tstand(Integer.parseInt(textName.getText()), -1, -1, -1,-1, null));
                 break;
 
          }
@@ -236,7 +238,7 @@ public class GUIDrop extends JFrame implements UI {
 
             comboBoxDrop.addItem("Assignation");
             comboBoxDrop.addItem("Fair");
-            comboBoxDrop.addItem("Participant");
+            comboBoxDrop.addItem("Client");
             comboBoxDrop.addItem("Pavilion");
             comboBoxDrop.addItem("Participation");
             comboBoxDrop.addItem("Stand");

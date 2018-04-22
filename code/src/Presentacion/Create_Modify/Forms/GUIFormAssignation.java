@@ -65,7 +65,7 @@ public class GUIFormAssignation extends JFrame implements UI {
         int idPavilion = Integer.valueOf(idPavilionField.getText());
         int mTotal = Integer.valueOf(metresTotalField.getText());
 
-        Tasignacion tAssignation = new Tasignacion(idFair, idPavilion, mTotal, -1, true);
+        Tasignacion tAssignation = new Tasignacion(idFair, idPavilion, mTotal, 0, true);
 
         if (!mod)  Controller.getInstance().execute(Event.INSERT_ASSIGNATION, tAssignation);
         else Controller.getInstance().execute(Event.MODIFY_ASSIGNATION, tAssignation);

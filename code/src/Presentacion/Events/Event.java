@@ -64,7 +64,7 @@ public class Event {
     public static final int INSERT_STAND = 23455234;
     public static final int MODIFY_STAND = 3432523;
     public static final int INSERT_PARTICIPATION = 44345;
-    public static final int MODIFY_PARTICIPACION = 56789;
+    public static final int MODIFY_PARTICIPATION = 56789;
 
     /** EVENTOS SHOWS DE LISTAR E INDIVIDUALES */
 

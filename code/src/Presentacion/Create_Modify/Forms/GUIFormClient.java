@@ -17,6 +17,8 @@ import javax.swing.plaf.ColorUIResource;
 
 public class GUIFormClient extends JFrame implements UI {
 
+    private int idClient;
+
     private String name;
     private String phone;
     private String regionCountryText;
@@ -70,12 +72,13 @@ public class GUIFormClient extends JFrame implements UI {
     public GUIFormClient(Tparticipante client) {
         mod = true;
 
+        this.idClient = client.getId();
+
         name = client.getName();
         phone = "" + (client.getPhone());
-        //regionCountryField = "" + client.
-        //specialization = client.getSpecialization();
 
         initComponents();
+        viewVisibleLogic();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
@@ -106,7 +109,10 @@ public class GUIFormClient extends JFrame implements UI {
         else client = new TparticipanteInternacional(name, Integer.parseInt(numPhone), true, regionCountry);
 
         if (!mod)  Controller.getInstance().execute(Presentacion.Events.Event.INSERT_CLIENT, client);
-        else Controller.getInstance().execute(Event.MODIFY_CLIENT, client);
+        else{
+            client.setId(idClient);
+            Controller.getInstance().execute(Event.MODIFY_CLIENT, client);
+        }
     }
 
     private void cancelButtonStateChanged() throws Exception {

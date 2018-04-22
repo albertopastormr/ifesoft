@@ -13,7 +13,7 @@ import javax.swing.*;
 
 public class GUIFormParticipation extends JFrame implements UI{
 
-
+    private int idParticipation;
     private String metres;
     private String idFair;
     private String idClient;
@@ -59,6 +59,8 @@ public class GUIFormParticipation extends JFrame implements UI{
     public GUIFormParticipation(Tparticipacion participation) {
         mod = true;
 
+        this.idParticipation = participation.getId();
+
         idFair = (String.valueOf(participation.getFair_id()));
         idClient = (String.valueOf(participation.getClient_id()));
 
@@ -72,10 +74,8 @@ public class GUIFormParticipation extends JFrame implements UI{
         int idFair = Integer.valueOf(idFairField.getText());
         int idClient = Integer.valueOf(idClientField.getText());
 
-        Tparticipacion participation = new Tparticipacion(idFair, idClient, true);
-
-        if (!mod)  Controller.getInstance().execute(Event.INSERT_PARTICIPATION, participation);
-        else Controller.getInstance().execute(Event.MODIFY_PARTICIPACION, participation);
+        if (!mod)  Controller.getInstance().execute(Event.INSERT_PARTICIPATION, new Tparticipacion(idFair, idClient, true));
+        else Controller.getInstance().execute(Event.MODIFY_PARTICIPATION, new Tparticipacion(idParticipation ,idFair, idClient, true));
     }
 
     private void cancelButtonStateChanged() throws Exception {

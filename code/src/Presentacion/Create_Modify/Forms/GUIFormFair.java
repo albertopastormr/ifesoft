@@ -15,6 +15,8 @@ import javax.swing.*;
 
 public class GUIFormFair extends JFrame implements UI {
 
+    private int idFair;
+
     private String name;
     private String description;
     private String iniDate;
@@ -53,7 +55,7 @@ public class GUIFormFair extends JFrame implements UI {
 
 
     public GUIFormFair() {
-        mod = false;
+        this.mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
@@ -61,12 +63,13 @@ public class GUIFormFair extends JFrame implements UI {
     }
 
     public GUIFormFair(Tferia fair) {
-        mod = true;
+        this.mod = true;
 
-        name = fair.getName();
-        description = fair.getDescription();
-        iniDate = Utilities.parseDateToString(fair.getIniDate());
-        finDate = Utilities.parseDateToString(fair.getEndDate());
+        this.idFair = fair.getId();
+        this.name = fair.getName();
+        this.description = fair.getDescription();
+        this.iniDate = Utilities.parseDateToString(fair.getIniDate());
+        this.finDate = Utilities.parseDateToString(fair.getEndDate());
 
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -81,7 +84,7 @@ public class GUIFormFair extends JFrame implements UI {
         String dateEnd = finDateField.getText();
 
         if(!mod) Controller.getInstance().execute(Event.INSERT_FAIR, new Tferia(name, description, Utilities.parseStringToDate(dateStart), Utilities.parseStringToDate(dateEnd)));
-        else Controller.getInstance().execute(Event.MODIFY_FAIR, new Tferia(name, description, Utilities.parseStringToDate(dateStart), Utilities.parseStringToDate(dateEnd)));
+        else Controller.getInstance().execute(Event.MODIFY_FAIR, new Tferia(idFair ,name, description, Utilities.parseStringToDate(dateStart), Utilities.parseStringToDate(dateEnd), true));
 
     }
 

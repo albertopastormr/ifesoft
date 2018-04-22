@@ -48,30 +48,6 @@ public class GUIHome extends JFrame implements UI {
         this.setVisible(true);
     }
 
-    @Override
-    public void update(int event, Object object) {
-        switch (event){
-            case EventGUI.UPDATE_CREATE_FAIR_OK:
-                JOptionPane.showMessageDialog(null, "The Fair has been created successfully");
-                break;
-            case EventGUI.UPDATE_CREATE_PAVILION_OK:
-                JOptionPane.showMessageDialog(null, "The Pavilion has been created successfully");
-                break;
-            case EventGUI.UPDATE_CREATE_CLIENT_OK:
-                JOptionPane.showMessageDialog(null, "The Client has been created successfully");
-                break;
-            case EventGUI.UPDATE_CREATE_ASSIGNATION_OK:
-                JOptionPane.showMessageDialog(null, "The Assignation has been created successfully");
-                break;
-            case EventGUI.UPDATE_CREATE_PARTICIPATION_OK:
-                JOptionPane.showMessageDialog(null, "The Participation has been created successfully");
-                break;
-            case EventGUI.UPDATE_CREATE_STAND_OK:
-                JOptionPane.showMessageDialog(null, "The Stand has been created successfully");
-                break;
-        }
-    }
-
     private void buttonCreateHomeActionPerformed() {
         this.setVisible(false);
         try {
@@ -151,7 +127,7 @@ public class GUIHome extends JFrame implements UI {
          centerConst.weightx = 0.5;
          centerConst.weighty = 0.5;
 
-         buttonCreateHome = createBigButton("Create_Modify");
+         buttonCreateHome = createBigButton("Create");
             buttonCreateHome.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -289,6 +265,30 @@ public class GUIHome extends JFrame implements UI {
         contentPane.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
+    }
+
+    @Override
+    public void update(int event, Object object) {
+        switch (event){
+            case EventGUI.UPDATE_CREATE_FAIR_OK:
+                JOptionPane.showMessageDialog(null, "The Fair has been created successfully");
+                break;
+            case EventGUI.UPDATE_CREATE_PAVILION_OK:
+                JOptionPane.showMessageDialog(null, "The Pavilion has been created successfully");
+                break;
+            case EventGUI.UPDATE_CREATE_CLIENT_OK:
+                JOptionPane.showMessageDialog(null, "The Client has been created successfully");
+                break;
+            case EventGUI.UPDATE_CREATE_ASSIGNATION_OK:
+                JOptionPane.showMessageDialog(null, "The Assignation has been created successfully");
+                break;
+            case EventGUI.UPDATE_CREATE_PARTICIPATION_OK:
+                JOptionPane.showMessageDialog(null, "The Participation has been created successfully");
+                break;
+            case EventGUI.UPDATE_CREATE_STAND_OK:
+                JOptionPane.showMessageDialog(null, "The Stand has been created successfully");
+                break;
+        }
     }
 }
 

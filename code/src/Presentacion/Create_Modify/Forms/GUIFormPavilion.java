@@ -14,6 +14,7 @@ import javax.swing.plaf.ColorUIResource;
 
 public class GUIFormPavilion extends JFrame implements UI {
 
+    private int idPavilion;
     private String capacity;
     private String m2tot;
 
@@ -57,6 +58,8 @@ public class GUIFormPavilion extends JFrame implements UI {
     public GUIFormPavilion(Tpabellon pavilion) {
         mod = true;
 
+        this.idPavilion = pavilion.getId();
+
         capacity = "" + pavilion.getCapacity();
         m2tot = "" + pavilion.getTotal_m2();
 
@@ -70,11 +73,9 @@ public class GUIFormPavilion extends JFrame implements UI {
         try {
             String capacity = capacityField.getText();
             String m2_total = m2totField.getText();
-            Tpabellon tPabellon = new Tpabellon(Integer.parseInt(capacity), Integer.parseInt(m2_total), true);
 
-
-            if (!mod)  Controller.getInstance().execute(Event.INSERT_PAVILION, tPabellon);
-            else Controller.getInstance().execute(Event.MODIFY_PAVILION, tPabellon);
+            if (!mod)  Controller.getInstance().execute(Event.INSERT_PAVILION, new Tpabellon(Integer.parseInt(capacity), Integer.parseInt(m2_total), true));
+            else Controller.getInstance().execute(Event.MODIFY_PAVILION, new Tpabellon(idPavilion ,Integer.parseInt(capacity), Integer.parseInt(m2_total), true));
 
         }catch (NumberFormatException e){
             throw new NumberFormatException("You have to insert a valid number in the fields." + ActionHelp.strHelpBasic());

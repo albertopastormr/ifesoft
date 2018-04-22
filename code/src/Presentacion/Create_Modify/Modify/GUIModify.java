@@ -58,33 +58,27 @@ public class GUIModify extends JFrame implements UI {
         switch (String.valueOf(comboBoxMod.getSelectedItem())){
             case "Fair":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_FAIR,
-                        new Tferia( Integer.parseInt(textID.getText()) ,null,null ,null ,null, null));
+                Controller.getInstance().execute(Event.MODIFY_FORM_FAIR, Integer.parseInt(textID.getText()));
                 break;
             case "Pavilion":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_PAVILION,
-                        new Tpabellon(Integer.parseInt(textID.getText()) ,-1,-1 ,null));
-                break;
-            case "Stand":
-                this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_STAND,
-                        new Tstand(Integer.parseInt(textID.getText()), -1, -1, -1, -1, null));
+                Controller.getInstance().execute(Event.MODIFY_FORM_PAVILION, Integer.parseInt(textID.getText()));
                 break;
             case "Client":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_CLIENT,
-                        new Tparticipante(Integer.parseInt(textID.getText()) ,null ,-1 ,null));
+                Controller.getInstance().execute(Event.MODIFY_FORM_CLIENT, Integer.parseInt(textID.getText()));
                 break;
             case "Assignation":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_ASSIGNATION,
-                        new Tasignacion(Integer.parseInt(textID.getText()) ,-1 ,-1 ,-1 ,null));
+                Controller.getInstance().execute(Event.MODIFY_FORM_ASSIGNATION, Integer.parseInt(textID.getText()));
                 break;
             case "Participation":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_PARTICIPATION,
-                        new Tparticipacion(Integer.parseInt(textID.getText()) ,-1 ,-1 ,null));
+                Controller.getInstance().execute(Event.MODIFY_FORM_PARTICIPATION, Integer.parseInt(textID.getText()));
+                break;
+            case "Stand":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.MODIFY_FORM_STAND, Integer.parseInt(textID.getText()));
                 break;
 
         }
@@ -135,7 +129,7 @@ public class GUIModify extends JFrame implements UI {
 
         comboBoxMod.addItem("Assignation");
         comboBoxMod.addItem("Fair");
-        comboBoxMod.addItem("Participant");
+        comboBoxMod.addItem("Client");
         comboBoxMod.addItem("Pavilion");
         comboBoxMod.addItem("Participation");
         comboBoxMod.addItem("Stand");

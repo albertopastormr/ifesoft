@@ -21,7 +21,7 @@ public class IFCreateModifyFormImp extends IFCreateModifyForm {
         switch (event){
             case Event.CREATE_HALF:
                 return new GUICreate();
-            case Event.MODIFY_FAIR:
+            case Event.MODIFY_HALF:
                 return new GUIModify();
 
             /** -------- INSERT FORMS -------- */
