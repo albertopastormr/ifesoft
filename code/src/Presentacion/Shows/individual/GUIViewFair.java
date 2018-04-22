@@ -38,7 +38,7 @@ public class GUIViewFair extends JFrame implements UI {
 
     public GUIViewFair(Tferia tferia) {
 
-        id = tferia.getId() + "";
+        id = "" + tferia.getId();
         name = tferia.getName();
         description = tferia.getDescription();
         iniDate = Utilities.parseDateToString(tferia.getIniDate());

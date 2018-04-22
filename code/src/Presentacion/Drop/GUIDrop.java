@@ -29,7 +29,7 @@ public class GUIDrop extends JFrame implements UI {
     private JPanel buttonBar;
     private JLabel title;
     private JComboBox<String> comboBoxDrop;
-    private JTextField textName;
+    private JTextField textID;
 
     private Font fComboBox = new Font(Font.DIALOG, Font.PLAIN, 40);
     private Font fTitle  = new Font(Font.MONOSPACED, Font.BOLD, 80);
@@ -76,27 +76,27 @@ public class GUIDrop extends JFrame implements UI {
         switch (String.valueOf(comboBoxDrop.getSelectedItem())) {
             case "Fair":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_FAIR, new Tferia( Integer.parseInt(textName.getText()), null, null,null, null, null));
+                Controller.getInstance().execute(Event.DROP_FAIR, new Tferia( Integer.parseInt(textID.getText()), null, null,null, null, null));
                 break;
             case "Pavilion":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_PAVILION, new Tpabellon(Integer.parseInt(textName.getText()), -1, -1, null));
+                Controller.getInstance().execute(Event.DROP_PAVILION, new Tpabellon(Integer.parseInt(textID.getText()), -1, -1, null));
                 break;
             case "Client":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_CLIENT, new Tparticipante(Integer.parseInt(textName.getText()), null, -1, null));
+                Controller.getInstance().execute(Event.DROP_CLIENT, new Tparticipante(Integer.parseInt(textID.getText()), null, -1, null));
                 break;
             case "Assignation":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_ASSIGNATION, new Tasignacion(Integer.parseInt(textName.getText()), -1, -1, -1, null));
+                Controller.getInstance().execute(Event.DROP_ASSIGNATION, new Tasignacion(Integer.parseInt(textID.getText()), -1,-1, -1, -1, null));
                 break;
             case "Participation":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_PARTICIPATION, new Tparticipacion(Integer.parseInt(textName.getText()), -1, -1, null));
+                Controller.getInstance().execute(Event.DROP_PARTICIPATION, new Tparticipacion(Integer.parseInt(textID.getText()), -1, -1, null));
                 break;
             case "Stand":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_STAND, new Tstand(Integer.parseInt(textName.getText()), -1, -1, -1,-1, null));
+                Controller.getInstance().execute(Event.DROP_STAND, new Tstand(Integer.parseInt(textID.getText()), -1, -1, -1, -1,-1, null));
                 break;
 
          }
@@ -258,14 +258,14 @@ public class GUIDrop extends JFrame implements UI {
 
             textFieldPanel.add(labelSubID);
 
-            textName = new JTextField();
-            textName.setFont(fTextField);
-            textName.setBackground(cTextFieldBG);
-            textName.setMinimumSize(new Dimension(200, 50));
-            textName.setPreferredSize(new Dimension(400, 50));
-            textName.setMaximumSize(new Dimension(400, 50));
+            textID = new JTextField();
+            textID.setFont(fTextField);
+            textID.setBackground(cTextFieldBG);
+            textID.setMinimumSize(new Dimension(200, 50));
+            textID.setPreferredSize(new Dimension(400, 50));
+            textID.setMaximumSize(new Dimension(400, 50));
 
-            textFieldPanel.add(textName);
+            textFieldPanel.add(textID);
 
             centerPanel.add(textFieldPanel);
 

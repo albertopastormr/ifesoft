@@ -11,7 +11,6 @@ public class GUIViewPavilion extends JFrame implements UI {
 
     private String capacity;
     private String m2tot;
-    private String m2util;
     private String id;
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
@@ -34,18 +33,6 @@ public class GUIViewPavilion extends JFrame implements UI {
             "<b>See</b> the data of the specific <u>Pavilion</u> that you chose" +
             "</html>" +
             "";
-
-    public GUIViewPavilion() {
-
-        capacity = "7";
-        m2tot = "420";
-        m2util = "69";
-        id = "1";
-
-        initComponents();
-        this.setBounds(100,100, 800,800);
-        this.setVisible(true);
-    }
 
     public GUIViewPavilion(Tpabellon tpabellon) {
 
@@ -110,7 +97,6 @@ public class GUIViewPavilion extends JFrame implements UI {
 
         JLabel aforoLabel = createLabel("Capacity:");
         JLabel m2totLabel = createLabel("Total square-metres:");
-        JLabel m2utilesLabel = createLabel("Useful square-metres:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
@@ -121,9 +107,6 @@ public class GUIViewPavilion extends JFrame implements UI {
         formCon.gridx = 0;
         formCon.gridy = 1;
         formPanel.add(m2totLabel, formCon);
-        formCon.gridx = 0;
-        formCon.gridy = 2;
-        formPanel.add(m2utilesLabel, formCon);
 
         JLabel aforoField = createLabel(capacity);
         aforoField.setMinimumSize(minDim);
@@ -135,10 +118,6 @@ public class GUIViewPavilion extends JFrame implements UI {
         m2totField.setPreferredSize(prefDim);
         m2totField.setMaximumSize(maxDim);
 
-        JLabel m2utilesField = createLabel(m2util);
-        m2utilesField.setMinimumSize(minDim);
-        m2utilesField.setPreferredSize(prefDim);
-        m2utilesField.setMaximumSize(maxDim);
 
         formCon.anchor = GridBagConstraints.WEST;
 
@@ -150,9 +129,6 @@ public class GUIViewPavilion extends JFrame implements UI {
         formCon.gridx = 1;
         formCon.gridy = 1;
         formPanel.add(m2totField, formCon);
-        formCon.gridx = 1;
-        formCon.gridy = 2;
-        formPanel.add(m2utilesField, formCon);
         formContainer.add(formPanel);
     }
 

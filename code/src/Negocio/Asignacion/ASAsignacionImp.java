@@ -25,7 +25,7 @@ public class ASAsignacionImp implements ASAsignacion {
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
 
         //Comprobacion de que los datos del transfer asignacion son correctos
-        if (asignacion != null  && asignacion.getFair_id() != -1 && asignacion.getPavilion_id() != -1 && asignacion.getUsed_m2() != 0 && asignacion.getTotal_m2() > 0) {
+        if (asignacion != null  && asignacion.getFair_id() != -1 && asignacion.getPavilion_id() != -1 && asignacion.getUsed_m2() != -1 && asignacion.getTotal_m2() > 0) {
             try {
                 Tpabellon transferPavilion = daoPabellon.readById(asignacion.getPavilion_id()); //Leemos el pabellon por ID para obtener atributos de el
                 Tferia transferFair = daoFeria.readById(asignacion.getFair_id());

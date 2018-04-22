@@ -324,7 +324,7 @@ public class ControllerImp extends Controller {
 
             case Event.SHOW_FAIR_INDIVIDUAL:
                 try {
-                    IFViewList.getInstance().generateSpecificView(event ,asFair.showById((Integer)data));
+                    IFViewList.getInstance().generateSpecificView(event , asFair.showById((Integer)data));
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_PAVILION_INDIVIDUAL:

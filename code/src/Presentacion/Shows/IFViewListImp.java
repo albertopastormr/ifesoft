@@ -7,6 +7,7 @@ import Negocio.Participacion.Tparticipacion;
 import Negocio.Participante.Tparticipante;
 import Negocio.Stand.Tstand;
 import Presentacion.Events.Event;
+import Presentacion.Home.GUIHome;
 import Presentacion.Shows.List.*;
 import Presentacion.Shows.individual.*;
 import Presentacion.UI;
@@ -18,6 +19,9 @@ public class IFViewListImp extends IFViewList {
     @Override
     public UI generateSpecificView(int event, Object data) {
         switch (event){
+
+            case Event.SHOW_HALF:
+                return new GUIShow();
 
             /** -------- individuals shows -------- */
 
@@ -58,8 +62,8 @@ public class IFViewListImp extends IFViewList {
                 return new GUIListStand((Collection<Tstand>) data);
             case Event.SHOW_STAND_PARTICIPATION:
                 return new GUIListStand((Collection<Tstand>) data);
-
+            default:
+                return new GUIHome();
         }
-        return null;
     }
 }
