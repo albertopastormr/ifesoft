@@ -29,18 +29,16 @@ public class ASStandImp implements ASStand {
                     DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
                     Tparticipacion tparticipacionRead = daoParticipacion.readById(stand.getParticipation_id());
 
-                    if(tasignacionRead != null && tparticipacionRead != null ) {
+                    if (tasignacionRead != null && tparticipacionRead != null) {
                         if (tasignacionRead.getUsed_m2() + stand.getTotal_m2() <= tasignacionRead.getTotal_m2()) {
                             id = daoStand.create(stand);
                             tasignacionRead.setTotal_m2(tasignacionRead.getTotal_m2() + stand.getTotal_m2());
                             daoAsignacion.update(tasignacionRead);
                         } else
                             throw new ASException("ERROR: Los m2 solicitados superan el limite de la asignacion contrada para la feria " + tasignacionRead.getFair_id() + " en el pabellon " + tasignacionRead.getPavilion_id() + "\n");
-                    }
-                    else
+                    } else
                         throw new ASException("ERROR: Asignacion y Participacion referenciadas no existen en la base de datos\n");
-                }
-                else
+                } else
                     throw new ASException("ERROR: Los datos del stand no son correctos.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
@@ -84,19 +82,16 @@ public class ASStandImp implements ASStand {
                         DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
                         Tparticipacion tparticipacionRead = daoParticipacion.readById(stand.getParticipation_id());
 
-                        if(tasignacionRead != null && tparticipacionRead != null ) {
-                            if(tasignacionRead.getUsed_m2() + stand.getTotal_m2() <= tasignacionRead.getTotal_m2()){
+                        if (tasignacionRead != null && tparticipacionRead != null) {
+                            if (tasignacionRead.getUsed_m2() + stand.getTotal_m2() <= tasignacionRead.getTotal_m2()) {
                                 id = daoStand.update(stand);
                                 tasignacionRead.setTotal_m2(tasignacionRead.getTotal_m2() + stand.getTotal_m2());
                                 daoAsignacion.update(tasignacionRead);
-                            }
-                            else
-                                throw new ASException("ERROR: Los m2 solicitados superan el limite de la asignacion contrada para la feria "+tasignacionRead.getFair_id() +" en el pabellon "+tasignacionRead.getPavilion_id()+ "\n");
-                        }
-                        else
+                            } else
+                                throw new ASException("ERROR: Los m2 solicitados superan el limite de la asignacion contrada para la feria " + tasignacionRead.getFair_id() + " en el pabellon " + tasignacionRead.getPavilion_id() + "\n");
+                        } else
                             throw new ASException("ERROR: Asignacion y Participacion referenciadas no existen en la base de datos\n");
-                    }
-                    else
+                    } else
                         throw new ASException("ERROR: No se han introducido los datos del stand.\n");
                 } else
                     throw new ASException("ERROR: El stand " + stand.getId() + " no existe.\n");
@@ -153,8 +148,6 @@ public class ASStandImp implements ASStand {
     }
 
 
-
-
     public Collection<Tstand> showByParticipation(Integer id) throws ASException, DAOException {
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         if (id != -1) {
@@ -163,7 +156,7 @@ public class ASStandImp implements ASStand {
                 if (read != null)
                     return read;
                 else
-                    throw new ASException("ERROR: No existe una participacion " + id+".\n");
+                    throw new ASException("ERROR: No existe una participacion " + id + ".\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }
