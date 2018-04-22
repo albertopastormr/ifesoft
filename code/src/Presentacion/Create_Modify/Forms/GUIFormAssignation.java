@@ -23,7 +23,7 @@ public class GUIFormAssignation extends JFrame implements UI {
     private JPanel formContainer;
     private JTextField idFairField;
     private JTextField idPavilionField;
-    private JTextField metresUsedField;
+    private JTextField metresTotalField;
     private JPanel buttonBar;
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
@@ -63,7 +63,7 @@ public class GUIFormAssignation extends JFrame implements UI {
         this.setVisible(false);
         int idFair = Integer.valueOf(idFairField.getText());
         int idPavilion = Integer.valueOf(idPavilionField.getText());
-        int mTotal = Integer.valueOf(metresUsedField.getText());
+        int mTotal = Integer.valueOf(metresTotalField.getText());
 
         Tasignacion tAssignation = new Tasignacion(idFair, idPavilion, mTotal, -1, true);
 
@@ -163,12 +163,12 @@ public class GUIFormAssignation extends JFrame implements UI {
         String idPavilion = "";
         idPavilionField.setText(idPavilion);
 
-        metresUsedField = setupTextField();
-        metresUsedField.setMinimumSize(minDim);
-        metresUsedField.setPreferredSize(prefDim);
-        metresUsedField.setMaximumSize(maxDim);
+        metresTotalField = setupTextField();
+        metresTotalField.setMinimumSize(minDim);
+        metresTotalField.setPreferredSize(prefDim);
+        metresTotalField.setMaximumSize(maxDim);
         String idStand = "";
-        metresUsedField.setText(idStand);
+        metresTotalField.setText(idStand);
 
         formCon.anchor = GridBagConstraints.WEST;
 
@@ -182,7 +182,7 @@ public class GUIFormAssignation extends JFrame implements UI {
         formPanel.add(idPavilionField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 2;
-        formPanel.add(metresUsedField, formCon);
+        formPanel.add(metresTotalField, formCon);
         formContainer.add(formPanel);
     }
 

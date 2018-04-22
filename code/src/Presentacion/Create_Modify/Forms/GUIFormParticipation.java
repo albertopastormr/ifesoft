@@ -16,7 +16,7 @@ public class GUIFormParticipation extends JFrame implements UI{
 
     private String metres;
     private String idFair;
-    private String idParticipant;
+    private String idClient;
 
     private boolean mod;
 
@@ -26,7 +26,7 @@ public class GUIFormParticipation extends JFrame implements UI{
     private JPanel formContainer;
     private JTextField metresField;
     private JTextField idFairField;
-    private JTextField idParticipantField;
+    private JTextField idClientField;
     private JPanel buttonBar;
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
@@ -56,13 +56,11 @@ public class GUIFormParticipation extends JFrame implements UI{
         this.setVisible(true);
     }
 
-
     public GUIFormParticipation(Tparticipacion participation) {
         mod = true;
 
         idFair = (String.valueOf(participation.getFair_id()));
-        idParticipant = (String.valueOf(participation.getClient_id()));
-
+        idClient = (String.valueOf(participation.getClient_id()));
 
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -71,13 +69,12 @@ public class GUIFormParticipation extends JFrame implements UI{
 
     private void createButtonFormActionPerformed() throws Exception {
         this.setVisible(false);
-        int mUsed = Integer.valueOf(metresField.getText());
         int idFair = Integer.valueOf(idFairField.getText());
-        int idParticipante = Integer.valueOf(idParticipantField.getText());
+        int idClient = Integer.valueOf(idClientField.getText());
 
-        Tparticipacion participation = new Tparticipacion();
+        Tparticipacion participation = new Tparticipacion(idFair, idClient, true);
 
-        if (!mod)  Controller.getInstance().execute(Event.INSERT_PARTICIPACION, participation);
+        if (!mod)  Controller.getInstance().execute(Event.INSERT_PARTICIPATION, participation);
         else Controller.getInstance().execute(Event.MODIFY_PARTICIPACION, participation);
     }
 
@@ -103,7 +100,6 @@ public class GUIFormParticipation extends JFrame implements UI{
     }
 
     private JLabel createLabel(String text){
-
         JLabel label = new JLabel(text, JLabel.RIGHT);
         label.setFont(fLabel);
         return label;
@@ -125,7 +121,6 @@ public class GUIFormParticipation extends JFrame implements UI{
         GridBagLayout formLayout = new GridBagLayout();
         formPanel.setLayout(formLayout);
 
-
         //---- Labels ----
 
         Dimension minDim = new Dimension(500, 50);
@@ -140,27 +135,18 @@ public class GUIFormParticipation extends JFrame implements UI{
         formCon.weighty = 0.5;
         formCon.anchor = GridBagConstraints.EAST;
 
-
-        JLabel metresLabel = createLabel("Metres:");
         JLabel idFairLabel = createLabel("Fair id:");
         JLabel idParticipantLabel = createLabel("Client id:");
-        JLabel idStandLabel = createLabel("Stand id:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
 
         formCon.gridx = 0;
         formCon.gridy = 0;
-        formPanel.add(metresLabel, formCon);
-        formCon.gridx = 0;
-        formCon.gridy = 1;
         formPanel.add(idFairLabel, formCon);
         formCon.gridx = 0;
-        formCon.gridy = 2;
+        formCon.gridy = 1;
         formPanel.add(idParticipantLabel, formCon);
-        formCon.gridx = 0;
-        formCon.gridy = 3;
-        formPanel.add(idStandLabel, formCon);
 
         metresField = setupTextField();
         metresField.setMinimumSize(minDim);
@@ -174,11 +160,11 @@ public class GUIFormParticipation extends JFrame implements UI{
         idFairField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
         idFairField.setText(idFair);
 
-        idParticipantField = setupTextField();
-        idParticipantField.setMinimumSize(minDim);
-        idParticipantField.setPreferredSize(prefDim);
-        idParticipantField.setMaximumSize(maxDim);
-        idParticipantField.setText(idParticipant);
+        idClientField = setupTextField();
+        idClientField.setMinimumSize(minDim);
+        idClientField.setPreferredSize(prefDim);
+        idClientField.setMaximumSize(maxDim);
+        idClientField.setText(idClient);
 
         formCon.anchor = GridBagConstraints.WEST;
 
@@ -186,15 +172,10 @@ public class GUIFormParticipation extends JFrame implements UI{
 
         formCon.gridx = 1;
         formCon.gridy = 0;
-        formPanel.add(metresField, formCon);
-        formCon.gridx = 1;
-        formCon.gridy = 1;
         formPanel.add(idFairField, formCon);
         formCon.gridx = 1;
-        formCon.gridy = 2;
-        formPanel.add(idParticipantField, formCon);
-        formCon.gridx = 1;
-        formCon.gridy = 3;
+        formCon.gridy = 1;
+        formPanel.add(idClientField, formCon);
         formContainer.add(formPanel);
     }
 

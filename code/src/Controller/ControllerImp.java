@@ -22,7 +22,6 @@ import Presentacion.Create_Modify.IFCreateModifyForm;
 import Presentacion.Drop.IFDrop;
 import Presentacion.Home.IFHome;
 import Presentacion.Shows.IFViewList;
-import Presentacion.UI;
 import Presentacion.Utils.ActionHelp;
 import Presentacion.Events.Event;
 import Presentacion.Events.EventGUI;
@@ -35,7 +34,6 @@ public class ControllerImp extends Controller {
     private ASStand asStand;
     private ASParticipante asClient;
     private ASParticipacion asParticipation;
-    private UI gui;
 
     public ControllerImp(){
         this.asFair = IFASFeria.getInstance().generateASferia();
@@ -188,7 +186,7 @@ public class ControllerImp extends Controller {
                 }
                 break;
 
-            case Event.INSERT_PARTICIPACION:
+            case Event.INSERT_PARTICIPATION:
                 tParticipation = (Tparticipacion) data;
                 try {
                     int res = asParticipation.create(tParticipation);
