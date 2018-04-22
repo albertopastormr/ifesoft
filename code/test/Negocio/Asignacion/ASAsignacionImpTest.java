@@ -181,8 +181,7 @@ public class ASAsignacionImpTest {
         asAsignation.drop(transferAsignation);
     }
 
-    @Test(expected = ASException.class)
-    //Metodo donde queremos borrar una asignacion que supuestamente esta borrada ya, tiene el booleano a false
+    @Test(expected = ASException.class) //Metodo donde queremos borrar una asignacion que supuestamente esta borrada ya, tiene el booleano a false
     public void dropAsignationWithActiveFalse() throws ASException, SQLException, DAOException{
         int asignationId = -1;
         ASAsignacionImp asAsignation = new ASAsignacionImp();
@@ -316,7 +315,7 @@ public class ASAsignacionImpTest {
         Tpabellon transferPavilion = new Tpabellon(idPavilion, 5000, 5000, false);
         idPavilion = daoPavilion.create(transferPavilion);
 
-        Tasignacion transferAsignation = new Tasignacion(asignationId, idFair, idPavilion, 40000, 3000, false);
+        Tasignacion transferAsignation = new Tasignacion(asignationId, idFair, idPavilion, 4000, 3000, false);
         asAsignation.create(transferAsignation);
 
         collection = asAsignation.list();
@@ -359,7 +358,7 @@ public class ASAsignacionImpTest {
         idPavilion = daoPavilion.create(transferPavilion);
 
         //Introducimos en la bbdd la asignacion
-        Tasignacion transferAsignation = new Tasignacion(idAsignation, idFair, idPavilion, 40000, 3000, false);
+        Tasignacion transferAsignation = new Tasignacion(idAsignation, idFair, idPavilion, 4000, 3000, false);
         asAsignation.create(transferAsignation);
         //Mostramos por ID de pabellon
         asAsignation.showByIdPavilion(idPavilion);
@@ -401,7 +400,7 @@ public class ASAsignacionImpTest {
         idPavilion = daoPavilion.create(transferPavilion);
 
         //Introducimos en la bbdd la asignacion
-        Tasignacion transferAsignation = new Tasignacion(idAsignation, idFair, idPavilion, 40000, 3000, false);
+        Tasignacion transferAsignation = new Tasignacion(idAsignation, idFair, idPavilion, 4000, 3000, false);
         asAsignation.create(transferAsignation);
         //Mostramos por ID de pabellon
         asAsignation.showByIdFair(idFair);

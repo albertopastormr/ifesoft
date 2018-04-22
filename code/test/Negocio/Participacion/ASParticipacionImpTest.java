@@ -6,9 +6,7 @@ import Integracion.Participante.DAOParticipante;
 import Negocio.Feria.ASFeriaImp;
 import Negocio.Feria.IFDAOFeria;
 import Negocio.Feria.Tferia;
-import Negocio.Participante.ASParticipanteImp;
-import Negocio.Participante.IFDAOParticipante;
-import Negocio.Participante.Tparticipante;
+import Negocio.Participante.*;
 
 import Exceptions.ASException;
 
@@ -39,8 +37,8 @@ public class ASParticipacionImpTest {
         DAOParticipante daoParticipante = IFDAOParticipante.getInstance().generateDAOparticipante();
         daoParticipante.deleteAll();
         ASParticipanteImp asParticipante = new ASParticipanteImp();
-        asParticipante.create(new Tparticipante("IBM", 666666666, true));
-        asParticipante.create(new Tparticipante("JaponShop", 916666666, true));
+        asParticipante.create(new TparticipanteInternacional("IBM", 666666666, true,"Octolandia"));
+        asParticipante.create(new TparticipanteNacional("JaponShop", 916666666, true,"weabos"));
     }
 
     //-------------------------------------TEST CREATE-------------------------------------------------------------
@@ -50,15 +48,15 @@ public class ASParticipacionImpTest {
         ASFeriaImp asFeria = new ASFeriaImp();
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante ibm = asParticipante.showByName(new Tparticipante("IBM", -1, true));
-        Tparticipante japonShop = asParticipante.showByName(new Tparticipante("JaponShop", -1, true));
+        Tparticipante ibm = asParticipante.showByName("IBM");
+        Tparticipante japonShop = asParticipante.showByName("JaponShop");
         Tferia ielectronics = asFeria.showByName("iElectronics");
         Tferia expomanga = asFeria.showByName("ExpoManga");
 
 
         Tparticipacion participacion = new Tparticipacion(ielectronics.getId(), ibm.getId(), true);
         int id1 = asParticipacion.create(participacion);
-        Tparticipacion participacion2 = new Tparticipacion(id1, expomanga.getId(), japonShop.getId(), true);
+        Tparticipacion participacion2 = new Tparticipacion(id1, ielectronics.getId(), ibm.getId(), true);
         int id2 = asParticipacion.create(participacion2);
     }
 
@@ -69,8 +67,8 @@ public class ASParticipacionImpTest {
         ASFeriaImp asFeria = new ASFeriaImp();
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante ibm = asParticipante.showByName(new Tparticipante("IBM", -1, true));
-        Tparticipante japonShop = asParticipante.showByName(new Tparticipante("JaponShop", -1, true));
+        Tparticipante ibm = asParticipante.showByName("IBM");
+        Tparticipante japonShop = asParticipante.showByName("JaponShop");
         Tferia ielectronics = asFeria.showByName("iElectronics");
         Tferia expomanga = asFeria.showByName("ExpoManga");
 
@@ -84,8 +82,8 @@ public class ASParticipacionImpTest {
         ASFeriaImp asFeria = new ASFeriaImp();
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante ibm = asParticipante.showByName(new Tparticipante("IBM", -1, true));
-        Tparticipante japonShop = asParticipante.showByName(new Tparticipante("JaponShop", -1, true));
+        Tparticipante ibm = asParticipante.showByName("IBM");
+        Tparticipante japonShop = asParticipante.showByName("JaponShop");
         Tferia ielectronics = asFeria.showByName("iElectronics");
         Tferia expomanga = asFeria.showByName("ExpoManga");
 
@@ -99,8 +97,8 @@ public class ASParticipacionImpTest {
         ASFeriaImp asFeria = new ASFeriaImp();
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante ibm = asParticipante.showByName(new Tparticipante("IBM", -1, true));
-        Tparticipante japonShop = asParticipante.showByName(new Tparticipante("JaponShop", -1, true));
+        Tparticipante ibm = asParticipante.showByName("IBM");
+        Tparticipante japonShop = asParticipante.showByName("JaponShop");
         Tferia ielectronics = asFeria.showByName("iElectronics");
         Tferia expomanga = asFeria.showByName("ExpoManga");
 
@@ -119,8 +117,8 @@ public class ASParticipacionImpTest {
         ASFeriaImp asFeria = new ASFeriaImp();
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante ibm = asParticipante.showByName(new Tparticipante("IBM", -1, true));
-        Tparticipante japonShop = asParticipante.showByName(new Tparticipante("JaponShop", -1, true));
+        Tparticipante ibm = asParticipante.showByName("IBM");
+        Tparticipante japonShop = asParticipante.showByName("JaponShop");
         Tferia ielectronics = asFeria.showByName("iElectronics");
         Tferia expomanga = asFeria.showByName("ExpoManga");
 
@@ -134,8 +132,8 @@ public class ASParticipacionImpTest {
         ASFeriaImp asFeria = new ASFeriaImp();
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante ibm = asParticipante.showByName(new Tparticipante("IBM", -1, true));
-        Tparticipante japonShop = asParticipante.showByName(new Tparticipante("JaponShop", -1, true));
+        Tparticipante ibm = asParticipante.showByName("IBM");
+        Tparticipante japonShop = asParticipante.showByName("JaponShop");
         Tferia ielectronics = asFeria.showByName("iElectronics");
         Tferia expomanga = asFeria.showByName("ExpoManga");
 
@@ -149,8 +147,8 @@ public class ASParticipacionImpTest {
         ASFeriaImp asFeria = new ASFeriaImp();
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante ibm = asParticipante.showByName(new Tparticipante("IBM", -1, true));
-        Tparticipante japonShop = asParticipante.showByName(new Tparticipante("JaponShop", -1, true));
+        Tparticipante ibm = asParticipante.showByName("IBM");
+        Tparticipante japonShop = asParticipante.showByName("JaponShop");
         Tferia ielectronics = asFeria.showByName("iElectronics");
         Tferia expomanga = asFeria.showByName("ExpoManga");
 
@@ -170,8 +168,8 @@ public class ASParticipacionImpTest {
         ASFeriaImp asFeria = new ASFeriaImp();
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante ibm = asParticipante.showByName(new Tparticipante("IBM", -1, true));
-        Tparticipante japonShop = asParticipante.showByName(new Tparticipante("JaponShop", -1, true));
+        Tparticipante ibm = asParticipante.showByName("IBM");
+        Tparticipante japonShop = asParticipante.showByName("JaponShop");
         Tferia ielectronics = asFeria.showByName("iElectronics");
         Tferia expomanga = asFeria.showByName("ExpoManga");
 
@@ -185,8 +183,8 @@ public class ASParticipacionImpTest {
         ASFeriaImp asFeria = new ASFeriaImp();
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante ibm = asParticipante.showByName(new Tparticipante("IBM", -1, true));
-        Tparticipante japonShop = asParticipante.showByName(new Tparticipante("JaponShop", -1, true));
+        Tparticipante ibm = asParticipante.showByName("IBM");
+        Tparticipante japonShop = asParticipante.showByName("JaponShop");
         Tferia ielectronics = asFeria.showByName("iElectronics");
         Tferia expomanga = asFeria.showByName("ExpoManga");
 
@@ -203,8 +201,8 @@ public class ASParticipacionImpTest {
         ASFeriaImp asFeria = new ASFeriaImp();
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante ibm = asParticipante.showByName(new Tparticipante("IBM", -1, true));
-        Tparticipante japonShop = asParticipante.showByName(new Tparticipante("JaponShop", -1, true));
+        Tparticipante ibm = asParticipante.showByName("IBM");
+        Tparticipante japonShop = asParticipante.showByName("JaponShop");
         Tferia ielectronics = asFeria.showByName("iElectronics");
         Tferia expomanga = asFeria.showByName("ExpoManga");
 
@@ -218,8 +216,8 @@ public class ASParticipacionImpTest {
         ASFeriaImp asFeria = new ASFeriaImp();
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante ibm = asParticipante.showByName(new Tparticipante("IBM", -1, true));
-        Tparticipante japonShop = asParticipante.showByName(new Tparticipante("JaponShop", -1, true));
+        Tparticipante ibm = asParticipante.showByName("IBM");
+        Tparticipante japonShop = asParticipante.showByName("JaponShop");
         Tferia ielectronics = asFeria.showByName("iElectronics");
         Tferia expomanga = asFeria.showByName("ExpoManga");
 
@@ -238,8 +236,8 @@ public class ASParticipacionImpTest {
         ASFeriaImp asFeria = new ASFeriaImp();
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante ibm = asParticipante.showByName(new Tparticipante("IBM", -1, true));
-        Tparticipante japonShop = asParticipante.showByName(new Tparticipante("JaponShop", -1, true));
+        Tparticipante ibm = asParticipante.showByName("IBM");
+        Tparticipante japonShop = asParticipante.showByName("JaponShop");
         Tferia ielectronics = asFeria.showByName("iElectronics");
         Tferia expomanga = asFeria.showByName("ExpoManga");
 
@@ -253,8 +251,8 @@ public class ASParticipacionImpTest {
         ASFeriaImp asFeria = new ASFeriaImp();
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante ibm = asParticipante.showByName(new Tparticipante("IBM", -1, true));
-        Tparticipante japonShop = asParticipante.showByName(new Tparticipante("JaponShop", -1, true));
+        Tparticipante ibm = asParticipante.showByName("IBM");
+        Tparticipante japonShop = asParticipante.showByName("JaponShop");
         Tferia ielectronics = asFeria.showByName("iElectronics");
         Tferia expomanga = asFeria.showByName("ExpoManga");
 
@@ -268,8 +266,8 @@ public class ASParticipacionImpTest {
         ASFeriaImp asFeria = new ASFeriaImp();
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante ibm = asParticipante.showByName(new Tparticipante("IBM", -1, true));
-        Tparticipante japonShop = asParticipante.showByName(new Tparticipante("JaponShop", -1, true));
+        Tparticipante ibm = asParticipante.showByName("IBM");
+        Tparticipante japonShop = asParticipante.showByName("JaponShop");
         Tferia ielectronics = asFeria.showByName("iElectronics");
         Tferia expomanga = asFeria.showByName("ExpoManga");
 
@@ -283,8 +281,8 @@ public class ASParticipacionImpTest {
         ASFeriaImp asFeria = new ASFeriaImp();
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante ibm = asParticipante.showByName(new Tparticipante("IBM", -1, true));
-        Tparticipante japonShop = asParticipante.showByName(new Tparticipante("JaponShop", -1, true));
+        Tparticipante ibm = asParticipante.showByName("IBM");
+        Tparticipante japonShop = asParticipante.showByName("JaponShop");
         Tferia ielectronics = asFeria.showByName("iElectronics");
         Tferia expomanga = asFeria.showByName("ExpoManga");
 

@@ -18,13 +18,13 @@ public class ASParticipacionImp implements ASParticipacion {
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
         DAOParticipante daoParticipante = IFDAOParticipante.getInstance().generateDAOparticipante();
 
-        if (participacion != null && participacion.getId() != -1 && participacion.getFair_id() != -1 && participacion.getClient_id() != -1) {
+        if (participacion != null && participacion.getFair_id() != -1 && participacion.getClient_id() != -1) {
             try {
                 Tferia fRead = daoFeria.readById(participacion.getFair_id());
                 Tparticipante fParticipante = daoParticipante.readById(participacion.getClient_id());
                 if (fRead != null && fParticipante != null) {
                     Tparticipacion read = daoParticipacion.readByFairIdClientId(participacion.getFair_id(), participacion.getClient_id());
-                    if (read != null)
+                    if (read == null)
                         return daoParticipacion.create(participacion);
                     else
                         throw new ASException("ERROR: El participante " + participacion.getClient_id() + " ya participa en la feria " + participacion.getFair_id() + ".\n");

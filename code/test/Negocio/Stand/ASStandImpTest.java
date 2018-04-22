@@ -3,8 +3,15 @@ package Negocio.Stand;
 import Exceptions.ASException;
 import Exceptions.DAOException;
 import Integracion.Asignacion.DAOAsignacion;
+import Integracion.Asignacion.DAOAsignacionImp;
 import Integracion.Feria.DAOFeria;
+import Integracion.Feria.DAOFeriaImp;
+import Integracion.Pabellon.DAOPabellonImp;
+import Integracion.Participacion.DAOParticipacion;
+import Integracion.Participacion.DAOParticipacionImp;
+import Integracion.Participante.DAOParticipanteImp;
 import Integracion.Stand.DAOStand;
+import Integracion.Stand.DAOStandImp;
 import Negocio.Asignacion.ASAsignacionImp;
 import Negocio.Asignacion.IFDAOAsignacion;
 import Negocio.Asignacion.Tasignacion;
@@ -16,6 +23,9 @@ import Negocio.Participacion.ASParticipacionImp;
 import Negocio.Participacion.Tparticipacion;
 import Negocio.Participante.ASParticipanteImp;
 import Negocio.Participante.Tparticipante;
+import Negocio.Participante.TparticipanteInternacional;
+import Negocio.Participante.TparticipanteNacional;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
@@ -26,26 +36,58 @@ import java.util.Date;
 
 public class ASStandImpTest {
 
-    public int addFairToBbdd() throws SQLException, ASException, DAOException {
-        int id = -1;
-        ASFeriaImp asFeria = new ASFeriaImp();
+    // Tstand para probar
+    private static Tstand tstandTest1 = new Tstand(1,1,1, 0, 0, 0,true);
+    private static Tstand tstandTest2 = new Tstand(2,1,1, 2, 2, 2,true);
+    // Tferia para probar
+    private static Tferia tferiaTest1 = new Tferia("FITUR","Feria internacional turismo",new java.sql.Date(117,0,4),new java.sql.Date(117,0,4),true);
+    private static Tferia tferiaTest2 = new Tferia("VINECT","Feria internacional vinos",new java.sql.Date(117,9,28),new java.sql.Date(117,10,4),true);
+    // Tparticipante para probar
+    private static TparticipanteNacional tparticipanteTest1 = new TparticipanteNacional("IBM", 778778778, true, "ALBACETE");
+    private static TparticipanteInternacional tparticipanteTest2 = new TparticipanteInternacional("GAMBAS VEGANAS", 887887887, true, "CATALONYA");
+    // Tpabellon para probar
+    private static Tpabellon tpabellonTest1 = new Tpabellon(1, 0,  0,true);
+    private static Tpabellon tpabellonTest2 = new Tpabellon(2, 2,  2,true);
+    // Tasignacion para probar
+    private static Tasignacion tasignacionTest1 = new Tasignacion(1, 1, 1, 1,true);
+    private static Tasignacion tasignacionTest2 = new Tasignacion(2, 2, 2,2, true);
+    // Tparticipacion para probar
+    private static Tparticipacion tparticipacionTest1 = new Tparticipacion(1, 1, 1,true);
+    private static Tparticipacion tparticipacionTest2 = new Tparticipacion(2, 2, 2, true);
 
-        //Insertamos una feria en la bbdd
-        Date dateIni = new Date((4018 - 1900), 2, 12);
-        Date dateEnd = new Date((4018 - 1900), 2, 18);
+    @Before
+    public void setUp() throws Exception {
+        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
+        daoStand.deleteAll();
+        // Borra todas las tuplas en la tabla 'stand' de la db
+        DAOStandImp dao = new DAOStandImp();
+        dao.deleteAll();
+        // Creacion de 2 tFeria para soportar el uso de asignaciones
+        DAOFeriaImp daoFeriaImp = new DAOFeriaImp();
+        daoFeriaImp.deleteAll();
+        daoFeriaImp.create(tferiaTest1);
+        daoFeriaImp.create(tferiaTest2);
+        // Creacion de 2 tParticipante para soportar el uso de asignaciones
+        DAOParticipanteImp daoParticipanteImp = new DAOParticipanteImp();
+        daoParticipanteImp.deleteAll();
+        daoParticipanteImp.create(tparticipanteTest1);
+        daoParticipanteImp.create(tparticipanteTest2);
+        // Creacion de 2 tPabellon para soportar el uso de asignaciones
+        DAOPabellonImp daoPabellonImp = new DAOPabellonImp();
+        daoPabellonImp.deleteAll();
+        daoPabellonImp.create(tpabellonTest1);
+        daoPabellonImp.create(tpabellonTest2);
+        // Creacion de 2 tParticipaciones para soportar el uso de asignaciones
+        DAOParticipacion daoParticipacion = new DAOParticipacionImp();
+        daoParticipacion.deleteAll();
+        daoParticipacion.create(tparticipacionTest1);
+        daoParticipacion.create(tparticipacionTest2);
+        // Creacion de 2 tAsignaciones para soportar el uso de asignaciones
+        DAOAsignacion daoAsignacion = new DAOAsignacionImp();
+        daoAsignacion.deleteAll();
+        daoAsignacion.create(tasignacionTest1);
+        daoAsignacion.create(tasignacionTest2);
 
-        Tferia feria = new Tferia(id, "IBM", "IBM", dateIni, dateEnd, false); //Generamos un transfer
-        id = asFeria.create(feria);
-        return id;
-    }
-
-    public int addPavilionToBbdd() throws SQLException, ASException, DAOException {
-        int id = -1;
-        ASPabellonImp asPabellon = new ASPabellonImp();
-
-        Tpabellon pabellon = new Tpabellon(id, 200000, 200000, true);
-        id = asPabellon.create(pabellon);
-        return id;
     }
 
     //---------------------------------------------TEST CREATE---------------------------------------------------------------
@@ -66,24 +108,9 @@ public class ASStandImpTest {
     @Test(expected = ASException.class)
     public void createStandIncorrectParticipation() throws ASException, DAOException, SQLException {
         ASStandImp asStand = new ASStandImp();
-        int idStand = -1, idFair = -1, idPavilion = -1, idAsignation = -1, idParticipation = -1;
-        ASAsignacionImp asAsignation = new ASAsignacionImp();
-        DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
-        daoAsignacion.deleteAll(); //Vaciamos la bbdd de asignaciones
-
-        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        daoStand.deleteAll(); //Vaciamos la bbdd de stands
-
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacion
-        idFair = addFairToBbdd();
-        idPavilion = addPavilionToBbdd();
-
-        //Creamos una asignacion y no la participacion asi sera esa la que este a null
-        Tasignacion transferAsignation = new Tasignacion(idAsignation, idFair, idPavilion, 4000, 3000, false);
-        idAsignation = asAsignation.create(transferAsignation);
 
         //Ahora intentamos crear un stand a partir de un id asignacion valido y un id de participacion no valido.
-        Tstand tStand = new Tstand(idStand, idAsignation, idParticipation, 223344, 200, 20, false);
+        Tstand tStand = new Tstand(1, 1, -1, 223344, 200, 20, false);
         asStand.create(tStand);
     }
 
@@ -101,9 +128,7 @@ public class ASStandImpTest {
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         daoStand.deleteAll(); //Vaciamos la bbdd de stands
 
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacion
-        idFeria = addFairToBbdd();
-        idPabellon = addPavilionToBbdd();
+        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
 
         //Creamos una asignacion y no la participacion asi sera esa la que este a null
         Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
@@ -155,9 +180,7 @@ public class ASStandImpTest {
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         daoStand.deleteAll(); //Vaciamos la bbdd de stands
 
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacion
-        idFeria = addFairToBbdd();
-        idPabellon = addPavilionToBbdd();
+        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
 
         //Creamos una asignacion y no la participacion asi sera esa la que este a null
         Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
@@ -199,9 +222,7 @@ public class ASStandImpTest {
         ASAsignacionImp asAsignation = new ASAsignacionImp();
 
 
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacion
-        idFeria = addFairToBbdd();
-        idPabellon = addPavilionToBbdd();
+        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
 
         //Creamos una asignacion y no la participacion asi sera esa la que este a null
         Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
@@ -237,9 +258,7 @@ public class ASStandImpTest {
         ASAsignacionImp asAsignation = new ASAsignacionImp();
 
 
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacion
-        idFeria = addFairToBbdd();
-        idPabellon = addPavilionToBbdd();
+        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
 
         //Creamos una asignacion y no la participacion asi sera esa la que este a null
         Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
@@ -275,9 +294,7 @@ public class ASStandImpTest {
         ASAsignacionImp asAsignation = new ASAsignacionImp();
 
 
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacion
-        idFeria = addFairToBbdd();
-        idPabellon = addPavilionToBbdd();
+        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
 
         //Creamos una asignacion y no la participacion asi sera esa la que este a null
         Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
@@ -310,9 +327,7 @@ public class ASStandImpTest {
         ASAsignacionImp asAsignation = new ASAsignacionImp();
 
 
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacion
-        idFeria = addFairToBbdd();
-        idPabellon = addPavilionToBbdd();
+        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
 
         //Creamos una asignacion y no la participacion asi sera esa la que este a null
         Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
@@ -348,9 +363,7 @@ public class ASStandImpTest {
         ASAsignacionImp asAsignation = new ASAsignacionImp();
 
 
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacion
-        idFeria = addFairToBbdd();
-        idPabellon = addPavilionToBbdd();
+        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
 
         //Creamos una asignacion y no la participacion asi sera esa la que este a null
         Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
@@ -386,9 +399,7 @@ public class ASStandImpTest {
         ASAsignacionImp asAsignation = new ASAsignacionImp();
 
 
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacion
-        idFeria = addFairToBbdd();
-        idPabellon = addPavilionToBbdd();
+        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
 
         //Creamos una asignacion y no la participacion asi sera esa la que este a null
         Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
@@ -424,9 +435,7 @@ public class ASStandImpTest {
         ASAsignacionImp asAsignation = new ASAsignacionImp();
 
 
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacion
-        idFeria = addFairToBbdd();
-        idPabellon = addPavilionToBbdd();
+        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
 
         //Creamos una asignacion y no la participacion asi sera esa la que este a null
         Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
@@ -471,9 +480,7 @@ public class ASStandImpTest {
         ASAsignacionImp asAsignation = new ASAsignacionImp();
 
 
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacion
-        idFeria = addFairToBbdd();
-        idPabellon = addPavilionToBbdd();
+        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
 
         //Creamos una asignacion y no la participacion asi sera esa la que este a null
         Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
@@ -515,9 +522,7 @@ public class ASStandImpTest {
         ASAsignacionImp asAsignation = new ASAsignacionImp();
 
 
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacion
-        idFeria = addFairToBbdd();
-        idPabellon = addPavilionToBbdd();
+        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
 
         //Creamos una asignacion y no la participacion asi sera esa la que este a null
         Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
@@ -547,9 +552,7 @@ public class ASStandImpTest {
         ASAsignacionImp asAsignation = new ASAsignacionImp();
 
 
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacion
-        idFeria = addFairToBbdd();
-        idPabellon = addPavilionToBbdd();
+        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
 
         //Creamos una asignacion y no la participacion asi sera esa la que este a null
         Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
@@ -584,9 +587,7 @@ public class ASStandImpTest {
         ASAsignacionImp asAsignation = new ASAsignacionImp();
 
 
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacion
-        idFeria = addFairToBbdd();
-        idPabellon = addPavilionToBbdd();
+        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
 
         //Creamos una asignacion y no la participacion asi sera esa la que este a null
         Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
@@ -625,9 +626,7 @@ public class ASStandImpTest {
         ASAsignacionImp asAsignation = new ASAsignacionImp();
 
 
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacion
-        idFeria = addFairToBbdd();
-        idPabellon = addPavilionToBbdd();
+        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
 
         //Creamos una asignacion y no la participacion asi sera esa la que este a null
         Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
@@ -662,9 +661,7 @@ public class ASStandImpTest {
         ASAsignacionImp asAsignation = new ASAsignacionImp();
 
 
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacion
-        idFeria = addFairToBbdd();
-        idPabellon = addPavilionToBbdd();
+        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
 
         //Creamos una asignacion y no la participacion asi sera esa la que este a null
         Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
@@ -699,9 +696,7 @@ public class ASStandImpTest {
         ASAsignacionImp asAsignation = new ASAsignacionImp();
 
 
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacion
-        idFeria = addFairToBbdd();
-        idPabellon = addPavilionToBbdd();
+        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
 
         //Creamos una asignacion y no la participacion asi sera esa la que este a null
         Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
@@ -740,9 +735,7 @@ public class ASStandImpTest {
         ASAsignacionImp asAsignation = new ASAsignacionImp();
 
 
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacion
-        idFeria = addFairToBbdd();
-        idPabellon = addPavilionToBbdd();
+        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
 
         //Creamos una asignacion y no la participacion asi sera esa la que este a null
         Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
@@ -777,9 +770,7 @@ public class ASStandImpTest {
         ASAsignacionImp asAsignation = new ASAsignacionImp();
 
 
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacion
-        idFeria = addFairToBbdd();
-        idPabellon = addPavilionToBbdd();
+        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
 
         //Creamos una asignacion y no la participacion asi sera esa la que este a null
         Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
@@ -813,10 +804,6 @@ public class ASStandImpTest {
         ASParticipacionImp asParticipacion = new ASParticipacionImp();
         ASAsignacionImp asAsignation = new ASAsignacionImp();
 
-
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacion
-        idFeria = addFairToBbdd();
-        idPabellon = addPavilionToBbdd();
 
         //Creamos una asignacion y no la participacion asi sera esa la que este a null
         Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);

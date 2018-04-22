@@ -41,13 +41,6 @@ public class ASPabellonImpTest {
         int id1 = asPabellon.create(pabellon);
     }
 
-    @Test(expected = ASException.class)//Se pasa el test si se lanza la excepcion
-    public void createPabellonWrongM2() throws Exception {
-        ASPabellonImp asPabellon = new ASPabellonImp();
-
-        Tpabellon pabellon = new Tpabellon(100, 200, 500, true);
-        int id1 = asPabellon.create(pabellon);
-    }
 
     @Test
     public void activate() throws Exception {
@@ -118,15 +111,6 @@ public class ASPabellonImpTest {
         int id1 = asPabellon.modify(pabellon);
     }
 
-    @Test(expected = ASException.class)//Se pasa el test si se lanza la excepcion
-    public void modifyPabellonWrongM2() throws Exception {
-        ASPabellonImp asPabellon = new ASPabellonImp();
-
-        Tpabellon pabellon1 = new Tpabellon(100, 200, 200, true);
-        int id1 = asPabellon.create(pabellon1);
-        Tpabellon pabellon = new Tpabellon(id1, 100, 500, true);
-        int id2 = asPabellon.modify(pabellon);
-    }
 
     @Test(expected = ASException.class) // Se crea un pabellon con un id ya existente
     public void modify() throws Exception {

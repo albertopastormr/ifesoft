@@ -1,7 +1,7 @@
 package Negocio.Stand;
 
+
 import Exceptions.ASException;
-import Exceptions.DAOException;
 import Integracion.Asignacion.DAOAsignacion;
 import Integracion.Participacion.DAOParticipacion;
 import Integracion.Stand.DAOStand;
@@ -16,7 +16,7 @@ import Negocio.Stand.Tstand;
 import java.util.Collection;
 
 public class ASStandImp implements ASStand {
-    public Integer create(Tstand stand) throws ASException, DAOException {
+    public Integer create(Tstand stand) throws ASException {
         int id = -1;
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         if (stand != null) {
@@ -48,7 +48,7 @@ public class ASStandImp implements ASStand {
         return id;
     }
 
-    public Integer drop(Tstand stand) throws ASException, DAOException {
+    public Integer drop(Tstand stand) throws ASException {
         int id = -1;
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         if (stand != null) {
@@ -67,7 +67,7 @@ public class ASStandImp implements ASStand {
         return id;
     }
 
-    public Integer modify(Tstand stand) throws ASException, DAOException {
+    public Integer modify(Tstand stand) throws ASException {
         int id = -1;
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         if (stand != null) {
@@ -103,7 +103,7 @@ public class ASStandImp implements ASStand {
         return id;
     }
 
-    public Collection<Tstand> list() throws ASException, DAOException {
+    public Collection<Tstand> list() throws ASException {
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         Collection<Tstand> collection;
         try {
@@ -114,7 +114,7 @@ public class ASStandImp implements ASStand {
         return collection;
     }
 
-    public Tstand showById(Integer id) throws ASException, DAOException {
+    public Tstand showById(Integer id) throws ASException {
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         if (id != -1) {
             try {
@@ -131,7 +131,7 @@ public class ASStandImp implements ASStand {
     }
 
 
-    public Collection<Tstand> showByAssignation(Integer id) throws ASException, DAOException {
+    public Collection<Tstand> showByAssignation(Integer id) throws ASException {
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         if (id != -1) {
             try {
@@ -148,7 +148,7 @@ public class ASStandImp implements ASStand {
     }
 
 
-    public Collection<Tstand> showByParticipation(Integer id) throws ASException, DAOException {
+    public Collection<Tstand> showByParticipation(Integer id) throws ASException {
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         if (id != -1) {
             try {

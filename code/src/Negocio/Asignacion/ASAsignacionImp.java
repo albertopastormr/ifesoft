@@ -1,7 +1,7 @@
 package Negocio.Asignacion;
 
+
 import Exceptions.ASException;
-import Exceptions.DAOException;
 import Integracion.Asignacion.DAOAsignacion;
 import Integracion.Pabellon.DAOPabellon;
 import Integracion.Feria.DAOFeria;
@@ -56,7 +56,7 @@ public class ASAsignacionImp implements ASAsignacion {
             try {
                 Tasignacion transferAsignation = daoAsignacion.readById(asignacion.getId());
                 //Si es distinto de null quiere decir que tenemos una asignacion activa con ese id, por lo que podemos borrarla.
-                if (transferAsignation != null && transferAsignation.getActive() == true) {
+                if (transferAsignation != null && transferAsignation.getActive()) {
                     transferAsignation.setActive(false);
                     return daoAsignacion.update(transferAsignation);
                 } else

@@ -29,10 +29,10 @@ public class ASParticipanteImpTest {
 
         DAOParticipante daoParticipante = IFDAOParticipante.getInstance().generateDAOparticipante();
 
-        Tparticipante participante = new Tparticipante("IBM", 666666666, true); //Generamos un transfer
+        Tparticipante participante = new TparticipanteNacional("IBM", 666666666, true,"Madrid"); //Generamos un transfer
         daoParticipante.create(participante); //Creamos una participante con los datos intoducidos en el transfer anterior
 
-        Tparticipante participante2 = new Tparticipante("IBM", 666666666, true);
+        Tparticipante participante2 = new TparticipanteNacional("IBM", 666666666, true,"Madrid");
         asParticipante.create(participante2); //A partir de aqui le estamos diciendo al test que si intentamos crear participante2 y se lanza una excepcion se 
         //Pasa el test
     }
@@ -68,7 +68,7 @@ public class ASParticipanteImpTest {
         Integer id = -1;
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante participante = new Tparticipante(id, "IBM", 666666666, true); //Generamos un transfer
+        Tparticipante participante = new TparticipanteInternacional(id, "IBM", 666666666, true,"Andorra"); //Generamos un transfer
         assertTrue(asParticipante.create(participante) > 0);
     }
 
@@ -81,7 +81,7 @@ public class ASParticipanteImpTest {
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
         Tparticipante participante = new Tparticipante(-1, "IBM", 666666666, true); //Generamos un transfer
-        asParticipante.drop(participante); //Creamos una participante con los datos intoducidos en el transfer anterior
+        asParticipante.drop(-1); //Creamos una participante con los datos intoducidos en el transfer anterior
 
     }
 
@@ -91,7 +91,7 @@ public class ASParticipanteImpTest {
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
         Tparticipante participante = new Tparticipante(223344, "IBM", 666666666, true);
-        asParticipante.drop(participante);
+        asParticipante.drop(223344);
 
     }
     //Borramos una participante correctamente, existente en la bbdd
@@ -100,9 +100,9 @@ public class ASParticipanteImpTest {
     public void dropParticipante() throws Exception {
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante participante = new Tparticipante(1, "IBM", 666666666, false);
+        Tparticipante participante = new TparticipanteNacional(1, "IBM", 666666666, false,"Andalucia");
         asParticipante.create(participante); //Creamos una participante IBM
-        assertTrue(asParticipante.drop(participante) > 0); //Si se ha podido borrar la participante correctamente, nos devuelve el id de la participante borrada logicamente
+        assertTrue(asParticipante.drop(1) > 0); //Si se ha podido borrar la participante correctamente, nos devuelve el id de la participante borrada logicamente
         //Y ademas el test sale correcto
 
     }
@@ -134,10 +134,10 @@ public class ASParticipanteImpTest {
     public void testModify() throws Exception {
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante participante = new Tparticipante("IBM", 666666666, true);
+        Tparticipante participante = new TparticipanteNacional("IBM", 666666666, true,"Bon dia");
         int id = asParticipante.create(participante);
 
-        Tparticipante participante2 = new Tparticipante(id, "IBM", 666666667, true);
+        Tparticipante participante2 = new TparticipanteNacional(id, "IBM", 666666667, true,"Bon dia");
         asParticipante.modify(participante2);
     }
 
@@ -169,7 +169,7 @@ public class ASParticipanteImpTest {
         ASParticipanteImp asParticipante = new ASParticipanteImp();
         Tparticipante participante = new Tparticipante("IBM", 666666666, true);
 
-        asParticipante.showByName(participante);
+        asParticipante.showByName("IBM");
     }
 
 
@@ -178,12 +178,10 @@ public class ASParticipanteImpTest {
     public void showByname() throws ASException {
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante participante = new Tparticipante( "IBM", 666666666, true);
+        Tparticipante participante = new TparticipanteNacional( "IBM", 666666666, true,"Tjtj");
         int id = asParticipante.create(participante);
 
-        Tparticipante participante2 = new Tparticipante(id, "IBM", 666666666, false);
-        participante2 = asParticipante.showByName(participante2);
-        assertNotNull(participante2);
+        assertNotNull(asParticipante.showByName("IBM"));
     }
     //----------------------------------------------------------------------------------------------------------------------------------
 
@@ -195,7 +193,7 @@ public class ASParticipanteImpTest {
         ASParticipanteImp asParticipante = new ASParticipanteImp();
         Tparticipante participante = new Tparticipante(65780, "IBM", 666666666, null);
 
-        asParticipante.showById(participante);
+        asParticipante.showById(65780);
     }
 
 
@@ -204,12 +202,10 @@ public class ASParticipanteImpTest {
     public void showById() throws ASException {
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante participante = new Tparticipante( "IBM", 666666666, false);
+        Tparticipante participante = new TparticipanteNacional( "IBM", 666666666, false,"Andalucia");
         int id = asParticipante.create(participante);
 
-        Tparticipante participante2 = new Tparticipante(id, "IBM", 666666666, false);
-        participante2 = asParticipante.showById(participante2);
-        assertNotNull(participante2);
+        assertNotNull(asParticipante.showById(id));
     }
     //---------------------------------------------------------------------------------------------------------------------------------
 

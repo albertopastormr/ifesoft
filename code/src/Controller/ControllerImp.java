@@ -120,7 +120,7 @@ public class ControllerImp extends Controller {
                 break;
             case Event.MODIFY_FORM_CLIENT:
                 try {
-                    tClient = asClient.showById((Tparticipante) data);
+                    tClient = asClient.showById((Integer) data);
                     IFCreateModifyForm.getInstance().generateSpecificView(event, tClient);
                 } catch (Exception e) { throw new Exception(e.getMessage() + ActionHelp.strHelpBasic()); }
                 break;
@@ -290,7 +290,7 @@ public class ControllerImp extends Controller {
                 break;
             case Event.DROP_CLIENT:
                 try {
-                    asClient.drop((Tparticipante)data);
+                    asClient.drop((Integer) data);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.DROP_ASSIGNATION:
@@ -324,7 +324,7 @@ public class ControllerImp extends Controller {
                 break;
             case Event.SHOW_CLIENT_INDIVIDUAL:
                 try {
-                    IFViewList.getInstance().generateSpecificView(event ,asClient.showById((Tparticipante) data));
+                    IFViewList.getInstance().generateSpecificView(event ,asClient.showById((Integer) data));
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_ASSIGNATION_INDIVIDUAL:
