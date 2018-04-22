@@ -74,7 +74,7 @@ public class GUICreate extends JFrame implements UI {
                 break;
             case "Participation":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_CLIENT, null);
+                Controller.getInstance().execute(Event.INSERT_FORM_PARTICIPATION, null);
                 break;
         }
     }
