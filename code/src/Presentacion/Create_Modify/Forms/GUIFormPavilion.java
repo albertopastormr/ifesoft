@@ -16,7 +16,6 @@ public class GUIFormPavilion extends JFrame implements UI {
 
     private String capacity;
     private String m2tot;
-    private String m2utils;
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
@@ -25,7 +24,6 @@ public class GUIFormPavilion extends JFrame implements UI {
     private JTextField capacityField;
     private JTextField m2totField;
     private JPanel buttonBar;
-    private JComboBox<String> comboBoxCreate;
 
     private boolean mod;
 
@@ -33,16 +31,11 @@ public class GUIFormPavilion extends JFrame implements UI {
     private Font fLabel = new Font(Font.DIALOG, Font.PLAIN, 30);
     private Font fField = new Font(Font.DIALOG, Font.PLAIN, 30);
     private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
-    private Font fComboBox = new Font(Font.DIALOG, Font.PLAIN, 40);
 
     private Color cField = new Color(243,243,243);
     private Color cHelpButton = new Color(66,35,146);
     private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
-    private Color cComboBoxActive = new Color(207, 216, 220);
-    private Color cComboBoxInactive = new Color(187, 196, 200);
-    private Color cComboBoxFont = new Color(84, 91, 94);
-    private Color cComboBoxSelectedFont = new Color(52, 56, 58);
 
     String helpMessage = "<html><h1>PAVILION'S FORM HELP </1>Here you can <b>insert</b> <u>Pavilion</u>'s data" +
             " just by inserting them into the text areas," +
@@ -59,23 +52,6 @@ public class GUIFormPavilion extends JFrame implements UI {
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
-    }
-
-    //Combobox Pavilion
-
-
-    private void nextButtonActionPerformed() throws Exception {
-
-        switch (String.valueOf(comboBoxCreate.getSelectedItem())) {
-            case "National":
-                this.setVisible(false);
-                Controller.getInstance().execute(Event.SHOW_REGION_PABELLON, null);
-                break;
-            case "International":
-                this.setVisible(false);
-                Controller.getInstance().execute(Event.SHOW_PAIS_PABELLON, null);
-                break;
-        }
     }
 
     public GUIFormPavilion(Tpabellon pavilion) {
@@ -167,7 +143,6 @@ public class GUIFormPavilion extends JFrame implements UI {
 
         JLabel aforoLabel = createLabel("Capacity:");
         JLabel m2totLabel = createLabel("Total square-metres:");
-        JLabel m2utilesLabel = createLabel("Useful square-metres:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
@@ -178,9 +153,6 @@ public class GUIFormPavilion extends JFrame implements UI {
         formCon.gridx = 0;
         formCon.gridy = 1;
         formPanel.add(m2totLabel, formCon);
-        formCon.gridx = 0;
-        formCon.gridy = 2;
-        formPanel.add(m2utilesLabel, formCon);
 
         capacityField = setupTextField();
         capacityField.setMinimumSize(minDim);
@@ -193,27 +165,6 @@ public class GUIFormPavilion extends JFrame implements UI {
         m2totField.setPreferredSize(prefDim);
         m2totField.setMaximumSize(maxDim);
         m2totField.setText(m2tot);
-
-        //===== JComboBox =====
-
-        UIManager.put("JTextField.background", new ColorUIResource(cComboBoxInactive));
-        UIManager.put("ComboBox.selectionBackground", new ColorUIResource(cComboBoxActive));
-        UIManager.put("ComboBox.selectionForeground", new ColorUIResource(cComboBoxSelectedFont));
-        UIManager.put("ComboBox.disabledBackground", new ColorUIResource(cComboBoxInactive));
-        UIManager.put("ComboBox.disabledForeground", new ColorUIResource(cComboBoxFont));
-
-        comboBoxCreate = new JComboBox<>();
-        comboBoxCreate.getEditor().getEditorComponent().setBackground(cComboBoxActive);
-        comboBoxCreate.setFont(fComboBox);
-        comboBoxCreate.setForeground(cComboBoxFont);
-        comboBoxCreate.setMinimumSize(new Dimension(200, 50));
-        comboBoxCreate.setMaximumSize(new Dimension(800, 50));
-
-        comboBoxCreate.addItem("National");
-        comboBoxCreate.addItem("International");
-
-        comboBoxCreate.setBorder(BorderFactory.createEmptyBorder(0,0, 20, 0));
-        formPanel.add(comboBoxCreate);
 
         formCon.anchor = GridBagConstraints.WEST;
 

@@ -51,15 +51,24 @@ public class GUIHome extends JFrame implements UI {
     @Override
     public void update(int event, Object object) {
         switch (event){
-            case EventGUI.UPDATE_CREATE_FERIA_OK:
-                Integer id = (Integer) object;
-                JOptionPane.showInternalMessageDialog(null, "Usuario creado con ID: " + id);
-                setVisible(true);
+            case EventGUI.UPDATE_CREATE_FAIR_OK:
+                JOptionPane.showMessageDialog(null, "The Fair has been created successfully");
                 break;
-            case EventGUI.UPDATE_CREATE_FERIA_FAIL:
-
+            case EventGUI.UPDATE_CREATE_PAVILION_OK:
+                JOptionPane.showMessageDialog(null, "The Pavilion has been created successfully");
                 break;
-
+            case EventGUI.UPDATE_CREATE_CLIENT_OK:
+                JOptionPane.showMessageDialog(null, "The Client has been created successfully");
+                break;
+            case EventGUI.UPDATE_CREATE_ASSIGNATION_OK:
+                JOptionPane.showMessageDialog(null, "The Assignation has been created successfully");
+                break;
+            case EventGUI.UPDATE_CREATE_PARTICIPATION_OK:
+                JOptionPane.showMessageDialog(null, "The Participation has been created successfully");
+                break;
+            case EventGUI.UPDATE_CREATE_STAND_OK:
+                JOptionPane.showMessageDialog(null, "The Stand has been created successfully");
+                break;
         }
     }
 

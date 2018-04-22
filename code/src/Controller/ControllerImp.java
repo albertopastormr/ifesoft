@@ -24,8 +24,6 @@ import Presentacion.Home.IFHome;
 import Presentacion.Shows.IFViewList;
 import Presentacion.UI;
 import Presentacion.Utils.ActionHelp;
-import Presentacion.Shows.List.GUIListFairs;
-import Presentacion.Shows.individual.GUIViewFair;
 import Presentacion.Events.Event;
 import Presentacion.Events.EventGUI;
 
@@ -153,7 +151,7 @@ public class ControllerImp extends Controller {
                 tFair = (Tferia) data;
                 try {
                     int res = asFair.create(tFair);
-                    if (res>0) IFCreateModifyForm.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_CREATE_FERIA_OK, res);
+                    if (res>0) IFCreateModifyForm.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_CREATE_FAIR_OK, res);
                     else IFCreateModifyForm.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_CREATE_FERIA_FAIL, null);
                 } catch (Exception e) {
                     throw new Exception(e.getMessage() + ActionHelp.strHelpBasic());

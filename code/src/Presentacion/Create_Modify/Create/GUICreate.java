@@ -76,10 +76,7 @@ public class GUICreate extends JFrame implements UI {
                 this.setVisible(false);
                 Controller.getInstance().execute(Event.INSERT_FORM_CLIENT, null);
                 break;
-
         }
-
-
     }
 
     private void backButtonActionPerformed() throws Exception {

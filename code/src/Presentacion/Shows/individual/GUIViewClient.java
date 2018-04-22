@@ -28,11 +28,7 @@ public class GUIViewClient extends JFrame implements UI {
     private Color cBackButton = new Color(146, 35, 59);
     private Color cHelpButton = new Color(66,35,146);
 
-<<<<<<< HEAD
-    /*
-    SOLO PARA DEPURAR
-     */
-            String helpMessage = "<html><h1>SHOW INDIVIDUAL CLIENT HELP</h1>Here you have the possibility to" +
+    String helpMessage = "<html><h1>SHOW INDIVIDUAL CLIENT HELP</h1>Here you have the possibility to" +
             "<b>See</b> the data of the specific <u>Client</u>" +
             " that you chose.</html>" +
             "";
@@ -49,8 +45,6 @@ public class GUIViewClient extends JFrame implements UI {
         this.setVisible(true);
     }
 
-=======
-        >>>>>>> c82a17eed939c3787345dff35afee6eb7077438a
     public GUIViewClient(Tparticipante tclient) {
         super();
         id = tclient.getId() + "";
@@ -70,7 +64,7 @@ public class GUIViewClient extends JFrame implements UI {
     }
 
     private void helpButtonActionPerformed(ActionEvent e) {
-        new Presentacion.utils.ActionHelp(helpMessage);
+        new Presentacion.Utils.ActionHelp(helpMessage);
     }
 
     private void setupTitle(){

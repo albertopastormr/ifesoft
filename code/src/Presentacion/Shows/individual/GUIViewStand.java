@@ -65,7 +65,7 @@ public class GUIViewStand extends JFrame implements UI {
     }
 
     private void helpButtonActionPerformed(ActionEvent e) {
-        new Presentacion.utils.ActionHelp(helpMessage);
+        new Presentacion.Utils.ActionHelp(helpMessage);
     }
 
     private void setupTitle(){

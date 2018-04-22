@@ -2,6 +2,8 @@ package Presentacion.Create_Modify.Forms;
 
 import Negocio.Participante.Tparticipante;
 import Controller.Controller;
+import Negocio.Participante.TparticipanteInternacional;
+import Negocio.Participante.TparticipanteNacional;
 import Presentacion.Events.Event;
 import Presentacion.UI;
 import Presentacion.Utils.ActionHelp;
@@ -9,13 +11,15 @@ import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Objects;
 import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
 
 public class GUIFormClient extends JFrame implements UI {
 
     private String name;
     private String phone;
-    private String specialization;
+    private String regionCountryText;
 
     private boolean mod;
 
@@ -25,19 +29,26 @@ public class GUIFormClient extends JFrame implements UI {
     private JPanel formContainer;
     private JTextField nameField;
     private JTextField phoneField;
-    private JTextField specializationField;
+    private JTextField regionCountryField;
     private JPanel buttonBar;
+    private JComboBox<String> comboBoxCreate;
 
+    private JLabel regionCountryLabel;
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
     private Font fLabel = new Font(Font.DIALOG, Font.PLAIN, 30);
     private Font fField = new Font(Font.DIALOG, Font.PLAIN, 30);
     private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
+    private Font fComboBox = new Font(Font.DIALOG, Font.PLAIN, 40);
 
     private Color cField = new Color(243,243,243);
     private Color cHelpButton = new Color(66,35,146);
     private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
+    private Color cComboBoxActive = new Color(207, 216, 220);
+    private Color cComboBoxInactive = new Color(187, 196, 200);
+    private Color cComboBoxFont = new Color(84, 91, 94);
+    private Color cComboBoxSelectedFont = new Color(52, 56, 58);
 
     String helpMessage = "<html><h1>CLIENT INFO</1>Here you can <b>insert</b> " +
             "<u>Client</u>'s data just by inserting them into the" +
@@ -50,6 +61,7 @@ public class GUIFormClient extends JFrame implements UI {
     public GUIFormClient() {
         mod = false;
         initComponents();
+        viewVisibleLogic();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
@@ -60,6 +72,7 @@ public class GUIFormClient extends JFrame implements UI {
 
         name = client.getName();
         phone = "" + (client.getPhone());
+        //regionCountryField = "" + client.
         //specialization = client.getSpecialization();
 
         initComponents();
@@ -67,12 +80,30 @@ public class GUIFormClient extends JFrame implements UI {
         this.setVisible(true);
     }
 
+    private void nextButtonActionPerformed() throws Exception {
+
+        switch (String.valueOf(comboBoxCreate.getSelectedItem())) {
+            case "National":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.SHOW_REGION_PABELLON, null);
+                break;
+            case "International":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.SHOW_PAIS_PABELLON, null);
+                break;
+        }
+    }
+
     private void createButtonFormActionPerformed() throws Exception {
         setVisible(false);
+        Tparticipante client;
         String name = nameField.getText();
         String numPhone = phoneField.getText();
-        String specialization = specializationField.getText();
-        Tparticipante client = new Tparticipante(name, Integer.parseInt(numPhone), Boolean.parseBoolean(specialization));
+        String regionCountry = regionCountryField.getText();
+
+        if(String.valueOf(comboBoxCreate.getSelectedItem()).equals("National"))
+            client = new TparticipanteNacional(name, Integer.parseInt(numPhone), true, regionCountry);
+        else client = new TparticipanteInternacional(name, Integer.parseInt(numPhone), true, regionCountry);
 
         if (!mod)  Controller.getInstance().execute(Presentacion.Events.Event.INSERT_CLIENT, client);
         else Controller.getInstance().execute(Event.MODIFY_CLIENT, client);
@@ -141,6 +172,7 @@ public class GUIFormClient extends JFrame implements UI {
         JLabel nameLabel = createLabel("Name:");
         JLabel phoneLabel = createLabel("Phone:");
         JLabel specializationLabel = createLabel("Specialization");
+        regionCountryLabel = createLabel("Region");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
@@ -154,6 +186,9 @@ public class GUIFormClient extends JFrame implements UI {
         formCon.gridx = 0;
         formCon.gridy = 2;
         formPanel.add(specializationLabel, formCon);
+        formCon.gridx = 0;
+        formCon.gridy = 3;
+        formPanel.add(regionCountryLabel, formCon);
 
         nameField = setupTextField();
         nameField.setMinimumSize(minDim);
@@ -167,15 +202,36 @@ public class GUIFormClient extends JFrame implements UI {
         phoneField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
         phoneField.setText(phone);
 
-        specializationField = setupTextField();
-        specializationField.setMinimumSize(minDim);
-        specializationField.setPreferredSize(prefDim);
-        specializationField.setMaximumSize(maxDim);
-        specializationField.setText(specialization);
+        regionCountryField = setupTextField();
+        regionCountryField.setMinimumSize(minDim);
+        regionCountryField.setPreferredSize(prefDim);
+        regionCountryField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
+        regionCountryField.setText(regionCountryText);
 
         formCon.anchor = GridBagConstraints.WEST;
 
         formCon.insets = new Insets(20,10,20,0);
+
+        //===== JComboBox =====
+
+        UIManager.put("JTextField.background", new ColorUIResource(cComboBoxInactive));
+        UIManager.put("ComboBox.selectionBackground", new ColorUIResource(cComboBoxActive));
+        UIManager.put("ComboBox.selectionForeground", new ColorUIResource(cComboBoxSelectedFont));
+        UIManager.put("ComboBox.disabledBackground", new ColorUIResource(cComboBoxInactive));
+        UIManager.put("ComboBox.disabledForeground", new ColorUIResource(cComboBoxFont));
+
+        comboBoxCreate = new JComboBox<>();
+        comboBoxCreate.getEditor().getEditorComponent().setBackground(cComboBoxActive);
+        comboBoxCreate.setFont(fComboBox);
+        comboBoxCreate.setForeground(cComboBoxFont);
+        comboBoxCreate.setMinimumSize(new Dimension(200, 50));
+        comboBoxCreate.setMaximumSize(new Dimension(800, 50));
+
+        comboBoxCreate.addItem("National");
+        comboBoxCreate.addItem("International");
+
+        comboBoxCreate.setBorder(BorderFactory.createEmptyBorder(0,0, 20, 0));
+        formPanel.add(comboBoxCreate);
 
         formCon.gridx = 1;
         formCon.gridy = 0;
@@ -185,7 +241,10 @@ public class GUIFormClient extends JFrame implements UI {
         formPanel.add(phoneField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 2;
-        formPanel.add(specializationField, formCon);
+        formPanel.add(comboBoxCreate, formCon);
+        formCon.gridx = 1;
+        formCon.gridy = 3;
+        formPanel.add(regionCountryField, formCon);
         formContainer.add(formPanel);
     }
 
@@ -292,6 +351,21 @@ public class GUIFormClient extends JFrame implements UI {
         contentPane.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
+    }
+
+    private void viewVisibleLogic(){
+        comboBoxCreate.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                switch (Objects.requireNonNull(comboBoxCreate.getSelectedItem()).toString()){
+                    case "National":
+                        regionCountryLabel.setText("Region");
+                        break;
+                    case "International":
+                        regionCountryLabel.setText("Country");
+                        break;
+                }
+            }
+        });
     }
 
     @Override

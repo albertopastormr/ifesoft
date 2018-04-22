@@ -21,12 +21,10 @@ public class GUIFormAssignation extends JFrame implements UI {
 
     private JLabel title;
     private JPanel formContainer;
-    private JTextField metresField;
     private JTextField idFairField;
     private JTextField idPavilionField;
-    private JTextField idStandField;
+    private JTextField metresUsedField;
     private JPanel buttonBar;
-
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
     private Font fLabel = new Font(Font.DIALOG, Font.PLAIN, 30);
@@ -63,12 +61,11 @@ public class GUIFormAssignation extends JFrame implements UI {
 
     private void createButtonFormActionPerformed() throws Exception {
         this.setVisible(false);
-        int mUsed = Integer.valueOf(metresField.getText());
         int idFair = Integer.valueOf(idFairField.getText());
         int idPavilion = Integer.valueOf(idPavilionField.getText());
-        int idStand = Integer.valueOf(idStandField.getText());
+        int mTotal = Integer.valueOf(metresUsedField.getText());
 
-        Tasignacion tAssignation = new Tasignacion(idFair, idPavilion, idStand, mUsed, true);
+        Tasignacion tAssignation = new Tasignacion(idFair, idPavilion, mTotal, -1, true);
 
         if (!mod)  Controller.getInstance().execute(Event.INSERT_ASSIGNATION, tAssignation);
         else Controller.getInstance().execute(Event.MODIFY_ASSIGNATION, tAssignation);
@@ -134,32 +131,23 @@ public class GUIFormAssignation extends JFrame implements UI {
         formCon.anchor = GridBagConstraints.EAST;
 
 
-        JLabel metresLabel = createLabel("Metres:");
         JLabel idFairLabel = createLabel("Fair ID:");
         JLabel idPavilionLabel = createLabel("Pavilion ID:");
-        JLabel idStandLabel = createLabel("Stand ID:");
+        JLabel metresUsedLabel = createLabel("Assignate metres:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
 
+
         formCon.gridx = 0;
         formCon.gridy = 0;
-        formPanel.add(metresLabel, formCon);
-        formCon.gridx = 0;
-        formCon.gridy = 1;
         formPanel.add(idFairLabel, formCon);
         formCon.gridx = 0;
-        formCon.gridy = 2;
+        formCon.gridy = 1;
         formPanel.add(idPavilionLabel, formCon);
         formCon.gridx = 0;
-        formCon.gridy = 3;
-        formPanel.add(idStandLabel, formCon);
-
-        metresField = setupTextField();
-        metresField.setMinimumSize(minDim);
-        metresField.setPreferredSize(prefDim);
-        metresField.setMaximumSize(maxDim);
-        metresField.setText(metres);
+        formCon.gridy = 2;
+        formPanel.add(metresUsedLabel, formCon);
 
         idFairField = setupTextField();
         idFairField.setMinimumSize(minDim);
@@ -175,12 +163,12 @@ public class GUIFormAssignation extends JFrame implements UI {
         String idPavilion = "";
         idPavilionField.setText(idPavilion);
 
-        idStandField = setupTextField();
-        idStandField.setMinimumSize(minDim);
-        idStandField.setPreferredSize(prefDim);
-        idStandField.setMaximumSize(maxDim);
+        metresUsedField = setupTextField();
+        metresUsedField.setMinimumSize(minDim);
+        metresUsedField.setPreferredSize(prefDim);
+        metresUsedField.setMaximumSize(maxDim);
         String idStand = "";
-        idStandField.setText(idStand);
+        metresUsedField.setText(idStand);
 
         formCon.anchor = GridBagConstraints.WEST;
 
@@ -188,16 +176,13 @@ public class GUIFormAssignation extends JFrame implements UI {
 
         formCon.gridx = 1;
         formCon.gridy = 0;
-        formPanel.add(metresField, formCon);
-        formCon.gridx = 1;
-        formCon.gridy = 1;
         formPanel.add(idFairField, formCon);
         formCon.gridx = 1;
-        formCon.gridy = 2;
+        formCon.gridy = 1;
         formPanel.add(idPavilionField, formCon);
         formCon.gridx = 1;
-        formCon.gridy = 3;
-        formPanel.add(idStandField, formCon);
+        formCon.gridy = 2;
+        formPanel.add(metresUsedField, formCon);
         formContainer.add(formPanel);
     }
 

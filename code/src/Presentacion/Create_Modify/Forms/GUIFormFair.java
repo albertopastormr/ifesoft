@@ -317,9 +317,6 @@ public class GUIFormFair extends JFrame implements UI {
     @Override
     public void update(int event, Object data) {
         switch (event){
-            case EventGUI.UPDATE_CREATE_FERIA_OK:
-                JOptionPane.showMessageDialog(null,"The Fair has been created successfully");
-                break;
             case EventGUI.UPDATE_CREATE_FERIA_FAIL:
                 JOptionPane.showMessageDialog(null, "A problem in the creation process occurred, insert Fair's data another time please", "Error", JOptionPane.ERROR_MESSAGE);
                 break;

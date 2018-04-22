@@ -86,7 +86,7 @@ public class GUIShow extends JFrame implements UI {
     }
 
     private void helpButtonActionPerformed(ActionEvent e) {
-        new Presentacion.utils.ActionHelp(helpMessage);
+        new Presentacion.Utils.ActionHelp(helpMessage);
     }
 
     private void setUpTitle(){
@@ -338,7 +338,7 @@ public class GUIShow extends JFrame implements UI {
             case "Participation":
                 this.setVisible(false);
                 if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_PARTICIPATION_FAIR ,new Tparticipacion(Integer.parseInt(textID.getText()) , -1, -1 , null));
-                else Controller.getInstance().execute(Event.SHOW_PARTICIPACION_CLIENT, new Tparticipacion(-1 , Integer.parseInt(textID.getText()), -1 , null));
+                else Controller.getInstance().execute(Event.SHOW_PARTICIPATION_CLIENT, new Tparticipacion(-1 , Integer.parseInt(textID.getText()), -1 , null));
 
                 break;
 

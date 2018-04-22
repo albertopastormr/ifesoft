@@ -13,7 +13,6 @@ public abstract class IFHome {
     }
 
     public abstract UI generateHome();
-
 }
 
 /*
@@ -50,7 +49,7 @@ public class IFASUpdate {
     @Override
     public void update(int event, Object data) {
         switch (event){
-            case EventGUI.UPDATE_CREATE_FERIA_OK:
+            case EventGUI.UPDATE_CREATE_FAIR_OK:
                 guiHome = new GUIHome();
                 guiHome.update(event, data);
                 break;

@@ -29,7 +29,6 @@ public class GUIFormParticipation extends JFrame implements UI{
     private JTextField idParticipantField;
     private JPanel buttonBar;
 
-
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
     private Font fLabel = new Font(Font.DIALOG, Font.PLAIN, 30);
     private Font fField = new Font(Font.DIALOG, Font.PLAIN, 30);

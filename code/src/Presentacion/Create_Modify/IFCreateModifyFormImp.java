@@ -10,6 +10,7 @@ import Presentacion.Create_Modify.Create.GUICreate;
 import Presentacion.Create_Modify.Forms.*;
 import Presentacion.Create_Modify.Modify.GUIModify;
 import Presentacion.Events.Event;
+import Presentacion.Events.EventGUI;
 import Presentacion.Home.GUIHome;
 import Presentacion.UI;
 
@@ -53,10 +54,10 @@ public class IFCreateModifyFormImp extends IFCreateModifyForm {
             case Event.MODIFY_FORM_STAND:
                 return new GUIFormStand((Tstand) data);
 
+            /** -------- INSERT VIEWS -------- */
 
-
-
-
+            case EventGUI.UPDATE_CREATE_FERIA_FAIL:
+                return new GUIFormFair();
 
 
             default:
