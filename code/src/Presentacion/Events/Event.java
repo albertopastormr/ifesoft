@@ -80,7 +80,7 @@ public class Event {
     public static final int SHOW_ASSIGANTION_FAIR = 989;
     public static final int SHOW_ASSIGNATION_PAVILION = 8787;
     public static final int SHOW_PARTICIPATION_FAIR = 6545;
-    public static final int SHOW_PARTICIPACION_CLIENT = 334123;
+    public static final int SHOW_PARTICIPATION_CLIENT = 334123;
     public static final int SHOW_STAND_INDIVIDUAL = 34574;
     public static final int SHOW_STAND_LIST = 99987;
     public static final int SHOW_REGION_PABELLON = 234231;
@@ -89,4 +89,5 @@ public class Event {
     public static final int SHOW_PARTICIPATION_INDIVIDUAL = 9191928;
     public static final int SHOW_STAND_ASSIGNATION = 1231463;
     public static final int SHOW_STAND_PARTICIPATION = 736363;
+    public static final int SHOW_ASSIGANTION_INDIVIDUAL = 45786576;
 }

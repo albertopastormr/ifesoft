@@ -316,32 +316,32 @@ public class ControllerImp extends Controller {
 
             case Event.SHOW_FAIR_INDIVIDUAL:
                 try {
-                    new GUIViewFair(asFair.showById((Integer) data));
+                    IFViewList.getInstance().generateSpecificView(event ,asFair.showById((Integer)data));
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_PAVILION_INDIVIDUAL:
                 try {
-                    asPavilion.showById((Integer)data);
+                    IFViewList.getInstance().generateSpecificView(event , asPavilion.showById((Integer)data));
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_CLIENT_INDIVIDUAL:
                 try {
-                    asClient.showById((Tparticipante) data);
+                    IFViewList.getInstance().generateSpecificView(event ,asClient.showById((Tparticipante) data));
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_ASSIGNATION_INDIVIDUAL:
                 try {
-                    asAssignation.show((Integer) data);
+                    IFViewList.getInstance().generateSpecificView(event ,asAssignation.show((Integer) data));
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_PARTICIPATION_INDIVIDUAL:
                 try {
-                    asParticipation.show((Integer) data);
+                    IFViewList.getInstance().generateSpecificView(event ,asParticipation.show((Integer) data));
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_STAND_INDIVIDUAL:
                 try {
-                    asStand.showById((Integer) data);
+                    IFViewList.getInstance().generateSpecificView(event , asStand.showById((Integer) data));
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
 
@@ -349,52 +349,52 @@ public class ControllerImp extends Controller {
 
             case Event.SHOW_FAIR_LIST:
                 try {
-                    new GUIListFairs(asFair.list());
+                    IFViewList.getInstance().generateSpecificView(event ,asFair.list());
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_FAIR_LIST_DATES:
                 try {
-                    asFair.listDates((Tferia) data);
+                    IFViewList.getInstance().generateSpecificView(event ,asFair.listDates((Tferia) data));
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_PAVILION_LIST:
                 try {
-                    asPavilion.list();
+                    IFViewList.getInstance().generateSpecificView(event ,asPavilion.list());
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_CLIENT_LIST:
                 try {
-                    asClient.list();
+                    IFViewList.getInstance().generateSpecificView(event ,asClient.list());
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_ASSIGANTION_FAIR:
                 try {
-                    asAssignation.showByIdFair((Integer)data);
+                    IFViewList.getInstance().generateSpecificView(event ,asAssignation.showByIdFair((Integer)data));
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_ASSIGNATION_PAVILION:
                 try {
-                    asAssignation.showByIdPavilion((Integer)data);
+                    IFViewList.getInstance().generateSpecificView(event ,asAssignation.showByIdPavilion((Integer)data));
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_PARTICIPATION_FAIR:
                 try {
-                    asParticipation.showByFairId((Integer) data);
+                    IFViewList.getInstance().generateSpecificView(event ,asParticipation.showByFairId((Integer) data));
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
-            case Event.SHOW_PARTICIPACION_CLIENT:
+            case Event.SHOW_PARTICIPATION_CLIENT:
                 try {
-                    asParticipation.showByClientId((Integer)data);
+                    IFViewList.getInstance().generateSpecificView(event ,asParticipation.showByClientId((Integer)data));
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_STAND_ASSIGNATION:
                 try {
-                    asStand.showByAssignation((Integer) data);
+                    IFViewList.getInstance().generateSpecificView(event ,asStand.showByAssignation((Integer) data));
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_STAND_PARTICIPATION:
                 try {
-                    asStand.showByParticipation((Integer)data);
+                    IFViewList.getInstance().generateSpecificView(event ,asStand.showByParticipation((Integer)data));
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
 
@@ -408,5 +408,7 @@ public class ControllerImp extends Controller {
     }
 }
 
-// SHOW hacer factoria para esta y gestionarla
-// Empezar a hacer pruebas
+/**
+ *  - Especializacion
+ *  - Corregir vistas
+ * */
