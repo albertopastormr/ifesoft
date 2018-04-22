@@ -4,7 +4,6 @@ import Negocio.Stand.Tstand;
 import Controller.Controller;
 import Presentacion.Events.Event;
 import Presentacion.UI;
-import Presentacion.UIimp;
 import Presentacion.Utils.ActionHelp;
 import Presentacion.Utils.PanelProblemUser;
 
@@ -12,10 +11,13 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIFormStand extends UIimp {
+public class GUIFormStand extends JFrame implements UI {
 
-    private String metres;
+    private int idStand;
+    private String idAssignation;
+    private String idParticipation;
     private String number;
+    private String metres;
     private String cost;
 
     private boolean mod;
@@ -27,6 +29,8 @@ public class GUIFormStand extends UIimp {
     private JTextField metresField;
     private JTextField numberField;
     private JTextField costField;
+    private JTextField idAssignationField;
+    private JTextField idParticipationField;
     private JPanel buttonBar;
 
 
@@ -40,18 +44,13 @@ public class GUIFormStand extends UIimp {
     private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
 
-    String helpMessage = "<html><head><link href=\"popup.css\" rel=\"stylesheet\" type=\"text/css\"><script>\n" +
-            "// When the user clicks on <div>, open the popup\n" +
-            "function myFunction() {\n" +
-            "    var popup = document.getElementById(\"myPopup\");\n" +
-            "    popup.classList.toggle(\"show\");\n" +
-            "}\n" +
-            "</script>" +
-            "</head>" +
-            "<body>" +
-            "<div class=\"popup\" onclick=\"myFunction()\">HELP\n" +
-            "  <span class=\"popuptext\" id=\"myPopup\">Here you can insert Stand's data just by inserting them into the text areas, then click 'Next' to continue or 'Cancel' to go back. </span>\n" +
-            "</div></body></html>";
+    String helpMessage = "<html><h1>STAND'S FORM HELP </1>Here you can <b>insert</b> <u>Stand</u>'s data just by " +
+            "inserting them into the text areas, then click <b>'Next'</b> to continue or <b>'Cancel'</b>" +
+            " to go back." +
+            "In the first field you have to insert the metres occupied by the stand," +
+            "in the second one its number and" +
+            "in the last one its cost."+
+            "</html>";
 
     public GUIFormStand() {
         mod = false;
@@ -63,9 +62,12 @@ public class GUIFormStand extends UIimp {
     public GUIFormStand(Tstand tstand) {
         mod = true;
 
-        metres = "" + tstand.getTotal_m2();
-        number = "" + tstand.getNum_at_fair();
-        cost = "" + tstand.getCost();
+        this.idStand = tstand.getId();
+        this.idAssignation = "" + tstand.getAssignation_id();
+        this.idParticipation = "" + tstand.getParticipation_id();
+        this.metres = "" + tstand.getTotal_m2();
+        this.number = "" + tstand.getNum_at_fair();
+        this.cost = "" + tstand.getCost();
 
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -75,13 +77,14 @@ public class GUIFormStand extends UIimp {
 
     private void createButtonFormActionPerformed() throws Exception {
         setVisible(false);
-        String cost = costField.getText();
-        String m_used = metresField.getText();
-        String number = numberField.getText();
-        //Tstand tStand = new Tstand(Integer.parseInt(cost), Integer.parseInt(m_used), Integer.parseInt(number), true);
+        int idAssignation = Integer.parseInt(idAssignationField.getText());
+        int idParticipation = Integer.parseInt(idParticipationField.getText());
+        int cost = Integer.parseInt(costField.getText());
+        int m_used = Integer.parseInt(metresField.getText());
+        int number = Integer.parseInt(numberField.getText());
 
-        //if (!mod) Controller.getInstance().execute(Event.INSERT_STAND, tStand);
-        //else Controller.getInstance().execute(Event.MODIFY_STAND,tStand);
+        if (!mod) Controller.getInstance().execute(Event.INSERT_STAND, new Tstand( idAssignation, idParticipation, cost, m_used, number, true));
+        else Controller.getInstance().execute(Event.MODIFY_STAND, new Tstand(idStand, idAssignation, idParticipation, cost, m_used, number, true));
     }
 
     private void cancelButtonStateChanged() throws Exception {
@@ -142,7 +145,8 @@ public class GUIFormStand extends UIimp {
         formCon.weighty = 0.5;
         formCon.anchor = GridBagConstraints.EAST;
 
-
+        JLabel idAssignationLabel = createLabel("Assignation ID:");
+        JLabel idParticipacionLabel = createLabel("Participation ID:");
         JLabel metresLabel = createLabel("Metres:");
         JLabel numberLabel = createLabel("Number:");
         JLabel costLabel = createLabel("Cost:");
@@ -152,13 +156,31 @@ public class GUIFormStand extends UIimp {
 
         formCon.gridx = 0;
         formCon.gridy = 0;
-        formPanel.add(metresLabel, formCon);
+        formPanel.add(idAssignationLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 1;
-        formPanel.add(numberLabel, formCon);
+        formPanel.add(idParticipacionLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 2;
+        formPanel.add(metresLabel, formCon);
+        formCon.gridx = 0;
+        formCon.gridy = 3;
+        formPanel.add(numberLabel, formCon);
+        formCon.gridx = 0;
+        formCon.gridy = 4;
         formPanel.add(costLabel, formCon);
+
+        idAssignationField = setupTextField();
+        idAssignationField.setMinimumSize(minDim);
+        idAssignationField.setPreferredSize(prefDim);
+        idAssignationField.setMaximumSize(maxDim);
+        idAssignationField.setText(idAssignation);
+
+        idParticipationField = setupTextField();
+        idParticipationField.setMinimumSize(minDim);
+        idParticipationField.setPreferredSize(prefDim);
+        idParticipationField.setMaximumSize(maxDim);
+        idParticipationField.setText(idParticipation);
 
         metresField = setupTextField();
         metresField.setMinimumSize(minDim);
@@ -184,12 +206,18 @@ public class GUIFormStand extends UIimp {
 
         formCon.gridx = 1;
         formCon.gridy = 0;
-        formPanel.add(metresField, formCon);
+        formPanel.add(idAssignationField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 1;
-        formPanel.add(numberField, formCon);
+        formPanel.add(idParticipationField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 2;
+        formPanel.add(metresField, formCon);
+        formCon.gridx = 1;
+        formCon.gridy = 3;
+        formPanel.add(numberField, formCon);
+        formCon.gridx = 1;
+        formCon.gridy = 4;
         formPanel.add(costField, formCon);
         formContainer.add(formPanel);
     }
@@ -301,6 +329,8 @@ public class GUIFormStand extends UIimp {
 
     @Override
     public void update(int event, Object data) {
-
+        // JOptionPane.showMessageDialog(null,"The Stand has been created successfully");
+        // JOptionPane.showMessageDialog(null, "A problem in the creation process occurred, insert Stand's data another time please", "Error",
+        //                            JOptionPane.ERROR_MESSAGE);
     }
 }

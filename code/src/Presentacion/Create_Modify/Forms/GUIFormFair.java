@@ -2,8 +2,8 @@ package Presentacion.Create_Modify.Forms;
 
 import Negocio.Feria.Tferia;
 import Controller.Controller;
+import Presentacion.Events.EventGUI;
 import Presentacion.UI;
-import Presentacion.UIimp;
 import Presentacion.Utils.ActionHelp;
 import Presentacion.Utils.Utilities;
 import Presentacion.Events.Event;
@@ -13,7 +13,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIFormFair extends UIimp {
+public class GUIFormFair extends JFrame implements UI {
+
+    private int idFair;
 
     private String name;
     private String description;
@@ -42,22 +44,18 @@ public class GUIFormFair extends UIimp {
     private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
 
-    String helpMessage = "<html><head><link href=\"popup.css\" rel=\"stylesheet\" type=\"text/css\"><script>\n" +
-            "// When the user clicks on <div>, open the popup\n" +
-            "function myFunction() {\n" +
-            "    var popup = document.getElementById(\"myPopup\");\n" +
-            "    popup.classList.toggle(\"show\");\n" +
-            "}\n" +
-            "</script>" +
-            "</head>" +
-            "<body>" +
-            "<div class=\"popup\" onclick=\"myFunction()\">HELP\n" +
-            "  <span class=\"popuptext\" id=\"myPopup\">Here you can insert Fair's data just by inserting them into the text areas, then click 'Next' to continue or 'Cancel' to go back. </span>\n" +
-            "</div></body></html>";
+    String helpMessage = "<html><h1>FAIR INFO</1>Here you can <b>insert</b> <u>Fair</u>'s data just by inserting" +
+            " them into the text areas, then click <b>'Next'</b> " +
+            "to continue or <b>'Cancel'</b> to go back." +
+            "In the first field you have to insert the name of the fair," +
+            "in the second one description to give some information and define the theme of the fair," +
+            "in the third field you have to write the starting date " +
+            "and in the last one the end date." +
+            "</html>";
 
 
     public GUIFormFair() {
-        mod = false;
+        this.mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
@@ -65,12 +63,13 @@ public class GUIFormFair extends UIimp {
     }
 
     public GUIFormFair(Tferia fair) {
-        mod = true;
+        this.mod = true;
 
-        name = fair.getName();
-        description = fair.getDescription();
-        iniDate = Utilities.parseDateToString(fair.getIniDate());
-        finDate = Utilities.parseDateToString(fair.getEndDate());
+        this.idFair = fair.getId();
+        this.name = fair.getName();
+        this.description = fair.getDescription();
+        this.iniDate = Utilities.parseDateToString(fair.getIniDate());
+        this.finDate = Utilities.parseDateToString(fair.getEndDate());
 
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -85,7 +84,7 @@ public class GUIFormFair extends UIimp {
         String dateEnd = finDateField.getText();
 
         if(!mod) Controller.getInstance().execute(Event.INSERT_FAIR, new Tferia(name, description, Utilities.parseStringToDate(dateStart), Utilities.parseStringToDate(dateEnd)));
-        else Controller.getInstance().execute(Event.MODIFY_FAIR, new Tferia(name, description, Utilities.parseStringToDate(dateStart), Utilities.parseStringToDate(dateEnd)));
+        else Controller.getInstance().execute(Event.MODIFY_FAIR, new Tferia(idFair ,name, description, Utilities.parseStringToDate(dateStart), Utilities.parseStringToDate(dateEnd), true));
 
     }
 
@@ -320,6 +319,10 @@ public class GUIFormFair extends UIimp {
 
     @Override
     public void update(int event, Object data) {
-
+        switch (event){
+            case EventGUI.UPDATE_CREATE_FERIA_FAIL:
+                JOptionPane.showMessageDialog(null, "A problem in the creation process occurred, insert Fair's data another time please", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+        }
     }
 }

@@ -1,8 +1,8 @@
 
 DUDAS PARA LAB:
 - Revisar test
-- Constructor del controller en la superclase o en ControllerImp ?
-
+- Revisar disenos
+- Por que tardan tanto en efectuarse los update en db ?? No permiten realizar tests
 
 CAMBIOS SRS:
 - Listar todas las ferias agregado
@@ -11,18 +11,5 @@ CAMBIOS SRS:
 - Todos los listar son por ID ahora y no por nombre`
 - Eliminado: mostrar feria actual en un pabellon mostrado y viceversa
 
-
 PENDIENTE:
-. Participantes internacionales y nacionales
-. Procedimiento SQL que gestione los metros de los pabellones al borrar stands
-. Problema: Create Asignacion: metros cuadrados
-. Problema: Create/modificacion Stand: metros cuadrados maximos que puede ocupar
-. Problema: lectura de participantes
-. Negocio: Asignacion/Participacion: preguntar si existen los modulos referenciados y si son validos los m2 contratados y asignados (generar DAOs)
-. Suprimir m2 utiles pabellon
-. Negocio: stand: comprobar si existe asignacion y participacion referenciada
 . Visualizar feria: Mostrar pabellones
-
-MODIFICACIONES PARA EL FINAL/DUDAS: (o por lo menos cuando este todo claro de como funciona)
-- Pabellon
-    . Operación para calcular el aforo maximo a partir de los m2 totales (Modificar y crear)

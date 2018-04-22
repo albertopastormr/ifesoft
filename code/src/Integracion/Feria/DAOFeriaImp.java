@@ -279,7 +279,7 @@ public class DAOFeriaImp implements DAOFeria{
 				id = rs.getInt("id");
 				if(!tFeria.getActive()){ 	 // Caso en el cual se desactiva una feria
 					// Desactivado de todos los stands y participaciones relacionadas con la feria a desactivar
-					ps = connec.prepareStatement("UPDATE stand s JOIN participacion p ON s.id = p.stand_id  SET s.active = ? AND p.active = ? WHERE p.fair_id = ?");
+					ps = connec.prepareStatement("UPDATE stand s JOIN participacion p ON s.participation_id = p.id  SET s.active = ? AND p.active = ? WHERE p.fair_id = ?");
 					ps.setBoolean(1, tFeria.getActive());
 					ps.setBoolean(2, tFeria.getActive());
 					ps.setInt(3, tFeria.getId());
@@ -327,9 +327,14 @@ public class DAOFeriaImp implements DAOFeria{
 
 
 		try { // Tratamiento db
-			PreparedStatement ps;
+			PreparedStatement ps = connec.prepareStatement("SET FOREIGN_KEY_CHECKS = 0");
+			ps.execute(); // Foreign key checks disable para omitir errores
+			ps.close();
 			ps = connec.prepareStatement("DELETE FROM feria WHERE id = ?");
 			ps.setInt(1, id);
+			ps.execute();
+			ps.close();
+			ps = connec.prepareStatement("SET FOREIGN_KEY_CHECKS = 1");
 			ps.execute();
 			ps.close();
 		}

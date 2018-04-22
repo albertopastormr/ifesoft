@@ -349,7 +349,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 
 		try { // Tratamiento db
 			PreparedStatement ps;
-			ps = connec.prepareStatement("UPDATE asignacion SET AND AND total_m2 = ? AND used_m2 = ? AND active = ? WHERE id = ?");
+			ps = connec.prepareStatement("UPDATE asignacion SET total_m2 = ? AND used_m2 = ? AND active = ? WHERE id = ?");
 			ps.setInt(1, tAsignacion.getTotal_m2());
 			ps.setInt(2, tAsignacion.getUsed_m2());
 			ps.setBoolean(3, tAsignacion.getActive());
@@ -365,7 +365,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 			if (rs_id.next()) {
 				if (!tAsignacion.getActive()) { // Caso desactivado tAsignacion
 					// Desactivado de los stands y participacion relacionados con la asignacion a desactivar
-					ps = connec.prepareStatement("UPDATE stand s JOIN participacion p ON s.id = p.stand_id SET s.active = ? AND p.active = ? WHERE s.assignation_id = ?");
+					ps = connec.prepareStatement("UPDATE stand s JOIN participacion p ON s.participation_id = p.id SET s.active = ? AND p.active = ? WHERE s.assignation_id = ?");
 					ps.setBoolean(1, tAsignacion.getActive());
 					ps.setBoolean(2, tAsignacion.getActive());
 					ps.setInt(3, tAsignacion.getId());
@@ -410,9 +410,13 @@ public class DAOAsignacionImp implements DAOAsignacion {
 
 
 		try { // Tratamiento db
-			PreparedStatement ps;
+			PreparedStatement ps = connec.prepareStatement("SET FOREIGN_KEY_CHECKS = 0");
+			ps.execute();
+			ps.close();
 			ps = connec.prepareStatement("DELETE FROM asignacion WHERE id = ?");
 			ps.setInt(1, id);
+			ps.execute();
+			ps = connec.prepareStatement("SET FOREIGN_KEY_CHECKS = 1");
 			ps.execute();
 			ps.close();
 		}

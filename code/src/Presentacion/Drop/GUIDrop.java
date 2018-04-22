@@ -3,11 +3,13 @@ package Presentacion.Drop;
 import Negocio.Asignacion.Tasignacion;
 import Negocio.Feria.Tferia;
 import Negocio.Pabellon.Tpabellon;
+//import Negocio.Participante.Tparticipante;
+import Negocio.Participacion.Tparticipacion;
 import Negocio.Participante.Tparticipante;
 import Negocio.Stand.Tstand;
 import Controller.Controller;
 import Presentacion.Events.Event;
-import Presentacion.UIimp;
+import Presentacion.UI;
 import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
@@ -16,7 +18,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class GUIDrop extends UIimp {
+public class GUIDrop extends JFrame implements UI {
 
     private JDialog sureFrame;
     private boolean chosen = false;
@@ -27,7 +29,7 @@ public class GUIDrop extends UIimp {
     private JPanel buttonBar;
     private JLabel title;
     private JComboBox<String> comboBoxDrop;
-    private JTextField textName;
+    private JTextField textID;
 
     private Font fComboBox = new Font(Font.DIALOG, Font.PLAIN, 40);
     private Font fTitle  = new Font(Font.MONOSPACED, Font.BOLD, 80);
@@ -44,6 +46,11 @@ public class GUIDrop extends UIimp {
     private Color cComboBoxSelectedFont = new Color(52, 56, 58);
     private Color cTextFieldBG = new Color(243,243,243);
 
+    String helpMessage = "<html><h1>DROP PAGE HELP</1>Here you have the possibility to <b>Delete</b> a <u>Fair</u>" +
+            " or other entities that you can choose by clicking on the comboBox." +
+            "<br>Click <b>'Next'</b> to confirm or <b>'Cancel'</b> to go back to the previous page." +
+            "</html>";
+
 
     public GUIDrop() {
 
@@ -58,33 +65,38 @@ public class GUIDrop extends UIimp {
             setupSure();
         }
 
+        private void helpButtonHalfCreateActionPerformed() {
+
+            new Presentacion.Utils.ActionHelp(helpMessage);
+        }
+
         private void delete() throws Exception {
 
 
         switch (String.valueOf(comboBoxDrop.getSelectedItem())) {
             case "Fair":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_FAIR, new Tferia( Integer.parseInt(textName.getText()), null, null,null, null, null));
+                Controller.getInstance().execute(Event.DROP_FAIR, new Tferia( Integer.parseInt(textID.getText()), null, null,null, null, null));
                 break;
             case "Pavilion":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_HALF_PABELLON, new Tpabellon(Integer.parseInt(textName.getText()), -1, -1, null));
-                break;
-            case "Stand":
-                this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_HALF_STAND, new Tstand(Integer.parseInt(textName.getText()), -1, -1, -1,-1, null));
+                Controller.getInstance().execute(Event.DROP_PAVILION, new Tpabellon(Integer.parseInt(textID.getText()), -1, -1, null));
                 break;
             case "Client":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_HALF_PARTICIPANTE, new Tparticipante(Integer.parseInt(textName.getText()), null, -1, null));
+                Controller.getInstance().execute(Event.DROP_CLIENT, new Tparticipante(Integer.parseInt(textID.getText()), null, -1, null));
                 break;
             case "Assignation":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_HALF_ASIGNACION, new Tasignacion(Integer.parseInt(textName.getText()), -1, -1, -1, null));
+                Controller.getInstance().execute(Event.DROP_ASSIGNATION, new Tasignacion(Integer.parseInt(textID.getText()), -1,-1, -1, -1, null));
                 break;
             case "Participation":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.DROP_HALF_PARTICIPACION, new Tparticipante(Integer.parseInt(textName.getText()), null, -1, null));
+                Controller.getInstance().execute(Event.DROP_PARTICIPATION, new Tparticipacion(Integer.parseInt(textID.getText()), -1, -1, null));
+                break;
+            case "Stand":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.DROP_STAND, new Tstand(Integer.parseInt(textID.getText()), -1, -1, -1, -1,-1, null));
                 break;
 
          }
@@ -226,7 +238,7 @@ public class GUIDrop extends UIimp {
 
             comboBoxDrop.addItem("Assignation");
             comboBoxDrop.addItem("Fair");
-            comboBoxDrop.addItem("Participant");
+            comboBoxDrop.addItem("Client");
             comboBoxDrop.addItem("Pavilion");
             comboBoxDrop.addItem("Participation");
             comboBoxDrop.addItem("Stand");
@@ -246,14 +258,14 @@ public class GUIDrop extends UIimp {
 
             textFieldPanel.add(labelSubID);
 
-            textName = new JTextField();
-            textName.setFont(fTextField);
-            textName.setBackground(cTextFieldBG);
-            textName.setMinimumSize(new Dimension(200, 50));
-            textName.setPreferredSize(new Dimension(400, 50));
-            textName.setMaximumSize(new Dimension(400, 50));
+            textID = new JTextField();
+            textID.setFont(fTextField);
+            textID.setBackground(cTextFieldBG);
+            textID.setMinimumSize(new Dimension(200, 50));
+            textID.setPreferredSize(new Dimension(400, 50));
+            textID.setMaximumSize(new Dimension(400, 50));
 
-            textFieldPanel.add(textName);
+            textFieldPanel.add(textID);
 
             centerPanel.add(textFieldPanel);
 

@@ -2,12 +2,11 @@ package Presentacion.Shows.List;
 
 import Negocio.Feria.Tferia;
 import Presentacion.UI;
-import Presentacion.UIimp;
 
 import javax.swing.*;
 import java.util.*;
 
-public class GUIListFairs extends UIimp {
+public class GUIListFairs extends JFrame implements UI {
 
     String[] columnNames = {"ID FAIR","NAME","DESCRIPTION","DATE START","DATE END"};
     Object[][] data;

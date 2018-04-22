@@ -2,13 +2,12 @@ package Presentacion.Shows.individual;
 
 import Negocio.Stand.Tstand;
 import Presentacion.UI;
-import Presentacion.UIimp;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIViewStand extends UIimp {
+public class GUIViewStand extends JFrame implements UI {
 
     private String metres;
     private String number;
@@ -27,6 +26,12 @@ public class GUIViewStand extends UIimp {
     private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
 
     private Color cBackButton = new Color(146, 35, 59);
+    private Color cHelpButton = new Color(66,35,146);
+
+    String helpMessage = "<html><h1>SHOW INDIVIDUAL STAND HELP</h1>Here you have the possibility to" +
+            "<b>See</b> the data of the specific <u>Stand</u> that you chose" +
+            "</html>" +
+            "";
 
     public GUIViewStand() {
 
@@ -57,6 +62,10 @@ public class GUIViewStand extends UIimp {
         this.setVisible(false);
 
         //TODO
+    }
+
+    private void helpButtonActionPerformed(ActionEvent e) {
+        new Presentacion.Utils.ActionHelp(helpMessage);
     }
 
     private void setupTitle(){
@@ -173,7 +182,19 @@ public class GUIViewStand extends UIimp {
         buttonBar.setLayout(layout);
         buttonBar.add(backButton);
 
-
+        //---- helpButton ----
+        JButton helpButton = new JButton();
+        helpButton.setText("Help");
+        helpButton.setFont(fButton);
+        helpButton.setBackground(cHelpButton);
+        helpButton.setForeground(Color.WHITE);
+        helpButton.setPreferredSize(buttonDim);
+        helpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                helpButtonActionPerformed(e);
+            }
+        });
 
     }
 

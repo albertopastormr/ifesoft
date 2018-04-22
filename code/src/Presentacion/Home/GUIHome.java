@@ -1,10 +1,9 @@
-package Presentacion;
+package Presentacion.Home;
 
 import Controller.Controller;
-import Presentacion.Create_Modify.Create.GUICreate;
-import Presentacion.Create_Modify.Forms.GUIFormFair;
 import Presentacion.Events.Event;
 import Presentacion.Events.EventGUI;
+import Presentacion.UI;
 import Presentacion.Utils.ActionHelp;
 import Presentacion.Utils.PanelProblemUser;
 
@@ -13,7 +12,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class GUIHome extends UIimp {
+public class GUIHome extends JFrame implements UI {
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
@@ -37,39 +36,16 @@ public class GUIHome extends UIimp {
     private Color cHelpButton = new Color(66,35,146);
     private Color cExitButton = new Color(146, 35, 59);
 
-    String helpMessage = "<html><head><link href=\"popup.css\" rel=\"stylesheet\" type=\"text/css\"><script>\n" +
-            "// When the user clicks on <div>, open the popup\n" +
-            "function myFunction() {\n" +
-            "    var popup = document.getElementById(\"myPopup\");\n" +
-            "    popup.classList.toggle(\"show\");\n" +
-            "}\n" +
-            "</script>" +
-            "</head>" +
-            "<body>" +
-            "<div class=\"popup\" onclick=\"myFunction()\">HELP\n" +
-            "  <span class=\"popuptext\" id=\"myPopup\">Here you have the possibility to Create, Modify, Show or Delete Fairs or other entities just by clicking on the specific button.</span>\n" +
-            "</div></body></html>";
+    String helpMessage = "<html><h1>HOME PAGE HELP</h1>Here you have the possibility to <b>Create</b>," +
+            " <b>Modify</b>, <b>Show</b> or <b>Delete</b> <u>Fairs</u> or other entities just" +
+            " by clicking on the specific button.</html>\n" +
+            "";
 
     public GUIHome() {
         initComponents();
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setBounds(100,100, minScreenSize.width, minScreenSize.height);
         this.setVisible(true);
-    }
-
-    @Override
-    public void update(int event, Object object) {
-        switch (event){
-            case EventGUI.UPDATE_CREATE_FERIA_OK:
-                Integer id = (Integer) object;
-                JOptionPane.showInternalMessageDialog(null, "Usuario creado con ID: " + id);
-                setVisible(true);
-                break;
-            case EventGUI.UPDATE_CREATE_FERIA_FAIL:
-
-                break;
-
-        }
     }
 
     private void buttonCreateHomeActionPerformed() {
@@ -151,7 +127,7 @@ public class GUIHome extends UIimp {
          centerConst.weightx = 0.5;
          centerConst.weighty = 0.5;
 
-         buttonCreateHome = createBigButton("Create_Modify");
+         buttonCreateHome = createBigButton("Create");
             buttonCreateHome.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -289,6 +265,30 @@ public class GUIHome extends UIimp {
         contentPane.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
+    }
+
+    @Override
+    public void update(int event, Object object) {
+        switch (event){
+            case EventGUI.UPDATE_CREATE_FAIR_OK:
+                JOptionPane.showMessageDialog(null, "The Fair has been created successfully");
+                break;
+            case EventGUI.UPDATE_CREATE_PAVILION_OK:
+                JOptionPane.showMessageDialog(null, "The Pavilion has been created successfully");
+                break;
+            case EventGUI.UPDATE_CREATE_CLIENT_OK:
+                JOptionPane.showMessageDialog(null, "The Client has been created successfully");
+                break;
+            case EventGUI.UPDATE_CREATE_ASSIGNATION_OK:
+                JOptionPane.showMessageDialog(null, "The Assignation has been created successfully");
+                break;
+            case EventGUI.UPDATE_CREATE_PARTICIPATION_OK:
+                JOptionPane.showMessageDialog(null, "The Participation has been created successfully");
+                break;
+            case EventGUI.UPDATE_CREATE_STAND_OK:
+                JOptionPane.showMessageDialog(null, "The Stand has been created successfully");
+                break;
+        }
     }
 }
 

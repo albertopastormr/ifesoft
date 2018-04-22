@@ -8,7 +8,6 @@ import Negocio.Participante.Tparticipante;
 import Negocio.Stand.Tstand;
 import Controller.Controller;
 import Presentacion.UI;
-import Presentacion.UIimp;
 import Presentacion.Utils.Utilities;
 import Presentacion.Events.Event;
 import Presentacion.Utils.PanelProblemUser;
@@ -20,7 +19,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class GUIShow extends UIimp {
+public class GUIShow extends JFrame implements UI {
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
@@ -59,6 +58,12 @@ public class GUIShow extends UIimp {
     private boolean isHalfEntity;
     private boolean isHalfEntityList;
 
+    String helpMessage = "<html><h1>SHOW PAGE HELP</h1>Here you have the possibility to" +
+            "<b>See</b> <u>Fairs</u> or other entities just" +
+            " by choosing one with the comboBox. <br>You can choose between showing just a specific one" +
+            " finding it by its ID or a list.</html>" +
+            "";
+
     public GUIShow() {
 
         this.isHalfEntity = false;
@@ -81,7 +86,7 @@ public class GUIShow extends UIimp {
     }
 
     private void helpButtonActionPerformed(ActionEvent e) {
-
+        new Presentacion.Utils.ActionHelp(helpMessage);
     }
 
     private void setUpTitle(){
@@ -114,12 +119,12 @@ public class GUIShow extends UIimp {
         comboBoxViews.setMinimumSize(new Dimension(200, 50));
         comboBoxViews.setMaximumSize(new Dimension(800, 50));
 
-            comboBoxViews.addItem("Pavilion");
-            comboBoxViews.addItem("Assignation");
-            comboBoxViews.addItem("Fair");
-            comboBoxViews.addItem("Client");
-            comboBoxViews.addItem("Participation");
-            comboBoxViews.addItem("Stand");
+        comboBoxViews.addItem("Pavilion");
+        comboBoxViews.addItem("Assignation");
+        comboBoxViews.addItem("Fair");
+        comboBoxViews.addItem("Client");
+        comboBoxViews.addItem("Participation");
+        comboBoxViews.addItem("Stand");
 
         comboBoxViews.setBorder(BorderFactory.createEmptyBorder(0,0, 20, 0));
         centerPanel.add(comboBoxViews);
@@ -135,7 +140,7 @@ public class GUIShow extends UIimp {
         radioButtonLeft.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               changeVisibleLeft();
+                changeVisibleLeft();
             }
         });
 
@@ -306,35 +311,34 @@ public class GUIShow extends UIimp {
         switch (String.valueOf(comboBoxViews.getSelectedItem())){
             case "Fair":
                 this.setVisible(false);
-                if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_FAIR_INDIVIDUAL ,new Tferia(Integer.parseInt(textID.getText()) , null, null, null, null, null));
+                if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_FAIR_INDIVIDUAL ,Integer.parseInt(textID.getText()));
                 else if(radioButtonOptional.isSelected()) Controller.getInstance().execute(Event.SHOW_FAIR_LIST_DATES, new Tferia(null, null, Utilities.parseStringToDate(textDateStart.getText()), Utilities.parseStringToDate(textDateEnd.getText()), null));
                 else Controller.getInstance().execute(Event.SHOW_FAIR_LIST ,null);
                 break;
             case "Pavilion":
                 this.setVisible(false);
-                if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_PAVILION_INDIVIDUAL ,new Tpabellon(Integer.parseInt(textID.getText()) , -1, -1, null));
+                if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_PAVILION_INDIVIDUAL ,Integer.parseInt(textID.getText()));
                 else Controller.getInstance().execute(Event.SHOW_PAVILION_LIST, null);
-                break;
-            case "Stand":
-                this.setVisible(false);
-                if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_STAND_INDIVIDUAL ,new Tstand(Integer.parseInt(textID.getText()) , -1, -1, -1, -1, null));
-                else Controller.getInstance().execute(Event.SHOW_STAND_LIST, null);
                 break;
             case "Client":
                 this.setVisible(false);
-                if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_CLIENT_INDIVIDUAL ,new Tparticipante(Integer.parseInt(textID.getText()) , null, -1, null));
+                if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_CLIENT_INDIVIDUAL ,Integer.parseInt(textID.getText()));
                 else Controller.getInstance().execute(Event.SHOW_CLIENT_LIST, null);
                 break;
             case "Assignation":
                 this.setVisible(false);
-                if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_ASSIGANTION_FAIR ,new Tasignacion(Integer.parseInt(textID.getText()) , -1, -1 , -1, null));
+                if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_ASSIGANTION_FAIR ,Integer.parseInt(textID.getText()));
                 else Controller.getInstance().execute(Event.SHOW_ASSIGNATION_PAVILION, new Tasignacion(-1 , Integer.parseInt(textID.getText()), -1 , -1, null));
                 break;
             case "Participation":
                 this.setVisible(false);
-                if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_PARTICIPATION_FAIR ,new Tparticipacion(Integer.parseInt(textID.getText()) , -1, -1 , null));
-                else Controller.getInstance().execute(Event.SHOW_PARTICIPACION_CLIENT, new Tparticipacion(-1 , Integer.parseInt(textID.getText()), -1 , null));
-
+                if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_PARTICIPATION_FAIR ,Integer.parseInt(textID.getText()));
+                else Controller.getInstance().execute(Event.SHOW_PARTICIPATION_CLIENT, new Tparticipacion(-1 , Integer.parseInt(textID.getText()), -1 , null));
+                break;
+            case "Stand":
+                this.setVisible(false);
+                if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_STAND_INDIVIDUAL ,Integer.parseInt(textID.getText()));
+                else Controller.getInstance().execute(Event.SHOW_STAND_LIST, null);
                 break;
 
         }
@@ -412,7 +416,7 @@ public class GUIShow extends UIimp {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         //======== this ========
-        Container contentPane = getContentPane(); 
+        Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
         ImageIcon img = new ImageIcon("Resources//Icon.png");

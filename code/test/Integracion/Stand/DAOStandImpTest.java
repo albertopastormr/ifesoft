@@ -1,10 +1,15 @@
 package Integracion.Stand;
 
+import Integracion.Asignacion.DAOAsignacion;
+import Integracion.Participacion.DAOParticipacion;
 import Negocio.Asignacion.Tasignacion;
 import Negocio.Feria.Tferia;
 import Negocio.Pabellon.Tpabellon;
+import Negocio.Participacion.IFDAOParticipacion;
 import Negocio.Participacion.Tparticipacion;
 import Negocio.Participante.Tparticipante;
+import Negocio.Participante.TparticipanteInternacional;
+import Negocio.Participante.TparticipanteNacional;
 import Negocio.Stand.Tstand;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,14 +27,56 @@ import static org.junit.Assert.*;
 
 public class DAOStandImpTest {
 
+	// Tstand para probar
 	private static Tstand tstandTest1 = new Tstand(1,1,1, 0, 0, 0,true);
-	private static Tstand tstandTest2 = new Tstand(2,2,2, 2, 2, 2,true);
+	private static Tstand tstandTest2 = new Tstand(2,1,1, 2, 2, 2,true);
+	// Tferia para probar
+	private static Tferia tferiaTest1 = new Tferia("FITUR","Feria internacional turismo",new Date(117,0,4),new Date(117,0,4),true);
+	private static Tferia tferiaTest2 = new Tferia("VINECT","Feria internacional vinos",new Date(117,9,28),new Date(117,10,4),true);
+	// Tparticipante para probar
+	private static TparticipanteNacional tparticipanteTest1 = new TparticipanteNacional("IBM", 778778778, true, "ALBACETE");
+	private static TparticipanteInternacional tparticipanteTest2 = new TparticipanteInternacional("GAMBAS VEGANAS", 887887887, true, "CATALONYA");
+	// Tpabellon para probar
+	private static Tpabellon tpabellonTest1 = new Tpabellon(1, 0,  0,true);
+	private static Tpabellon tpabellonTest2 = new Tpabellon(2, 2,  2,true);
+	// Tasignacion para probar
+	private static Tasignacion tasignacionTest1 = new Tasignacion(1, 1, 1, 1,true);
+	private static Tasignacion tasignacionTest2 = new Tasignacion(2, 2, 2,2, true);
+	// Tparticipacion para probar
+	private static Tparticipacion tparticipacionTest1 = new Tparticipacion(1, 1, 1,true);
+	private static Tparticipacion tparticipacionTest2 = new Tparticipacion(2, 2, 2, true);
+
 
 	@Before
 	public  void setUp() throws Exception {
 		// Borra todas las tuplas en la tabla 'stand' de la db
 		DAOStandImp dao = new DAOStandImp();
 		dao.deleteAll();
+		// Creacion de 2 tFeria para soportar el uso de asignaciones
+		DAOFeriaImp daoFeriaImp = new DAOFeriaImp();
+		daoFeriaImp.deleteAll();
+		daoFeriaImp.create(tferiaTest1);
+		daoFeriaImp.create(tferiaTest2);
+		// Creacion de 2 tParticipante para soportar el uso de asignaciones
+		DAOParticipanteImp daoParticipanteImp = new DAOParticipanteImp();
+		daoParticipanteImp.deleteAll();
+		daoParticipanteImp.create(tparticipanteTest1);
+		daoParticipanteImp.create(tparticipanteTest2);
+		// Creacion de 2 tPabellon para soportar el uso de asignaciones
+		DAOPabellonImp daoPabellonImp = new DAOPabellonImp();
+		daoPabellonImp.deleteAll();
+		daoPabellonImp.create(tpabellonTest1);
+		daoPabellonImp.create(tpabellonTest2);
+		// Creacion de 2 tParticipaciones para soportar el uso de asignaciones
+		DAOParticipacion daoParticipacion = new DAOParticipacionImp();
+		daoParticipacion.deleteAll();
+		daoParticipacion.create(tparticipacionTest1);
+		daoParticipacion.create(tparticipacionTest2);
+		// Creacion de 2 tAsignaciones para soportar el uso de asignaciones
+		DAOAsignacion daoAsignacion = new DAOAsignacionImp();
+		daoAsignacion.deleteAll();
+		daoAsignacion.create(tasignacionTest1);
+		daoAsignacion.create(tasignacionTest2);
 	}
 
 	@Test
@@ -62,30 +109,15 @@ public class DAOStandImpTest {
 		ArrayList<Tstand> out_StandList = new ArrayList<Tstand>();
 		ArrayList<Tstand> testList = new ArrayList<Tstand>();
 		DAOStandImp daoS = new DAOStandImp();
-		DAOPabellonImp daoP = new DAOPabellonImp();
-		DAOFeriaImp daoF = new DAOFeriaImp();
-		DAOAsignacionImp daoA = new DAOAsignacionImp();
-		Tferia tferiaTest1 = new Tferia("FITUR","Feria internacional turismo",new Date(117,0,4),new Date(117,0,4),true);
-		Tferia tferiaTest2 = new Tferia("VINECT","Feria internacional vinos",new Date(117,9,28),new Date(117,10,4),true);
-		daoF.create(tferiaTest1);
-		daoF.create(tferiaTest2);
-		Tpabellon tpabellonTest1 = new Tpabellon(2,2,1,true);
-		Tpabellon tpabellonTest2 = new Tpabellon(2,2,1,true);
-		daoP.create(tpabellonTest1);
-		daoP.create(tpabellonTest2);
+		tstandTest1.setActive(true);
+		tstandTest2.setActive(true);
 		daoS.create(tstandTest1);
 		daoS.create(tstandTest2);
-		Tasignacion tasignacionTest1 = new Tasignacion(1,1,1,1,true);
-		Tasignacion tasignacionTest2 = new Tasignacion(1,1,2,1,true);
-		daoA.create(tasignacionTest1);
-		daoA.create(tasignacionTest2);
+		testList.add(tstandTest1);
+		testList.add(tstandTest2);
 		out_StandList = (ArrayList<Tstand>) daoS.readByAssignation(1);
 		tstandEquals(testList.get(0),out_StandList.get(0));
 		tstandEquals(testList.get(1),out_StandList.get(1));
-		daoS.deleteAll();
-		daoA.deleteAll();
-		daoP.deleteAll();
-		daoF.deleteAll();
 	}
 
 	@Test
@@ -93,30 +125,13 @@ public class DAOStandImpTest {
 		ArrayList<Tstand> out_StandList = new ArrayList<Tstand>();
 		ArrayList<Tstand> testList = new ArrayList<Tstand>();
 		DAOStandImp daoS = new DAOStandImp();
-		DAOParticipanteImp daoP = new DAOParticipanteImp();
-		DAOFeriaImp daoF = new DAOFeriaImp();
-		DAOParticipacionImp daoPt = new DAOParticipacionImp();
-		Tferia tferiaTest1 = new Tferia("FITUR","Feria internacional turismo",new Date(117,0,4),new Date(117,0,4),true);
-		Tferia tferiaTest2 = new Tferia("VINECT","Feria internacional vinos",new Date(117,9,28),new Date(117,10,4),true);
-		daoF.create(tferiaTest1);
-		daoF.create(tferiaTest2);
-		Tparticipante tparticipanteTest1 = new Tparticipante("imperioAlbertino",910000000,true);
-		Tparticipante tparticipanteTest2 = new Tparticipante("imperioAlbertino",911111111,true);
-		daoP.create(tparticipanteTest1);
-		daoP.create(tparticipanteTest2);
 		daoS.create(tstandTest1);
 		daoS.create(tstandTest2);
-		Tparticipacion tparticipacionTest1 = new Tparticipacion(1,1,1,true);
-		Tparticipacion tparticipacionTest2 = new Tparticipacion(1,2,1,true);
-		daoPt.create(tparticipacionTest1);
-		daoPt.create(tparticipacionTest2);
+		testList.add(tstandTest1);
+		testList.add(tstandTest2);
 		out_StandList = (ArrayList<Tstand>) daoS.readByAssignation(1);
 		tstandEquals(testList.get(0),out_StandList.get(0));
 		tstandEquals(testList.get(1),out_StandList.get(1));
-		daoS.deleteAll();
-		daoPt.deleteAll();
-		daoP.deleteAll();
-		daoF.deleteAll();
 	}
 
 	@Test

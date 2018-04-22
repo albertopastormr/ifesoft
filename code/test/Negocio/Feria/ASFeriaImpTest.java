@@ -38,7 +38,7 @@ public class ASFeriaImpTest {
 			Date dateEnd = new Date((4018-1900), 2, 18);
 	
 			Tferia feria = new Tferia(id, "IBM", "IBM prueba existente", dateIni , dateEnd, true); //Generamos un transfer
-			daoFeria.create(feria); //Creamos una feria con los datos intoducidos en el transfer anterior
+			id = asFeria.create(feria); //Creamos una feria con los datos intoducidos en el transfer anterior
 			
 			Tferia feria2 = new Tferia(id, "IBM", "IBM prueba existente", dateIni, dateEnd, false);
 			asFeria.create(feria2); //A partir de aqui le estamos diciendo al test que si intentamos crear feria2 y se lanza una excepcion se 
@@ -92,8 +92,6 @@ public class ASFeriaImpTest {
 	@Test
 	public void createFeria() throws Exception, DAOException {
 		Integer id = -1;
-		System.out.println("Test crea Feria Inexistente"); //Probamos que la feria que intentamos crear existe ya en la bbdd
-
 		ASFeriaImp asFeria = new ASFeriaImp();
 
 		Date dateIni = new Date((4016-1900), 1, 12);
@@ -171,15 +169,16 @@ public class ASFeriaImpTest {
 	@Test(expected=ASException.class)
 	public void testModifyFeriaFechaIncorrecta() throws Exception {
 		ASFeriaImp asFeria = new ASFeriaImp();
+		Integer idFair = -1;
 
 		Date dateIni = new Date((2018-1900), 11, 12);
 		Date dateEnd = new Date((2018-1900), 11, 18);
 		Tferia feria = new Tferia(1, "IBM", "Desription", dateIni, dateEnd, true);
-		asFeria.create(feria);
+		idFair = asFeria.create(feria);
 		
 		Date dateIni2 = new Date((2016-1900), 11, 12);
 		Date dateEnd2 = new Date((2016-1900), 11, 18);
-		Tferia feria2 = new Tferia(1, "IBM", "Description", dateIni2, dateEnd2, true );
+		Tferia feria2 = new Tferia(idFair, "IBM", "Description", dateIni2, dateEnd2, true );
 		asFeria.modify(feria2);
 	}
 	

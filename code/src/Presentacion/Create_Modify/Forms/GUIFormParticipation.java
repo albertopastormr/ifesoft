@@ -4,7 +4,6 @@ import Negocio.Participacion.Tparticipacion;
 import Controller.Controller;
 import Presentacion.Events.Event;
 import Presentacion.UI;
-import Presentacion.UIimp;
 import Presentacion.Utils.ActionHelp;
 import Presentacion.Utils.PanelProblemUser;
 
@@ -12,12 +11,12 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIFormParticipation extends UIimp {
+public class GUIFormParticipation extends JFrame implements UI{
 
-
+    private int idParticipation;
     private String metres;
     private String idFair;
-    private String idParticipant;
+    private String idClient;
 
     private boolean mod;
 
@@ -27,9 +26,8 @@ public class GUIFormParticipation extends UIimp {
     private JPanel formContainer;
     private JTextField metresField;
     private JTextField idFairField;
-    private JTextField idParticipantField;
+    private JTextField idClientField;
     private JPanel buttonBar;
-
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
     private Font fLabel = new Font(Font.DIALOG, Font.PLAIN, 30);
@@ -41,18 +39,15 @@ public class GUIFormParticipation extends UIimp {
     private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
 
-    String helpMessage = "<html><head><link href=\"popup.css\" rel=\"stylesheet\" type=\"text/css\"><script>\n" +
-            "// When the user clicks on <div>, open the popup\n" +
-            "function myFunction() {\n" +
-            "    var popup = document.getElementById(\"myPopup\");\n" +
-            "    popup.classList.toggle(\"show\");\n" +
-            "}\n" +
-            "</script>" +
-            "</head>" +
-            "<body>" +
-            "<div class=\"popup\" onclick=\"myFunction()\">HELP\n" +
-            "  <span class=\"popuptext\" id=\"myPopup\">Here you can insert Participation's data just by inserting them into the text areas, then click 'Next' to continue or 'Cancel' to go back. </span>\n" +
-            "</div></body></html>";
+    String helpMessage = "<html><h1>PARTICIPATION'S FORM HELP </1>Here you can <b>insert</b> <u>Participation</u>" +
+            "'s data just " +
+            "by inserting them into the text areas, then click <b>'Next'</b> " +
+            "to continue or <b>'Cancel'</b> to go back." +
+            "In the first field you have to insert the metres used by the stand of the client in the fair," +
+            "in the second one the ID of the fair in which the client will take part," +
+            "in the third one the ID of the client and" +
+            "in the last one the ID of its stand." +
+            "</html>";
 
     public GUIFormParticipation() {
         mod = false;
@@ -61,13 +56,13 @@ public class GUIFormParticipation extends UIimp {
         this.setVisible(true);
     }
 
-
     public GUIFormParticipation(Tparticipacion participation) {
         mod = true;
 
-        idFair = (String.valueOf(participation.getFair_id()));
-        idParticipant = (String.valueOf(participation.getClient_id()));
+        this.idParticipation = participation.getId();
 
+        idFair = (String.valueOf(participation.getFair_id()));
+        idClient = (String.valueOf(participation.getClient_id()));
 
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -76,14 +71,11 @@ public class GUIFormParticipation extends UIimp {
 
     private void createButtonFormActionPerformed() throws Exception {
         this.setVisible(false);
-        int mUsed = Integer.valueOf(metresField.getText());
         int idFair = Integer.valueOf(idFairField.getText());
-        int idParticipante = Integer.valueOf(idParticipantField.getText());
+        int idClient = Integer.valueOf(idClientField.getText());
 
-        Tparticipacion participation = new Tparticipacion();
-
-        if (!mod)  Controller.getInstance().execute(Event.INSERT_PARTICIPACION, participation);
-        else Controller.getInstance().execute(Event.MODIFY_PARTICIPACION, participation);
+        if (!mod)  Controller.getInstance().execute(Event.INSERT_PARTICIPATION, new Tparticipacion(idFair, idClient, true));
+        else Controller.getInstance().execute(Event.MODIFY_PARTICIPATION, new Tparticipacion(idParticipation ,idFair, idClient, true));
     }
 
     private void cancelButtonStateChanged() throws Exception {
@@ -108,7 +100,6 @@ public class GUIFormParticipation extends UIimp {
     }
 
     private JLabel createLabel(String text){
-
         JLabel label = new JLabel(text, JLabel.RIGHT);
         label.setFont(fLabel);
         return label;
@@ -130,7 +121,6 @@ public class GUIFormParticipation extends UIimp {
         GridBagLayout formLayout = new GridBagLayout();
         formPanel.setLayout(formLayout);
 
-
         //---- Labels ----
 
         Dimension minDim = new Dimension(500, 50);
@@ -145,27 +135,18 @@ public class GUIFormParticipation extends UIimp {
         formCon.weighty = 0.5;
         formCon.anchor = GridBagConstraints.EAST;
 
-
-        JLabel metresLabel = createLabel("Metres:");
         JLabel idFairLabel = createLabel("Fair id:");
         JLabel idParticipantLabel = createLabel("Client id:");
-        JLabel idStandLabel = createLabel("Stand id:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
 
         formCon.gridx = 0;
         formCon.gridy = 0;
-        formPanel.add(metresLabel, formCon);
-        formCon.gridx = 0;
-        formCon.gridy = 1;
         formPanel.add(idFairLabel, formCon);
         formCon.gridx = 0;
-        formCon.gridy = 2;
+        formCon.gridy = 1;
         formPanel.add(idParticipantLabel, formCon);
-        formCon.gridx = 0;
-        formCon.gridy = 3;
-        formPanel.add(idStandLabel, formCon);
 
         metresField = setupTextField();
         metresField.setMinimumSize(minDim);
@@ -179,11 +160,11 @@ public class GUIFormParticipation extends UIimp {
         idFairField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
         idFairField.setText(idFair);
 
-        idParticipantField = setupTextField();
-        idParticipantField.setMinimumSize(minDim);
-        idParticipantField.setPreferredSize(prefDim);
-        idParticipantField.setMaximumSize(maxDim);
-        idParticipantField.setText(idParticipant);
+        idClientField = setupTextField();
+        idClientField.setMinimumSize(minDim);
+        idClientField.setPreferredSize(prefDim);
+        idClientField.setMaximumSize(maxDim);
+        idClientField.setText(idClient);
 
         formCon.anchor = GridBagConstraints.WEST;
 
@@ -191,15 +172,10 @@ public class GUIFormParticipation extends UIimp {
 
         formCon.gridx = 1;
         formCon.gridy = 0;
-        formPanel.add(metresField, formCon);
-        formCon.gridx = 1;
-        formCon.gridy = 1;
         formPanel.add(idFairField, formCon);
         formCon.gridx = 1;
-        formCon.gridy = 2;
-        formPanel.add(idParticipantField, formCon);
-        formCon.gridx = 1;
-        formCon.gridy = 3;
+        formCon.gridy = 1;
+        formPanel.add(idClientField, formCon);
         formContainer.add(formPanel);
     }
 
@@ -310,6 +286,8 @@ public class GUIFormParticipation extends UIimp {
 
     @Override
     public void update(int event, Object data) {
-
+        //JOptionPane.showMessageDialog(null, "The Participation has been created successfully");
+        //JOptionPane.showMessageDialog(null, "A problem in the creation process occurred, insert Participation's data another time please", "Error",
+        //                            JOptionPane.ERROR_MESSAGE);
     }
 }

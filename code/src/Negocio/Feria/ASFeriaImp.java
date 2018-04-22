@@ -10,7 +10,6 @@ import java.util.Date;
 
 public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que capturar excepciones del DAO
     public Integer create(Tferia feria) throws ASException {
-        int id = -1;
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
         if (feria != null && feria.getName() != null && feria.getDescription() != null && feria.getIniDate() != null && feria.getEndDate() != null) {
             try {
@@ -18,37 +17,34 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
                 if (read == null) {
                     Date currentDate = new Date();
                     if (feria.getIniDate().after(currentDate) && feria.getEndDate().after(feria.getIniDate()))
-                        id = daoFeria.create(feria);
+                        return daoFeria.create(feria);
                     else
                         throw new ASException("ERROR: El intervalo de fechas no es correcto.\n");
                 } else {
                     if (read.equals(feria)) {
                         if (!read.getActive()) {
                             read.setActive(true);
-                            id = daoFeria.update(read);
+                            return daoFeria.update(read);
                         } else
-                            throw new ASException("ERROR: La feria " + feria.getName() + "ya esta activa.\n");
-                    }
-                    else
-                        throw new ASException("ERROR: La feria " + feria.getName() + "ya esta siendo utilizada con id" + read.getId() + ".\n");
+                            throw new ASException("ERROR: La feria " + feria.getName() + " ya esta activa.\n");
+                    } else
+                        throw new ASException("ERROR: La feria " + feria.getName() + " ya esta siendo utilizada con id " + read.getId() + ".\n");
                 }
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }
         } else
             throw new ASException("ERROR: No se han introducido los datos de la feria.\n");
-        return id;
     }
 
     public Integer drop(Tferia feria) throws ASException {
-        int id = -1;
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
         if (feria != null && feria.getId() != -1) {
             try {
                 Tferia read = daoFeria.readById(feria.getId());
                 if (read != null) {
                     read.setActive(false);
-                    id = daoFeria.update(read);
+                    return daoFeria.update(read);
                 } else
                     throw new ASException("ERROR: La feria " + feria.getId() + " no existe.\n");
             } catch (Exception ex) {
@@ -56,11 +52,9 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
             }
         } else
             throw new ASException("ERROR: No se han introducido los datos de la feria.\n");
-        return id;
     }
 
     public Integer modify(Tferia feria) throws ASException {
-        int id = -1;
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
         if (feria != null && feria.getName() != null && feria.getId() != -1) {
             try {
@@ -70,7 +64,7 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
                     if ((nameOK == null) || nameOK.getName().equals(read.getName())) {
                         Date currentDate = new Date();
                         if (feria.getIniDate().after(currentDate) && feria.getEndDate().after(feria.getIniDate()))
-                            id = daoFeria.update(feria);
+                            return daoFeria.update(feria);
                         else
                             throw new ASException("ERROR: El intervalo de fechas no es correcto.\n");
                     } else
@@ -82,7 +76,6 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
             }
         } else
             throw new ASException("ERROR: No se han introducido los datos de la feria.\n");
-        return id;
     }
 
     public Collection<Tferia> list() throws ASException {
@@ -97,16 +90,17 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public Collection<Tferia> listDates(Tferia feria) throws ASException {
-        Date ini, end, aux;
+        Date ini, end;
         Collection<Tferia> collection;
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
         if (feria == null || feria.getIniDate() == null || feria.getEndDate() == null) {
             ini = new Date();
-            ini.setMonth(1);
+            ini.setMonth(0);
             ini.setDate(1);
             end = new Date();
-            end.setMonth(12);
+            end.setMonth(11);
             end.setDate(31);
         } else {
             ini = feria.getIniDate();
@@ -134,7 +128,6 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
             }
         } else
             throw new ASException("ERROR: No se han introducido los datos de la feria.\n");
-        //return null;
     }
 
     public Tferia showById(Integer id) throws ASException {
@@ -151,6 +144,5 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
             }
         } else
             throw new ASException("ERROR: No se han introducido los datos de la feria.\n");
-        //return null;
     }
 }

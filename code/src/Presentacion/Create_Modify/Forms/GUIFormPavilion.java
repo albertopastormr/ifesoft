@@ -4,7 +4,6 @@ import Negocio.Pabellon.Tpabellon;
 import Controller.Controller;
 import Presentacion.Events.Event;
 import Presentacion.UI;
-import Presentacion.UIimp;
 import Presentacion.Utils.ActionHelp;
 import Presentacion.Utils.PanelProblemUser;
 
@@ -13,11 +12,11 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class GUIFormPavilion extends UIimp {
+public class GUIFormPavilion extends JFrame implements UI {
 
+    private int idPavilion;
     private String capacity;
     private String m2tot;
-    private String m2utils;
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
@@ -26,7 +25,6 @@ public class GUIFormPavilion extends UIimp {
     private JTextField capacityField;
     private JTextField m2totField;
     private JPanel buttonBar;
-    private JComboBox<String> comboBoxCreate;
 
     private boolean mod;
 
@@ -34,29 +32,20 @@ public class GUIFormPavilion extends UIimp {
     private Font fLabel = new Font(Font.DIALOG, Font.PLAIN, 30);
     private Font fField = new Font(Font.DIALOG, Font.PLAIN, 30);
     private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
-    private Font fComboBox = new Font(Font.DIALOG, Font.PLAIN, 40);
 
     private Color cField = new Color(243,243,243);
     private Color cHelpButton = new Color(66,35,146);
     private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
-    private Color cComboBoxActive = new Color(207, 216, 220);
-    private Color cComboBoxInactive = new Color(187, 196, 200);
-    private Color cComboBoxFont = new Color(84, 91, 94);
-    private Color cComboBoxSelectedFont = new Color(52, 56, 58);
 
-    String helpMessage = "<html><head><link href=\"popup.css\" rel=\"stylesheet\" type=\"text/css\"><script>\n" +
-            "// When the user clicks on <div>, open the popup\n" +
-            "function myFunction() {\n" +
-            "    var popup = document.getElementById(\"myPopup\");\n" +
-            "    popup.classList.toggle(\"show\");\n" +
-            "}\n" +
-            "</script>" +
-            "</head>" +
-            "<body>" +
-            "<div class=\"popup\" onclick=\"myFunction()\">HELP\n" +
-            "  <span class=\"popuptext\" id=\"myPopup\">Here you can insert Pavilion's data just by inserting them into the text areas, then click 'Next' to continue or 'Cancel' to go back. </span>\n" +
-            "</div></body></html>";
+    String helpMessage = "<html><h1>PAVILION'S FORM HELP </1>Here you can <b>insert</b> <u>Pavilion</u>'s data" +
+            " just by inserting them into the text areas," +
+            " then click <b>'Next'</b> to continue or <b>'Cancel'</b>" +
+            " to go back." +
+            "In the first field you have to define the total capacity of the pavillion," +
+            "in the second one the total square meters that can be used for company stands and" +
+            "in the last one the square meters not yet occupied and therefore available. " +
+            "</html>";
 
     public GUIFormPavilion() {
 
@@ -66,25 +55,10 @@ public class GUIFormPavilion extends UIimp {
         this.setVisible(true);
     }
 
-    //Combobox Pavilion
-
-
-    private void nextButtonActionPerformed() throws Exception {
-
-        switch (String.valueOf(comboBoxCreate.getSelectedItem())) {
-            case "National":
-                this.setVisible(false);
-                Controller.getInstance().execute(Event.SHOW_REGION_PABELLON, null);
-                break;
-            case "International":
-                this.setVisible(false);
-                Controller.getInstance().execute(Event.SHOW_PAIS_PABELLON, null);
-                break;
-        }
-    }
-
     public GUIFormPavilion(Tpabellon pavilion) {
         mod = true;
+
+        this.idPavilion = pavilion.getId();
 
         capacity = "" + pavilion.getCapacity();
         m2tot = "" + pavilion.getTotal_m2();
@@ -99,14 +73,12 @@ public class GUIFormPavilion extends UIimp {
         try {
             String capacity = capacityField.getText();
             String m2_total = m2totField.getText();
-            Tpabellon tPabellon = new Tpabellon(Integer.parseInt(capacity), Integer.parseInt(m2_total), true);
 
-
-            if (!mod)  Controller.getInstance().execute(Event.INSERT_PAVILION, tPabellon);
-            else Controller.getInstance().execute(Event.MODIFY_PAVILION, tPabellon);
+            if (!mod)  Controller.getInstance().execute(Event.INSERT_PAVILION, new Tpabellon(Integer.parseInt(capacity), Integer.parseInt(m2_total), true));
+            else Controller.getInstance().execute(Event.MODIFY_PAVILION, new Tpabellon(idPavilion ,Integer.parseInt(capacity), Integer.parseInt(m2_total), true));
 
         }catch (NumberFormatException e){
-            throw new NumberFormatException("Debes insertar un numero valido en los campos." + ActionHelp.strHelpBasic());
+            throw new NumberFormatException("You have to insert a valid number in the fields." + ActionHelp.strHelpBasic());
         }
     }
 
@@ -172,7 +144,6 @@ public class GUIFormPavilion extends UIimp {
 
         JLabel aforoLabel = createLabel("Capacity:");
         JLabel m2totLabel = createLabel("Total square-metres:");
-        JLabel m2utilesLabel = createLabel("Useful square-metres:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
@@ -183,9 +154,6 @@ public class GUIFormPavilion extends UIimp {
         formCon.gridx = 0;
         formCon.gridy = 1;
         formPanel.add(m2totLabel, formCon);
-        formCon.gridx = 0;
-        formCon.gridy = 2;
-        formPanel.add(m2utilesLabel, formCon);
 
         capacityField = setupTextField();
         capacityField.setMinimumSize(minDim);
@@ -198,27 +166,6 @@ public class GUIFormPavilion extends UIimp {
         m2totField.setPreferredSize(prefDim);
         m2totField.setMaximumSize(maxDim);
         m2totField.setText(m2tot);
-
-        //===== JComboBox =====
-
-        UIManager.put("JTextField.background", new ColorUIResource(cComboBoxInactive));
-        UIManager.put("ComboBox.selectionBackground", new ColorUIResource(cComboBoxActive));
-        UIManager.put("ComboBox.selectionForeground", new ColorUIResource(cComboBoxSelectedFont));
-        UIManager.put("ComboBox.disabledBackground", new ColorUIResource(cComboBoxInactive));
-        UIManager.put("ComboBox.disabledForeground", new ColorUIResource(cComboBoxFont));
-
-        comboBoxCreate = new JComboBox<>();
-        comboBoxCreate.getEditor().getEditorComponent().setBackground(cComboBoxActive);
-        comboBoxCreate.setFont(fComboBox);
-        comboBoxCreate.setForeground(cComboBoxFont);
-        comboBoxCreate.setMinimumSize(new Dimension(200, 50));
-        comboBoxCreate.setMaximumSize(new Dimension(800, 50));
-
-        comboBoxCreate.addItem("National");
-        comboBoxCreate.addItem("International");
-
-        comboBoxCreate.setBorder(BorderFactory.createEmptyBorder(0,0, 20, 0));
-        formPanel.add(comboBoxCreate);
 
         formCon.anchor = GridBagConstraints.WEST;
 
@@ -342,6 +289,7 @@ public class GUIFormPavilion extends UIimp {
 
     @Override
     public void update(int event, Object data) {
-
+        //JOptionPane.showMessageDialog(null, "The Pavilion has been created successfully");
+        //JOptionPane.showMessageDialog(null, "A problem in the creation process occurred, insert Pavilion's data another time please", "Error", JOptionPane.ERROR_MESSAGE);
     }
 }

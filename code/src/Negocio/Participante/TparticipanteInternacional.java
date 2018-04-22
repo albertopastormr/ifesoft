@@ -1,5 +1,6 @@
 package Negocio.Participante;
 
+
 public class TparticipanteInternacional extends Tparticipante {
 	private String country;
 

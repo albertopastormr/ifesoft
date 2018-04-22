@@ -14,8 +14,8 @@ import static org.junit.Assert.*;
 
 public class DAOFeriaImpTest {
 
-	private static Tferia tferiaTest1 = new Tferia("FITUR","Feria internacional turismo",new Date(117,0,4),new Date(117,0,4),true);
-	private static Tferia tferiaTest2 = new Tferia("VINECT","Feria internacional vinos",new Date(117,9,28),new Date(117,10,4),true);
+	private static Tferia tferiaTest1 = new Tferia(1,"FITUR","Feria internacional turismo",new Date(117,0,4),new Date(117,0,4),true);
+	private static Tferia tferiaTest2 = new Tferia(2,"VINECT","Feria internacional vinos",new Date(117,9,28),new Date(117,10,4),true);
 
 	@Before
 	public  void setUp() throws Exception {
@@ -34,8 +34,6 @@ public class DAOFeriaImpTest {
 		int out_id2 = dao.create(tferiaTest2);
 		assertNotEquals(-1, out_id2);
 		assertEquals(2,out_id2);
-		dao.delete(out_id);
-		dao.delete(out_id2);
 	}
 	
 	@Test
@@ -43,6 +41,8 @@ public class DAOFeriaImpTest {
 			ArrayList<Tferia> out_list = new ArrayList<Tferia>();
 			ArrayList<Tferia> testList = new ArrayList<Tferia>();
 			DAOFeriaImp dao = new DAOFeriaImp();
+			tferiaTest1.setActive(true);
+			tferiaTest2.setActive(true);
 			dao.create(tferiaTest1);
 			dao.create(tferiaTest2);
 			out_list = (ArrayList<Tferia>) dao.readAll();
@@ -50,7 +50,6 @@ public class DAOFeriaImpTest {
 			testList.add(tferiaTest2);
 			for(int i = 0; i < testList.size();++i)
 				tferiaEquals(testList.get(i),out_list.get(i));
-			dao.deleteAll();
 	}
 
 	
@@ -61,11 +60,10 @@ public class DAOFeriaImpTest {
 		DAOFeriaImp dao = new DAOFeriaImp();
 
 		int out_id = dao.create(tferiaTest1);
+		assertEquals(out_id,tferiaTest1.getId());
 		Tferia read = dao.readByName(tferiaTest1.getName());
-
+		assertEquals(out_id, read.getId());
 		tferiaEquals(tferiaTest1, read);
-
-		dao.delete(out_id);
 	}
 	
 	@Test
@@ -80,7 +78,6 @@ public class DAOFeriaImpTest {
 		out_list = (ArrayList<Tferia>) dao.readByDates(tferiaTest1.getIniDate(), tferiaTest2.getEndDate());
 		for(int i = 0; i < out_list.size();++i) 
 			tferiaEquals(testList.get(i),out_list.get(i));
-		dao.deleteAll();
 	}
 	@Test
 	public void readById() throws Exception {
@@ -88,11 +85,11 @@ public class DAOFeriaImpTest {
 		DAOFeriaImp dao = new DAOFeriaImp();
 
 		int out_id = dao.create(tferiaTest1);
-		Tferia read = dao.readById(1);
+		assertEquals(out_id,tferiaTest1.getId());
+		Tferia read = dao.readById(out_id);
+		assertEquals(out_id,read.getId());
 
 		tferiaEquals(tferiaTest1, read);
-
-		dao.delete(out_id);
 	}
 
 	@Test

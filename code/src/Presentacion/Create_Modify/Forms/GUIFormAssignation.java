@@ -4,7 +4,6 @@ import Negocio.Asignacion.Tasignacion;
 import Controller.Controller;
 import Presentacion.Events.Event;
 import Presentacion.UI;
-import Presentacion.UIimp;
 import Presentacion.Utils.ActionHelp;
 import Presentacion.Utils.PanelProblemUser;
 
@@ -12,7 +11,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIFormAssignation extends UIimp {
+public class GUIFormAssignation extends JFrame implements UI {
 
     private String metres;
 
@@ -22,12 +21,10 @@ public class GUIFormAssignation extends UIimp {
 
     private JLabel title;
     private JPanel formContainer;
-    private JTextField metresField;
     private JTextField idFairField;
     private JTextField idPavilionField;
-    private JTextField idStandField;
+    private JTextField metresTotalField;
     private JPanel buttonBar;
-
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
     private Font fLabel = new Font(Font.DIALOG, Font.PLAIN, 30);
@@ -39,18 +36,10 @@ public class GUIFormAssignation extends UIimp {
     private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
 
-    String helpMessage = "<html><head><link href=\"popup.css\" rel=\"stylesheet\" type=\"text/css\"><script>\n" +
-            "// When the user clicks on <div>, open the popup\n" +
-            "function myFunction() {\n" +
-            "    var popup = document.getElementById(\"myPopup\");\n" +
-            "    popup.classList.toggle(\"show\");\n" +
-            "}\n" +
-            "</script>" +
-            "</head>" +
-            "<body>" +
-            "<div class=\"popup\" onclick=\"myFunction()\">HELP\n" +
-            "  <span class=\"popuptext\" id=\"myPopup\">Here you can insert Assignation's data just by inserting them into the text areas, then click 'Next' to continue or 'Cancel' to go back. </span>\n" +
-            "</div></body></html>";
+    String helpMessage = "<html><h1>ASSIGNATION INFO</1>Here you can <b>insert</b> <u>Assignation</u>'s " +
+            "data just by inserting them into" +
+            " the text areas, then click <b>'Next'</b> to continue or <b>'Cancel'</b> to go back." +
+            " </html>";
 
     public GUIFormAssignation() {
         mod = false;
@@ -72,12 +61,11 @@ public class GUIFormAssignation extends UIimp {
 
     private void createButtonFormActionPerformed() throws Exception {
         this.setVisible(false);
-        int mUsed = Integer.valueOf(metresField.getText());
         int idFair = Integer.valueOf(idFairField.getText());
         int idPavilion = Integer.valueOf(idPavilionField.getText());
-        int idStand = Integer.valueOf(idStandField.getText());
+        int mTotal = Integer.valueOf(metresTotalField.getText());
 
-        Tasignacion tAssignation = new Tasignacion(idFair, idPavilion, idStand, mUsed, true);
+        Tasignacion tAssignation = new Tasignacion(idFair, idPavilion, mTotal, 0, true);
 
         if (!mod)  Controller.getInstance().execute(Event.INSERT_ASSIGNATION, tAssignation);
         else Controller.getInstance().execute(Event.MODIFY_ASSIGNATION, tAssignation);
@@ -143,32 +131,23 @@ public class GUIFormAssignation extends UIimp {
         formCon.anchor = GridBagConstraints.EAST;
 
 
-        JLabel metresLabel = createLabel("Metres:");
         JLabel idFairLabel = createLabel("Fair ID:");
         JLabel idPavilionLabel = createLabel("Pavilion ID:");
-        JLabel idStandLabel = createLabel("Stand ID:");
+        JLabel metresUsedLabel = createLabel("Assignate metres:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
 
+
         formCon.gridx = 0;
         formCon.gridy = 0;
-        formPanel.add(metresLabel, formCon);
-        formCon.gridx = 0;
-        formCon.gridy = 1;
         formPanel.add(idFairLabel, formCon);
         formCon.gridx = 0;
-        formCon.gridy = 2;
+        formCon.gridy = 1;
         formPanel.add(idPavilionLabel, formCon);
         formCon.gridx = 0;
-        formCon.gridy = 3;
-        formPanel.add(idStandLabel, formCon);
-
-        metresField = setupTextField();
-        metresField.setMinimumSize(minDim);
-        metresField.setPreferredSize(prefDim);
-        metresField.setMaximumSize(maxDim);
-        metresField.setText(metres);
+        formCon.gridy = 2;
+        formPanel.add(metresUsedLabel, formCon);
 
         idFairField = setupTextField();
         idFairField.setMinimumSize(minDim);
@@ -184,12 +163,12 @@ public class GUIFormAssignation extends UIimp {
         String idPavilion = "";
         idPavilionField.setText(idPavilion);
 
-        idStandField = setupTextField();
-        idStandField.setMinimumSize(minDim);
-        idStandField.setPreferredSize(prefDim);
-        idStandField.setMaximumSize(maxDim);
+        metresTotalField = setupTextField();
+        metresTotalField.setMinimumSize(minDim);
+        metresTotalField.setPreferredSize(prefDim);
+        metresTotalField.setMaximumSize(maxDim);
         String idStand = "";
-        idStandField.setText(idStand);
+        metresTotalField.setText(idStand);
 
         formCon.anchor = GridBagConstraints.WEST;
 
@@ -197,16 +176,13 @@ public class GUIFormAssignation extends UIimp {
 
         formCon.gridx = 1;
         formCon.gridy = 0;
-        formPanel.add(metresField, formCon);
-        formCon.gridx = 1;
-        formCon.gridy = 1;
         formPanel.add(idFairField, formCon);
         formCon.gridx = 1;
-        formCon.gridy = 2;
+        formCon.gridy = 1;
         formPanel.add(idPavilionField, formCon);
         formCon.gridx = 1;
-        formCon.gridy = 3;
-        formPanel.add(idStandField, formCon);
+        formCon.gridy = 2;
+        formPanel.add(metresTotalField, formCon);
         formContainer.add(formPanel);
     }
 
@@ -316,6 +292,8 @@ public class GUIFormAssignation extends UIimp {
 
     @Override
     public void update(int event, Object data) {
-
+        //JOptionPane.showMessageDialog(null,"The Assignation has been created successfully");
+        //JOptionPane.showMessageDialog(null, "A problem in the creation process occurred, insert Assignation's data another time please", "Error",
+        //                            JOptionPane.ERROR_MESSAGE);
     }
 }

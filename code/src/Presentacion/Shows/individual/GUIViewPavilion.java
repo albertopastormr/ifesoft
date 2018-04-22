@@ -2,17 +2,15 @@ package Presentacion.Shows.individual;
 
 import Negocio.Pabellon.Tpabellon;
 import Presentacion.UI;
-import Presentacion.UIimp;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIViewPavilion extends UIimp {
+public class GUIViewPavilion extends JFrame implements UI {
 
     private String capacity;
     private String m2tot;
-    private String m2util;
     private String id;
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
@@ -26,21 +24,15 @@ public class GUIViewPavilion extends UIimp {
     private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
 
     private Color cBackButton = new Color(146, 35, 59);
+    private Color cHelpButton = new Color(66,35,146);
 
     /*
     SOLO PARA DEPURAR
      */
-    public GUIViewPavilion() {
-
-        capacity = "7";
-        m2tot = "420";
-        m2util = "69";
-        id = "1";
-
-        initComponents();
-        this.setBounds(100,100, 800,800);
-        this.setVisible(true);
-    }
+    String helpMessage = "<html><h1>SHOW INDIVIDUAL PAVILION HELP</h1>Here you have the possibility to" +
+            "<b>See</b> the data of the specific <u>Pavilion</u> that you chose" +
+            "</html>" +
+            "";
 
     public GUIViewPavilion(Tpabellon tpabellon) {
 
@@ -57,6 +49,10 @@ public class GUIViewPavilion extends UIimp {
         this.setVisible(false);
 
         //TODO
+    }
+
+    private void helpButtonActionPerformed(ActionEvent e) {
+        new Presentacion.Utils.ActionHelp(helpMessage);
     }
 
     private void setupTitle(){
@@ -101,7 +97,6 @@ public class GUIViewPavilion extends UIimp {
 
         JLabel aforoLabel = createLabel("Capacity:");
         JLabel m2totLabel = createLabel("Total square-metres:");
-        JLabel m2utilesLabel = createLabel("Useful square-metres:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
@@ -112,9 +107,6 @@ public class GUIViewPavilion extends UIimp {
         formCon.gridx = 0;
         formCon.gridy = 1;
         formPanel.add(m2totLabel, formCon);
-        formCon.gridx = 0;
-        formCon.gridy = 2;
-        formPanel.add(m2utilesLabel, formCon);
 
         JLabel aforoField = createLabel(capacity);
         aforoField.setMinimumSize(minDim);
@@ -126,10 +118,6 @@ public class GUIViewPavilion extends UIimp {
         m2totField.setPreferredSize(prefDim);
         m2totField.setMaximumSize(maxDim);
 
-        JLabel m2utilesField = createLabel(m2util);
-        m2utilesField.setMinimumSize(minDim);
-        m2utilesField.setPreferredSize(prefDim);
-        m2utilesField.setMaximumSize(maxDim);
 
         formCon.anchor = GridBagConstraints.WEST;
 
@@ -141,9 +129,6 @@ public class GUIViewPavilion extends UIimp {
         formCon.gridx = 1;
         formCon.gridy = 1;
         formPanel.add(m2totField, formCon);
-        formCon.gridx = 1;
-        formCon.gridy = 2;
-        formPanel.add(m2utilesField, formCon);
         formContainer.add(formPanel);
     }
 
@@ -171,7 +156,19 @@ public class GUIViewPavilion extends UIimp {
         buttonBar.setLayout(layout);
         buttonBar.add(backButton);
 
-
+        //---- helpButton ----
+        JButton helpButton = new JButton();
+        helpButton.setText("Help");
+        helpButton.setFont(fButton);
+        helpButton.setBackground(cHelpButton);
+        helpButton.setForeground(Color.WHITE);
+        helpButton.setPreferredSize(buttonDim);
+        helpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                helpButtonActionPerformed(e);
+            }
+        });
 
     }
 

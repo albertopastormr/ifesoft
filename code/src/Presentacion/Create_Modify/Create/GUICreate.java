@@ -2,9 +2,7 @@ package Presentacion.Create_Modify.Create;
 
 import Controller.Controller;
 import Presentacion.Events.Event;
-import Presentacion.Events.EventGUI;
 import Presentacion.UI;
-import Presentacion.UIimp;
 import Presentacion.Utils.ActionHelp;
 import Presentacion.Utils.PanelProblemUser;
 
@@ -14,7 +12,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class GUICreate extends UIimp {
+public class GUICreate extends JFrame implements UI {
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
@@ -40,18 +38,10 @@ public class GUICreate extends UIimp {
     private Color cComboBoxSelectedFont = new Color(52, 56, 58);
     private Color cTextFieldBG = new Color(243,243,243);
 
-    String helpMessage = "<html><head><link href=\"popup.css\" rel=\"stylesheet\" type=\"text/css\"><script>\n" +
-            "// When the user clicks on <div>, open the popup\n" +
-            "function myFunction() {\n" +
-            "    var popup = document.getElementById(\"myPopup\");\n" +
-            "    popup.classList.toggle(\"show\");\n" +
-            "}\n" +
-            "</script>" +
-            "</head>" +
-            "<body>" +
-            "<div class=\"popup\" onclick=\"myFunction()\">HELP\n" +
-            "  <span class=\"popuptext\" id=\"myPopup\">Here you have the possibility to Create a Fair or other entities that you can choose by clicking on the comboBox.<br>Click 'Next' to confirm or 'Cancel' to go back to the previous page. </span>\n" +
-            "</div></body></html>";
+    String helpMessage = "<html><h1>CREATE PAGE HELP</1>Here you have the possibility to <b>Create</b> a <u>Fair</u>" +
+            " or other entities that you can choose by clicking on the comboBox." +
+            "<br>Click <b>'Next'</b> to confirm or <b>'Cancel'</b> to go back to the previous page." +
+            "</html>";
 
     public GUICreate() {
         initComponents();
@@ -64,11 +54,11 @@ public class GUICreate extends UIimp {
         switch (String.valueOf(comboBoxCreate.getSelectedItem())){
             case "Fair":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_FERIA, null);
+                Controller.getInstance().execute(Event.INSERT_FORM_FAIR, null);
                 break;
             case "Pavilion":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_PABELLON, null);
+                Controller.getInstance().execute(Event.INSERT_FORM_PAVILION, null);
                 break;
             case "Stand":
                 this.setVisible(false);
@@ -76,20 +66,17 @@ public class GUICreate extends UIimp {
                 break;
             case "Client":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_PARTICIPANTE, null);
+                Controller.getInstance().execute(Event.INSERT_FORM_CLIENT, null);
                 break;
             case "Assignation":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_ASIGNACION, null);
+                Controller.getInstance().execute(Event.INSERT_FORM_ASSIGNATION, null);
                 break;
             case "Participation":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_PARTICIPANTE, null);
+                Controller.getInstance().execute(Event.INSERT_FORM_PARTICIPATION, null);
                 break;
-
         }
-
-
     }
 
     private void backButtonActionPerformed() throws Exception {
@@ -99,6 +86,7 @@ public class GUICreate extends UIimp {
     }
 
     private void helpButtonHalfCreateActionPerformed() {
+
         new ActionHelp(helpMessage);
     }
 
@@ -264,5 +252,10 @@ public class GUICreate extends UIimp {
         contentPane.add(dialogPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
+    }
+
+    @Override
+    public void update(int event, Object data) {
+
     }
 }

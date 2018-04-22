@@ -9,7 +9,6 @@ import Negocio.Stand.Tstand;
 import Controller.Controller;
 import Presentacion.Events.Event;
 import Presentacion.UI;
-import Presentacion.UIimp;
 import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
@@ -18,7 +17,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class GUIModify extends UIimp {
+public class GUIModify extends JFrame implements UI {
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
@@ -43,6 +42,11 @@ public class GUIModify extends UIimp {
     private Color cComboBoxSelectedFont = new Color(52, 56, 58);
     private Color cTextFieldBG = new Color(243,243,243);
 
+    String helpMessage = "<html><h1>MODIFY PAGE HELP</1>Here you have the possibility to <b>Modify</b> a <u>Fair</u>" +
+            " or other entities that you can choose by clicking on the comboBox." +
+            "<br>Click <b>'Next'</b> to confirm or <b>'Cancel'</b> to go back to the previous page." +
+            "</html>";
+
     public GUIModify() {
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -54,33 +58,27 @@ public class GUIModify extends UIimp {
         switch (String.valueOf(comboBoxMod.getSelectedItem())){
             case "Fair":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_FERIA,
-                        new Tferia( Integer.parseInt(textID.getText()) ,null,null ,null ,null, null));
+                Controller.getInstance().execute(Event.MODIFY_FORM_FAIR, Integer.parseInt(textID.getText()));
                 break;
             case "Pavilion":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_PABELLON,
-                        new Tpabellon(Integer.parseInt(textID.getText()) ,-1,-1 ,null));
-                break;
-            case "Stand":
-                this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_STAND,
-                        new Tstand(Integer.parseInt(textID.getText()), -1, -1, -1, -1, null));
+                Controller.getInstance().execute(Event.MODIFY_FORM_PAVILION, Integer.parseInt(textID.getText()));
                 break;
             case "Client":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_PARTICIPANTE,
-                        new Tparticipante(Integer.parseInt(textID.getText()) ,null ,-1 ,null));
+                Controller.getInstance().execute(Event.MODIFY_FORM_CLIENT, Integer.parseInt(textID.getText()));
                 break;
             case "Assignation":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_ASIGNACION,
-                        new Tasignacion(Integer.parseInt(textID.getText()) ,-1 ,-1 ,-1 ,null));
+                Controller.getInstance().execute(Event.MODIFY_FORM_ASSIGNATION, Integer.parseInt(textID.getText()));
                 break;
             case "Participation":
                 this.setVisible(false);
-                Controller.getInstance().execute(Event.INSERT_FORM_PARTICIPACION,
-                        new Tparticipacion(Integer.parseInt(textID.getText()) ,-1 ,-1 ,null));
+                Controller.getInstance().execute(Event.MODIFY_FORM_PARTICIPATION, Integer.parseInt(textID.getText()));
+                break;
+            case "Stand":
+                this.setVisible(false);
+                Controller.getInstance().execute(Event.MODIFY_FORM_STAND, Integer.parseInt(textID.getText()));
                 break;
 
         }
@@ -91,8 +89,9 @@ public class GUIModify extends UIimp {
         Controller.getInstance().execute(Event.HOME, null);
     }
 
-    private void helpButtonActionPerformed(ActionEvent e) {
+    private void helpButtonHalfCreateActionPerformed() {
 
+        new Presentacion.Utils.ActionHelp(helpMessage);
     }
 
 
@@ -130,7 +129,7 @@ public class GUIModify extends UIimp {
 
         comboBoxMod.addItem("Assignation");
         comboBoxMod.addItem("Fair");
-        comboBoxMod.addItem("Participant");
+        comboBoxMod.addItem("Client");
         comboBoxMod.addItem("Pavilion");
         comboBoxMod.addItem("Participation");
         comboBoxMod.addItem("Stand");
@@ -195,7 +194,7 @@ public class GUIModify extends UIimp {
         helpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                helpButtonActionPerformed(e);
+                //helpButtonActionPerformed(e);
             }
         });
 
