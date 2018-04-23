@@ -90,7 +90,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 			ResultSet rs = ps.executeQuery();
 			ps.close();
 			while (rs.next())
-				readAsignacionList.add( new Tasignacion( rs.getInt("fair_id"), rs.getInt("pavilion_id"), rs.getInt("total_m2"), rs.getInt("used_m2"), rs.getBoolean("active") ) );
+				readAsignacionList.add( new Tasignacion(rs.getInt("id"), rs.getInt("fair_id"), rs.getInt("pavilion_id"), rs.getInt("total_m2"), rs.getInt("used_m2"), rs.getBoolean("active") ) );
 		}
 		catch (SQLException e){
 			throw new DAOException("ERROR: tratamiento DB para 'readAll' no logrado\n");
@@ -133,7 +133,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 			ps.close();
 
 			while (rs.next()){
-				readAsignacionList.add(new Tasignacion( rs.getInt("fair_id"), rs.getInt("pavilion_id"), rs.getInt("total_m2"), rs.getInt("used_m2"), rs.getBoolean("active") ) );
+				readAsignacionList.add(new Tasignacion(rs.getInt("id"), rs.getInt("fair_id"), rs.getInt("pavilion_id"), rs.getInt("total_m2"), rs.getInt("used_m2"), rs.getBoolean("active") ) );
 			}
 		}
 		catch (SQLException e){
@@ -178,7 +178,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 			ps.close();
 
 			while (rs.next()){
-				readAsignacionList.add(new Tasignacion( rs.getInt("fair_id"), rs.getInt("pavilion_id"), rs.getInt("total_m2"), rs.getInt("used_m2"), rs.getBoolean("active") ) );
+				readAsignacionList.add(new Tasignacion(rs.getInt("id"), rs.getInt("fair_id"), rs.getInt("pavilion_id"), rs.getInt("total_m2"), rs.getInt("used_m2"), rs.getBoolean("active") ) );
 			}
 		}
 		catch (SQLException e){
@@ -223,7 +223,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 			ps.close();
 
 			while (rs.next()){
-				readAsignacionList.add( new Tasignacion( rs.getInt("fair_id"), rs.getInt("pavilion_id"), rs.getInt("total_m2"), rs.getInt("used_m2"), rs.getBoolean("active") )) ;
+				readAsignacionList.add( new Tasignacion(rs.getInt("id"), rs.getInt("fair_id"), rs.getInt("pavilion_id"), rs.getInt("total_m2"), rs.getInt("used_m2"), rs.getBoolean("active") )) ;
 			}
 		}
 		catch (SQLException e){
@@ -267,7 +267,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 			ps.close();
 
 			if (rs.next()){
-				read = new Tasignacion( rs.getInt("fair_id"), rs.getInt("pavilion_id"), rs.getInt("total_m2"), rs.getInt("used_m2"), rs.getBoolean("active")) ;
+				read = new Tasignacion(rs.getInt("id"), rs.getInt("fair_id"), rs.getInt("pavilion_id"), rs.getInt("total_m2"), rs.getInt("used_m2"), rs.getBoolean("active")) ;
 			}
 		}
 		catch (SQLException e){

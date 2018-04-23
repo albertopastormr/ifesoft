@@ -328,12 +328,12 @@ public class GUIShow extends JFrame implements UI {
             case "Assignation":
                 this.setVisible(false);
                 if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_ASSIGANTION_FAIR ,Integer.parseInt(textID.getText()));
-                else Controller.getInstance().execute(Event.SHOW_ASSIGNATION_PAVILION, new Tasignacion(-1 , Integer.parseInt(textID.getText()), -1 , -1, null));
+                else Controller.getInstance().execute(Event.SHOW_ASSIGNATION_PAVILION, Integer.parseInt(textID.getText()));
                 break;
             case "Participation":
                 this.setVisible(false);
                 if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_PARTICIPATION_FAIR ,Integer.parseInt(textID.getText()));
-                else Controller.getInstance().execute(Event.SHOW_PARTICIPATION_CLIENT, new Tparticipacion(-1 , Integer.parseInt(textID.getText()), -1 , null));
+                else Controller.getInstance().execute(Event.SHOW_PARTICIPATION_CLIENT, Integer.parseInt(textID.getText()));
                 break;
             case "Stand":
                 this.setVisible(false);
