@@ -1,53 +1,225 @@
 package Presentacion.Shows.List;
 
+import Controller.Controller;
 import Negocio.Participacion.Tparticipacion;
+import Presentacion.Events.Event;
 import Presentacion.UI;
+import Presentacion.Utils.PanelProblemUser;
+
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Collection;
 
 public class GUIListParticipation extends JFrame implements UI{
 
-    String[] columnNames = {"ID FAIR","ID CLIENT","ID STAND","USED M2"};
-    Object[][] data;
+    private String[] columnNames = {"ID FAIR","ID CLIENT","ID STAND","USED M2"};
+    private Object[][] data;
 
-    Collection<Tparticipacion> tparticipation;
+    private Collection<Tparticipacion> participation;
 
 
-    public GUIListParticipation(Collection<Tparticipacion> tassignation){
-        super();
-        this.tparticipation = tassignation;
-        this.initGUI();
+    private Dimension minScreenSize = new Dimension(1600, 1000);
+
+    private JPanel centerPanel;
+    private JPanel buttonBar;
+    private JLabel title;
+
+    private Font fTitle  = new Font(Font.MONOSPACED, Font.BOLD, 80);
+    private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
+    private Font fTable = new Font(Font.DIALOG, Font.PLAIN, 24);
+
+    private Color cHelpButton = new Color(66,35,146);
+    private Color cCancelButton = new Color(146, 35, 59);
+
+    public GUIListParticipation(Collection<Tparticipacion> participation){
+        super("List Participation");
+        this.participation = participation;
+        this.initComponents();
     }
 
-    private void initGUI() {
-        JFrame.setDefaultLookAndFeelDecorated(true);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    private void cancelButtonActionPerformed(ActionEvent e) throws Exception {
+        this.setVisible(false);
+        Controller.getInstance().execute(Event.HOME, null);
+    }
 
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
-
-        this.data = new Object[tparticipation.size()][columnNames.length];
-
-        changeTransferToCollection(tparticipation);
-
-        new GUITableList(mainPanel, columnNames, data);
-
-        this.add(mainPanel);
-        this.pack();
-        this.setVisible(true);
+    private void helpButtonActionPerformed(ActionEvent e) {
 
     }
 
-    public void changeTransferToCollection(Collection<Tparticipacion> transfer) {
+    private void changeTransferToCollection(Collection<Tparticipacion> transfer) {
         int i = 0;
 
-        for (Tparticipacion tparticipation: transfer){
-            this.data[i][0] = tparticipation.getId();
-            this.data[i][1] = tparticipation.getFair_id();
-            this.data[i][2] = tparticipation.getClient_id();
+        for (Tparticipacion tParticipation: transfer){
+            this.data[i][0] = tParticipation.getId();
+            this.data[i][1] = tParticipation.getFair_id();
+            this.data[i][2] = tParticipation.getClient_id();
             i++;
         }
 
+    }
+
+    private void setUpTitle(){
+
+        title = new JLabel();
+        title .setText("List Participation");
+        title .setFont(fTitle);
+        title .setHorizontalAlignment(JLabel.CENTER);
+        title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
+
+    }
+
+    private void setUpButtonBar(){
+
+        Dimension buttonDim = new Dimension(150, 80);
+
+        //---- cancelButton ----
+        JButton cancelButton = new JButton();
+        cancelButton.setText("Cancel");
+        cancelButton.setFont(fButton);
+        cancelButton.setBackground(cCancelButton);
+        cancelButton.setForeground(Color.WHITE);
+        cancelButton.setPreferredSize(buttonDim);
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    cancelButtonActionPerformed(e);
+                }catch (Exception e1){
+                    new PanelProblemUser(e1.getMessage());
+                }
+            }
+        });
+
+
+        //---- helpButton ----
+        JButton helpButton = new JButton();
+        helpButton.setText("Help");
+        helpButton.setFont(fButton);
+        helpButton.setBackground(cHelpButton);
+        helpButton.setForeground(Color.WHITE);
+        helpButton.setPreferredSize(buttonDim);
+        helpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                helpButtonActionPerformed(e);
+            }
+        });
+
+
+        buttonBar = new JPanel();
+        FlowLayout layout = new FlowLayout();
+        layout.setHgap(25);
+        buttonBar.setLayout(layout);
+        buttonBar.add(cancelButton);
+        buttonBar.add(helpButton);
+        buttonBar.add(Box.createHorizontalStrut(500));
+
+
+
+    }
+
+    private void setUpCenter(){
+        centerPanel = new JPanel();
+        this.data = new Object[participation.size()][columnNames.length];
+
+        changeTransferToCollection(participation);
+
+        JTable table = new JTable(data, columnNames);
+
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+
+
+
+        table.setDefaultRenderer(Object.class, centerRenderer);
+        table.setFont(fTable);
+        int rowHeight = 50;
+        table.setRowHeight(rowHeight);
+        table.getTableHeader().setFont(fTable);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        for(int i=0;i<table.getColumnCount();i++){
+            DefaultTableColumnModel colModel = (DefaultTableColumnModel) table.getColumnModel();
+            TableColumn col = colModel.getColumn(i);
+            int width = 0;
+
+            TableCellRenderer renderer = col.getHeaderRenderer();
+            if (renderer == null) {
+                renderer = table.getTableHeader().getDefaultRenderer();
+            }
+            Component comp = renderer.getTableCellRendererComponent(table, col.getHeaderValue(), false,
+                    false, 0, 0);
+            width = comp.getPreferredSize().width + 10;
+            col.setPreferredWidth(width+2);
+        }
+        table.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        table.setFocusable(false);
+        table.setRowSelectionAllowed(false);
+
+        JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setPreferredSize(new Dimension(468, 500));
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        centerPanel.add(scrollPane);
+    }
+
+    private void initComponents() {
+
+        //======== this ========
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        Container contentPane = getContentPane();
+        contentPane.setLayout(new BorderLayout());
+
+        ImageIcon img = new ImageIcon("Resources//Icon.png");
+        this.setIconImage(img.getImage());
+
+        //======== dialogPanel ========
+
+        JPanel dialogPanel = new JPanel();
+        dialogPanel.setBorder(new LineBorder(Color.BLUE));
+        dialogPanel.setBorder(new EmptyBorder(50, 50, 80, 50));
+        this.setMinimumSize(minScreenSize);
+
+        // JFormDesigner evaluation mark
+        dialogPanel.setBorder(new javax.swing.border.CompoundBorder(
+                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                        "", javax.swing.border.TitledBorder.CENTER,
+                        javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font(Font.DIALOG, java.awt.Font.BOLD, 12),
+                        java.awt.Color.red), dialogPanel.getBorder()));
+        dialogPanel.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent e) {
+                if ("border".equals(e.getPropertyName())) throw new RuntimeException();
+            }
+        });
+
+        dialogPanel.setLayout(new BorderLayout());
+
+        //======== Title ========
+        setUpTitle();
+        dialogPanel.add(title, BorderLayout.PAGE_START);
+
+        //======== contentPanel ========
+
+        setUpCenter();
+        dialogPanel.add(centerPanel, BorderLayout.CENTER);
+
+        //========= ButtonBar ========
+
+        setUpButtonBar();
+        dialogPanel.add(buttonBar, BorderLayout.PAGE_END);
+
+        contentPane.add(dialogPanel, BorderLayout.CENTER);
+        this.setVisible(true);
+        pack();
+        setLocationRelativeTo(getOwner());
     }
 
     @Override

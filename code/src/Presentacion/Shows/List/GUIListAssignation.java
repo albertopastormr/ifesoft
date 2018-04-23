@@ -36,6 +36,7 @@ public class GUIListAssignation extends JFrame implements UI {
     private Color cCancelButton = new Color(146, 35, 59);
 
     public GUIListAssignation(Collection<Tasignacion> assignation){
+        super("List Assignation");
         this.assignation = assignation;
         this.initComponents();
     }

@@ -27,18 +27,16 @@ public class GUIListPavilions extends JFrame implements UI {
     private JPanel centerPanel;
     private JPanel buttonBar;
     private JLabel title;
-    private JPanel dialogPanel;
 
     private Font fTitle  = new Font(Font.MONOSPACED, Font.BOLD, 80);
     private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
     private Font fTable = new Font(Font.DIALOG, Font.PLAIN, 24);
 
-    private int rowHeight = 50;
-
     private Color cHelpButton = new Color(66,35,146);
     private Color cCancelButton = new Color(146, 35, 59);
 
     public GUIListPavilions(Collection<Tpabellon> tpavilions){
+        super("List Pavilions");
         this.tPavilions = tpavilions;
         this.initComponents();
     }
@@ -141,6 +139,7 @@ public class GUIListPavilions extends JFrame implements UI {
 
         table.setDefaultRenderer(Object.class, centerRenderer);
         table.setFont(fTable);
+        int rowHeight = 50;
         table.setRowHeight(rowHeight);
         table.getTableHeader().setFont(fTable);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -148,7 +147,7 @@ public class GUIListPavilions extends JFrame implements UI {
         for(int i=0;i<table.getColumnCount();i++){
             DefaultTableColumnModel colModel = (DefaultTableColumnModel) table.getColumnModel();
             TableColumn col = colModel.getColumn(i);
-            int width = 0;
+            int width;
 
             TableCellRenderer renderer = col.getHeaderRenderer();
             if (renderer == null) {
@@ -159,10 +158,12 @@ public class GUIListPavilions extends JFrame implements UI {
             width = comp.getPreferredSize().width + 10;
             col.setPreferredWidth(width+2);
         }
+        table.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        table.setFocusable(false);
+        table.setRowSelectionAllowed(false);
 
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setLayout(new BoxLayout(scrollPane, BoxLayout.Y_AXIS));
-        //scrollPane.setPreferredSize(new Dimension(this.getWidth(), 750));
+        JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setPreferredSize(new Dimension(480, 500));
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         centerPanel.add(scrollPane);
     }
@@ -179,7 +180,7 @@ public class GUIListPavilions extends JFrame implements UI {
 
         //======== dialogPanel ========
 
-        dialogPanel = new JPanel();
+        JPanel dialogPanel = new JPanel();
         dialogPanel.setBorder(new LineBorder(Color.BLUE));
         dialogPanel.setBorder(new EmptyBorder(50, 50, 80, 50));
         this.setMinimumSize(minScreenSize);
