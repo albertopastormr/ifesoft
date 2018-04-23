@@ -20,7 +20,7 @@ import java.util.Collection;
 
 public class GUIListParticipation extends JFrame implements UI{
 
-    private String[] columnNames = {"ID FAIR","ID CLIENT","ID STAND","USED M2"};
+    private String[] columnNames = {"ID", "ID FAIR","ID CLIENT"};
     private Object[][] data;
 
     private Collection<Tparticipacion> participation;

@@ -1,20 +1,19 @@
 package Presentacion.Shows.individual;
 
-import Negocio.Stand.Tstand;
+import Negocio.Participacion.Tparticipacion;
+import Negocio.Participante.Tparticipante;
 import Presentacion.UI;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIViewStand extends JFrame implements UI {
+public class GUIViewParticipation extends JFrame implements UI {
 
-    private String metres;
-    private String number;
-    private String cost;
-    private String id;
-    private String assignation;
-    private String participation;
+
+    private int id;
+    private int idFair;
+    private int idClient;
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
@@ -30,27 +29,23 @@ public class GUIViewStand extends JFrame implements UI {
     private Color cBackButton = new Color(146, 35, 59);
     private Color cHelpButton = new Color(66,35,146);
 
-    String helpMessage = "<html><h1>SHOW INDIVIDUAL STAND HELP</h1>Here you have the possibility to" +
-            "<b>See</b> the data of the specific <u>Stand</u> that you chose" +
-            "</html>" +
+    String helpMessage = "<html><h1>SHOW INDIVIDUAL CLIENT HELP</h1>Here you have the possibility to" +
+            "<b>See</b> the data of the specific <u>Client</u>" +
+            " that you chose.</html>" +
             "";
 
 
+    public GUIViewParticipation(Tparticipacion participation) {
+        super("View Participation");
 
-    public GUIViewStand(Tstand tstand) {
-
-        metres = "" + tstand.getTotal_m2();
-        number = "" + tstand.getNum_at_fair();
-        cost = "" + tstand.getCost();
-        id = "" + tstand.getId();
-        assignation = "" + tstand.getAssignation_id();
-        participation = "" + tstand.getParticipation_id();
+        id = participation.getId();
+        idFair = participation.getFair_id();
+        idClient = participation.getClient_id();
 
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
-
 
     private void backButtonActionPerformed() {
         this.setVisible(false);
@@ -64,7 +59,7 @@ public class GUIViewStand extends JFrame implements UI {
 
     private void setupTitle(){
         title = new JLabel();
-        title.setText("Stand: " + id);
+        title.setText("Participation: " + id);
         title.setFont(fTitle);
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
@@ -76,7 +71,6 @@ public class GUIViewStand extends JFrame implements UI {
         label.setFont(fLabel);
         return label;
     }
-
 
     private void setupForm() {
 
@@ -103,76 +97,56 @@ public class GUIViewStand extends JFrame implements UI {
         formCon.anchor = GridBagConstraints.EAST;
 
 
-        JLabel metresLabel = createLabel("Metres:");
-        JLabel numberLabel = createLabel("Number:");
-        JLabel costLabel = createLabel("Cost:");
-        JLabel assignationLabel = createLabel("Assignation:");
-        JLabel participationLabel = createLabel("Participation");
+
+        JLabel idLabel = createLabel("Participation ID:");
+        JLabel idFairLabel = createLabel("Fair ID:");
+        JLabel idPavilionLabel = createLabel("Client ID:");
+
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
 
+
         formCon.gridx = 0;
         formCon.gridy = 0;
-        formPanel.add(metresLabel, formCon);
+        formPanel.add(idLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 1;
-        formPanel.add(numberLabel, formCon);
+        formPanel.add(idFairLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 2;
-        formPanel.add(costLabel, formCon);
-        formCon.gridx = 0;
-        formCon.gridy = 3;
-        formPanel.add(assignationLabel, formCon);
-        formCon.gridx = 0;
-        formCon.gridy = 4;
-        formPanel.add(participationLabel, formCon);
+        formPanel.add(idPavilionLabel, formCon);
 
-        JLabel metresField = createLabel(metres);
-        metresField.setMinimumSize(minDim);
-        metresField.setPreferredSize(prefDim);
-        metresField.setMaximumSize(maxDim);
 
-        JLabel numberField = createLabel(number);
-        numberField.setMinimumSize(minDim);
-        numberField.setPreferredSize(prefDim);
-        numberField.setMaximumSize(maxDim);
+        JLabel idField = createLabel(id + "");
+        idField.setMinimumSize(minDim);
+        idField.setPreferredSize(prefDim);
+        idField.setMaximumSize(maxDim);
 
-        JLabel costField = createLabel(cost);
-        costField.setMinimumSize(minDim);
-        costField.setPreferredSize(prefDim);
-        costField.setMaximumSize(maxDim);
+        JLabel idFairField = createLabel(idFair + "");
+        idFairField.setMinimumSize(minDim);
+        idFairField.setPreferredSize(prefDim);
+        idFairField.setMaximumSize(maxDim);
 
-        JLabel assignationField = createLabel(assignation);
-        costField.setMinimumSize(minDim);
-        costField.setPreferredSize(prefDim);
-        costField.setMaximumSize(maxDim);
+        JLabel idPavilionField = createLabel(idClient + "");
+        idPavilionField.setMinimumSize(minDim);
+        idPavilionField.setPreferredSize(prefDim);
+        idPavilionField.setMaximumSize(maxDim);
 
-        JLabel participationField = createLabel(participation);
-        costField.setMinimumSize(minDim);
-        costField.setPreferredSize(prefDim);
-        costField.setMaximumSize(maxDim);
-
-        formCon.anchor = GridBagConstraints.EAST;
+        formCon.anchor = GridBagConstraints.WEST;
 
         formCon.insets = new Insets(20,10,20,0);
 
 
         formCon.gridx = 1;
         formCon.gridy = 0;
-        formPanel.add(metresField, formCon);
+        formPanel.add(idField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 1;
-        formPanel.add(numberField, formCon);
+        formPanel.add(idFairField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 2;
-        formPanel.add(costField, formCon);
-        formCon.gridx = 1;
-        formCon.gridy = 3;
-        formPanel.add(assignationField, formCon);
-        formCon.gridx = 1;
-        formCon.gridy = 4;
-        formPanel.add(participationField, formCon);
+        formPanel.add(idPavilionField, formCon);
         formContainer.add(formPanel);
     }
 
@@ -217,6 +191,10 @@ public class GUIViewStand extends JFrame implements UI {
     }
 
     private void initComponents() {
+
+
+        ImageIcon img = new ImageIcon("Resources//Icon.png");
+        this.setIconImage(img.getImage());
 
         this.setMinimumSize(minScreenSize);
 

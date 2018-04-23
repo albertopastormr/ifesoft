@@ -58,8 +58,8 @@ public class GUIListAssignation extends JFrame implements UI {
             this.data[i][0] = assignation.getId();
             this.data[i][1] = assignation.getFair_id();
             this.data[i][2] = assignation.getPavilion_id();
-            this.data[i][2] = assignation.getUsed_m2();
-            this.data[i][2] = assignation.getTotal_m2();
+            this.data[i][3] = assignation.getUsed_m2();
+            this.data[i][4] = assignation.getTotal_m2();
             i++;
         }
 

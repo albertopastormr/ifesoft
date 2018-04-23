@@ -54,7 +54,7 @@ public class GUIListStand extends JFrame implements UI {
 
     }
 
-    public void changeTransferToCollection(Collection<Tstand> transfer) {
+    private void changeTransferToCollection(Collection<Tstand> transfer) {
         int i = 0;
 
         for (Tstand tstand: transfer){
