@@ -3,7 +3,7 @@ package Presentacion.Shows.List;
 import Negocio.Asignacion.Tasignacion;
 import Controller.Controller;
 import Presentacion.Events.Event;
-import Presentacion.UIimp;
+import Presentacion.UI;
 import Presentacion.Utils.PanelProblemUser;
 
 import javax.swing.*;
@@ -15,7 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
 
-public class GUIListAssignation extends UIimp {
+public class GUIListAssignation extends JFrame implements UI {
 
     private String[] columnNames = {"ID ASSIGNATION" ,"ID FAIR","ID PAVILION", "USED M2", "TOTAL M2"};
     private Object[][] data;
@@ -159,10 +159,12 @@ public class GUIListAssignation extends UIimp {
             width = comp.getPreferredSize().width + 10;
             col.setPreferredWidth(width+2);
         }
+        table.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        table.setFocusable(false);
+        table.setRowSelectionAllowed(false);
 
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setLayout(new BoxLayout(scrollPane, BoxLayout.Y_AXIS));
-        //scrollPane.setPreferredSize(new Dimension(this.getWidth(), 750));
+        JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setPreferredSize(new Dimension(701, 500));
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         centerPanel.add(scrollPane);
     }
