@@ -31,10 +31,10 @@ public class IFViewListImp extends IFViewList {
                 return new GUIViewPavilion((Tpabellon) data);
             case Event.SHOW_CLIENT_INDIVIDUAL:
                 return new GUIViewClient((Tparticipante) data);
-            case Event.SHOW_ASSIGANTION_INDIVIDUAL:
-                //return new GUIViewAssignation((Tasignacion) data);
+            case Event.SHOW_ASSIGNATION_INDIVIDUAL:
+                return new GUIViewAssignation((Tasignacion) data);
             case Event.SHOW_PARTICIPATION_INDIVIDUAL:
-                //return new GUIViewParticipation((Tparticipacion) data);
+                return new GUIViewParticipation((Tparticipacion) data);
             case Event.SHOW_STAND_INDIVIDUAL:
                 return new GUIViewStand((Tstand) data);
 

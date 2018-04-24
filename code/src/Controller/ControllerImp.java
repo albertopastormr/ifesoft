@@ -405,13 +405,6 @@ public class ControllerImp extends Controller {
                     IFViewList.getInstance().generateSpecificView(event ,asStand.showByParticipation((Integer)data));
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
-
-            case Event.SHOW_REGION_PABELLON:
-
-                break;
-            case Event.SHOW_PAIS_PABELLON:
-
-                break;
         }
     }
 }

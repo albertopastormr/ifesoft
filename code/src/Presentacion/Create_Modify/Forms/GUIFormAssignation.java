@@ -13,11 +13,13 @@ import javax.swing.*;
 
 public class GUIFormAssignation extends JFrame implements UI {
 
-    private String metres;
-
     private boolean mod;
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
+
+    private String idFair;
+    private String idPavilion;
+    private String metres;
 
     private JLabel title;
     private JPanel formContainer;
@@ -51,7 +53,10 @@ public class GUIFormAssignation extends JFrame implements UI {
 
     public GUIFormAssignation(Tasignacion assignation) {
         mod = true;
-        metres = assignation.getUsed_m2() + "";
+
+        idFair= String.valueOf(assignation.getFair_id());
+        idPavilion = String.valueOf(assignation.getPavilion_id());
+        metres = String.valueOf(assignation.getUsed_m2());
 
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -153,22 +158,19 @@ public class GUIFormAssignation extends JFrame implements UI {
         idFairField.setMinimumSize(minDim);
         idFairField.setPreferredSize(prefDim);
         idFairField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
-        String idFair = "";
         idFairField.setText(idFair);
 
         idPavilionField = setupTextField();
         idPavilionField.setMinimumSize(minDim);
         idPavilionField.setPreferredSize(prefDim);
         idPavilionField.setMaximumSize(maxDim);
-        String idPavilion = "";
         idPavilionField.setText(idPavilion);
 
         metresTotalField = setupTextField();
         metresTotalField.setMinimumSize(minDim);
         metresTotalField.setPreferredSize(prefDim);
         metresTotalField.setMaximumSize(maxDim);
-        String idStand = "";
-        metresTotalField.setText(idStand);
+        metresTotalField.setText(metres);
 
         formCon.anchor = GridBagConstraints.WEST;
 

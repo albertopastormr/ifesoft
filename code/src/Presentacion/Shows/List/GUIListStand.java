@@ -20,7 +20,7 @@ import java.util.Collection;
 
 public class GUIListStand extends JFrame implements UI {
 
-    private String[] columnNames = {"COST","NUMBER AT FEAR","M2"};
+    private String[] columnNames = {"ID STAND","COST","NUMBER AT FEAR","M2"};
     private Object[][] data;
 
     private Collection<Tstand> stand;
@@ -58,9 +58,10 @@ public class GUIListStand extends JFrame implements UI {
         int i = 0;
 
         for (Tstand tstand: transfer){
-            this.data[i][0] = tstand.getCost();
-            this.data[i][1] = tstand.getNum_at_fair();
-            this.data[i][2] = tstand.getTotal_m2();
+            this.data[i][0] = tstand.getId();
+            this.data[i][1] = tstand.getCost();
+            this.data[i][2] = tstand.getNum_at_fair();
+            this.data[i][3] = tstand.getTotal_m2();
             i++;
         }
 

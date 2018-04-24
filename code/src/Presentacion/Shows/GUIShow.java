@@ -1,11 +1,6 @@
 package Presentacion.Shows;
 
-import Negocio.Asignacion.Tasignacion;
 import Negocio.Feria.Tferia;
-import Negocio.Pabellon.Tpabellon;
-import Negocio.Participacion.Tparticipacion;
-import Negocio.Participante.Tparticipante;
-import Negocio.Stand.Tstand;
 import Controller.Controller;
 import Presentacion.UI;
 import Presentacion.Utils.Utilities;
@@ -57,6 +52,7 @@ public class GUIShow extends JFrame implements UI {
 
     private boolean isHalfEntity;
     private boolean isHalfEntityList;
+    private boolean isStand;
 
     String helpMessage = "<html><h1>SHOW PAGE HELP</h1>Here you have the possibility to" +
             "<b>See</b> <u>Fairs</u> or other entities just" +
@@ -68,6 +64,7 @@ public class GUIShow extends JFrame implements UI {
 
         this.isHalfEntity = false;
         this.isHalfEntityList = false;
+        this.isStand = false;
 
         initComponents();
         viewVisibleLogic();
@@ -152,6 +149,9 @@ public class GUIShow extends JFrame implements UI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 changeVisibleRight();
+                if(isStand){
+                    changeVisibleLeft();
+                }
             }
         });
 
@@ -163,6 +163,9 @@ public class GUIShow extends JFrame implements UI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 changeVisibleOptional();
+                if(isStand){
+                    changeVisibleLeft();
+                }
             }
         });
 
@@ -293,6 +296,7 @@ public class GUIShow extends JFrame implements UI {
             textDateStart.setVisible(false);
             labelSubIDdateStart.setVisible(false);
             labelSubIDdateEnd.setVisible(false);
+            this.isHalfEntity = false;
         }else{
             changeVisibleLeft();
         }
@@ -327,18 +331,21 @@ public class GUIShow extends JFrame implements UI {
                 break;
             case "Assignation":
                 this.setVisible(false);
-                if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_ASSIGANTION_FAIR ,Integer.parseInt(textID.getText()));
-                else Controller.getInstance().execute(Event.SHOW_ASSIGNATION_PAVILION, new Tasignacion(-1 , Integer.parseInt(textID.getText()), -1 , -1, null));
+                if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_ASSIGNATION_INDIVIDUAL,Integer.parseInt(textID.getText()));
+                else if(radioButtonOptional.isSelected()) Controller.getInstance().execute(Event.SHOW_ASSIGNATION_PAVILION, Integer.parseInt(textID.getText()));
+                else Controller.getInstance().execute(Event.SHOW_ASSIGANTION_FAIR, Integer.parseInt(textID.getText()));
                 break;
             case "Participation":
                 this.setVisible(false);
-                if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_PARTICIPATION_FAIR ,Integer.parseInt(textID.getText()));
-                else Controller.getInstance().execute(Event.SHOW_PARTICIPATION_CLIENT, new Tparticipacion(-1 , Integer.parseInt(textID.getText()), -1 , null));
+                if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_PARTICIPATION_INDIVIDUAL ,Integer.parseInt(textID.getText()));
+                else if(radioButtonOptional.isSelected()) Controller.getInstance().execute(Event.SHOW_PARTICIPATION_FAIR, Integer.parseInt(textID.getText()));
+                else Controller.getInstance().execute(Event.SHOW_PARTICIPATION_CLIENT, Integer.parseInt(textID.getText()));
                 break;
             case "Stand":
                 this.setVisible(false);
                 if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_STAND_INDIVIDUAL ,Integer.parseInt(textID.getText()));
-                else Controller.getInstance().execute(Event.SHOW_STAND_LIST, null);
+                else if(radioButtonOptional.isSelected()) Controller.getInstance().execute(Event.SHOW_STAND_ASSIGNATION, Integer.parseInt(textID.getText()));
+                else Controller.getInstance().execute(Event.SHOW_STAND_PARTICIPATION ,Integer.parseInt(textID.getText()));
                 break;
 
         }
@@ -488,7 +495,7 @@ public class GUIShow extends JFrame implements UI {
                 radioButtonOptional.setVisible(true);
                 radioButtonRight.setText("List by Assignation");
                 radioButtonOptional.setText("List by Participation");
-                this.isHalfEntityList = true;
+                this.isStand = true;
                 break;
             case "Client":
                 radioButtonPanel.setVisible(true);
@@ -496,14 +503,16 @@ public class GUIShow extends JFrame implements UI {
             case "Assignation":
                 radioButtonPanel.setVisible(true);
                 radioButtonRight.setText("List by pavilion id");
-                radioButtonLeft.setText("List by fair id");
-                this.isHalfEntity = true;
+                radioButtonOptional.setText("List by fair id");
+                radioButtonOptional.setVisible(true);
+                this.isStand = true;
                 break;
             case "Participation":
                 radioButtonPanel.setVisible(true);
                 radioButtonRight.setText("List by client id");
-                radioButtonLeft.setText("List by fair id");
-                this.isHalfEntity = true;
+                radioButtonOptional.setText("List by fair id");
+                radioButtonOptional.setVisible(true);
+                this.isStand = true;
                 break;
         }
     }
@@ -524,8 +533,9 @@ public class GUIShow extends JFrame implements UI {
         labelSubIDdateEnd.setText("End date:");
         labelSubIDdateStart.setText("Start date:");
 
-        this.isHalfEntity = false;
+        this.isStand = false;
         this.isHalfEntityList = false;
+        this.isHalfEntity = false;
     }
 
     @Override

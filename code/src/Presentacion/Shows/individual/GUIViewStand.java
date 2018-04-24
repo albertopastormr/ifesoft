@@ -16,9 +16,6 @@ public class GUIViewStand extends JFrame implements UI {
     private String assignation;
     private String participation;
 
-    private String idAssignation;
-    private String idParticipation;
-
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
     private JLabel title;
@@ -38,24 +35,14 @@ public class GUIViewStand extends JFrame implements UI {
             "</html>" +
             "";
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 0fd4ab01739112570bdb3eb1ff15d50433427ce2
     public GUIViewStand(Tstand tstand) {
 
         metres = "" + tstand.getTotal_m2();
         number = "" + tstand.getNum_at_fair();
         cost = "" + tstand.getCost();
         id = "" + tstand.getId();
-<<<<<<< HEAD
         assignation = "" + tstand.getAssignation_id();
         participation = "" + tstand.getParticipation_id();
-=======
-        idAssignation = "" + tstand.getAssignation_id();
-        idParticipation = "" + tstand.getParticipation_id();
->>>>>>> 0fd4ab01739112570bdb3eb1ff15d50433427ce2
 
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -113,9 +100,6 @@ public class GUIViewStand extends JFrame implements UI {
         formCon.weighty = 0.5;
         formCon.anchor = GridBagConstraints.EAST;
 
-
-        JLabel assignationLabel = createLabel("Assignation ID:");
-        JLabel participationLabel = createLabel("Participation ID:");
         JLabel metresLabel = createLabel("Metres:");
         JLabel numberLabel = createLabel("Number:");
         JLabel costLabel = createLabel("Cost:");
@@ -139,26 +123,18 @@ public class GUIViewStand extends JFrame implements UI {
         formCon.gridy = 3;
         formPanel.add(costLabel, formCon);
         formCon.gridx = 0;
-<<<<<<< HEAD
-        formCon.gridy = 3;
-        formPanel.add(assignationLabel, formCon);
-        formCon.gridx = 0;
-        formCon.gridy = 4;
-        formPanel.add(participationLabel, formCon);
-=======
         formCon.gridy = 4;
         formPanel.add(metresLabel, formCon);
 
-        JLabel assignationField = createLabel(idAssignation);
+        JLabel assignationField = createLabel(assignation);
         assignationField.setMinimumSize(minDim);
         assignationField.setPreferredSize(prefDim);
         assignationField.setMaximumSize(maxDim);
 
-        JLabel participationField = createLabel(idAssignation);
+        JLabel participationField = createLabel(participation);
         participationField.setMinimumSize(minDim);
         participationField.setPreferredSize(prefDim);
         participationField.setMaximumSize(maxDim);
->>>>>>> 0fd4ab01739112570bdb3eb1ff15d50433427ce2
 
         JLabel metresField = createLabel(metres);
         metresField.setMinimumSize(minDim);
@@ -175,26 +151,16 @@ public class GUIViewStand extends JFrame implements UI {
         costField.setPreferredSize(prefDim);
         costField.setMaximumSize(maxDim);
 
-        JLabel assignationField = createLabel(assignation);
-        costField.setMinimumSize(minDim);
-        costField.setPreferredSize(prefDim);
-        costField.setMaximumSize(maxDim);
-
-        JLabel participationField = createLabel(participation);
-        costField.setMinimumSize(minDim);
-        costField.setPreferredSize(prefDim);
-        costField.setMaximumSize(maxDim);
-
         formCon.anchor = GridBagConstraints.EAST;
 
         formCon.insets = new Insets(20,10,20,0);
 
         formCon.gridx = 1;
         formCon.gridy = 0;
-        formPanel.add(assignationLabel, formCon);
+        formPanel.add(assignationField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 1;
-        formPanel.add(participationLabel, formCon);
+        formPanel.add(participationField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 2;
         formPanel.add(metresField, formCon);
@@ -204,12 +170,6 @@ public class GUIViewStand extends JFrame implements UI {
         formCon.gridx = 1;
         formCon.gridy = 4;
         formPanel.add(costField, formCon);
-        formCon.gridx = 1;
-        formCon.gridy = 3;
-        formPanel.add(assignationField, formCon);
-        formCon.gridx = 1;
-        formCon.gridy = 4;
-        formPanel.add(participationField, formCon);
         formContainer.add(formPanel);
     }
 
