@@ -26,8 +26,13 @@ public class ASParticipacionImp implements ASParticipacion {
                     Tparticipacion read = daoParticipacion.readByFairIdClientId(participacion.getFair_id(), participacion.getClient_id());
                     if (read == null)
                         return daoParticipacion.create(participacion);
-                    else
-                        throw new ASException("ERROR: El participante " + participacion.getClient_id() + " ya participa en la feria " + participacion.getFair_id() + ".\n");
+                    else {
+                        if (!read.getActive()) {
+                            read.setActive(true);
+                            return daoParticipacion.create(read);
+                        } else
+                            throw new ASException("ERROR: El participante " + participacion.getClient_id() + " ya participa en la feria " + participacion.getFair_id() + ".\n");
+                    }
                 } else
                     throw new ASException("ERROR: La feria o el participante introducido no existen.\n");
             } catch (Exception ex) {

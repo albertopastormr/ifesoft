@@ -703,7 +703,7 @@ public class ASStandImpTest {
         idAsignacion = asAsignation.create(transferAsignation);
 
         //Creamos un participante
-        Tparticipante tParticipante = new Tparticipante("UCM", -1, true);
+        Tparticipante tParticipante = new Tparticipante("UCM", 666666, true);
         idParticipante = asParticipante.create(tParticipante);
 
 
