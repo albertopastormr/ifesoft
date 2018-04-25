@@ -3,7 +3,6 @@ package Presentacion.Drop;
 import Negocio.Asignacion.Tasignacion;
 import Negocio.Feria.Tferia;
 import Negocio.Pabellon.Tpabellon;
-//import Negocio.Participante.Tparticipante;
 import Negocio.Participacion.Tparticipacion;
 import Negocio.Participante.Tparticipante;
 import Negocio.Stand.Tstand;
@@ -52,8 +51,8 @@ public class GUIDrop extends JFrame implements UI {
             "</html>";
 
 
-    public GUIDrop() {
-
+    GUIDrop() {
+        super("Drop");
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
@@ -237,10 +236,10 @@ public class GUIDrop extends JFrame implements UI {
             comboBoxDrop.setMaximumSize(new Dimension(800, 50));
 
             comboBoxDrop.addItem("Assignation");
-            comboBoxDrop.addItem("Fair");
             comboBoxDrop.addItem("Client");
-            comboBoxDrop.addItem("Pavilion");
+            comboBoxDrop.addItem("Fair");
             comboBoxDrop.addItem("Participation");
+            comboBoxDrop.addItem("Pavilion");
             comboBoxDrop.addItem("Stand");
 
             comboBoxDrop.setBorder(BorderFactory.createEmptyBorder(0,0, 20, 0));
@@ -253,7 +252,7 @@ public class GUIDrop extends JFrame implements UI {
             textFieldPanel.setLayout(textFieldPanelLayout);
 
             JLabel labelSubID = new JLabel();
-            labelSubID.setText("ID");
+            labelSubID.setText("ID:");
             labelSubID.setFont(fLabelSubId);
 
             textFieldPanel.add(labelSubID);
@@ -268,7 +267,6 @@ public class GUIDrop extends JFrame implements UI {
             textFieldPanel.add(textID);
 
             centerPanel.add(textFieldPanel);
-
 
         }
 

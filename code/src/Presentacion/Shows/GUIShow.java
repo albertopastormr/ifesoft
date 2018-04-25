@@ -60,7 +60,8 @@ public class GUIShow extends JFrame implements UI {
             " finding it by its ID or a list.</html>" +
             "";
 
-    public GUIShow() {
+    GUIShow() {
+        super("Show");
 
         this.isHalfEntity = false;
         this.isHalfEntityList = false;
@@ -116,11 +117,11 @@ public class GUIShow extends JFrame implements UI {
         comboBoxViews.setMinimumSize(new Dimension(200, 50));
         comboBoxViews.setMaximumSize(new Dimension(800, 50));
 
-        comboBoxViews.addItem("Pavilion");
         comboBoxViews.addItem("Assignation");
-        comboBoxViews.addItem("Fair");
         comboBoxViews.addItem("Client");
+        comboBoxViews.addItem("Fair");
         comboBoxViews.addItem("Participation");
+        comboBoxViews.addItem("Pavilion");
         comboBoxViews.addItem("Stand");
 
         comboBoxViews.setBorder(BorderFactory.createEmptyBorder(0,0, 20, 0));
@@ -222,7 +223,7 @@ public class GUIShow extends JFrame implements UI {
 
         labelSubIDdateStart.setVisible(false);
 
-        textFieldPanel.add(labelSubIDdateStart);
+        panelDateStart.add(labelSubIDdateStart);
 
         textDateStart = new JTextField();
         textDateStart.setFont(fTextField);

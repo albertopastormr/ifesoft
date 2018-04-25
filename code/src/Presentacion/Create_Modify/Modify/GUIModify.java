@@ -48,6 +48,7 @@ public class GUIModify extends JFrame implements UI {
             "</html>";
 
     public GUIModify() {
+        super("Modify");
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
@@ -128,10 +129,10 @@ public class GUIModify extends JFrame implements UI {
         comboBoxMod.setMaximumSize(new Dimension(800, 50));
 
         comboBoxMod.addItem("Assignation");
-        comboBoxMod.addItem("Fair");
         comboBoxMod.addItem("Client");
-        comboBoxMod.addItem("Pavilion");
+        comboBoxMod.addItem("Fair");
         comboBoxMod.addItem("Participation");
+        comboBoxMod.addItem("Pavilion");
         comboBoxMod.addItem("Stand");
 
         comboBoxMod.setBorder(BorderFactory.createEmptyBorder(0,0, 20, 0));
@@ -144,7 +145,7 @@ public class GUIModify extends JFrame implements UI {
         textFieldPanel.setLayout(textFieldPanelLayout);
 
         JLabel labelSubID = new JLabel();
-        labelSubID.setText("ID");
+        labelSubID.setText("ID:");
         labelSubID.setFont(fLabelSubId);
 
         textFieldPanel.add(labelSubID);

@@ -16,16 +16,9 @@ public class GUIHome extends JFrame implements UI {
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
-    private JPanel dialogPanel;
     private static JPanel centerPanel;
     private JLabel title;
-    private JButton buttonCreateHome;
-    private JButton buttonShowHome;
-    private JButton buttonDropHome;
-    private JButton buttonModifyHome;
     private JPanel buttonBar;
-    private JButton exitButton;
-    private JButton helpButton;
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.PLAIN, 60);
     private Font fBigButton = new Font(Font.MONOSPACED, Font.PLAIN, 30);
@@ -42,6 +35,7 @@ public class GUIHome extends JFrame implements UI {
             "";
 
     public GUIHome() {
+        super("IFESOFT");
         initComponents();
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setBounds(100,100, minScreenSize.width, minScreenSize.height);
@@ -127,7 +121,7 @@ public class GUIHome extends JFrame implements UI {
          centerConst.weightx = 0.5;
          centerConst.weighty = 0.5;
 
-         buttonCreateHome = createBigButton("Create");
+        JButton buttonCreateHome = createBigButton("Create");
             buttonCreateHome.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -138,7 +132,7 @@ public class GUIHome extends JFrame implements UI {
          centerConst.gridy = 0;
          centerPanel.add(buttonCreateHome, centerConst);
 
-         buttonShowHome = createBigButton("Show");
+        JButton buttonShowHome = createBigButton("Show");
             buttonShowHome.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -149,7 +143,7 @@ public class GUIHome extends JFrame implements UI {
         centerConst.gridy = 0;
         centerPanel.add(buttonShowHome, centerConst);
 
-         buttonDropHome = createBigButton("Drop");
+        JButton buttonDropHome = createBigButton("Drop");
             buttonDropHome.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -160,7 +154,7 @@ public class GUIHome extends JFrame implements UI {
         centerConst.gridy = 1;
         centerPanel.add(buttonDropHome, centerConst);
 
-         buttonModifyHome = createBigButton("Modify");
+        JButton buttonModifyHome = createBigButton("Modify");
             buttonModifyHome.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -178,7 +172,7 @@ public class GUIHome extends JFrame implements UI {
         Dimension buttonDim = new Dimension(150, 80);
 
         //---- cancelButton ----
-        exitButton = new JButton();
+        JButton exitButton = new JButton();
         exitButton.setText("Cancel");
         exitButton.setFont(fButton);
         exitButton.setBackground(cExitButton);
@@ -192,7 +186,7 @@ public class GUIHome extends JFrame implements UI {
         });
 
         //---- helpButton ----
-        helpButton = new JButton();
+        JButton helpButton = new JButton();
         helpButton.setText("Help");
         helpButton.setFont(fButton);
         helpButton.setBackground(cHelpButton);
@@ -228,7 +222,7 @@ public class GUIHome extends JFrame implements UI {
 
         //======== dialogPanel ========
 
-        dialogPanel = new JPanel();
+        JPanel dialogPanel = new JPanel();
         dialogPanel.setBorder(new LineBorder(Color.BLUE));
         dialogPanel.setBorder(new EmptyBorder(50, 50, 80, 50));
         this.setMinimumSize(minScreenSize);

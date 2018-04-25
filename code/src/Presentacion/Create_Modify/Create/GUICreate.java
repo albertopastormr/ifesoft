@@ -19,15 +19,11 @@ public class GUICreate extends JFrame implements UI {
     private JPanel centerPanel;
     private JPanel buttonBar;
     private JLabel title;
-    //private JLabel labelSubID;
     private JComboBox<String> comboBoxCreate;
-    //private JTextField textField;
 
     private Font fComboBox = new Font(Font.DIALOG, Font.PLAIN, 40);
     private Font fTitle  = new Font(Font.MONOSPACED, Font.BOLD, 80);
     private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
-    private Font fLabelSubId = new Font(Font.DIALOG, Font.PLAIN, 30);
-    private Font fTextField = new Font(Font.DIALOG, Font.PLAIN, 30);
 
     private Color cHelpButton = new Color(66,35,146);
     private Color cCancelButton = new Color(146, 35, 59);
@@ -36,7 +32,6 @@ public class GUICreate extends JFrame implements UI {
     private Color cComboBoxInactive = new Color(187, 196, 200);
     private Color cComboBoxFont = new Color(84, 91, 94);
     private Color cComboBoxSelectedFont = new Color(52, 56, 58);
-    private Color cTextFieldBG = new Color(243,243,243);
 
     String helpMessage = "<html><h1>CREATE PAGE HELP</1>Here you have the possibility to <b>Create</b> a <u>Fair</u>" +
             " or other entities that you can choose by clicking on the comboBox." +
@@ -44,6 +39,7 @@ public class GUICreate extends JFrame implements UI {
             "</html>";
 
     public GUICreate() {
+        super("Create");
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
@@ -94,7 +90,7 @@ public class GUICreate extends JFrame implements UI {
     private void setUpTitle(){
 
         title = new JLabel();
-        title .setText("Create_Modify");
+        title .setText("Create");
         title .setFont(fTitle);
         title .setHorizontalAlignment(JLabel.CENTER);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
@@ -120,14 +116,14 @@ public class GUICreate extends JFrame implements UI {
         comboBoxCreate.getEditor().getEditorComponent().setBackground(cComboBoxActive);
         comboBoxCreate.setFont(fComboBox);
         comboBoxCreate.setForeground(cComboBoxFont);
-        comboBoxCreate.setMinimumSize(new Dimension(200, 50));
-        comboBoxCreate.setMaximumSize(new Dimension(800, 50));
+        comboBoxCreate.setMinimumSize(new Dimension(200, 60));
+        comboBoxCreate.setMaximumSize(new Dimension(800, 80));
 
         comboBoxCreate.addItem("Assignation");
-        comboBoxCreate.addItem("Fair");
         comboBoxCreate.addItem("Client");
-        comboBoxCreate.addItem("Pavilion");
+        comboBoxCreate.addItem("Fair");
         comboBoxCreate.addItem("Participation");
+        comboBoxCreate.addItem("Pavilion");
         comboBoxCreate.addItem("Stand");
 
         comboBoxCreate.setBorder(BorderFactory.createEmptyBorder(0,0, 20, 0));

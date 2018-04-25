@@ -43,7 +43,12 @@ public class GUIFormAssignation extends JFrame implements UI {
             " the text areas, then click <b>'Next'</b> to continue or <b>'Cancel'</b> to go back." +
             " </html>";
 
+    private String setTitle(){
+        return mod? "Modify" : "Create";
+    }
+
     public GUIFormAssignation() {
+        this.setTitle(setTitle());
         mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
