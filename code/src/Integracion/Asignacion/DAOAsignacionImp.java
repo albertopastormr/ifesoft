@@ -343,13 +343,14 @@ public class DAOAsignacionImp implements DAOAsignacion {
 
 		try { // Conexion db
 			connec = DriverManager.getConnection(connectionChain); // Datos de acceso a la db: user//manager pw//manager-if
+			connec.setAutoCommit(true);
 		} catch (SQLException e) {
 			throw new DAOException("ERROR: acceso a la conexion a DB para 'update' Asignacion ID " + tAsignacion.getId()+" no logrado\n");
 		}
 
 		try { // Tratamiento db
 			PreparedStatement ps;
-			ps = connec.prepareStatement("UPDATE asignacion SET total_m2 = ? AND used_m2 = ? AND active = ? WHERE id = ?");
+			ps = connec.prepareStatement("UPDATE asignacion SET total_m2 = ?, used_m2 = ?, active = ? WHERE id = ?");
 			ps.setInt(1, tAsignacion.getTotal_m2());
 			ps.setInt(2, tAsignacion.getUsed_m2());
 			ps.setBoolean(3, tAsignacion.getActive());
@@ -365,7 +366,7 @@ public class DAOAsignacionImp implements DAOAsignacion {
 			if (rs_id.next()) {
 				if (!tAsignacion.getActive()) { // Caso desactivado tAsignacion
 					// Desactivado de los stands y participacion relacionados con la asignacion a desactivar
-					ps = connec.prepareStatement("UPDATE stand s JOIN participacion p ON s.participation_id = p.id SET s.active = ? AND p.active = ? WHERE s.assignation_id = ?");
+					ps = connec.prepareStatement("UPDATE stand s JOIN participacion p ON s.participation_id = p.id SET s.active = ?, p.active = ? WHERE s.assignation_id = ?");
 					ps.setBoolean(1, tAsignacion.getActive());
 					ps.setBoolean(2, tAsignacion.getActive());
 					ps.setInt(3, tAsignacion.getId());

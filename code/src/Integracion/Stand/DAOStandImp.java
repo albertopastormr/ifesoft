@@ -247,7 +247,7 @@ public class DAOStandImp implements DAOStand {
 
 		try { // Tratamiento db
 			PreparedStatement ps;
-			ps = connec.prepareStatement("UPDATE stand SET num_at_fair = ? AND cost = ? AND used_m2 = ? AND active = ? WHERE id = ?");
+			ps = connec.prepareStatement("UPDATE stand SET num_at_fair = ?, cost = ?, used_m2 = ?, active = ? WHERE id = ?");
 			ps.setInt(1, tStand.getNum_at_fair());
 			ps.setDouble(2, tStand.getCost());
 			ps.setInt(3, tStand.getTotal_m2());

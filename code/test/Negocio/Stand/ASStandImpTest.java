@@ -57,8 +57,6 @@ public class ASStandImpTest {
 
     @Before
     public void setUp() throws Exception {
-        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        daoStand.deleteAll();
         // Borra todas las tuplas en la tabla 'stand' de la db
         DAOStandImp dao = new DAOStandImp();
         dao.deleteAll();
@@ -96,11 +94,9 @@ public class ASStandImpTest {
     @Test(expected = ASException.class)
     public void createStandIncorrect() throws ASException, DAOException, SQLException {
         ASStandImp asStand = new ASStandImp();
-        int idStand = -1;
 
-        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         //Le pasamos una participacion incorrecta o total m2 incorrectos
-        Tstand tStand = new Tstand(idStand, -1, -1, 223344, 200, -1, false);
+        Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), -1, -1, 223344, 200, -1, false);
         asStand.create(tStand);
     }
 
@@ -118,34 +114,9 @@ public class ASStandImpTest {
     @Test(expected = ASException.class)
     public void createStandCorrectly() throws ASException, SQLException, DAOException {
         ASStandImp asStand = new ASStandImp();
-        int idStand = -1, idFeria = -1, idPabellon = -1, idAsignacion = -1, idParticipacion = -1, idParticipante = -1;
-        ASAsignacionImp asAsignation = new ASAsignacionImp();
-        DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
-        daoAsignacion.deleteAll(); //Vaciamos la bbdd de asignaciones
-        ASParticipanteImp asParticipante = new ASParticipanteImp();
-        ASParticipacionImp asParticipacion = new ASParticipacionImp();
-
-        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        daoStand.deleteAll(); //Vaciamos la bbdd de stands
-
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
-
-        //Creamos una asignacion y no la participacion asi sera esa la que este a null
-        Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
-        idAsignacion = asAsignation.create(transferAsignation);
-
-        //Creamos un participante
-        Tparticipante tParticipante = new Tparticipante("UCM", -1, true);
-        idParticipante = asParticipante.create(tParticipante);
-
-
-        //Creamos la participacion
-        Tparticipacion participation = new Tparticipacion(idFeria, idParticipante, false);
-        idParticipacion = asParticipacion.create(participation);
-
 
         //Ahora intentamos crear un stand a partir de un id asignacion valido y un id de participacion  valido.
-        Tstand tStand = new Tstand(idStand, idAsignacion, idParticipacion, 223344, 200, 20, false);
+        Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), tasignacionTest1.getId(), tparticipacionTest1.getId(), 223344, 200, 20, false);
         asStand.create(tStand);
     }
 
@@ -157,12 +128,9 @@ public class ASStandImpTest {
     //iNTENTAMOS BORRAR UN STAND INEXISTENTE EN LA BBDD
     @Test(expected = ASException.class)
     public void dropNotExist() throws ASException, DAOException, SQLException {
-        int idStand = 223344;
         ASStandImp asStand = new ASStandImp();
-        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        daoStand.deleteAll(); //Vaciamos la bbdd de stands
 
-        Tstand tStand = new Tstand(idStand, 223344, 223344, 223344, 200, 20, false);
+        Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), 223344, 223344, 223344, 200, 20, false);
         asStand.drop(tStand);
     }
 
@@ -170,37 +138,12 @@ public class ASStandImpTest {
     @Test(expected = ASException.class)
     public void dropStandCorrectly() throws ASException, SQLException, DAOException {
         ASStandImp asStand = new ASStandImp();
-        int idStand = -1, idFeria = -1, idPabellon = -1, idAsignacion = -1, idParticipacion = -1, idParticipante = -1;
-        ASAsignacionImp asAsignation = new ASAsignacionImp();
-        DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
-        daoAsignacion.deleteAll(); //Vaciamos la bbdd de asignaciones
-        ASParticipanteImp asParticipante = new ASParticipanteImp();
-        ASParticipacionImp asParticipacion = new ASParticipacionImp();
-
-        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        daoStand.deleteAll(); //Vaciamos la bbdd de stands
-
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
-
-        //Creamos una asignacion y no la participacion asi sera esa la que este a null
-        Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
-        idAsignacion = asAsignation.create(transferAsignation);
-
-        //Creamos un participante
-        Tparticipante tParticipante = new Tparticipante("UCM", -1, true);
-        idParticipante = asParticipante.create(tParticipante);
-
-
-        //Creamos la participacion
-        Tparticipacion participation = new Tparticipacion(idFeria, idParticipante, false);
-        idParticipacion = asParticipacion.create(participation);
-
 
         //Ahora intentamos crear un stand a partir de un id asignacion valido y un id de participacion  valido.
-        Tstand tStand = new Tstand(idStand, idAsignacion, idParticipacion, 223344, 200, 20, false);
-        idStand = asStand.create(tStand);
+        Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), tasignacionTest1.getId(), tparticipacionTest1.getId(), 223344, 200, 20, false);
+        asStand.create(tStand);
 
-        Tstand tStand2 = new Tstand(idStand, idAsignacion, idParticipacion, 223344, 200, 20, false);
+        Tstand tStand2 = new Tstand(ASStandImpTest.tstandTest1.getId(), tasignacionTest1.getId(), tparticipacionTest1.getId(), 223344, 200, 20, false);
 
 
         assertTrue(asStand.drop(tStand2) > 0);
@@ -213,247 +156,93 @@ public class ASStandImpTest {
     // Superados m2
     @Test(expected = ASException.class)
     public void modifyStandm2() throws DAOException, SQLException, ASException {
-        int idStand = -1, idFeria = -1, idPabellon = -1, idAsignacion = -1, idParticipacion = -1, idParticipante = -1;
-        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        daoStand.deleteAll(); //Vaciamos la bbdd de stands
         ASStandImp asStand = new ASStandImp();
-        ASParticipanteImp asParticipante = new ASParticipanteImp();
-        ASParticipacionImp asParticipacion = new ASParticipacionImp();
-        ASAsignacionImp asAsignation = new ASAsignacionImp();
-
-
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
-
-        //Creamos una asignacion y no la participacion asi sera esa la que este a null
-        Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
-        idAsignacion = asAsignation.create(transferAsignation);
-
-        //Creamos un participante
-        Tparticipante tParticipante = new Tparticipante("UCM", -1, true);
-        idParticipante = asParticipante.create(tParticipante);
-
-
-        //Creamos la participacion
-        Tparticipacion participation = new Tparticipacion(idFeria, idParticipante, false);
-        idParticipacion = asParticipacion.create(participation);
 
 
         //Ahora intentamos crear un stand a partir de un id asignacion valido y un id de participacion  valido.
-        Tstand tStand = new Tstand(idStand, idAsignacion, idParticipacion, 223344, 200, 20, false);
-        idStand = asStand.create(tStand);
+        Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), tasignacionTest1.getId(), tparticipacionTest1.getId(), 223344, 200, 20, false);
+        asStand.create(tStand);
 
-        Tstand stand = new Tstand(idStand + 1, idAsignacion, idParticipacion, 223344, 200, 1500, true);
+        Tstand stand = new Tstand(ASStandImpTest.tstandTest1.getId() + 1, tasignacionTest1.getId(), tparticipacionTest1.getId(), 223344, 200, 1500, true);
         asStand.modify(stand);
     }
 
     // No participacion en bbdd
     @Test(expected = ASException.class)
     public void modifyStandNoParticipation() throws DAOException, SQLException, ASException {
-        int idStand = -1, idFeria = -1, idPabellon = -1, idAsignacion = -1, idParticipacion = -1, idParticipante = -1;
-        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        daoStand.deleteAll(); //Vaciamos la bbdd de stands
         ASStandImp asStand = new ASStandImp();
-        ASParticipanteImp asParticipante = new ASParticipanteImp();
-        ASParticipacionImp asParticipacion = new ASParticipacionImp();
-        ASAsignacionImp asAsignation = new ASAsignacionImp();
-
-
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
-
-        //Creamos una asignacion y no la participacion asi sera esa la que este a null
-        Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
-        idAsignacion = asAsignation.create(transferAsignation);
-
-        //Creamos un participante
-        Tparticipante tParticipante = new Tparticipante("UCM", -1, true);
-        idParticipante = asParticipante.create(tParticipante);
-
-
-        //Creamos la participacion
-        Tparticipacion participation = new Tparticipacion(idFeria, idParticipante, false);
-        idParticipacion = asParticipacion.create(participation);
 
 
         //Ahora intentamos crear un stand a partir de un id asignacion valido y un id de participacion  valido.
-        Tstand tStand = new Tstand(idStand, idAsignacion, idParticipacion, 223344, 200, 30, false);
-        idStand = asStand.create(tStand);
+        Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), tasignacionTest1.getId(), tparticipacionTest1.getId(), 223344, 200, 30, false);
+        asStand.create(tStand);
 
-        Tstand stand = new Tstand(idStand, idAsignacion, idParticipacion + 1, 223344, 200, 20, true);
+        Tstand stand = new Tstand(ASStandImpTest.tstandTest1.getId(), tasignacionTest1.getId(), tparticipacionTest1.getId() + 1, 223344, 200, 20, true);
         asStand.modify(stand);
     }
 
     // No asignacion en bbdd
     @Test(expected = ASException.class)
     public void modifyStandNoAssignation() throws DAOException, SQLException, ASException {
-        int idStand = -1, idFeria = -1, idPabellon = -1, idAsignacion = -1, idParticipacion = -1, idParticipante = -1;
-        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        daoStand.deleteAll(); //Vaciamos la bbdd de stands
         ASStandImp asStand = new ASStandImp();
-        ASParticipanteImp asParticipante = new ASParticipanteImp();
-        ASParticipacionImp asParticipacion = new ASParticipacionImp();
-        ASAsignacionImp asAsignation = new ASAsignacionImp();
-
-
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
-
-        //Creamos una asignacion y no la participacion asi sera esa la que este a null
-        Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
-        idAsignacion = asAsignation.create(transferAsignation);
-
-        //Creamos un participante
-        Tparticipante tParticipante = new Tparticipante("UCM", -1, true);
-        idParticipante = asParticipante.create(tParticipante);
-
-
-        //Creamos la participacion
-        Tparticipacion participation = new Tparticipacion(idFeria, idParticipante, false);
-        idParticipacion = asParticipacion.create(participation);
 
 
         //Ahora intentamos crear un stand a partir de un id asignacion valido y un id de participacion  valido.
-        Tstand tStand = new Tstand(idStand, idAsignacion + 1, idParticipacion, 223344, 200, 20, false);
-        idStand = asStand.create(tStand);
+        Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), tasignacionTest1.getId() + 1, tparticipacionTest1.getId(), 223344, 200, 20, false);
+        asStand.create(tStand);
     }
 
     // No datos stand
     @Test(expected = ASException.class)
     public void modifyStandNoData() throws DAOException, SQLException, ASException {
-        int idStand = -1, idFeria = -1, idPabellon = -1, idAsignacion = -1, idParticipacion = -1, idParticipante = -1;
-        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        daoStand.deleteAll(); //Vaciamos la bbdd de stands
         ASStandImp asStand = new ASStandImp();
-        ASParticipanteImp asParticipante = new ASParticipanteImp();
-        ASParticipacionImp asParticipacion = new ASParticipacionImp();
-        ASAsignacionImp asAsignation = new ASAsignacionImp();
-
-
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
-
-        //Creamos una asignacion y no la participacion asi sera esa la que este a null
-        Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
-        idAsignacion = asAsignation.create(transferAsignation);
-
-        //Creamos un participante
-        Tparticipante tParticipante = new Tparticipante("UCM", -1, true);
-        idParticipante = asParticipante.create(tParticipante);
-
-
-        //Creamos la participacion
-        Tparticipacion participation = new Tparticipacion(idFeria, idParticipante, false);
-        idParticipacion = asParticipacion.create(participation);
 
 
         //Ahora intentamos crear un stand a partir de un id asignacion valido y un id de participacion  valido.
-        Tstand tStand = new Tstand(idStand, idAsignacion, idParticipacion, 223344, 200, 20, false);
-        idStand = asStand.create(tStand);
+        Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), tasignacionTest1.getId(), tparticipacionTest1.getId(), 223344, 200, 20, false);
+        asStand.create(tStand);
 
-        Tstand stand = new Tstand(idStand + 1, -1, -1, -1, -1, -1, true);
+        Tstand stand = new Tstand(ASStandImpTest.tstandTest1.getId() + 1, -1, -1, -1, -1, -1, true);
         asStand.modify(stand);
     }
 
     // No stand en bbdd
     @Test(expected = ASException.class)
     public void modifyStandWrongStand() throws DAOException, SQLException, ASException {
-        int idStand = -1, idFeria = -1, idPabellon = -1, idAsignacion = -1, idParticipacion = -1, idParticipante = -1;
-        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        daoStand.deleteAll(); //Vaciamos la bbdd de stands
         ASStandImp asStand = new ASStandImp();
-        ASParticipanteImp asParticipante = new ASParticipanteImp();
-        ASParticipacionImp asParticipacion = new ASParticipacionImp();
-        ASAsignacionImp asAsignation = new ASAsignacionImp();
-
-
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
-
-        //Creamos una asignacion y no la participacion asi sera esa la que este a null
-        Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
-        idAsignacion = asAsignation.create(transferAsignation);
-
-        //Creamos un participante
-        Tparticipante tParticipante = new Tparticipante("UCM", -1, true);
-        idParticipante = asParticipante.create(tParticipante);
-
-
-        //Creamos la participacion
-        Tparticipacion participation = new Tparticipacion(idFeria, idParticipante, false);
-        idParticipacion = asParticipacion.create(participation);
 
 
         //Ahora intentamos crear un stand a partir de un id asignacion valido y un id de participacion  valido.
-        Tstand tStand = new Tstand(idStand, idAsignacion, idParticipacion, 223344, 200, 20, false);
-        idStand = asStand.create(tStand);
+        Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), tasignacionTest1.getId(), tparticipacionTest1.getId(), 223344, 200, 20, false);
+        asStand.create(tStand);
 
-        Tstand stand = new Tstand(idStand + 1, idAsignacion, idParticipacion, 223344, 200, 20, true);
+        Tstand stand = new Tstand(ASStandImpTest.tstandTest1.getId() + 1, tasignacionTest1.getId(), tparticipacionTest1.getId(), 223344, 200, 20, true);
         asStand.modify(stand);
     }
 
     // No id stand inicializado
     @Test(expected = ASException.class)
     public void modifyStandNoStand() throws DAOException, SQLException, ASException {
-        int idStand = -1, idFeria = -1, idPabellon = -1, idAsignacion = -1, idParticipacion = -1, idParticipante = -1;
-        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        daoStand.deleteAll(); //Vaciamos la bbdd de stands
         ASStandImp asStand = new ASStandImp();
-        ASParticipanteImp asParticipante = new ASParticipanteImp();
-        ASParticipacionImp asParticipacion = new ASParticipacionImp();
-        ASAsignacionImp asAsignation = new ASAsignacionImp();
-
-
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
-
-        //Creamos una asignacion y no la participacion asi sera esa la que este a null
-        Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
-        idAsignacion = asAsignation.create(transferAsignation);
-
-        //Creamos un participante
-        Tparticipante tParticipante = new Tparticipante("UCM", -1, true);
-        idParticipante = asParticipante.create(tParticipante);
-
-
-        //Creamos la participacion
-        Tparticipacion participation = new Tparticipacion(idFeria, idParticipante, false);
-        idParticipacion = asParticipacion.create(participation);
 
 
         //Ahora intentamos crear un stand a partir de un id asignacion valido y un id de participacion  valido.
-        Tstand tStand = new Tstand(idStand, idAsignacion, idParticipacion, 223344, 200, 20, false);
-        idStand = asStand.create(tStand);
+        Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), tasignacionTest1.getId(), tparticipacionTest1.getId(), 223344, 200, 20, false);
+        asStand.create(tStand);
 
-        Tstand stand = new Tstand(-1, idAsignacion, idParticipacion, 223344, 200, 20, true);
+        Tstand stand = new Tstand(-1, tasignacionTest1.getId(), tparticipacionTest1.getId(), 223344, 200, 20, true);
         asStand.modify(stand);
     }
 
     // Chachi pistachi
     @Test
     public void modifyStand() throws DAOException, SQLException, ASException {
-        int idStand = -1, idFeria = -1, idPabellon = -1, idAsignacion = -1, idParticipacion = -1, idParticipante = -1;
-        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        daoStand.deleteAll(); //Vaciamos la bbdd de stands
         ASStandImp asStand = new ASStandImp();
-        ASParticipanteImp asParticipante = new ASParticipanteImp();
-        ASParticipacionImp asParticipacion = new ASParticipacionImp();
-        ASAsignacionImp asAsignation = new ASAsignacionImp();
-
-
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
-
-        //Creamos una asignacion y no la participacion asi sera esa la que este a null
-        Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
-        idAsignacion = asAsignation.create(transferAsignation);
-
-        //Creamos un participante
-        Tparticipante tParticipante = new Tparticipante("UCM", -1, true);
-        idParticipante = asParticipante.create(tParticipante);
-
-
-        //Creamos la participacion
-        Tparticipacion participation = new Tparticipacion(idFeria, idParticipante, false);
-        idParticipacion = asParticipacion.create(participation);
 
 
         //Ahora intentamos crear un stand a partir de un id asignacion valido y un id de participacion  valido.
-        Tstand tStand = new Tstand(idStand, idAsignacion, idParticipacion, 223344, 200, 20, false);
-        idStand = asStand.create(tStand);
+        Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), tasignacionTest1.getId(), tparticipacionTest1.getId(), 223344, 200, 20, false);
+        asStand.create(tStand);
 
         tStand.setCost(tStand.getCost() * 2);
         Tstand standResult = asStand.showById(asStand.modify(tStand));
@@ -471,36 +260,15 @@ public class ASStandImpTest {
     //Comprobamos que se puede listar correctamente los stand validos
     @Test
     public void listStand() throws DAOException, SQLException, ASException {
-        int idStand = -1, idFeria = -1, idPabellon = -1, idAsignacion = -1, idParticipacion = -1, idParticipante = -1;
-        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        daoStand.deleteAll(); //Vaciamos la bbdd de stands
         ASStandImp asStand = new ASStandImp();
-        ASParticipanteImp asParticipante = new ASParticipanteImp();
-        ASParticipacionImp asParticipacion = new ASParticipacionImp();
-        ASAsignacionImp asAsignation = new ASAsignacionImp();
 
-
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
-
-        //Creamos una asignacion y no la participacion asi sera esa la que este a null
-        Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
-        idAsignacion = asAsignation.create(transferAsignation);
-
-        //Creamos un participante
-        Tparticipante tParticipante = new Tparticipante("UCM", -1, true);
-        idParticipante = asParticipante.create(tParticipante);
-
-
-        //Creamos la participacion
-        Tparticipacion participation = new Tparticipacion(idFeria, idParticipante, false);
-        idParticipacion = asParticipacion.create(participation);
 
 
         //Ahora intentamos crear un stand a partir de un id asignacion valido y un id de participacion  valido.
-        Tstand tStand = new Tstand(idStand, idAsignacion, idParticipacion, 223344, 200, 20, false);
-        idStand = asStand.create(tStand);
+        Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), tasignacionTest1.getId(), tparticipacionTest1.getId(), 223344, 200, 20, false);
+        asStand.create(tStand);
 
-        Tstand tStand2 = new Tstand(idStand, idAsignacion, idParticipacion, 223344, 200, 20, false);
+        Tstand tStand2 = new Tstand(ASStandImpTest.tstandTest1.getId(), tasignacionTest1.getId(), tparticipacionTest1.getId(), 223344, 200, 20, false);
         asStand.create(tStand2);
 
         //Listamos todos los stands creados
@@ -513,29 +281,8 @@ public class ASStandImpTest {
     // No id
     @Test(expected = ASException.class)
     public void showNoId() throws DAOException, SQLException, ASException {
-        int idStand = -1, idFeria = -1, idPabellon = -1, idAsignacion = -1, idParticipacion = -1, idParticipante = -1;
-        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        daoStand.deleteAll(); //Vaciamos la bbdd de stands
         ASStandImp asStand = new ASStandImp();
-        ASParticipanteImp asParticipante = new ASParticipanteImp();
-        ASParticipacionImp asParticipacion = new ASParticipacionImp();
-        ASAsignacionImp asAsignation = new ASAsignacionImp();
 
-
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
-
-        //Creamos una asignacion y no la participacion asi sera esa la que este a null
-        Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
-        idAsignacion = asAsignation.create(transferAsignation);
-
-        //Creamos un participante
-        Tparticipante tParticipante = new Tparticipante("UCM", -1, true);
-        idParticipante = asParticipante.create(tParticipante);
-
-
-        //Creamos la participacion
-        Tparticipacion participation = new Tparticipacion(idFeria, idParticipante, false);
-        idParticipacion = asParticipacion.create(participation);
 
         asStand.showById(-1);
     }
@@ -543,71 +290,28 @@ public class ASStandImpTest {
     // Wrong id
     @Test(expected = ASException.class)
     public void showWrongId() throws DAOException, SQLException, ASException {
-        int idStand = -1, idFeria = -1, idPabellon = -1, idAsignacion = -1, idParticipacion = -1, idParticipante = -1;
-        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        daoStand.deleteAll(); //Vaciamos la bbdd de stands
         ASStandImp asStand = new ASStandImp();
-        ASParticipanteImp asParticipante = new ASParticipanteImp();
-        ASParticipacionImp asParticipacion = new ASParticipacionImp();
-        ASAsignacionImp asAsignation = new ASAsignacionImp();
-
-
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
-
-        //Creamos una asignacion y no la participacion asi sera esa la que este a null
-        Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
-        idAsignacion = asAsignation.create(transferAsignation);
-
-        //Creamos un participante
-        Tparticipante tParticipante = new Tparticipante("UCM", -1, true);
-        idParticipante = asParticipante.create(tParticipante);
-
-
-        //Creamos la participacion
-        Tparticipacion participation = new Tparticipacion(idFeria, idParticipante, false);
-        idParticipacion = asParticipacion.create(participation);
 
 
         //Ahora intentamos crear un stand a partir de un id asignacion valido y un id de participacion  valido.
-        Tstand tStand = new Tstand(idStand, idAsignacion, idParticipacion, 223344, 200, 20, false);
-        idStand = asStand.create(tStand);
+        Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), tasignacionTest1.getId(), tparticipacionTest1.getId(), 223344, 200, 20, false);
+        asStand.create(tStand);
 
-        asStand.showById(idStand + 1);
+        asStand.showById(ASStandImpTest.tstandTest1.getId() + 1);
     }
 
     // No error
     @Test
     public void showById() throws DAOException, SQLException, ASException {
-        int idStand = -1, idFeria = -1, idPabellon = -1, idAsignacion = -1, idParticipacion = -1, idParticipante = -1;
-        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        daoStand.deleteAll(); //Vaciamos la bbdd de stands
         ASStandImp asStand = new ASStandImp();
-        ASParticipanteImp asParticipante = new ASParticipanteImp();
-        ASParticipacionImp asParticipacion = new ASParticipacionImp();
-        ASAsignacionImp asAsignation = new ASAsignacionImp();
 
-
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
-
-        //Creamos una asignacion y no la participacion asi sera esa la que este a null
-        Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
-        idAsignacion = asAsignation.create(transferAsignation);
-
-        //Creamos un participante
-        Tparticipante tParticipante = new Tparticipante("UCM", -1, true);
-        idParticipante = asParticipante.create(tParticipante);
-
-
-        //Creamos la participacion
-        Tparticipacion participation = new Tparticipacion(idFeria, idParticipante, false);
-        idParticipacion = asParticipacion.create(participation);
 
 
         //Ahora intentamos crear un stand a partir de un id asignacion valido y un id de participacion  valido.
-        Tstand tStand = new Tstand(idStand, idAsignacion, idParticipacion, 223344, 200, 20, false);
-        idStand = asStand.create(tStand);
+        Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), tasignacionTest1.getId(), tparticipacionTest1.getId(), 223344, 200, 20, false);
+        asStand.create(tStand);
 
-        asStand.showById(idStand);
+        asStand.showById(ASStandImpTest.tstandTest1.getId());
     }
 
     //---------------------------------------------------------------------------------------------------------------------------
@@ -617,34 +321,12 @@ public class ASStandImpTest {
     // No ID
     @Test(expected = ASException.class)
     public void showNoParticipationId() throws DAOException, SQLException, ASException {
-        int idStand = -1, idFeria = -1, idPabellon = -1, idAsignacion = -1, idParticipacion = -1, idParticipante = -1;
-        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        daoStand.deleteAll(); //Vaciamos la bbdd de stands
         ASStandImp asStand = new ASStandImp();
-        ASParticipanteImp asParticipante = new ASParticipanteImp();
-        ASParticipacionImp asParticipacion = new ASParticipacionImp();
-        ASAsignacionImp asAsignation = new ASAsignacionImp();
-
-
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
-
-        //Creamos una asignacion y no la participacion asi sera esa la que este a null
-        Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
-        idAsignacion = asAsignation.create(transferAsignation);
-
-        //Creamos un participante
-        Tparticipante tParticipante = new Tparticipante("UCM", -1, true);
-        idParticipante = asParticipante.create(tParticipante);
-
-
-        //Creamos la participacion
-        Tparticipacion participation = new Tparticipacion(idFeria, idParticipante, false);
-        idParticipacion = asParticipacion.create(participation);
 
 
         //Ahora intentamos crear un stand a partir de un id asignacion valido y un id de participacion  valido.
-        Tstand tStand = new Tstand(idStand, idAsignacion, idParticipacion, 223344, 200, 20, false);
-        idStand = asStand.create(tStand);
+        Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), tasignacionTest1.getId(), -1, 223344, 200, 20, false);
+        asStand.create(tStand);
 
         asStand.showByParticipation(-1);
     }
@@ -652,71 +334,27 @@ public class ASStandImpTest {
     // Wrong ID
     @Test(expected = ASException.class)
     public void showWrongParticipationId() throws DAOException, SQLException, ASException {
-        int idStand = -1, idFeria = -1, idPabellon = -1, idAsignacion = -1, idParticipacion = -1, idParticipante = -1;
-        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        daoStand.deleteAll(); //Vaciamos la bbdd de stands
         ASStandImp asStand = new ASStandImp();
-        ASParticipanteImp asParticipante = new ASParticipanteImp();
-        ASParticipacionImp asParticipacion = new ASParticipacionImp();
-        ASAsignacionImp asAsignation = new ASAsignacionImp();
-
-
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
-
-        //Creamos una asignacion y no la participacion asi sera esa la que este a null
-        Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
-        idAsignacion = asAsignation.create(transferAsignation);
-
-        //Creamos un participante
-        Tparticipante tParticipante = new Tparticipante("UCM", -1, true);
-        idParticipante = asParticipante.create(tParticipante);
-
-
-        //Creamos la participacion
-        Tparticipacion participation = new Tparticipacion(idFeria, idParticipante, false);
-        idParticipacion = asParticipacion.create(participation);
 
 
         //Ahora intentamos crear un stand a partir de un id asignacion valido y un id de participacion  valido.
-        Tstand tStand = new Tstand(idStand, idAsignacion, idParticipacion, 223344, 200, 20, false);
-        idStand = asStand.create(tStand);
+        Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), tasignacionTest1.getId(), tparticipacionTest1.getId(), 223344, 200, 20, false);
+        asStand.create(tStand);
 
-        asStand.showByParticipation(idParticipacion + 1);
+        asStand.showByParticipation(tparticipacionTest1.getId() + 1);
     }
 
     // No Error
     @Test
     public void showByParticipationId() throws DAOException, SQLException, ASException {
-        int idStand = -1, idFeria = -1, idPabellon = -1, idAsignacion = -1, idParticipacion = -1, idParticipante = -1;
-        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        daoStand.deleteAll(); //Vaciamos la bbdd de stands
         ASStandImp asStand = new ASStandImp();
-        ASParticipanteImp asParticipante = new ASParticipanteImp();
-        ASParticipacionImp asParticipacion = new ASParticipacionImp();
-        ASAsignacionImp asAsignation = new ASAsignacionImp();
-
-
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
-
-        //Creamos una asignacion y no la participacion asi sera esa la que este a null
-        Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
-        idAsignacion = asAsignation.create(transferAsignation);
-
-        //Creamos un participante
-        Tparticipante tParticipante = new Tparticipante("UCM", -1, true);
-        idParticipante = asParticipante.create(tParticipante);
-
-
-        //Creamos la participacion
-        Tparticipacion participation = new Tparticipacion(idFeria, idParticipante, false);
-        idParticipacion = asParticipacion.create(participation);
 
 
         //Ahora intentamos crear un stand a partir de un id asignacion valido y un id de participacion  valido.
-        Tstand tStand = new Tstand(idStand, idAsignacion, idParticipacion, 223344, 200, 20, false);
-        idStand = asStand.create(tStand);
+        Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), tasignacionTest1.getId(), tparticipacionTest1.getId(), 223344, 200, 20, false);
+        asStand.create(tStand);
 
-        asStand.showByParticipation(idParticipacion);
+        asStand.showByParticipation(tparticipacionTest1.getId());
     }
 
     //------------------------------------------------------------------------------------------------------------------------------
@@ -726,34 +364,13 @@ public class ASStandImpTest {
     // No ID
     @Test(expected = ASException.class)
     public void showNoAssignationId() throws DAOException, SQLException, ASException {
-        int idStand = -1, idFeria = -1, idPabellon = -1, idAsignacion = -1, idParticipacion = -1, idParticipante = -1;
-        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        daoStand.deleteAll(); //Vaciamos la bbdd de stands
         ASStandImp asStand = new ASStandImp();
-        ASParticipanteImp asParticipante = new ASParticipanteImp();
-        ASParticipacionImp asParticipacion = new ASParticipacionImp();
-        ASAsignacionImp asAsignation = new ASAsignacionImp();
 
-
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
-
-        //Creamos una asignacion y no la participacion asi sera esa la que este a null
-        Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
-        idAsignacion = asAsignation.create(transferAsignation);
-
-        //Creamos un participante
-        Tparticipante tParticipante = new Tparticipante("UCM", -1, true);
-        idParticipante = asParticipante.create(tParticipante);
-
-
-        //Creamos la participacion
-        Tparticipacion participation = new Tparticipacion(idFeria, idParticipante, false);
-        idParticipacion = asParticipacion.create(participation);
 
 
         //Ahora intentamos crear un stand a partir de un id asignacion valido y un id de participacion  valido.
-        Tstand tStand = new Tstand(idStand, idAsignacion, idParticipacion, 223344, 200, 20, false);
-        idStand = asStand.create(tStand);
+        Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), tasignacionTest1.getId(), tparticipacionTest1.getId(), 223344, 200, 20, false);
+        asStand.create(tStand);
 
         asStand.showByAssignation(-1);
     }
@@ -761,69 +378,26 @@ public class ASStandImpTest {
     // Wrong ID
     @Test(expected = ASException.class)
     public void showWrongAssignationId() throws DAOException, SQLException, ASException {
-        int idStand = -1, idFeria = -1, idPabellon = -1, idAsignacion = -1, idParticipacion = -1, idParticipante = -1;
-        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        daoStand.deleteAll(); //Vaciamos la bbdd de stands
         ASStandImp asStand = new ASStandImp();
-        ASParticipanteImp asParticipante = new ASParticipanteImp();
-        ASParticipacionImp asParticipacion = new ASParticipacionImp();
-        ASAsignacionImp asAsignation = new ASAsignacionImp();
-
-
-        //Añadimos primero una feria y un pabellon a la bbdd para poder generar una asignacio
-
-        //Creamos una asignacion y no la participacion asi sera esa la que este a null
-        Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
-        idAsignacion = asAsignation.create(transferAsignation);
-
-        //Creamos un participante
-        Tparticipante tParticipante = new Tparticipante("UCM", -1, true);
-        idParticipante = asParticipante.create(tParticipante);
-
-
-        //Creamos la participacion
-        Tparticipacion participation = new Tparticipacion(idFeria, idParticipante, false);
-        idParticipacion = asParticipacion.create(participation);
 
 
         //Ahora intentamos crear un stand a partir de un id asignacion valido y un id de participacion  valido.
-        Tstand tStand = new Tstand(idStand, idAsignacion, idParticipacion, 223344, 200, 20, false);
-        idStand = asStand.create(tStand);
+        Tstand tStand = new Tstand(tstandTest1.getId(), tasignacionTest1.getId(), tparticipacionTest1.getId(), 223344, 200, 20, false);
+        asStand.create(tStand);
 
-        asStand.showByAssignation(idParticipacion + 1);
+        asStand.showByAssignation(tparticipacionTest1.getId() + 1);
     }
 
     // No Error
     @Test
     public void showByAssignationId() throws DAOException, SQLException, ASException {
-        int idStand = -1, idFeria = -1, idPabellon = -1, idAsignacion = -1, idParticipacion = -1, idParticipante = -1;
-        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        daoStand.deleteAll(); //Vaciamos la bbdd de stands
         ASStandImp asStand = new ASStandImp();
-        ASParticipanteImp asParticipante = new ASParticipanteImp();
-        ASParticipacionImp asParticipacion = new ASParticipacionImp();
-        ASAsignacionImp asAsignation = new ASAsignacionImp();
-
-
-        //Creamos una asignacion y no la participacion asi sera esa la que este a null
-        Tasignacion transferAsignation = new Tasignacion(idAsignacion, idFeria, idPabellon, 4000, 3000, false);
-        idAsignacion = asAsignation.create(transferAsignation);
-
-        //Creamos un participante
-        Tparticipante tParticipante = new Tparticipante("UCM", -1, true);
-        idParticipante = asParticipante.create(tParticipante);
-
-
-        //Creamos la participacion
-        Tparticipacion participation = new Tparticipacion(idFeria, idParticipante, false);
-        idParticipacion = asParticipacion.create(participation);
-
 
         //Ahora intentamos crear un stand a partir de un id asignacion valido y un id de participacion  valido.
-        Tstand tStand = new Tstand(idStand, idAsignacion, idParticipacion, 223344, 200, 20, false);
-        idStand = asStand.create(tStand);
+        Tstand tStand = new Tstand(tstandTest1.getId(), tasignacionTest1.getId(), tparticipacionTest1.getId(), 223344, 200, 20, false);
+        asStand.create(tStand);
 
-        asStand.showByAssignation(idAsignacion);
+        asStand.showByAssignation(tasignacionTest1.getId());
     }
     //-----------------------------------------------------------------------------------------------------------------------------
 }

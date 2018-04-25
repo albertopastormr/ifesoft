@@ -26,8 +26,12 @@ public class ASParticipacionImp implements ASParticipacion {
                     Tparticipacion read = daoParticipacion.readByFairIdClientId(participacion.getFair_id(), participacion.getClient_id());
                     if (read == null)
                         return daoParticipacion.create(participacion);
-                    else
-                        throw new ASException("ERROR: El participante " + participacion.getClient_id() + " ya participa en la feria " + participacion.getFair_id() + ".\n");
+                    else{
+                        if(!read.getActive() && participacion.getActive())
+                            return daoParticipacion.update(participacion);
+                        else
+                            throw new ASException("ERROR: El participante " + participacion.getClient_id() + " ya participa en la feria " + participacion.getFair_id() + ".\n");
+                    }
                 } else
                     throw new ASException("ERROR: La feria o el participante introducido no existen.\n");
             } catch (Exception ex) {
@@ -56,19 +60,15 @@ public class ASParticipacionImp implements ASParticipacion {
 
     public Integer modify(Tparticipacion participacion) throws ASException {
         DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
-        DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-        DAOParticipante daoParticipante = IFDAOParticipante.getInstance().generateDAOparticipante();
 
         if (participacion != null && participacion.getId() != -1 && participacion.getFair_id() != -1 && participacion.getClient_id() != -1) {
             try {
                 Tparticipacion read = daoParticipacion.readById(participacion.getId());
                 if (read != null) {
-                    Tferia fRead = daoFeria.readById(participacion.getFair_id());
-                    Tparticipante fParticipante = daoParticipante.readById(participacion.getClient_id());
-                    if (fRead != null && fParticipante != null)
+                    if (participacion.getFair_id() == read.getFair_id() && participacion.getClient_id() == read.getClient_id())
                         return daoParticipacion.update(participacion);
                     else
-                        throw new ASException("ERROR: La feria o el participante introducido no existen.\n");
+                        throw new ASException("ERROR: No pueden ser modificados el participante y/o feria de una participacion.\n");
                 } else
                     throw new ASException("ERROR: La participacion " + participacion.getId() + ") no existe.\n");
             } catch (Exception ex) {

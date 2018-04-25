@@ -17,6 +17,7 @@ public class GUIFormAssignation extends JFrame implements UI {
 
     private Dimension minScreenSize = new Dimension(1600, 1000);
 
+    private int idAssignation;
     private String idFair;
     private String idPavilion;
     private String metres;
@@ -31,10 +32,10 @@ public class GUIFormAssignation extends JFrame implements UI {
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
     private Font fLabel = new Font(Font.DIALOG, Font.PLAIN, 30);
     private Font fField = new Font(Font.DIALOG, Font.PLAIN, 30);
-    private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
+    private Font fButton = new Font(Font.DIALOG, Font.PLAIN, 30);
 
-    private Color cField = new Color(243,243,243);
-    private Color cHelpButton = new Color(66,35,146);
+    private Color cField = new Color(243, 243, 243);
+    private Color cHelpButton = new Color(66, 35, 146);
     private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
 
@@ -51,7 +52,7 @@ public class GUIFormAssignation extends JFrame implements UI {
         this.setTitle(setTitle());
         mod = false;
         initComponents();
-        this.setBounds(100,100, 800,800);
+        this.setBounds(100, 100, 800, 800);
         this.setVisible(true);
     }
 
@@ -59,12 +60,14 @@ public class GUIFormAssignation extends JFrame implements UI {
     public GUIFormAssignation(Tasignacion assignation) {
         mod = true;
 
-        idFair= String.valueOf(assignation.getFair_id());
+        this.idAssignation = assignation.getId();
+
+        idFair = String.valueOf(assignation.getFair_id());
         idPavilion = String.valueOf(assignation.getPavilion_id());
         metres = String.valueOf(assignation.getUsed_m2());
 
         initComponents();
-        this.setBounds(100,100, 800,800);
+        this.setBounds(100, 100, 800, 800);
         this.setVisible(true);
     }
 
@@ -75,9 +78,9 @@ public class GUIFormAssignation extends JFrame implements UI {
         int idPavilion = Integer.valueOf(idPavilionField.getText());
         int mTotal = Integer.valueOf(metresTotalField.getText());
 
-        Tasignacion tAssignation = new Tasignacion(idFair, idPavilion, mTotal, 0, true);
+        Tasignacion tAssignation = new Tasignacion(idAssignation, idFair, idPavilion, mTotal, 0, true);
 
-        if (!mod)  Controller.getInstance().execute(Event.INSERT_ASSIGNATION, tAssignation);
+        if (!mod) Controller.getInstance().execute(Event.INSERT_ASSIGNATION, tAssignation);
         else Controller.getInstance().execute(Event.MODIFY_ASSIGNATION, tAssignation);
     }
 
@@ -91,9 +94,9 @@ public class GUIFormAssignation extends JFrame implements UI {
         new ActionHelp(helpMessage);
     }
 
-    private void setupTitle(){
+    private void setupTitle() {
         title = new JLabel();
-        if(mod)
+        if (mod)
             title.setText("Modify Assignation");
         else
             title.setText("Create_Modify Assignation");
@@ -102,14 +105,14 @@ public class GUIFormAssignation extends JFrame implements UI {
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
     }
 
-    private JLabel createLabel(String text){
+    private JLabel createLabel(String text) {
 
         JLabel label = new JLabel(text, JLabel.RIGHT);
         label.setFont(fLabel);
         return label;
     }
 
-    private JTextField setupTextField(){
+    private JTextField setupTextField() {
         JTextField field = new JTextField();
         field.setFont(fField);
         field.setBackground(cField);
@@ -179,7 +182,7 @@ public class GUIFormAssignation extends JFrame implements UI {
 
         formCon.anchor = GridBagConstraints.WEST;
 
-        formCon.insets = new Insets(20,10,20,0);
+        formCon.insets = new Insets(20, 10, 20, 0);
 
         formCon.gridx = 1;
         formCon.gridy = 0;
@@ -193,7 +196,7 @@ public class GUIFormAssignation extends JFrame implements UI {
         formContainer.add(formPanel);
     }
 
-    private void setUpButtonBar(){
+    private void setUpButtonBar() {
 
         Dimension buttonDim = new Dimension(150, 80);
 
@@ -209,7 +212,7 @@ public class GUIFormAssignation extends JFrame implements UI {
             public void actionPerformed(ActionEvent e) {
                 try {
                     cancelButtonStateChanged();
-                } catch (Exception e1){
+                } catch (Exception e1) {
                     new PanelProblemUser(e1.getMessage());
                 }
             }
@@ -243,7 +246,7 @@ public class GUIFormAssignation extends JFrame implements UI {
             public void actionPerformed(ActionEvent e) {
                 try {
                     createButtonFormActionPerformed();
-                } catch (Exception e1){
+                } catch (Exception e1) {
                     new PanelProblemUser(e1.getMessage());
                 }
             }
@@ -267,7 +270,7 @@ public class GUIFormAssignation extends JFrame implements UI {
         JPanel dialogPanel = new JPanel();
         BorderLayout dialogLayout = new BorderLayout();
         dialogPanel.setLayout(dialogLayout);
-        dialogPanel.setBorder(BorderFactory.createEmptyBorder(20,50,20,50));
+        dialogPanel.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
 
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
