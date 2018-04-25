@@ -189,9 +189,7 @@ public class ASAsignacionImpTest {
         daoAsignation.deleteAll(); //Vaciamos la bbdd de asignaciones
 
         Tasignacion transferAsignation = new Tasignacion(asignationId, 223344, 223344, 40000, 3000, false);
-        asignationId = daoAsignation.create(transferAsignation); //Creamos la asignacion primero con sus datos y nos pondra el booleano a true
-
-        daoAsignation.delete(asignationId); //Borramos esa asignacion poniendo el booleano a false
+        asignationId = asAsignation.create(transferAsignation); //Creamos la asignacion primero con sus datos y nos pondra el booleano a true
         asAsignation.drop(transferAsignation); //Aqui deberia saltar la excepcion ya que ya esta a false el booleano
     }
 

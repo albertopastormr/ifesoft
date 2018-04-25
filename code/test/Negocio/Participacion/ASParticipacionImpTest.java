@@ -190,7 +190,7 @@ public class ASParticipacionImpTest {
 
         Tparticipacion participacion1 = new Tparticipacion( ielectronics.getId(), ibm.getId(), true);
         int id1 = asParticipacion.create(participacion1);
-        Tparticipacion participacion = new Tparticipacion(id1, ielectronics.getId(), ibm.getId(), false);
+        Tparticipacion participacion = new Tparticipacion(id1, ielectronics.getId(), japonShop.getId(), false);
         int id2 = asParticipacion.modify(participacion);
     }
 
