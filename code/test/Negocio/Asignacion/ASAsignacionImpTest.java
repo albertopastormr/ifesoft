@@ -4,7 +4,9 @@ import Exceptions.ASException;
 import Exceptions.DAOException;
 import Integracion.Asignacion.DAOAsignacion;
 import Integracion.Feria.DAOFeria;
+import Integracion.Feria.DAOFeriaImp;
 import Integracion.Pabellon.DAOPabellon;
+import Integracion.Pabellon.DAOPabellonImp;
 import Negocio.Feria.IFDAOFeria;
 import Negocio.Feria.Tferia;
 import Negocio.Pabellon.IFDAOPabellon;
@@ -20,37 +22,45 @@ import static org.junit.Assert.assertTrue;
 
 public class ASAsignacionImpTest {
 
+    // Tasignacion para probar
+    private static Tasignacion tasignacionTest1 = new Tasignacion(1, 1, 1, 1,true);
+    private static Tasignacion tasignacionTest2 = new Tasignacion(2, 2, 2,2, true);
+
+    // Tferia para probar
+    private static Tferia tferiaTest1 = new Tferia("FITUR","Feria internacional turismo",new java.sql.Date(117,0,4),new java.sql.Date(117,0,4),true);
+    private static Tferia tferiaTest2 = new Tferia("VINECT","Feria internacional vinos",new java.sql.Date(117,9,28),new java.sql.Date(117,10,4),true);
+
+    // Tpabellon para probar
+    private static Tpabellon tpabellonTest1 = new Tpabellon(1, 0,  0,true);
+    private static Tpabellon tpabellonTest2 = new Tpabellon(2, 2,  2,true);
+
     @Before
     public void setUp() throws Exception {
         DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
         daoAsignacion.deleteAll();
+
+        // Creacion de 2 tFeria para soportar el uso de asignaciones
+        DAOFeriaImp daoFeriaImp = new DAOFeriaImp();
+        daoFeriaImp.deleteAll();
+        daoFeriaImp.create(tferiaTest1);
+        daoFeriaImp.create(tferiaTest2);
+
+        // Creacion de 2 tPabellon para soportar el uso de asignaciones
+        DAOPabellonImp daoPabellonImp = new DAOPabellonImp();
+        daoPabellonImp.deleteAll();
+        daoPabellonImp.create(tpabellonTest1);
+        daoPabellonImp.create(tpabellonTest2);
     }
 
     //-----------------------------------------------TEST CREATE----------------------------------------------------------------------
     //Metodo donde comprobamos que se puede crear una asignacion correctaente a partir de un id de feria y un id de pabellon
-    @Test
+    @Test(expected = ASException.class)
     public void createAsignation() throws DAOException, SQLException, ASException {
-        Integer idFair = -1, idPavilion = -1, idAsignation = -1;
-        DAOAsignacion daoAsignation = IFDAOAsignacion.getInstance().generateDAOasignacion();
-
-        //Generamos DAO y transfer para feria para insertar una feria en la bbdd
-        DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-        Date dateIni = new Date((4016-1900), 1, 12);
-        Date dateEnd = new Date((4016-1900), 1, 18);
-        Tferia transferFair = new Tferia(idFair, "IBM", "ExampleFair", dateIni, dateEnd, false);
-        idFair =  daoFeria.create(transferFair); //Creamos la feria y la insertamos en la bbdd
-
-        //Generamos DAO y transfer para pabellon e insertarlo en la bbdd
-        DAOPabellon daoPavilion = IFDAOPabellon.getInstance().generateDAOpabellon();
-        Tpabellon transferPavilion = new Tpabellon(idPavilion, 5000, 5000, false);
-        idPavilion = daoPavilion.create(transferPavilion);
-
-        ASAsignacionImp asAsignation = new ASAsignacionImp();
-        daoAsignation.deleteAll(); //Vaciamos la bbdd de asignaciones
+        ASAsignacionImp asAsignacion = new ASAsignacionImp();
 
         //4000m2 contratatdos o totales, 3000m2 asignados a es stand en ese pabellon
-        Tasignacion transferAsignation = new Tasignacion(idAsignation, idFair, idPavilion, 4000, 3000, false);
-        assertTrue(asAsignation.create(transferAsignation) > 0);
+        Tasignacion transferAsignacion = new Tasignacion(ASAsignacionImpTest.tasignacionTest1.getId(), tferiaTest1.getId(), tpabellonTest1.getId(), 4000, 3000, false);
+        asAsignacion.create(transferAsignacion);
     }
 
     //Metodo donde comprobamos que no se puede crear una asignacion ya existente en la bbdd
