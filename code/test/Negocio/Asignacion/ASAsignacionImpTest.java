@@ -172,10 +172,8 @@ public class ASAsignacionImpTest {
     public void modifyAsignationNotExisting() throws ASException, DAOException, SQLException{
         Integer asignationId = -1;
         ASAsignacionImp asAsignation = new ASAsignacionImp();
-        DAOAsignacion daoAsignation = IFDAOAsignacion.getInstance().generateDAOasignacion();
-        daoAsignation.deleteAll(); //Vaciamos la bbdd de asignaciones
 
-        Tasignacion transferAsignation = new Tasignacion(asignationId, 223344, 223344, 40000, 3000, false);
+        Tasignacion transferAsignation = new Tasignacion(asignationId, idFeria1, idPabellon1, 40000, 3000, false);
         asAsignation.modify(transferAsignation);
     }
 
@@ -184,8 +182,6 @@ public class ASAsignacionImpTest {
     public void modifyAsignationDataIncorrect() throws ASException, DAOException, SQLException{
         Integer asignationId = -1;
         ASAsignacionImp asAsignation = new ASAsignacionImp();
-        DAOAsignacion daoAsignation = IFDAOAsignacion.getInstance().generateDAOasignacion();
-        daoAsignation.deleteAll(); //Vaciamos la bbdd de asignaciones
 
         //Le ponemos -1 al ID feria y pabellon
         Tasignacion transferAsignation = new Tasignacion(asignationId, -1, -1, 40000, 3000, false);
@@ -194,52 +190,28 @@ public class ASAsignacionImpTest {
     //Comprobamos con el test que no se puede modificar una asignacion con un pabellon inexistente en la bbdd
     @Test(expected = ASException.class)
     public void modifyAsignationNotExistPavilion() throws ASException, DAOException, SQLException{
-        Integer asignationId = 1, idFair = -1;
+        Integer asignationId = 1;
         ASAsignacionImp asAsignation = new ASAsignacionImp();
-        DAOAsignacion daoAsignation = IFDAOAsignacion.getInstance().generateDAOasignacion();
-        daoAsignation.deleteAll(); //Vaciamos la bbdd de asignaciones
-
-        //Generamos DAO y transfer para feria para insertar una feria en la bbdd
-        DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-        Date dateIni = new Date((4016-1900), 1, 12);
-        Date dateEnd = new Date((4016-1900), 1, 18);
-        Tferia transferFair = new Tferia(idFair, "IBM", "ExampleFair", dateIni, dateEnd, false);
-        idFair =  daoFeria.create(transferFair); //Creamos la feria y la insertamos en la bbdd
 
         //Le pasamos un ID 223344 a pabellon inexistente en la bbddd
-        Tasignacion transferAsignation = new Tasignacion(asignationId, idFair, 223344, 40000, 3000, false);
+        Tasignacion transferAsignation = new Tasignacion(ASAsignacionImpTest.tasignacionTest1.getId(), idFeria1, 223344, 4000, 3000, false);
         asignationId = asAsignation.create(transferAsignation);
-        Tasignacion transferAsignation2 = new Tasignacion(asignationId, idFair, 223344, 40000, 3000, false);
+        Tasignacion transferAsignation2 = new Tasignacion(asignationId, idFeria1, 223344, 4000, 3000, false);
 
         asAsignation.modify(transferAsignation2);
     }
 
     //Comprobamos con el test que se puede realizar una modificacion correctamente
-    @Test(expected = ASException.class)
+    @Test
     public void modifyAsignation() throws ASException, DAOException, SQLException{
-        Integer asignationId = -1, idFair = -1, idPavilion = -1;
+        Integer asignationId = -1;
         ASAsignacionImp asAsignation = new ASAsignacionImp();
-        DAOAsignacion daoAsignation = IFDAOAsignacion.getInstance().generateDAOasignacion();
-        daoAsignation.deleteAll(); //Vaciamos la bbdd de asignaciones
 
-        //Generamos DAO y transfer para feria para insertar una feria en la bbdd
-        DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-        Date dateIni = new Date((4016-1900), 1, 12);
-        Date dateEnd = new Date((4016-1900), 1, 18);
-        Tferia transferFair = new Tferia(idFair, "IBM", "ExampleFair", dateIni, dateEnd, false);
-        idFair =  daoFeria.create(transferFair); //Creamos la feria y la insertamos en la bbdd
-
-        //Generamos DAO y transfer para pabellon e insertarlo en la bbdd
-        DAOPabellon daoPavilion = IFDAOPabellon.getInstance().generateDAOpabellon();
-        Tpabellon transferPavilion = new Tpabellon(idPavilion, 5000, 5000, false);
-        idPavilion = daoPavilion.create(transferPavilion);
-
-        //COMPROBAR AQUI ESTO --> ASIGNATIONID SE ACTUALIZA EN EL TRANSFER DESPUES DE CREATE????
-        Tasignacion transferAsignation = new Tasignacion(asignationId, idFair, idPavilion, 40000, 3000, false);
+        Tasignacion transferAsignation = new Tasignacion(asignationId, idFeria1, idPabellon1, 4000, 3000, false);
         //Introducimos la asignacion en la bbdd
         asignationId = asAsignation.create(transferAsignation);
         //Generamos un nuevo transfer con los datos de la asignacion anterior mas su id y  modificamos los m2 totales a 30000
-        Tasignacion transferAsignation2 = new Tasignacion(asignationId, idFair, idPavilion, 30000, 3000, true);
+        Tasignacion transferAsignation2 = new Tasignacion(asignationId, idFeria1, idPabellon1, 3000, 3000, true);
 
         //La modificamos
         asAsignation.modify(transferAsignation2);
@@ -254,24 +226,11 @@ public class ASAsignacionImpTest {
     public void listAsignation() throws DAOException, ASException, SQLException{
         Collection<Tasignacion> collection;
 
-        Integer asignationId = -1, idFair = -1, idPavilion = -1;
+        Integer asignationId = -1;
         ASAsignacionImp asAsignation = new ASAsignacionImp();
-        DAOAsignacion daoAsignation = IFDAOAsignacion.getInstance().generateDAOasignacion();
-        daoAsignation.deleteAll(); //Vaciamos la bbdd de asignaciones
 
-        //Generamos DAO y transfer para feria para insertar una feria en la bbdd
-        DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-        Date dateIni = new Date((4016-1900), 1, 12);
-        Date dateEnd = new Date((4016-1900), 1, 18);
-        Tferia transferFair = new Tferia(idFair, "IBM", "ExampleFair", dateIni, dateEnd, false);
-        idFair =  daoFeria.create(transferFair); //Creamos la feria y la insertamos en la bbdd
 
-        //Generamos DAO y transfer para pabellon e insertarlo en la bbdd
-        DAOPabellon daoPavilion = IFDAOPabellon.getInstance().generateDAOpabellon();
-        Tpabellon transferPavilion = new Tpabellon(idPavilion, 5000, 5000, false);
-        idPavilion = daoPavilion.create(transferPavilion);
-
-        Tasignacion transferAsignation = new Tasignacion(asignationId, idFair, idPavilion, 4000, 3000, false);
+        Tasignacion transferAsignation = new Tasignacion(asignationId, idFeria1, idPabellon1, 4000, 3000, false);
         asAsignation.create(transferAsignation);
 
         collection = asAsignation.list();
@@ -287,8 +246,6 @@ public class ASAsignacionImpTest {
     public void showByIdPavilionIncorrect() throws SQLException, ASException, DAOException{
         Integer idPavilion = -1;
         ASAsignacionImp asAsignacion = new ASAsignacionImp();
-        DAOAsignacion daoAsignation = IFDAOAsignacion.getInstance().generateDAOasignacion();
-        daoAsignation.deleteAll(); //Vaciamos la bbdd de asignaciones
 
         asAsignacion.showByIdPavilion(idPavilion);
     }
@@ -296,28 +253,14 @@ public class ASAsignacionImpTest {
     //Comprobamos que se muestra correctamente una asignacion por id de pabellon correctamente
     @Test
     public void showByIdPavilion() throws SQLException, ASException, DAOException{
-        Integer idPavilion = -1, idFair = -1, idAsignation = -1;
+        Integer  idAsignation = -1;
         ASAsignacionImp asAsignation = new ASAsignacionImp();
-        DAOAsignacion daoAsignation = IFDAOAsignacion.getInstance().generateDAOasignacion();
-        daoAsignation.deleteAll(); //Vaciamos la bbdd de asignaciones
-
-        //Generamos DAO y transfer para feria para insertar una feria en la bbdd
-        DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-        Date dateIni = new Date((4016-1900), 1, 12);
-        Date dateEnd = new Date((4016-1900), 1, 18);
-        Tferia transferFair = new Tferia(idFair, "IBM", "ExampleFair", dateIni, dateEnd, false);
-        idFair =  daoFeria.create(transferFair); //Creamos la feria y la insertamos en la bbdd
-
-        //Generamos DAO y transfer para pabellon e insertarlo en la bbdd
-        DAOPabellon daoPavilion = IFDAOPabellon.getInstance().generateDAOpabellon();
-        Tpabellon transferPavilion = new Tpabellon(idPavilion, 5000, 5000, false);
-        idPavilion = daoPavilion.create(transferPavilion);
 
         //Introducimos en la bbdd la asignacion
-        Tasignacion transferAsignation = new Tasignacion(idAsignation, idFair, idPavilion, 4000, 3000, false);
+        Tasignacion transferAsignation = new Tasignacion(idAsignation, idFeria1, idPabellon1, 4000, 3000, false);
         asAsignation.create(transferAsignation);
         //Mostramos por ID de pabellon
-        asAsignation.showByIdPavilion(idPavilion);
+        asAsignation.showByIdPavilion(idPabellon1);
     }
 
     //-----------------------------------------------------------------------------------------------------------------------------------
@@ -329,8 +272,6 @@ public class ASAsignacionImpTest {
     public void showByIdFairIncorrect() throws SQLException, ASException, DAOException{
         Integer idFair = -1;
         ASAsignacionImp asAsignacion = new ASAsignacionImp();
-        DAOAsignacion daoAsignation = IFDAOAsignacion.getInstance().generateDAOasignacion();
-        daoAsignation.deleteAll(); //Vaciamos la bbdd de asignaciones
 
         asAsignacion.showByIdFair(idFair);
     }
@@ -338,28 +279,14 @@ public class ASAsignacionImpTest {
     //Comprobamos que se muestra correctamente una asignacion por id de feria correctamente
     @Test
     public void showByIdFair() throws SQLException, ASException, DAOException{
-        Integer idPavilion = -1, idFair = -1, idAsignation = -1;
+        Integer idAsignation = -1;
         ASAsignacionImp asAsignation = new ASAsignacionImp();
-        DAOAsignacion daoAsignation = IFDAOAsignacion.getInstance().generateDAOasignacion();
-        daoAsignation.deleteAll(); //Vaciamos la bbdd de asignaciones
-
-        //Generamos DAO y transfer para feria para insertar una feria en la bbdd
-        DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-        Date dateIni = new Date((4016-1900), 1, 12);
-        Date dateEnd = new Date((4016-1900), 1, 18);
-        Tferia transferFair = new Tferia(idFair, "IBM", "ExampleFair", dateIni, dateEnd, false);
-        idFair =  daoFeria.create(transferFair); //Creamos la feria y la insertamos en la bbdd
-
-        //Generamos DAO y transfer para pabellon e insertarlo en la bbdd
-        DAOPabellon daoPavilion = IFDAOPabellon.getInstance().generateDAOpabellon();
-        Tpabellon transferPavilion = new Tpabellon(idPavilion, 5000, 5000, false);
-        idPavilion = daoPavilion.create(transferPavilion);
 
         //Introducimos en la bbdd la asignacion
-        Tasignacion transferAsignation = new Tasignacion(idAsignation, idFair, idPavilion, 4000, 3000, false);
+        Tasignacion transferAsignation = new Tasignacion(idAsignation, idFeria1, idPabellon1, 4000, 3000, false);
         asAsignation.create(transferAsignation);
         //Mostramos por ID de pabellon
-        asAsignation.showByIdFair(idFair);
+        asAsignation.showByIdFair(idFeria1);
     }
 
     //-----------------------------------------------------------------------------------------------------------------------------------
