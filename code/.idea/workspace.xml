@@ -24,8 +24,8 @@
       <file leaf-file-name="ASAsignacionImpTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/Negocio/Asignacion/ASAsignacionImpTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="69" column="9" selection-start-line="69" selection-start-column="9" selection-end-line="69" selection-end-column="9" />
+            <state relative-caret-position="289">
+              <caret line="163" column="8" selection-start-line="163" selection-start-column="8" selection-end-line="163" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -33,7 +33,7 @@
       <file leaf-file-name="ASAsignacionImp.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Negocio/Asignacion/ASAsignacionImp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
+            <state relative-caret-position="-102">
               <caret line="43" column="68" lean-forward="true" selection-start-line="43" selection-start-column="68" selection-end-line="43" selection-end-column="68" />
             </state>
           </provider>
@@ -145,7 +145,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ASAsignacionImpTest.createAsignationExistingId">
+  <component name="RunManager" selected="JUnit.ASAsignacionImpTest.dropAsignationCorrectly">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HEIGHT" value="0" />
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
@@ -155,37 +155,14 @@
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
     </configuration>
-    <configuration name="ASAsignacionImpTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="code" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="Negocio.Asignacion.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="Negocio.Asignacion" />
-      <option name="MAIN_CLASS_NAME" value="Negocio.Asignacion.ASAsignacionImpTest" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
-    </configuration>
-    <configuration name="ASAsignacionImpTest.createAsignation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ASAsignacionImpTest.createAsignationWithDataIncorrect" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="code" />
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="Negocio.Asignacion" />
       <option name="MAIN_CLASS_NAME" value="Negocio.Asignacion.ASAsignacionImpTest" />
-      <option name="METHOD_NAME" value="createAsignation" />
+      <option name="METHOD_NAME" value="createAsignationWithDataIncorrect" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -196,14 +173,14 @@
       </option>
       <patterns />
     </configuration>
-    <configuration name="ASAsignacionImpTest.createAsignationExistingId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ASAsignacionImpTest.dropAsignationCorrectly" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="code" />
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="Negocio.Asignacion" />
       <option name="MAIN_CLASS_NAME" value="Negocio.Asignacion.ASAsignacionImpTest" />
-      <option name="METHOD_NAME" value="createAsignationExistingId" />
+      <option name="METHOD_NAME" value="dropAsignationCorrectly" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -214,20 +191,51 @@
       </option>
       <patterns />
     </configuration>
-    <configuration name="ASStandImpTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ASAsignacionImpTest.dropAsignationNull" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="code" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="Negocio.Stand.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="Negocio.Stand" />
-      <option name="MAIN_CLASS_NAME" value="Negocio.Stand.ASStandImpTest" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="Negocio.Asignacion" />
+      <option name="MAIN_CLASS_NAME" value="Negocio.Asignacion.ASAsignacionImpTest" />
+      <option name="METHOD_NAME" value="dropAsignationNull" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="ASAsignacionImpTest.dropAsignationWithActiveFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="code" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="Negocio.Asignacion" />
+      <option name="MAIN_CLASS_NAME" value="Negocio.Asignacion.ASAsignacionImpTest" />
+      <option name="METHOD_NAME" value="dropAsignationWithActiveFalse" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="ASAsignacionImpTest.dropIdIncorrect" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="code" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="Negocio.Asignacion" />
+      <option name="MAIN_CLASS_NAME" value="Negocio.Asignacion.ASAsignacionImpTest" />
+      <option name="METHOD_NAME" value="dropIdIncorrect" />
+      <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -254,24 +262,6 @@
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$MODULE_DIR$" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
-    </configuration>
-    <configuration name="Negocio in code" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="code" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="Negocio" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="package" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <option name="PASS_PARENT_ENVS" value="true" />
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="singleModule" />
@@ -337,19 +327,19 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.Integracion in code" />
-      <item itemvalue="JUnit.ASAsignacionImpTest" />
-      <item itemvalue="JUnit.ASStandImpTest" />
-      <item itemvalue="JUnit.Negocio in code" />
-      <item itemvalue="JUnit.ASAsignacionImpTest.createAsignation" />
-      <item itemvalue="JUnit.ASAsignacionImpTest.createAsignationExistingId" />
+      <item itemvalue="JUnit.ASAsignacionImpTest.createAsignationWithDataIncorrect" />
+      <item itemvalue="JUnit.ASAsignacionImpTest.dropIdIncorrect" />
+      <item itemvalue="JUnit.ASAsignacionImpTest.dropAsignationNull" />
+      <item itemvalue="JUnit.ASAsignacionImpTest.dropAsignationWithActiveFalse" />
+      <item itemvalue="JUnit.ASAsignacionImpTest.dropAsignationCorrectly" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ASAsignacionImpTest.createAsignationExistingId" />
-        <item itemvalue="JUnit.ASAsignacionImpTest.createAsignation" />
-        <item itemvalue="JUnit.ASAsignacionImpTest" />
-        <item itemvalue="JUnit.ASStandImpTest" />
-        <item itemvalue="JUnit.Negocio in code" />
+        <item itemvalue="JUnit.ASAsignacionImpTest.dropAsignationCorrectly" />
+        <item itemvalue="JUnit.ASAsignacionImpTest.dropAsignationWithActiveFalse" />
+        <item itemvalue="JUnit.ASAsignacionImpTest.dropAsignationNull" />
+        <item itemvalue="JUnit.ASAsignacionImpTest.dropIdIncorrect" />
+        <item itemvalue="JUnit.ASAsignacionImpTest.createAsignationWithDataIncorrect" />
       </list>
     </recent_temporary>
   </component>
@@ -364,35 +354,35 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ASAsignacionImpTest_createAsignation - 2018.04.27 at 00h 02m 17s.xml">
-      <configuration name="ASAsignacionImpTest.createAsignation" configurationId="JUnit" />
+    <history-entry file="ASAsignacionImpTest_dropAsignationWithActiveFalse - 2018.04.27 at 00h 21m 04s.xml">
+      <configuration name="ASAsignacionImpTest.dropAsignationWithActiveFalse" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ASAsignacionImpTest_createAsignation - 2018.04.27 at 00h 03m 06s.xml">
-      <configuration name="ASAsignacionImpTest.createAsignation" configurationId="JUnit" />
+    <history-entry file="ASAsignacionImpTest_dropAsignationWithActiveFalse - 2018.04.27 at 00h 23m 28s.xml">
+      <configuration name="ASAsignacionImpTest.dropAsignationWithActiveFalse" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ASAsignacionImpTest_createAsignation - 2018.04.27 at 00h 03m 30s.xml">
-      <configuration name="ASAsignacionImpTest.createAsignation" configurationId="JUnit" />
+    <history-entry file="ASAsignacionImpTest_dropAsignationWithActiveFalse - 2018.04.27 at 00h 27m 51s.xml">
+      <configuration name="ASAsignacionImpTest.dropAsignationWithActiveFalse" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ASAsignacionImpTest_createAsignation - 2018.04.27 at 00h 04m 32s.xml">
-      <configuration name="ASAsignacionImpTest.createAsignation" configurationId="JUnit" />
+    <history-entry file="ASAsignacionImpTest_dropAsignationWithActiveFalse - 2018.04.27 at 00h 28m 45s.xml">
+      <configuration name="ASAsignacionImpTest.dropAsignationWithActiveFalse" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ASAsignacionImpTest_createAsignationExistingId - 2018.04.27 at 00h 05m 17s.xml">
-      <configuration name="ASAsignacionImpTest.createAsignationExistingId" configurationId="JUnit" />
+    <history-entry file="ASAsignacionImpTest_dropAsignationWithActiveFalse - 2018.04.27 at 00h 29m 14s.xml">
+      <configuration name="ASAsignacionImpTest.dropAsignationWithActiveFalse" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ASAsignacionImpTest_createAsignation - 2018.04.27 at 00h 06m 15s.xml">
-      <configuration name="ASAsignacionImpTest.createAsignation" configurationId="JUnit" />
+    <history-entry file="ASAsignacionImpTest_dropAsignationWithActiveFalse - 2018.04.27 at 00h 29m 26s.xml">
+      <configuration name="ASAsignacionImpTest.dropAsignationWithActiveFalse" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ASAsignacionImpTest_createAsignation - 2018.04.27 at 00h 08m 10s.xml">
-      <configuration name="ASAsignacionImpTest.createAsignation" configurationId="JUnit" />
+    <history-entry file="ASAsignacionImpTest_dropAsignationWithActiveFalse - 2018.04.27 at 00h 29m 45s.xml">
+      <configuration name="ASAsignacionImpTest.dropAsignationWithActiveFalse" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ASAsignacionImpTest_createAsignation - 2018.04.27 at 00h 09m 51s.xml">
-      <configuration name="ASAsignacionImpTest.createAsignation" configurationId="JUnit" />
+    <history-entry file="ASAsignacionImpTest_dropAsignationCorrectly - 2018.04.27 at 00h 31m 53s.xml">
+      <configuration name="ASAsignacionImpTest.dropAsignationCorrectly" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ASAsignacionImpTest_createAsignationExistingId - 2018.04.27 at 00h 10m 28s.xml">
-      <configuration name="ASAsignacionImpTest.createAsignationExistingId" configurationId="JUnit" />
+    <history-entry file="ASAsignacionImpTest_dropAsignationCorrectly - 2018.04.27 at 00h 33m 48s.xml">
+      <configuration name="ASAsignacionImpTest.dropAsignationCorrectly" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ASAsignacionImpTest_createAsignationExistingId - 2018.04.27 at 00h 10m 52s.xml">
-      <configuration name="ASAsignacionImpTest.createAsignationExistingId" configurationId="JUnit" />
+    <history-entry file="ASAsignacionImpTest_dropAsignationCorrectly - 2018.04.27 at 00h 34m 25s.xml">
+      <configuration name="ASAsignacionImpTest.dropAsignationCorrectly" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
@@ -503,7 +493,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/test/Negocio/Asignacion/ASAsignacionImpTest.java</url>
-          <line>314</line>
+          <line>274</line>
           <properties />
           <option name="timeStamp" value="69" />
         </line-breakpoint>
@@ -838,6 +828,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Negocio/Asignacion/ASAsignacionImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-102">
+          <caret line="43" column="68" lean-forward="true" selection-start-line="43" selection-start-column="68" selection-end-line="43" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test/Negocio/Stand/ASStandImpTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -845,17 +842,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Negocio/Asignacion/ASAsignacionImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="43" column="68" lean-forward="true" selection-start-line="43" selection-start-column="68" selection-end-line="43" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/Negocio/Asignacion/ASAsignacionImpTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="69" column="9" selection-start-line="69" selection-start-column="9" selection-end-line="69" selection-end-column="9" />
+        <state relative-caret-position="289">
+          <caret line="163" column="8" selection-start-line="163" selection-start-column="8" selection-end-line="163" selection-end-column="8" />
         </state>
       </provider>
     </entry>
