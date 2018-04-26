@@ -35,7 +35,7 @@ public class ASAsignacionImp implements ASAsignacion {
                     if (transferAssignation == null) {
                         //Si los metros cuadrados usados son > 0, los metros cuadrados contratados > m2 usados Y los m2 contratados son < m2 totales
                         //del pabellon  entonces podemos crear la asignación
-                        if (asignacion.getUsed_m2() >= 0 && asignacion.getTotal_m2() >= asignacion.getUsed_m2() && asignacion.getTotal_m2() < transferPavilion.getTotal_m2())
+                        if (asignacion.getUsed_m2() >= 0 && asignacion.getTotal_m2() >= asignacion.getUsed_m2() && asignacion.getTotal_m2() <= transferPavilion.getTotal_m2())
                             return daoAsignacion.create(asignacion);
                         else
                             throw new ASException("ERROR: Los datos de la asignacion no son correctos.\n");

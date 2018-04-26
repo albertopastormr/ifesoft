@@ -22,6 +22,9 @@ import static org.junit.Assert.assertTrue;
 
 public class ASAsignacionImpTest {
 
+    //Creacion de variables globales con los IDs para poder trabajar con ellos
+    private static Integer idFeria1, idFeria2, idPabellon1, idPabellon2;
+
     // Tasignacion para probar
     private static Tasignacion tasignacionTest1 = new Tasignacion(1, 1, 1, 1,true);
     private static Tasignacion tasignacionTest2 = new Tasignacion(2, 2, 2,2, true);
@@ -31,7 +34,7 @@ public class ASAsignacionImpTest {
     private static Tferia tferiaTest2 = new Tferia("VINECT","Feria internacional vinos",new java.sql.Date(117,9,28),new java.sql.Date(117,10,4),true);
 
     // Tpabellon para probar
-    private static Tpabellon tpabellonTest1 = new Tpabellon(1, 0,  0,true);
+    private static Tpabellon tpabellonTest1 = new Tpabellon(1, 0,  4000,true);
     private static Tpabellon tpabellonTest2 = new Tpabellon(2, 2,  2,true);
 
     @Before
@@ -42,55 +45,40 @@ public class ASAsignacionImpTest {
         // Creacion de 2 tFeria para soportar el uso de asignaciones
         DAOFeriaImp daoFeriaImp = new DAOFeriaImp();
         daoFeriaImp.deleteAll();
-        daoFeriaImp.create(tferiaTest1);
-        daoFeriaImp.create(tferiaTest2);
+        idFeria1 = daoFeriaImp.create(tferiaTest1);
+        idFeria2 = daoFeriaImp.create(tferiaTest2);
 
         // Creacion de 2 tPabellon para soportar el uso de asignaciones
         DAOPabellonImp daoPabellonImp = new DAOPabellonImp();
         daoPabellonImp.deleteAll();
-        daoPabellonImp.create(tpabellonTest1);
-        daoPabellonImp.create(tpabellonTest2);
+       idPabellon1 =  daoPabellonImp.create(tpabellonTest1);
+        idPabellon2 = daoPabellonImp.create(tpabellonTest2);
     }
 
     //-----------------------------------------------TEST CREATE----------------------------------------------------------------------
     //Metodo donde comprobamos que se puede crear una asignacion correctaente a partir de un id de feria y un id de pabellon
-    @Test(expected = ASException.class)
+    @Test
     public void createAsignation() throws DAOException, SQLException, ASException {
         ASAsignacionImp asAsignacion = new ASAsignacionImp();
 
         //4000m2 contratatdos o totales, 3000m2 asignados a es stand en ese pabellon
-        Tasignacion transferAsignacion = new Tasignacion(ASAsignacionImpTest.tasignacionTest1.getId(), tferiaTest1.getId(), tpabellonTest1.getId(), 4000, 3000, false);
+        Tasignacion transferAsignacion = new Tasignacion(ASAsignacionImpTest.tasignacionTest1.getId(), idFeria1, idPabellon1, 4000, 3000, false);
         asAsignacion.create(transferAsignacion);
     }
 
     //Metodo donde comprobamos que no se puede crear una asignacion ya existente en la bbdd
     @Test(expected = ASException.class) //Se pasará el test si se lanza una excepcion
     public void createAsignationExistingId() throws DAOException, SQLException, ASException{
-        Integer idFair = -1, idPavilion = -1, idAsignation = -1;
-        DAOAsignacion daoAsignation = IFDAOAsignacion.getInstance().generateDAOasignacion();
-
-        //Generamos DAO y transfer para feria para insertar una feria en la bbdd
-        DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-        Date dateIni = new Date((4016-1900), 1, 12);
-        Date dateEnd = new Date((4016-1900), 1, 18);
-        Tferia transferFair = new Tferia(idFair, "IBM", "ExampleFair", dateIni, dateEnd, false);
-        idFair =  daoFeria.create(transferFair); //Creamos la feria y la insertamos en la bbdd
-
-        //Generamos DAO y transfer para pabellon e insertarlo en la bbdd
-        DAOPabellon daoPavilion = IFDAOPabellon.getInstance().generateDAOpabellon();
-        Tpabellon transferPavilion = new Tpabellon(idPavilion, 5000, 5000, false);
-        idPavilion = daoPavilion.create(transferPavilion);
-
-        ASAsignacionImp asAsignation = new ASAsignacionImp();
-        daoAsignation.deleteAll(); //Vaciamos la bbdd de asignaciones
+        Integer idAsignacion = -1;
+        ASAsignacionImp asAsignacion = new ASAsignacionImp();
 
         //4000m2 contratatdos o totales, 3000m2 asignados a es stand en ese pabellon
-        Tasignacion transferAsignation1 = new Tasignacion(idAsignation, idFair, idPavilion, 4000, 3000, false);
-        Tasignacion transferAsignation2 = new Tasignacion(idAsignation, idFair, idPavilion, 4000, 3000, false);
-
+        Tasignacion transferAsignation1 = new Tasignacion(tasignacionTest1.getId(), idFeria1, idPabellon1, 4000, 3000, false);
         //Creamos una asignacion
-        asAsignation.create(transferAsignation1);
-        asAsignation.create(transferAsignation2);
+        idAsignacion = asAsignacion.create(transferAsignation1);
+        //Generamos un transfer con el id de asignacion creado anteriormente e intentamos crear una nueva asignacion con ese id
+        Tasignacion transferAsignation2 = new Tasignacion(idAsignacion, idFeria1, idPabellon1, 4000, 3000, false);
+        asAsignacion.create(transferAsignation2);
 
     }
 

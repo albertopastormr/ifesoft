@@ -24,8 +24,17 @@
       <file leaf-file-name="ASAsignacionImpTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/Negocio/Asignacion/ASAsignacionImpTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="63" column="5" lean-forward="true" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
+            <state relative-caret-position="201">
+              <caret line="69" column="9" selection-start-line="69" selection-start-column="9" selection-end-line="69" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ASAsignacionImp.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Negocio/Asignacion/ASAsignacionImp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="43" column="68" lean-forward="true" selection-start-line="43" selection-start-column="68" selection-end-line="43" selection-end-column="68" />
             </state>
           </provider>
         </entry>
@@ -33,8 +42,8 @@
       <file leaf-file-name="ASStandImpTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/Negocio/Stand/ASStandImpTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="119" column="31" lean-forward="true" selection-start-line="119" selection-start-column="31" selection-end-line="119" selection-end-column="31" />
+            <state relative-caret-position="340">
+              <caret line="107" column="63" lean-forward="true" selection-start-line="107" selection-start-column="63" selection-end-line="107" selection-end-column="63" />
             </state>
           </provider>
         </entry>
@@ -67,6 +76,7 @@
         <option value="$PROJECT_DIR$/src/Integracion/Participacion/DAOParticipacionImp.java" />
         <option value="$PROJECT_DIR$/src/Integracion/Participante/DAOParticipanteImp.java" />
         <option value="$PROJECT_DIR$/src/Integracion/Stand/DAOStandImp.java" />
+        <option value="$PROJECT_DIR$/src/Negocio/Asignacion/ASAsignacionImp.java" />
         <option value="$PROJECT_DIR$/test/Negocio/Asignacion/ASAsignacionImpTest.java" />
       </list>
     </option>
@@ -90,6 +100,11 @@
             <path>
               <item name="code" type="b2602c69:ProjectViewProjectNode" />
               <item name="code" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="code" type="b2602c69:ProjectViewProjectNode" />
+              <item name="code" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="code" type="b2602c69:ProjectViewProjectNode" />
@@ -130,7 +145,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ASAsignacionImpTest.createAsignation">
+  <component name="RunManager" selected="JUnit.ASAsignacionImpTest.createAsignationExistingId">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HEIGHT" value="0" />
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
@@ -181,6 +196,24 @@
       </option>
       <patterns />
     </configuration>
+    <configuration name="ASAsignacionImpTest.createAsignationExistingId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="code" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="Negocio.Asignacion" />
+      <option name="MAIN_CLASS_NAME" value="Negocio.Asignacion.ASAsignacionImpTest" />
+      <option name="METHOD_NAME" value="createAsignationExistingId" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
     <configuration name="ASStandImpTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="code" />
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
@@ -195,29 +228,6 @@
       <option name="MAIN_CLASS_NAME" value="Negocio.Stand.ASStandImpTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
-    </configuration>
-    <configuration name="DAOAsignacionImpTest.update" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="code" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="Integracion.Asignacion.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="Integracion.Asignacion" />
-      <option name="MAIN_CLASS_NAME" value="Integracion.Asignacion.DAOAsignacionImpTest" />
-      <option name="METHOD_NAME" value="update" />
-      <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -329,17 +339,17 @@
       <item itemvalue="JUnit.Integracion in code" />
       <item itemvalue="JUnit.ASAsignacionImpTest" />
       <item itemvalue="JUnit.ASStandImpTest" />
-      <item itemvalue="JUnit.DAOAsignacionImpTest.update" />
       <item itemvalue="JUnit.Negocio in code" />
       <item itemvalue="JUnit.ASAsignacionImpTest.createAsignation" />
+      <item itemvalue="JUnit.ASAsignacionImpTest.createAsignationExistingId" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ASAsignacionImpTest.createAsignationExistingId" />
         <item itemvalue="JUnit.ASAsignacionImpTest.createAsignation" />
         <item itemvalue="JUnit.ASAsignacionImpTest" />
         <item itemvalue="JUnit.ASStandImpTest" />
         <item itemvalue="JUnit.Negocio in code" />
-        <item itemvalue="JUnit.DAOAsignacionImpTest.update" />
       </list>
     </recent_temporary>
   </component>
@@ -354,35 +364,35 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="DAOAsignacionImpTest_update - 2018.04.25 at 17h 17m 10s.xml">
-      <configuration name="DAOAsignacionImpTest.update" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="DAOAsignacionImpTest_update - 2018.04.25 at 17h 18m 14s.xml">
-      <configuration name="DAOAsignacionImpTest.update" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="DAOAsignacionImpTest_update - 2018.04.25 at 17h 18m 21s.xml">
-      <configuration name="DAOAsignacionImpTest.update" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="DAOAsignacionImpTest_update - 2018.04.25 at 17h 20m 30s.xml">
-      <configuration name="DAOAsignacionImpTest.update" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="Integracion_in_code - 2018.04.25 at 17h 24m 01s.xml">
-      <configuration name="Integracion in code" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="Integracion_in_code - 2018.04.26 at 22h 50m 13s.xml">
-      <configuration name="Integracion in code" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="Negocio_in_code - 2018.04.26 at 22h 52m 55s.xml">
-      <configuration name="Negocio in code" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ASStandImpTest - 2018.04.26 at 23h 18m 20s.xml">
-      <configuration name="ASStandImpTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ASAsignacionImpTest - 2018.04.26 at 23h 19m 00s.xml">
-      <configuration name="ASAsignacionImpTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ASAsignacionImpTest_createAsignation - 2018.04.26 at 23h 20m 26s.xml">
+    <history-entry file="ASAsignacionImpTest_createAsignation - 2018.04.27 at 00h 02m 17s.xml">
       <configuration name="ASAsignacionImpTest.createAsignation" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ASAsignacionImpTest_createAsignation - 2018.04.27 at 00h 03m 06s.xml">
+      <configuration name="ASAsignacionImpTest.createAsignation" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ASAsignacionImpTest_createAsignation - 2018.04.27 at 00h 03m 30s.xml">
+      <configuration name="ASAsignacionImpTest.createAsignation" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ASAsignacionImpTest_createAsignation - 2018.04.27 at 00h 04m 32s.xml">
+      <configuration name="ASAsignacionImpTest.createAsignation" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ASAsignacionImpTest_createAsignationExistingId - 2018.04.27 at 00h 05m 17s.xml">
+      <configuration name="ASAsignacionImpTest.createAsignationExistingId" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ASAsignacionImpTest_createAsignation - 2018.04.27 at 00h 06m 15s.xml">
+      <configuration name="ASAsignacionImpTest.createAsignation" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ASAsignacionImpTest_createAsignation - 2018.04.27 at 00h 08m 10s.xml">
+      <configuration name="ASAsignacionImpTest.createAsignation" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ASAsignacionImpTest_createAsignation - 2018.04.27 at 00h 09m 51s.xml">
+      <configuration name="ASAsignacionImpTest.createAsignation" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ASAsignacionImpTest_createAsignationExistingId - 2018.04.27 at 00h 10m 28s.xml">
+      <configuration name="ASAsignacionImpTest.createAsignationExistingId" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ASAsignacionImpTest_createAsignationExistingId - 2018.04.27 at 00h 10m 52s.xml">
+      <configuration name="ASAsignacionImpTest.createAsignationExistingId" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
@@ -399,7 +409,7 @@
       <window_info anchor="bottom" id="Version Control" order="2" />
       <window_info anchor="bottom" id="Terminal" order="3" sideWeight="0.83187133" weight="0.32995227" />
       <window_info id="Designer" order="1" />
-      <window_info content_ui="combo" id="Project" order="4" visible="true" weight="0.12518302" />
+      <window_info content_ui="combo" id="Project" order="4" weight="0.12518302" />
       <window_info anchor="right" id="Database" />
       <window_info id="Structure" order="5" side_tool="true" weight="0.25" />
       <window_info id="UI Designer" order="2" />
@@ -424,10 +434,10 @@
       <window_info anchor="bottom" id="Find" order="6" sideWeight="0.49853802" weight="0.32995227" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="8" weight="0.25" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Run" order="7" sideWeight="0.7134503" visible="true" weight="0.2167414" />
+      <window_info active="true" anchor="bottom" id="Run" order="7" sideWeight="0.7134503" visible="true" weight="0.2167414" />
       <window_info anchor="right" id="Theme Preview" order="4" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.12518302" />
+      <window_info content_ui="combo" id="Project" order="4" visible="true" weight="0.12518302" />
       <window_info id="Structure" order="5" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" order="6" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="11" />
@@ -493,7 +503,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/test/Negocio/Asignacion/ASAsignacionImpTest.java</url>
-          <line>326</line>
+          <line>314</line>
           <properties />
           <option name="timeStamp" value="69" />
         </line-breakpoint>
@@ -741,13 +751,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Negocio/Asignacion/ASAsignacionImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="725">
-          <caret line="70" column="8" selection-start-line="70" selection-start-column="8" selection-end-line="70" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/Integracion/Stand/DAOStandImpTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="630">
@@ -837,15 +840,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/Negocio/Stand/ASStandImpTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="119" column="31" lean-forward="true" selection-start-line="119" selection-start-column="31" selection-end-line="119" selection-end-column="31" />
+        <state relative-caret-position="340">
+          <caret line="107" column="63" lean-forward="true" selection-start-line="107" selection-start-column="63" selection-end-line="107" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Negocio/Asignacion/ASAsignacionImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="43" column="68" lean-forward="true" selection-start-line="43" selection-start-column="68" selection-end-line="43" selection-end-column="68" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/Negocio/Asignacion/ASAsignacionImpTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="63" column="5" lean-forward="true" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
+        <state relative-caret-position="201">
+          <caret line="69" column="9" selection-start-line="69" selection-start-column="9" selection-end-line="69" selection-end-column="9" />
         </state>
       </provider>
     </entry>
