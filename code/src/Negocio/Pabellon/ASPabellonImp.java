@@ -60,7 +60,12 @@ public class ASPabellonImp implements ASPabellon {
                 Tpabellon read = daoPabellon.readById(pabellon.getId());
                 if (read != null) {
                     if (pabellon.getTotal_m2() / pabellon.getCapacity() >= 1) {
-                       return daoPabellon.update(pabellon);
+                        if(pabellon.getActive() == false){
+                            pabellon.setActive(false);
+                            return daoPabellon.update(pabellon);
+                        }
+                        else
+                            return daoPabellon.update(pabellon);
                     } else
                         throw new ASException("ERROR: La capacidad del pabellon es demasiado alta respecto a los metros de este.\n");
                 } else

@@ -84,9 +84,15 @@ public class ASStandImp implements ASStand {
 
                         if (tasignacionRead != null && tparticipacionRead != null) {
                             if (tasignacionRead.getUsed_m2() + stand.getTotal_m2() <= tasignacionRead.getTotal_m2()) {
-                                id = daoStand.update(stand);
-                                tasignacionRead.setTotal_m2(tasignacionRead.getTotal_m2() + stand.getTotal_m2());
-                                daoAsignacion.update(tasignacionRead);
+                                if(stand.getActive() == false){
+                                    stand.setActive(false);
+                                    daoStand.update(stand);
+                                }
+                                else {
+                                    id = daoStand.update(stand);
+                                    tasignacionRead.setTotal_m2(tasignacionRead.getTotal_m2() + stand.getTotal_m2());
+                                    daoAsignacion.update(tasignacionRead);
+                                }
                             } else
                                 throw new ASException("ERROR: Los m2 solicitados superan el limite de la asignacion contrada para la feria " + tasignacionRead.getFair_id() + " en el pabellon " + tasignacionRead.getPavilion_id() + "\n");
                         } else

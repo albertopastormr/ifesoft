@@ -80,8 +80,14 @@ public class ASAsignacionImp implements ASAsignacion {
             try {
                 Tasignacion transferAssignation = daoAsignacion.readById(asignacion.getId());
                 if (transferAssignation != null) {
-                    if (asignacion.getFair_id() == transferAssignation.getFair_id() && asignacion.getPavilion_id() == transferAssignation.getPavilion_id())
-                        return daoAsignacion.update(asignacion);
+                    if (asignacion.getFair_id() == transferAssignation.getFair_id() && asignacion.getPavilion_id() == transferAssignation.getPavilion_id()) {
+                        if(asignacion.getActive() == false){
+                            asignacion.setActive(false);
+                            return daoAsignacion.update(asignacion);
+                        }
+                        else
+                             return daoAsignacion.update(asignacion);
+                    }
                     else
                         throw new ASException("ERROR: No se pueden modificar el pabellon y/o feria de una asignacion.\n");
                 } else

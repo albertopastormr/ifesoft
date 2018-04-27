@@ -65,8 +65,14 @@ public class ASParticipacionImp implements ASParticipacion {
             try {
                 Tparticipacion read = daoParticipacion.readById(participacion.getId());
                 if (read != null) {
-                    if (participacion.getFair_id() == read.getFair_id() && participacion.getClient_id() == read.getClient_id())
-                        return daoParticipacion.update(participacion);
+                    if (participacion.getFair_id() == read.getFair_id() && participacion.getClient_id() == read.getClient_id()) {
+                        if(participacion.getActive() == false){
+                            participacion.setActive(false);
+                            return daoParticipacion.update(participacion);
+                        }
+                        else
+                            return daoParticipacion.update(participacion);
+                    }
                     else
                         throw new ASException("ERROR: No pueden ser modificados el participante y/o feria de una participacion.\n");
                 } else

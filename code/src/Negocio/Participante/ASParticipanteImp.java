@@ -50,7 +50,12 @@ public class ASParticipanteImp implements ASParticipante {
                 if (read != null) {
                     Tparticipante nameOK = daoParticipante.readByName(participante.getName());
                     if (nameOK == null || nameOK.getName().equals(read.getName())) {
-                        return daoParticipante.update(participante);
+                        if(participante.getActive() == false){
+                            participante.setActive(false);
+                            return daoParticipante.update(participante);
+                        }
+                        else
+                            return daoParticipante.update(participante);
                     } else
                         throw new ASException("ERROR: El nuevo nombre para el participante " + participante.getName() + " ya esta siendo usado.\n");
                 } else

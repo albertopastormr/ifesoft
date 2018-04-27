@@ -63,8 +63,14 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
                     Tferia nameOK = daoFeria.readByName(feria.getName());
                     if ((nameOK == null) || nameOK.getName().equals(read.getName())) {
                         Date currentDate = new Date();
-                        if (feria.getIniDate().after(currentDate) && feria.getEndDate().after(feria.getIniDate()))
-                            return daoFeria.update(feria);
+                        if (feria.getIniDate().after(currentDate) && feria.getEndDate().after(feria.getIniDate())) {
+                            if(feria.getActive() == false) {
+                                feria.setActive(false); //Dar de baja al pasar el active a false
+                                return daoFeria.update(feria);
+                            }
+                            else //Si se pasa a tru o a null se hace la modificacion correctamente
+                                return daoFeria.update(feria);
+                        }
                         else
                             throw new ASException("ERROR: El intervalo de fechas no es correcto.\n");
                     } else
