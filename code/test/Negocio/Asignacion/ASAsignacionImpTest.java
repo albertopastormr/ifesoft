@@ -15,9 +15,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ASAsignacionImpTest {
@@ -63,7 +65,8 @@ public class ASAsignacionImpTest {
 
         //4000m2 contratatdos o totales, 3000m2 asignados a es stand en ese pabellon
         Tasignacion transferAsignacion = new Tasignacion(ASAsignacionImpTest.tasignacionTest1.getId(), idFeria1, idPabellon1, 4000, 3000, false);
-        asAsignacion.create(transferAsignacion);
+        int id = asAsignacion.create(transferAsignacion);
+        assertEquals(transferAsignacion.getId(), id);
     }
 
     //Metodo donde comprobamos que no se puede crear una asignacion ya existente en la bbdd
@@ -214,7 +217,10 @@ public class ASAsignacionImpTest {
         Tasignacion transferAsignation2 = new Tasignacion(asignationId, idFeria1, idPabellon1, 3000, 3000, true);
 
         //La modificamos
-        asAsignation.modify(transferAsignation2);
+        int id = asAsignation.modify(transferAsignation2);
+        assertEquals(id, transferAsignation2.getId());
+
+        tasignacionEquals(transferAsignation2, asAsignation.show(transferAsignation2.getId()));
     }
 
     //------------------------------------------------------------------------------------------------------------------------------------
@@ -235,6 +241,7 @@ public class ASAsignacionImpTest {
 
         collection = asAsignation.list();
         assertTrue(collection != null);
+        tasignacionEquals(transferAsignation, (Tasignacion) collection.toArray()[0]);
     }
 
     //--------------------------------------------------------------------------------------------------------------------------------
@@ -260,7 +267,10 @@ public class ASAsignacionImpTest {
         Tasignacion transferAsignation = new Tasignacion(idAsignation, idFeria1, idPabellon1, 4000, 3000, false);
         asAsignation.create(transferAsignation);
         //Mostramos por ID de pabellon
-        asAsignation.showByIdPavilion(idPabellon1);
+        Collection<Tasignacion> collection=  asAsignation.showByIdPavilion(idPabellon1);
+
+		assertTrue(collection != null);
+		tasignacionEquals(transferAsignation, (Tasignacion) collection.toArray()[0]);
     }
 
     //-----------------------------------------------------------------------------------------------------------------------------------
@@ -286,8 +296,20 @@ public class ASAsignacionImpTest {
         Tasignacion transferAsignation = new Tasignacion(idAsignation, idFeria1, idPabellon1, 4000, 3000, false);
         asAsignation.create(transferAsignation);
         //Mostramos por ID de pabellon
-        asAsignation.showByIdFair(idFeria1);
+        Collection<Tasignacion> collection = asAsignation.showByIdFair(idFeria1);
+
+		assertTrue(collection != null);
+		tasignacionEquals(transferAsignation, (Tasignacion) collection.toArray()[0]);
     }
 
     //-----------------------------------------------------------------------------------------------------------------------------------
+
+
+	private void tasignacionEquals(Tasignacion first, Tasignacion second){
+		assertEquals(first.getId(), first.getId());
+		assertEquals(first.getFair_id(), second.getFair_id());
+		assertEquals(first.getPavilion_id(), second.getPavilion_id());
+		assertEquals(first.getTotal_m2(), second.getUsed_m2());
+		assertEquals(first.getActive(), second.getActive());
+	}
 }
