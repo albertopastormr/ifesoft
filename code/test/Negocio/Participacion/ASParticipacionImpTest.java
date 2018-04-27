@@ -17,6 +17,22 @@ import java.util.Collection;
 import java.util.Date;
 
 public class ASParticipacionImpTest {
+    private Integer idFeria1, idFeria2, idParticipanteInternacional, idParticipanteNacional;
+
+    private static Date dat = new Date(4000, 1, 12);
+    private static Date dat2 = new Date(4000, 1, 21);
+    private static Date dat3 = new Date(4000, 2, 10);
+    private static Date dat4 = new Date(4000, 2, 13);
+
+    // Tferia para probar
+    private static Tferia tferiaTest1 = new Tferia("FITUR","Feria internacional turismo", dat,dat2,true);
+    private static Tferia tferiaTest2 = new Tferia("VINECT","Feria internacional vinos",dat3,dat4,true);
+
+    private static TparticipanteInternacional tpartInternacional = new TparticipanteInternacional("IBM", 666666666, true,"Octolandia");
+    private static TparticipanteNacional tpartNacional = new TparticipanteNacional("JaponShop", 916666666, true,"weabos");
+
+    private static Tparticipacion participacion1 = new Tparticipacion(1, 1, 1, true);
+
 
     @Before
     @SuppressWarnings("deprecation")
@@ -27,37 +43,25 @@ public class ASParticipacionImpTest {
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
         daoFeria.deleteAll();
         ASFeriaImp asFeria = new ASFeriaImp();
-        Date dat = new Date(4000, 1, 12);
-        Date dat2 = new Date(4000, 1, 21);
-        Date dat3 = new Date(4000, 2, 10);
-        Date dat4 = new Date(4000, 2, 13);
-        asFeria.create(new Tferia("iElectronics", "Feria tech de electronica", dat, dat2, true));
-        asFeria.create(new Tferia("ExpoManga", "Feria de Manga de Madrid", dat3, dat4, true));
+        idFeria1  = asFeria.create(tferiaTest1);
+        idFeria2 = asFeria.create(tferiaTest2);
 
         DAOParticipante daoParticipante = IFDAOParticipante.getInstance().generateDAOparticipante();
         daoParticipante.deleteAll();
         ASParticipanteImp asParticipante = new ASParticipanteImp();
-        asParticipante.create(new TparticipanteInternacional("IBM", 666666666, true,"Octolandia"));
-        asParticipante.create(new TparticipanteNacional("JaponShop", 916666666, true,"weabos"));
+        idParticipanteInternacional = asParticipante.create(tpartInternacional);
+        idParticipanteNacional = asParticipante.create(tpartNacional);
     }
 
     //-------------------------------------TEST CREATE-------------------------------------------------------------
     @Test(expected = ASException.class)//Se pasa el test si se lanza la excepcion
-    public void createParticipacionExistingId() throws Exception {
+    public void createParticipacionExistingId() throws ASException {
         ASParticipacionImp asParticipacion = new ASParticipacionImp();
-        ASFeriaImp asFeria = new ASFeriaImp();
-        ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante ibm = asParticipante.showByName("IBM");
-        Tparticipante japonShop = asParticipante.showByName("JaponShop");
-        Tferia ielectronics = asFeria.showByName("iElectronics");
-        Tferia expomanga = asFeria.showByName("ExpoManga");
-
-
-        Tparticipacion participacion = new Tparticipacion(ielectronics.getId(), ibm.getId(), true);
+        Tparticipacion participacion = new Tparticipacion(1, idFeria1, idParticipanteInternacional, true);
         int id1 = asParticipacion.create(participacion);
-        Tparticipacion participacion2 = new Tparticipacion(id1, ielectronics.getId(), ibm.getId(), true);
-        int id2 = asParticipacion.create(participacion2);
+        Tparticipacion participacion2 = new Tparticipacion(id1, idFeria1, idParticipanteInternacional, true);
+        asParticipacion.create(participacion2);
     }
 
     @Test(expected = ASException.class)//Se pasa el test si se lanza la excepcion
