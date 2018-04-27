@@ -32,6 +32,7 @@ public class ASParticipacionImpTest {
     private static TparticipanteNacional tpartNacional = new TparticipanteNacional("JaponShop", 916666666, true,"weabos");
 
     private static Tparticipacion participacion1 = new Tparticipacion(1, 1, 1, true);
+    private static Tparticipacion participacion2 = new Tparticipacion(2, 2, 2, true);
 
 
     @Before
@@ -68,13 +69,6 @@ public class ASParticipacionImpTest {
     @SuppressWarnings("all")
     public void createParticipacionNoData() throws Exception {
         ASParticipacionImp asParticipacion = new ASParticipacionImp();
-        ASFeriaImp asFeria = new ASFeriaImp();
-        ASParticipanteImp asParticipante = new ASParticipanteImp();
-
-        Tparticipante ibm = asParticipante.showByName("IBM");
-        Tparticipante japonShop = asParticipante.showByName("JaponShop");
-        Tferia ielectronics = asFeria.showByName("iElectronics");
-        Tferia expomanga = asFeria.showByName("ExpoManga");
 
         Tparticipacion participacion = null;
         int id1 = asParticipacion.create(participacion);
@@ -86,31 +80,17 @@ public class ASParticipacionImpTest {
         ASFeriaImp asFeria = new ASFeriaImp();
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante ibm = asParticipante.showByName("IBM");
-        Tparticipante japonShop = asParticipante.showByName("JaponShop");
-        Tferia ielectronics = asFeria.showByName("iElectronics");
-        Tferia expomanga = asFeria.showByName("ExpoManga");
-
-        Tparticipacion participacion = new Tparticipacion(222, japonShop.getId(), true);
+        Tparticipacion participacion = new Tparticipacion(222, idParticipanteInternacional, true);
         int id1 = asParticipacion.create(participacion);
     }
 
     @Test
     public void activate() throws Exception {
         ASParticipacionImp asParticipacion = new ASParticipacionImp();
-        ASFeriaImp asFeria = new ASFeriaImp();
-        ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante ibm = asParticipante.showByName("IBM");
-        Tparticipante japonShop = asParticipante.showByName("JaponShop");
-        Tferia ielectronics = asFeria.showByName("iElectronics");
-        Tferia expomanga = asFeria.showByName("ExpoManga");
-
-        Tparticipacion participacion = new Tparticipacion(expomanga.getId(), japonShop.getId(), false);
-        int id1 = asParticipacion.create(participacion);
-        Tparticipacion participacion2 = new Tparticipacion(id1, expomanga.getId(), japonShop.getId(), true);
+        int id1 = asParticipacion.create(participacion1);
         int id2 = asParticipacion.create(participacion2);
-        assert (id1 > 0 && id2 == id1);
+        assert (id1 > 0 && id2 > 0);
     }
     //-------------------------------------------------------------------------------------------------------------
 
