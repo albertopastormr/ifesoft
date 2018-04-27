@@ -18,8 +18,8 @@
       <file leaf-file-name="ASParticipacionImpTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/Negocio/Participacion/ASParticipacionImpTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="181" column="30" selection-start-line="181" selection-start-column="30" selection-end-line="181" selection-end-column="30" />
+            <state relative-caret-position="412">
+              <caret line="244" column="27" lean-forward="true" selection-start-line="244" selection-start-column="27" selection-end-line="244" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -27,21 +27,8 @@
       <file leaf-file-name="ASParticipacionImp.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Negocio/Participacion/ASParticipacionImp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="65" column="55" lean-forward="true" selection-start-line="65" selection-start-column="50" selection-end-line="65" selection-end-column="55" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Tparticipacion.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Negocio/Participacion/Tparticipacion.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="11" column="29" lean-forward="true" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
-              <folding>
-                <element signature="e#698#699#0" expanded="true" />
-                <element signature="e#714#715#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="364">
+              <caret line="135" lean-forward="true" selection-start-line="135" selection-end-line="135" />
             </state>
           </provider>
         </entry>
@@ -49,8 +36,8 @@
       <file leaf-file-name="ASAsignacionImpTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/Negocio/Asignacion/ASAsignacionImpTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="214" column="63" lean-forward="true" selection-start-line="214" selection-start-column="63" selection-end-line="214" selection-end-column="63" />
+            <state relative-caret-position="-129">
+              <caret line="39" column="52" selection-start-line="39" selection-start-column="52" selection-end-line="39" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -90,7 +77,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="23" />
     <option name="width" value="1280" />
     <option name="height" value="709" />
@@ -176,7 +163,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ASParticipacionImpTest.showParticipacionOK">
+  <component name="RunManager" selected="JUnit.ASParticipacionImpTest.showByIdFeria">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HEIGHT" value="0" />
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
@@ -186,14 +173,50 @@
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
     </configuration>
-    <configuration name="ASParticipacionImpTest.modify" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ASParticipacionImpTest.showByIdFeria" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="code" />
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="Negocio.Participacion" />
       <option name="MAIN_CLASS_NAME" value="Negocio.Participacion.ASParticipacionImpTest" />
-      <option name="METHOD_NAME" value="modify" />
+      <option name="METHOD_NAME" value="showByIdFeria" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="ASParticipacionImpTest.showByIdParticipante" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="code" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="Negocio.Participacion" />
+      <option name="MAIN_CLASS_NAME" value="Negocio.Participacion.ASParticipacionImpTest" />
+      <option name="METHOD_NAME" value="showByIdParticipante" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="ASParticipacionImpTest.showByIdParticipanteIncorrect" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="code" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="Negocio.Participacion" />
+      <option name="MAIN_CLASS_NAME" value="Negocio.Participacion.ASParticipacionImpTest" />
+      <option name="METHOD_NAME" value="showByIdParticipanteIncorrect" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -222,24 +245,6 @@
       </option>
       <patterns />
     </configuration>
-    <configuration name="ASParticipacionImpTest.showParticipacionNoId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="code" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="Negocio.Participacion" />
-      <option name="MAIN_CLASS_NAME" value="Negocio.Participacion.ASParticipacionImpTest" />
-      <option name="METHOD_NAME" value="showParticipacionNoId" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
-    </configuration>
     <configuration name="ASParticipacionImpTest.showParticipacionOK" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="code" />
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
@@ -248,24 +253,6 @@
       <option name="PACKAGE_NAME" value="Negocio.Participacion" />
       <option name="MAIN_CLASS_NAME" value="Negocio.Participacion.ASParticipacionImpTest" />
       <option name="METHOD_NAME" value="showParticipacionOK" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
-    </configuration>
-    <configuration name="ASParticipacionImpTest.showParticipacionWhrongId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="code" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="Negocio.Participacion" />
-      <option name="MAIN_CLASS_NAME" value="Negocio.Participacion.ASParticipacionImpTest" />
-      <option name="METHOD_NAME" value="showParticipacionWhrongId" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -358,19 +345,19 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.Integracion in code" />
-      <item itemvalue="JUnit.ASParticipacionImpTest.modify" />
-      <item itemvalue="JUnit.ASParticipacionImpTest.showParticipacionNoId" />
-      <item itemvalue="JUnit.ASParticipacionImpTest.showParticipacionWhrongId" />
       <item itemvalue="JUnit.ASParticipacionImpTest.showParticipacionCollection" />
       <item itemvalue="JUnit.ASParticipacionImpTest.showParticipacionOK" />
+      <item itemvalue="JUnit.ASParticipacionImpTest.showByIdParticipanteIncorrect" />
+      <item itemvalue="JUnit.ASParticipacionImpTest.showByIdParticipante" />
+      <item itemvalue="JUnit.ASParticipacionImpTest.showByIdFeria" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ASParticipacionImpTest.showByIdFeria" />
+        <item itemvalue="JUnit.ASParticipacionImpTest.showByIdParticipante" />
+        <item itemvalue="JUnit.ASParticipacionImpTest.showByIdParticipanteIncorrect" />
         <item itemvalue="JUnit.ASParticipacionImpTest.showParticipacionOK" />
         <item itemvalue="JUnit.ASParticipacionImpTest.showParticipacionCollection" />
-        <item itemvalue="JUnit.ASParticipacionImpTest.showParticipacionWhrongId" />
-        <item itemvalue="JUnit.ASParticipacionImpTest.showParticipacionNoId" />
-        <item itemvalue="JUnit.ASParticipacionImpTest.modify" />
       </list>
     </recent_temporary>
   </component>
@@ -385,27 +372,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ASParticipacionImpTest_dropParticipacionWhrongId - 2018.04.27 at 17h 56m 13s.xml">
-      <configuration name="ASParticipacionImpTest.dropParticipacionWhrongId" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ASParticipacionImpTest_dropParticipacionOK - 2018.04.27 at 17h 57m 16s.xml">
-      <configuration name="ASParticipacionImpTest.dropParticipacionOK" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ASParticipacionImpTest_modifyParticipacionNoId - 2018.04.27 at 17h 57m 53s.xml">
-      <configuration name="ASParticipacionImpTest.modifyParticipacionNoId" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ASParticipacionImpTest_modifyParticipacionNoId - 2018.04.27 at 17h 58m 03s.xml">
-      <configuration name="ASParticipacionImpTest.modifyParticipacionNoId" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ASParticipacionImpTest_modifyParticipacionWrongFairOrClient - 2018.04.27 at 18h 00m 03s.xml">
-      <configuration name="ASParticipacionImpTest.modifyParticipacionWrongFairOrClient" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ASParticipacionImpTest_modifyParticipacionNoData - 2018.04.27 at 18h 00m 19s.xml">
-      <configuration name="ASParticipacionImpTest.modifyParticipacionNoData" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ASParticipacionImpTest_modify - 2018.04.27 at 18h 04m 07s.xml">
-      <configuration name="ASParticipacionImpTest.modify" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="ASParticipacionImpTest_modify - 2018.04.27 at 18h 05m 06s.xml">
       <configuration name="ASParticipacionImpTest.modify" configurationId="JUnit" />
     </history-entry>
@@ -414,6 +380,27 @@
     </history-entry>
     <history-entry file="ASParticipacionImpTest_showParticipacionNoId - 2018.04.27 at 18h 07m 51s.xml">
       <configuration name="ASParticipacionImpTest.showParticipacionNoId" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ASParticipacionImpTest_showParticipacionWhrongId - 2018.04.27 at 18h 09m 19s.xml">
+      <configuration name="ASParticipacionImpTest.showParticipacionWhrongId" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ASParticipacionImpTest_showParticipacionCollection - 2018.04.27 at 18h 09m 54s.xml">
+      <configuration name="ASParticipacionImpTest.showParticipacionCollection" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ASParticipacionImpTest_showParticipacionOK - 2018.04.27 at 18h 11m 35s.xml">
+      <configuration name="ASParticipacionImpTest.showParticipacionOK" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ASParticipacionImpTest_showByIdParticipanteIncorrect - 2018.04.27 at 18h 18m 52s.xml">
+      <configuration name="ASParticipacionImpTest.showByIdParticipanteIncorrect" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ASParticipacionImpTest_showByIdParticipante - 2018.04.27 at 18h 22m 35s.xml">
+      <configuration name="ASParticipacionImpTest.showByIdParticipante" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ASParticipacionImpTest_showByIdParticipante - 2018.04.27 at 18h 22m 47s.xml">
+      <configuration name="ASParticipacionImpTest.showByIdParticipante" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ASParticipacionImpTest_showByIdFeria - 2018.04.27 at 18h 24m 10s.xml">
+      <configuration name="ASParticipacionImpTest.showByIdFeria" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
@@ -810,13 +797,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/Negocio/Asignacion/ASAsignacionImpTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="214" column="63" lean-forward="true" selection-start-line="214" selection-start-column="63" selection-end-line="214" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Negocio/Participacion/Tparticipacion.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -830,15 +810,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Negocio/Participacion/ASParticipacionImp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="65" column="55" lean-forward="true" selection-start-line="65" selection-start-column="50" selection-end-line="65" selection-end-column="55" />
+        <state relative-caret-position="364">
+          <caret line="135" lean-forward="true" selection-start-line="135" selection-end-line="135" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/Negocio/Asignacion/ASAsignacionImpTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-129">
+          <caret line="39" column="52" selection-start-line="39" selection-start-column="52" selection-end-line="39" selection-end-column="52" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/Negocio/Participacion/ASParticipacionImpTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="181" column="30" selection-start-line="181" selection-start-column="30" selection-end-line="181" selection-end-column="30" />
+        <state relative-caret-position="412">
+          <caret line="244" column="27" lean-forward="true" selection-start-line="244" selection-start-column="27" selection-end-line="244" selection-end-column="27" />
         </state>
       </provider>
     </entry>

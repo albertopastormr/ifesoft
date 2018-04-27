@@ -193,8 +193,6 @@ public class ASParticipacionImpTest {
     @Test
     public void showParticipacionOK() throws Exception {
         ASParticipacionImp asParticipacion = new ASParticipacionImp();
-
-
         Tparticipacion participacion = new Tparticipacion( idFeria1, idParticipanteInternacional, true);
         int id1 = asParticipacion.create(participacion);
         participacion.setId(id1);
@@ -204,4 +202,49 @@ public class ASParticipacionImpTest {
     }
     //-------------------------------------------------------------------------------------------------------------
 
+    //-----------------------------------------------------------TEST SHOW_BY CLIENT ID---------------------------------
+    //Comprobamos que no se puede mostrar una asignacion por id de pabellon con un id incorrecto
+    @Test(expected = ASException.class)
+    public void showByIdParticipanteIncorrect() throws ASException{
+        Integer idParticipante = -1;
+        ASParticipacionImp asParticipacion = new ASParticipacionImp();
+
+        asParticipacion.showByClientId(idParticipante);
+    }
+
+    @Test
+    public void showByIdParticipante() throws ASException{
+        Integer idParticipante = -1;
+        ASParticipacionImp asParticipacion = new ASParticipacionImp();
+
+        Tparticipacion participacion = new Tparticipacion(ASParticipacionImpTest.participacion1.getId(), idFeria1, idParticipanteInternacional, true);
+        asParticipacion.create(participacion);
+        idParticipante = idParticipanteInternacional;
+        asParticipacion.showByClientId(idParticipante);
+    }
+    //---------------------------------------------------------------------------------------------------------------
+
+
+    //-----------------------------------------------------------TEST SHOW_BY FAIR ID---------------------------------
+    //Comprobamos que no se puede mostrar una asignacion por id de pabellon con un id incorrecto
+    @Test(expected = ASException.class)
+    public void showByIdFairIncorrect() throws ASException{
+        Integer idFeria = -1;
+        ASParticipacionImp asParticipacion = new ASParticipacionImp();
+
+        asParticipacion.showByClientId(idFeria);
+    }
+
+    @Test
+    public void showByIdFeria() throws ASException{
+        Integer idFeria = -1;
+        ASParticipacionImp asParticipacion = new ASParticipacionImp();
+
+        Tparticipacion participacion = new Tparticipacion(ASParticipacionImpTest.participacion1.getId(), idFeria1, idParticipanteInternacional, true);
+        asParticipacion.create(participacion);
+        idFeria = idFeria1;
+        asParticipacion.showByClientId(idFeria);
+
+    }
+    //---------------------------------------------------------------------------------------------------------------
 }
