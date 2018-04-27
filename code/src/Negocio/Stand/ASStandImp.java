@@ -35,7 +35,7 @@ public class ASStandImp implements ASStand {
                             tasignacionRead.setTotal_m2(tasignacionRead.getTotal_m2() + stand.getTotal_m2());
                             daoAsignacion.update(tasignacionRead);
                         } else
-                            throw new ASException("ERROR: Los m2 solicitados superan el limite de la asignacion contrada para la feria " + tasignacionRead.getFair_id() + " en el pabellon " + tasignacionRead.getPavilion_id() + "\n");
+                            throw new ASException("ERROR: Los m2 solicitados superan el limite de la asignacion contratada para la feria " + tasignacionRead.getFair_id() + " en el pabellon " + tasignacionRead.getPavilion_id() + "\n");
                     } else
                         throw new ASException("ERROR: Asignacion y Participacion referenciadas no existen en la base de datos\n");
                 } else
