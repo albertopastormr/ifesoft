@@ -113,7 +113,8 @@ public class DAOAsignacionImpTest {
 		assertEquals(first.getId(), first.getId());
 		assertEquals(first.getFair_id(), second.getFair_id());
 		assertEquals(first.getPavilion_id(), second.getPavilion_id());
-		assertEquals(first.getTotal_m2(), second.getUsed_m2());
+		assertEquals(first.getTotal_m2(), second.getTotal_m2());
+		assertEquals(first.getUsed_m2(), second.getUsed_m2());
 		assertEquals(first.getActive(), second.getActive());
 	}
 }

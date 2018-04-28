@@ -16,6 +16,8 @@ import org.junit.Test;
 import java.util.Collection;
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
+
 public class ASParticipacionImpTest {
     private Integer idFeria1, idFeria2, idParticipanteInternacional, idParticipanteNacional;
 
@@ -104,7 +106,7 @@ public class ASParticipacionImpTest {
     }
 
     @Test(expected = ASException.class)//Se pasa el test si se lanza la excepcion
-    public void dropParticipacionWhrongId() throws Exception {
+    public void dropParticipacionWrongId() throws Exception {
         ASParticipacionImp asParticipacion = new ASParticipacionImp();
 
         Tparticipacion participacion = new Tparticipacion(23456, idFeria2, idParticipanteInternacional, true);
@@ -117,7 +119,8 @@ public class ASParticipacionImpTest {
 
         int id1 = asParticipacion.create(participacion1);
         int id2 = asParticipacion.drop(participacion1);
-        assert (id1 > 0);
+        assert (id1 > 0 && id2 > 0);
+        assert !asParticipacion.show(id2).getActive();
     }
     //-------------------------------------------------------------------------------------------------------------
 
@@ -157,8 +160,9 @@ public class ASParticipacionImpTest {
         int id1 = asParticipacion.create(participacion);
         Tparticipacion participaciontest = new Tparticipacion( id1,idFeria1, idParticipanteInternacional, true);
 
-        asParticipacion.modify(participaciontest);
+        int id_mod = asParticipacion.modify(participaciontest);
         assert (id1 > 0);
+        tparticipacionEquals(participaciontest, asParticipacion.show(id_mod));
     }
     //-------------------------------------------------------------------------------------------------------------
 
@@ -174,7 +178,7 @@ public class ASParticipacionImpTest {
     }
 
     @Test(expected = ASException.class)//Se pasa el test si se lanza la excepcion
-    public void showParticipacionWhrongId() throws Exception {
+    public void showParticipacionWrongId() throws Exception {
         ASParticipacionImp asParticipacion = new ASParticipacionImp();
 
         Tparticipacion participacion = new Tparticipacion(23456, idFeria1, idParticipanteInternacional, true);
@@ -196,9 +200,8 @@ public class ASParticipacionImpTest {
         Tparticipacion participacion = new Tparticipacion( idFeria1, idParticipanteInternacional, true);
         int id1 = asParticipacion.create(participacion);
         participacion.setId(id1);
-        Tparticipacion id2 = asParticipacion.show(participacion.getId());
-        assert (id2.getId() == participacion.getId() && id2.getActive() == participacion.getActive() &&
-                id2.getClient_id() == participacion.getClient_id() && id2.getFair_id() == participacion.getFair_id());
+        Tparticipacion read = asParticipacion.show(participacion.getId());
+        tparticipacionEquals(participacion, read);
     }
     //-------------------------------------------------------------------------------------------------------------
 
@@ -220,7 +223,7 @@ public class ASParticipacionImpTest {
         Tparticipacion participacion = new Tparticipacion(ASParticipacionImpTest.participacion1.getId(), idFeria1, idParticipanteInternacional, true);
         asParticipacion.create(participacion);
         idParticipante = idParticipanteInternacional;
-        asParticipacion.showByClientId(idParticipante);
+        tparticipacionEquals((Tparticipacion) asParticipacion.showByClientId(idParticipante).toArray()[0], participacion);
     }
     //---------------------------------------------------------------------------------------------------------------
 
@@ -243,8 +246,15 @@ public class ASParticipacionImpTest {
         Tparticipacion participacion = new Tparticipacion(ASParticipacionImpTest.participacion1.getId(), idFeria1, idParticipanteInternacional, true);
         asParticipacion.create(participacion);
         idFeria = idFeria1;
-        asParticipacion.showByClientId(idFeria);
+        tparticipacionEquals((Tparticipacion) asParticipacion.showByClientId(idFeria).toArray()[0], participacion);
 
     }
     //---------------------------------------------------------------------------------------------------------------
+
+    private void tparticipacionEquals(Tparticipacion first, Tparticipacion second){
+        assertEquals(first.getFair_id(), second.getFair_id());
+        assertEquals(first.getClient_id(), second.getClient_id());
+
+        assertEquals(first.getActive(), second.getActive());
+    }
 }

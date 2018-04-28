@@ -84,9 +84,8 @@ public class ASStandImp implements ASStand {
 
                         if (tasignacionRead != null && tparticipacionRead != null) {
                             if (tasignacionRead.getUsed_m2() + stand.getTotal_m2() <= tasignacionRead.getTotal_m2()) {
-                                if(stand.getActive() == false){
-                                    stand.setActive(false);
-                                    daoStand.update(stand);
+                                if(!stand.getActive()){
+                                    id = daoStand.update(stand);
                                 }
                                 else {
                                     id = daoStand.update(stand);

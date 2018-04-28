@@ -1,8 +1,6 @@
 
 DUDAS PARA LAB:
-- Revisar test
 - Revisar disenos
-- Por que tardan tanto en efectuarse los update en db ?? No permiten realizar tests
 
 CAMBIOS SRS:
 - Listar todas las ferias agregado

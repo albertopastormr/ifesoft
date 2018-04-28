@@ -28,6 +28,7 @@ import Negocio.Participante.TparticipanteNacional;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 
@@ -50,8 +51,8 @@ public class ASStandImpTest {
     private static Tpabellon tpabellonTest1 = new Tpabellon(1, 0,  0,true);
     private static Tpabellon tpabellonTest2 = new Tpabellon(2, 2,  2,true);
     // Tasignacion para probar
-    private static Tasignacion tasignacionTest1 = new Tasignacion(1, 1, 500, 1,true);
-    private static Tasignacion tasignacionTest2 = new Tasignacion(2, 2, 200,2, true);
+    private static Tasignacion tasignacionTest1 = new Tasignacion(1,1, 1, 500, 1,true);
+    private static Tasignacion tasignacionTest2 = new Tasignacion(2,2, 2, 200,2, true);
     // Tparticipacion para probar
     private static Tparticipacion tparticipacionTest1 = new Tparticipacion(1, 1, 1,true);
     private static Tparticipacion tparticipacionTest2 = new Tparticipacion(2, 2, 2, true);
@@ -182,7 +183,7 @@ public class ASStandImpTest {
         Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), idAsignacion1, tparticipacionTest1.getId(), 223344, 200, 30, false);
         idStand = asStand.create(tStand);
 
-        Tstand stand = new Tstand(idStand, tasignacionTest1.getId(), tparticipacionTest1.getId() + 1, 223344, 200, 20, true);
+        Tstand stand = new Tstand(idStand, tasignacionTest1.getId(), 2342, 223344, 200, 20, true);
         asStand.modify(stand);
     }
 
@@ -196,7 +197,7 @@ public class ASStandImpTest {
         Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), idAsignacion1, tparticipacionTest1.getId(), 223344, 200, 20, false);
         idStand = asStand.create(tStand);
 
-        Tstand stand = new Tstand(idStand, idAsignacion1 + 1, idParticipacion1, 223344, 200, 20, true);
+        Tstand stand = new Tstand(idStand, 4565, idParticipacion1, 223344, 200, 20, true);
         asStand.modify(stand);
     }
 
@@ -245,8 +246,8 @@ public class ASStandImpTest {
 
 
         //Ahora intentamos crear un stand a partir de un id asignacion valido y un id de participacion  valido.
-        Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), tasignacionTest1.getId(), tparticipacionTest1.getId(), 223344, 200, 20, false);
-        asStand.create(tStand);
+        Tstand tStand = new Tstand(1, tasignacionTest1.getId(), tparticipacionTest1.getId(), 223344, 200, 20, false);
+        tStand.setId(asStand.create(tStand));
 
         tStand.setCost(tStand.getCost() * 2);
         Tstand standResult = asStand.showById(asStand.modify(tStand));
@@ -334,7 +335,7 @@ public class ASStandImpTest {
     }
 
     // Wrong ID
-    @Test(expected = ASException.class)
+    @Test
     public void showWrongParticipationId() throws DAOException, SQLException, ASException {
         ASStandImp asStand = new ASStandImp();
 
@@ -343,7 +344,7 @@ public class ASStandImpTest {
         Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), idAsignacion1, idParticipacion1, 223344, 200, 20, true);
         asStand.create(tStand);
 
-        asStand.showByParticipation(15);
+        assert asStand.showByParticipation(15).isEmpty();
     }
 
     // No Error
@@ -378,7 +379,7 @@ public class ASStandImpTest {
     }
 
     // Wrong ID
-    @Test(expected = ASException.class)
+    @Test
     public void showWrongAssignationId() throws DAOException, SQLException, ASException {
         ASStandImp asStand = new ASStandImp();
 
@@ -387,7 +388,7 @@ public class ASStandImpTest {
         Tstand tStand = new Tstand(tstandTest1.getId(), tasignacionTest1.getId(), idParticipacion1, 223344, 200, 20, false);
         asStand.create(tStand);
 
-        asStand.showByAssignation(idParticipacion1 + 1);
+        assert asStand.showByAssignation(23423).isEmpty();
     }
 
     // No Error

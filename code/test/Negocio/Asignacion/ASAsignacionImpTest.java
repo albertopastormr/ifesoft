@@ -64,7 +64,7 @@ public class ASAsignacionImpTest {
         ASAsignacionImp asAsignacion = new ASAsignacionImp();
 
         //4000m2 contratatdos o totales, 3000m2 asignados a es stand en ese pabellon
-        Tasignacion transferAsignacion = new Tasignacion(ASAsignacionImpTest.tasignacionTest1.getId(), idFeria1, idPabellon1, 4000, 3000, false);
+        Tasignacion transferAsignacion = new Tasignacion(1, idFeria1, idPabellon1, 4000, 3000, false);
         int id = asAsignacion.create(transferAsignacion);
         assertEquals(transferAsignacion.getId(), id);
     }
@@ -236,7 +236,7 @@ public class ASAsignacionImpTest {
         ASAsignacionImp asAsignation = new ASAsignacionImp();
 
 
-        Tasignacion transferAsignation = new Tasignacion(asignationId, idFeria1, idPabellon1, 4000, 3000, false);
+        Tasignacion transferAsignation = new Tasignacion(asignationId, idFeria1, idPabellon1, 4000, 3000, true);
         asAsignation.create(transferAsignation);
 
         collection = asAsignation.list();
@@ -309,7 +309,8 @@ public class ASAsignacionImpTest {
 		assertEquals(first.getId(), first.getId());
 		assertEquals(first.getFair_id(), second.getFair_id());
 		assertEquals(first.getPavilion_id(), second.getPavilion_id());
-		assertEquals(first.getTotal_m2(), second.getUsed_m2());
+		assertEquals(first.getTotal_m2(), second.getTotal_m2());
+		assertEquals(first.getUsed_m2(), second.getUsed_m2());
 		assertEquals(first.getActive(), second.getActive());
 	}
 }
