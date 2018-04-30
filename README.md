@@ -5,13 +5,14 @@ The documentation has been written in spanish because of a language constraint i
 ## How to use it
 ifesoft uses [mariadb 10.2](https://downloads.mariadb.org/mariadb/10.2.14/), [Java 7](http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html) and [JUnit 4](https://junit.org/junit4/); these tools are necessary to run the application.
 ### Running mariadb
-Once you've installed [mariadb 10.2](https://downloads.mariadb.org/mariadb/10.2.14/), launch MySQL client and run the following command:
+Once you've installed [mariadb 10.2](https://downloads.mariadb.org/mariadb/10.2.14/), launch MySQL client, create a user with _manager_ as username and _manager-if_ as password.
+After that, run the following command:
 
 `CREATE DATABASE ifesoft`
 
 ifesoft is the name of the database.
 
-`mysql -u manager -p ifesoft < db/dump-ifesoft-201804032101.sql`
+`mysql -u manager -p ifesoft < db/ifesoft-create-db.sql`
 
 this imports an existing database with a valid structure for ifesoft.
 ## Authors
