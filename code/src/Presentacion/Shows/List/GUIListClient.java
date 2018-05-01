@@ -1,44 +1,29 @@
 package Presentacion.Shows.List;
 
-
 import Controller.Controller;
 import Negocio.Participante.Tparticipante;
 import Presentacion.Events.Event;
 import Presentacion.UI;
-import Presentacion.Utils.PanelProblemUser;
+import Presentacion.UIStructureFrame;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Collection;
 
-public class GUIListClient extends JFrame implements UI {
+public class GUIListClient extends UIStructureFrame implements UI {
 
     private String[] columnNames = {"NAME","PHONE NUMBER"};
     private Object[][] data;
 
     private Collection<Tparticipante> client;
 
-
-    private Dimension minScreenSize = new Dimension(1600, 1000);
-
-    private JPanel centerPanel;
-    private JPanel buttonBar;
-    private JLabel title;
-
     private Font fTitle  = new Font(Font.MONOSPACED, Font.BOLD, 80);
-    private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
     private Font fTable = new Font(Font.DIALOG, Font.PLAIN, 24);
-
-    private Color cHelpButton = new Color(66,35,146);
-    private Color cCancelButton = new Color(146, 35, 59);
 
     public GUIListClient(Collection<Tparticipante> client){
         super("List Clients");
@@ -46,12 +31,19 @@ public class GUIListClient extends JFrame implements UI {
         this.initComponents();
     }
 
-    private void cancelButtonActionPerformed(ActionEvent e) throws Exception {
+    @Override
+    protected void okButtonActionPerformed(ActionEvent e) throws Exception {
+
+    }
+
+    @Override
+    protected void cancelButtonActionPerformed(ActionEvent e) throws Exception {
         this.setVisible(false);
         Controller.getInstance().execute(Event.HOME, null);
     }
 
-    private void helpButtonActionPerformed(ActionEvent e) {
+    @Override
+    protected void helpButtonActionPerformed(ActionEvent e) {
 
     }
 
@@ -66,7 +58,8 @@ public class GUIListClient extends JFrame implements UI {
 
     }
 
-    private void setUpTitle(){
+    @Override
+    protected void setUpTitle(){
 
         title = new JLabel();
         title .setText("List Clients");
@@ -76,57 +69,8 @@ public class GUIListClient extends JFrame implements UI {
 
     }
 
-    private void setUpButtonBar(){
-
-        Dimension buttonDim = new Dimension(150, 80);
-
-        //---- cancelButton ----
-        JButton cancelButton = new JButton();
-        cancelButton.setText("Cancel");
-        cancelButton.setFont(fButton);
-        cancelButton.setBackground(cCancelButton);
-        cancelButton.setForeground(Color.WHITE);
-        cancelButton.setPreferredSize(buttonDim);
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    cancelButtonActionPerformed(e);
-                }catch (Exception e1){
-                    new PanelProblemUser(e1.getMessage());
-                }
-            }
-        });
-
-
-        //---- helpButton ----
-        JButton helpButton = new JButton();
-        helpButton.setText("Help");
-        helpButton.setFont(fButton);
-        helpButton.setBackground(cHelpButton);
-        helpButton.setForeground(Color.WHITE);
-        helpButton.setPreferredSize(buttonDim);
-        helpButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                helpButtonActionPerformed(e);
-            }
-        });
-
-
-        buttonBar = new JPanel();
-        FlowLayout layout = new FlowLayout();
-        layout.setHgap(25);
-        buttonBar.setLayout(layout);
-        buttonBar.add(cancelButton);
-        buttonBar.add(helpButton);
-        buttonBar.add(Box.createHorizontalStrut(500));
-
-
-
-    }
-
-    private void setUpCenter(){
+    @Override
+    protected void setUpCenter(){
         centerPanel = new JPanel();
         this.data = new Object[client.size()][columnNames.length];
 
@@ -169,57 +113,6 @@ public class GUIListClient extends JFrame implements UI {
         scrollPane.setPreferredSize(new Dimension(292, 500));
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         centerPanel.add(scrollPane);
-    }
-
-    private void initComponents() {
-
-        //======== this ========
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BorderLayout());
-
-        ImageIcon img = new ImageIcon("Resources//Icon.png");
-        this.setIconImage(img.getImage());
-
-        //======== dialogPanel ========
-
-        JPanel dialogPanel = new JPanel();
-        dialogPanel.setBorder(new LineBorder(Color.BLUE));
-        dialogPanel.setBorder(new EmptyBorder(50, 50, 80, 50));
-        this.setMinimumSize(minScreenSize);
-
-        // JFormDesigner evaluation mark
-        dialogPanel.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                        "", javax.swing.border.TitledBorder.CENTER,
-                        javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font(Font.DIALOG, java.awt.Font.BOLD, 12),
-                        java.awt.Color.red), dialogPanel.getBorder()));
-        dialogPanel.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent e) {
-                if ("border".equals(e.getPropertyName())) throw new RuntimeException();
-            }
-        });
-
-        dialogPanel.setLayout(new BorderLayout());
-
-        //======== Title ========
-        setUpTitle();
-        dialogPanel.add(title, BorderLayout.PAGE_START);
-
-        //======== contentPanel ========
-
-        setUpCenter();
-        dialogPanel.add(centerPanel, BorderLayout.CENTER);
-
-        //========= ButtonBar ========
-
-        setUpButtonBar();
-        dialogPanel.add(buttonBar, BorderLayout.PAGE_END);
-
-        contentPane.add(dialogPanel, BorderLayout.CENTER);
-        this.setVisible(true);
-        pack();
-        setLocationRelativeTo(getOwner());
     }
 
     @Override
