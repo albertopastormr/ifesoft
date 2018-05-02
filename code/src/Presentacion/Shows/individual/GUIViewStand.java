@@ -2,12 +2,13 @@ package Presentacion.Shows.individual;
 
 import Negocio.Stand.Tstand;
 import Presentacion.UI;
+import Presentacion.UIStructureFrame;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIViewStand extends JFrame implements UI {
+public class GUIViewStand extends UIStructureFrame implements UI {
 
     private String metres;
     private String number;
@@ -16,26 +17,17 @@ public class GUIViewStand extends JFrame implements UI {
     private String assignation;
     private String participation;
 
-    private Dimension minScreenSize = new Dimension(1600, 1000);
-
-    private JLabel title;
     private JPanel formContainer;
-    private JPanel buttonBar;
-
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
     private Font fLabel = new Font(Font.DIALOG, Font.PLAIN, 30);
-    private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
-
-    private Color cBackButton = new Color(146, 35, 59);
-    private Color cHelpButton = new Color(66,35,146);
-
-    String helpMessage = "<html><h1>SHOW INDIVIDUAL STAND HELP</h1>Here you have the possibility to" +
-            "<b>See</b> the data of the specific <u>Stand</u> that you chose" +
-            "</html>" +
-            "";
 
     public GUIViewStand(Tstand tstand) {
+        super("");
+        this.helpMessage = "<html><h1>SHOW INDIVIDUAL STAND HELP</h1>Here you have the possibility to" +
+                "<b>See</b> the data of the specific <u>Stand</u> that you chose" +
+                "</html>" +
+                "";
 
         metres = "" + tstand.getTotal_m2();
         number = "" + tstand.getNum_at_fair();
@@ -49,23 +41,28 @@ public class GUIViewStand extends JFrame implements UI {
         this.setVisible(true);
     }
 
+    @Override
+    protected void okButtonActionPerformed(ActionEvent e) throws Exception {
 
-    private void backButtonActionPerformed() {
-        this.setVisible(false);
-
-        //TODO
     }
 
-    private void helpButtonActionPerformed(ActionEvent e) {
-        new Presentacion.Utils.ActionHelp(helpMessage);
+    @Override
+    protected void cancelButtonActionPerformed(ActionEvent e) throws Exception {
+
     }
 
-    private void setupTitle(){
+    @Override
+    protected void setUpTitle(){
         title = new JLabel();
         title.setText("Stand: " + id);
         title.setFont(fTitle);
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
+    }
+
+    @Override
+    protected void setUpCenter() {
+
     }
 
     private JLabel createLabel(String text){
@@ -173,77 +170,12 @@ public class GUIViewStand extends JFrame implements UI {
         formContainer.add(formPanel);
     }
 
-    private void setUpButtonBar(){
-
-        Dimension buttonDim = new Dimension(150, 80);
-
-
-        JButton backButton = new JButton();
-        backButton.setText("Back");
-        backButton.setFont(fButton);
-        backButton.setBackground(cBackButton);
-        backButton.setForeground(Color.WHITE);
-        backButton.setPreferredSize(buttonDim);
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                backButtonActionPerformed();
-            }
-        });
-
-        buttonBar = new JPanel();
-        FlowLayout layout = new FlowLayout();
-        layout.setHgap(25);
-        buttonBar.setLayout(layout);
-        buttonBar.add(backButton);
-
-        //---- helpButton ----
-        JButton helpButton = new JButton();
-        helpButton.setText("Help");
-        helpButton.setFont(fButton);
-        helpButton.setBackground(cHelpButton);
-        helpButton.setForeground(Color.WHITE);
-        helpButton.setPreferredSize(buttonDim);
-        helpButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                helpButtonActionPerformed(e);
-            }
-        });
-
-    }
-
-    private void initComponents() {
-
-        this.setMinimumSize(minScreenSize);
-
-        JPanel dialogPanel = new JPanel();
-        BorderLayout dialogLayout = new BorderLayout();
-        dialogPanel.setLayout(dialogLayout);
-        dialogPanel.setBorder(BorderFactory.createEmptyBorder(20,50,20,50));
-
-
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        //======== this ========
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BorderLayout());
-
-        //======== contents ========
-
-        //----Title----
-        setupTitle();
-        dialogPanel.add(title, BorderLayout.PAGE_START);
+    @Override
+    protected void initComponents() {
+        super.initComponents();
         //----Form----
         setupForm();
         dialogPanel.add(formContainer, BorderLayout.CENTER);
-        //----Buttons----
-        setUpButtonBar();
-        dialogPanel.add(buttonBar, BorderLayout.PAGE_END);
-
-        contentPane.add(dialogPanel, BorderLayout.CENTER);
-        pack();
-        setLocationRelativeTo(getOwner());
     }
 
     @Override

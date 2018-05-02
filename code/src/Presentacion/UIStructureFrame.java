@@ -1,5 +1,6 @@
 package Presentacion;
 
+import Presentacion.Utils.ActionHelp;
 import Presentacion.Utils.PanelProblemUser;
 
 import javax.swing.*;
@@ -10,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public abstract class UIStructureFrame extends JFrame {
+
+    protected String helpMessage;
 
     protected JPanel buttonBar;
     protected Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
@@ -24,15 +27,21 @@ public abstract class UIStructureFrame extends JFrame {
     protected JButton cancelButton = new JButton();
     protected JButton helpButton = new JButton();
 
+    protected JPanel dialogPanel = new JPanel();
+
     public UIStructureFrame(String titleText){
         super(titleText);
     }
 
     protected abstract void okButtonActionPerformed(ActionEvent e) throws Exception;
     protected abstract void cancelButtonActionPerformed(ActionEvent e) throws Exception;
-    protected abstract void helpButtonActionPerformed(ActionEvent e) throws Exception;
     protected abstract void setUpTitle();
     protected abstract void setUpCenter();
+
+    protected void helpButtonActionPerformed(ActionEvent e) throws Exception{
+        new ActionHelp(helpMessage);
+    }
+
 
     protected void initComponents(){
         //======== this ========
@@ -44,8 +53,6 @@ public abstract class UIStructureFrame extends JFrame {
         this.setIconImage(img.getImage());
 
         //======== dialogPanel ========
-
-        JPanel dialogPanel = new JPanel();
         dialogPanel.setBorder(new LineBorder(Color.BLUE));
         dialogPanel.setBorder(new EmptyBorder(50, 50, 80, 50));
         this.setMinimumSize(minScreenSize);

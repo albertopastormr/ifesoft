@@ -1,29 +1,18 @@
 package Presentacion.Create_Modify.Modify;
 
-import Negocio.Asignacion.Tasignacion;
-import Negocio.Feria.Tferia;
-import Negocio.Pabellon.Tpabellon;
-import Negocio.Participacion.Tparticipacion;
-import Negocio.Participante.Tparticipante;
-import Negocio.Stand.Tstand;
 import Controller.Controller;
 import Presentacion.Events.Event;
 import Presentacion.UI;
+import Presentacion.UIStructureFrame;
 import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.border.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class GUIModify extends JFrame implements UI {
+public class GUIModify extends UIStructureFrame implements UI {
 
-    private Dimension minScreenSize = new Dimension(1600, 1000);
-
-    private JPanel centerPanel;
-    private JPanel buttonBar;
-    private JLabel title;
     private JComboBox<String> comboBoxMod;
     private JTextField textID;
 
@@ -33,8 +22,6 @@ public class GUIModify extends JFrame implements UI {
     private Font fLabelSubId = new Font(Font.DIALOG, Font.PLAIN, 30);
     private Font fTextField = new Font(Font.DIALOG, Font.PLAIN, 30);
 
-    private Color cHelpButton = new Color(66,35,146);
-    private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
     private Color cComboBoxActive = new Color(207, 216, 220);
     private Color cComboBoxInactive = new Color(187, 196, 200);
@@ -42,19 +29,21 @@ public class GUIModify extends JFrame implements UI {
     private Color cComboBoxSelectedFont = new Color(52, 56, 58);
     private Color cTextFieldBG = new Color(243,243,243);
 
-    String helpMessage = "<html><h1>MODIFY PAGE HELP</1>Here you have the possibility to <b>Modify</b> a <u>Fair</u>" +
-            " or other entities that you can choose by clicking on the comboBox." +
-            "<br>Click <b>'Next'</b> to confirm or <b>'Cancel'</b> to go back to the previous page." +
-            "</html>";
-
     public GUIModify() {
         super("Modify");
+
+        this.helpMessage = "<html><h1>MODIFY PAGE HELP</1>Here you have the possibility to <b>Modify</b> a <u>Fair</u>" +
+                " or other entities that you can choose by clicking on the comboBox." +
+                "<br>Click <b>'Next'</b> to confirm or <b>'Cancel'</b> to go back to the previous page." +
+                "</html>";
+
         initComponents();
         this.setBounds(100,100, 800,800);
         this.setVisible(true);
     }
 
-    private void okButtonActionPerformed(ActionEvent e) throws Exception {
+    @Override
+    protected void okButtonActionPerformed(ActionEvent e) throws Exception {
 
         switch (String.valueOf(comboBoxMod.getSelectedItem())){
             case "Fair":
@@ -85,19 +74,14 @@ public class GUIModify extends JFrame implements UI {
         }
     }
 
-    private void cancelButtonActionPerformed(ActionEvent e) throws Exception {
+    @Override
+    protected void cancelButtonActionPerformed(ActionEvent e) throws Exception {
         this.setVisible(false);
         Controller.getInstance().execute(Event.HOME, null);
     }
 
-    private void helpButtonHalfCreateActionPerformed() {
-
-        new Presentacion.Utils.ActionHelp(helpMessage);
-    }
-
-
-    private void setUpTitle(){
-
+    @Override
+    protected void setUpTitle(){
         title = new JLabel();
         title .setText("Modify");
         title .setFont(fTitle);
@@ -106,7 +90,8 @@ public class GUIModify extends JFrame implements UI {
 
     }
 
-    private void setUpCenter(){
+    @Override
+    protected void setUpCenter(){
 
         centerPanel = new JPanel();
         BoxLayout centerLayout = new BoxLayout(centerPanel, BoxLayout.Y_AXIS);
@@ -162,43 +147,11 @@ public class GUIModify extends JFrame implements UI {
         centerPanel.add(textFieldPanel);
     }
 
-    private void setUpButtonBar(){
 
+    @Override
+    protected void setUpButtonBar(){
+        super.setUpButtonBar();
         Dimension buttonDim = new Dimension(150, 80);
-
-        //---- cancelButton ----
-        JButton cancelButton = new JButton();
-        cancelButton.setText("Cancel");
-        cancelButton.setFont(fButton);
-        cancelButton.setBackground(cCancelButton);
-        cancelButton.setForeground(Color.WHITE);
-        cancelButton.setPreferredSize(buttonDim);
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    cancelButtonActionPerformed(e);
-                } catch (Exception e1){
-                    new PanelProblemUser(e1.getMessage());
-                }
-            }
-        });
-
-
-        //---- helpButton ----
-        JButton helpButton = new JButton();
-        helpButton.setText("Help");
-        helpButton.setFont(fButton);
-        helpButton.setBackground(cHelpButton);
-        helpButton.setForeground(Color.WHITE);
-        helpButton.setPreferredSize(buttonDim);
-        helpButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //helpButtonActionPerformed(e);
-            }
-        });
-
 
         //---- okButton ----
         JButton okButton = new JButton();
@@ -218,67 +171,7 @@ public class GUIModify extends JFrame implements UI {
             }
         });
 
-        buttonBar = new JPanel();
-        FlowLayout layout = new FlowLayout();
-        layout.setHgap(25);
-        buttonBar.setLayout(layout);
-        buttonBar.add(cancelButton);
-        buttonBar.add(helpButton);
-        buttonBar.add(Box.createHorizontalStrut(500));
         buttonBar.add(okButton);
-
-
-
-    }
-
-    private void initComponents() {
-
-        //======== this ========
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BorderLayout());
-
-        ImageIcon img = new ImageIcon("Resources//Icon.png");
-        this.setIconImage(img.getImage());
-
-        //======== dialogPanel ========
-
-        JPanel dialogPanel = new JPanel();
-        dialogPanel.setBorder(new LineBorder(Color.BLUE));
-        dialogPanel.setBorder(new EmptyBorder(50, 50, 80, 50));
-        this.setMinimumSize(minScreenSize);
-
-        // JFormDesigner evaluation mark
-        dialogPanel.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                        "", javax.swing.border.TitledBorder.CENTER,
-                        javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font(Font.DIALOG, java.awt.Font.BOLD, 12),
-                        java.awt.Color.red), dialogPanel.getBorder()));
-        dialogPanel.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent e) {
-                if ("border".equals(e.getPropertyName())) throw new RuntimeException();
-            }
-        });
-
-        dialogPanel.setLayout(new BorderLayout());
-
-        //======== Title ========
-        setUpTitle();
-        dialogPanel.add(title, BorderLayout.PAGE_START);
-
-        //======== contentPanel ========
-
-        setUpCenter();
-        dialogPanel.add(centerPanel, BorderLayout.CENTER);
-
-        //========= ButtonBar ========
-
-        setUpButtonBar();
-        dialogPanel.add(buttonBar, BorderLayout.PAGE_END);
-
-        contentPane.add(dialogPanel, BorderLayout.CENTER);
-        pack();
-        setLocationRelativeTo(getOwner());
     }
 
     @Override

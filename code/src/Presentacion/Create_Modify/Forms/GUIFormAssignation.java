@@ -4,6 +4,7 @@ import Negocio.Asignacion.Tasignacion;
 import Controller.Controller;
 import Presentacion.Events.Event;
 import Presentacion.UI;
+import Presentacion.UIStructureFrame;
 import Presentacion.Utils.ActionHelp;
 import Presentacion.Utils.PanelProblemUser;
 
@@ -11,11 +12,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIFormAssignation extends JFrame implements UI {
+public class GUIFormAssignation extends UIStructureFrame implements UI {
 
     private boolean mod;
-
-    private Dimension minScreenSize = new Dimension(1600, 1000);
 
     private int idAssignation;
     private String idFair;
@@ -35,20 +34,20 @@ public class GUIFormAssignation extends JFrame implements UI {
     private Font fButton = new Font(Font.DIALOG, Font.PLAIN, 30);
 
     private Color cField = new Color(243, 243, 243);
-    private Color cHelpButton = new Color(66, 35, 146);
-    private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
-
-    String helpMessage = "<html><h1>ASSIGNATION INFO</1>Here you can <b>insert</b> <u>Assignation</u>'s " +
-            "data just by inserting them into" +
-            " the text areas, then click <b>'Next'</b> to continue or <b>'Cancel'</b> to go back." +
-            " </html>";
 
     private String setTitle(){
         return mod? "Modify" : "Create";
     }
 
     public GUIFormAssignation() {
+        super("");
+
+        this.helpMessage = "<html><h1>ASSIGNATION INFO</1>Here you can <b>insert</b> <u>Assignation</u>'s " +
+                "data just by inserting them into" +
+                " the text areas, then click <b>'Next'</b> to continue or <b>'Cancel'</b> to go back." +
+                " </html>";
+
         this.setTitle(setTitle());
         mod = false;
         initComponents();
@@ -58,6 +57,13 @@ public class GUIFormAssignation extends JFrame implements UI {
 
 
     public GUIFormAssignation(Tasignacion assignation) {
+        super("");
+
+        this.helpMessage = "<html><h1>ASSIGNATION INFO</1>Here you can <b>insert</b> <u>Assignation</u>'s " +
+                "data just by inserting them into" +
+                " the text areas, then click <b>'Next'</b> to continue or <b>'Cancel'</b> to go back." +
+                " </html>";
+
         mod = true;
 
         this.idAssignation = assignation.getId();
@@ -72,7 +78,8 @@ public class GUIFormAssignation extends JFrame implements UI {
     }
 
 
-    private void createButtonFormActionPerformed() throws Exception {
+    @Override
+    protected void okButtonActionPerformed(ActionEvent e) throws Exception {
         this.setVisible(false);
         int idFair = Integer.valueOf(idFairField.getText());
         int idPavilion = Integer.valueOf(idPavilionField.getText());
@@ -84,17 +91,15 @@ public class GUIFormAssignation extends JFrame implements UI {
         else Controller.getInstance().execute(Event.MODIFY_ASSIGNATION, tAssignation);
     }
 
-    private void cancelButtonStateChanged() throws Exception {
+    @Override
+    protected void cancelButtonActionPerformed(ActionEvent e) throws Exception {
         this.setVisible(false);
         if (!mod) Controller.getInstance().execute(Event.CREATE_HALF, null);
         else Controller.getInstance().execute(Event.MODIFY_HALF, null);
     }
 
-    private void helpButtonActionPerformed() {
-        new ActionHelp(helpMessage);
-    }
-
-    private void setupTitle() {
+    @Override
+    protected void setUpTitle() {
         title = new JLabel();
         if (mod)
             title.setText("Modify Assignation");
@@ -105,8 +110,12 @@ public class GUIFormAssignation extends JFrame implements UI {
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
     }
 
-    private JLabel createLabel(String text) {
+    @Override
+    protected void setUpCenter() {
 
+    }
+
+    private JLabel createLabel(String text) {
         JLabel label = new JLabel(text, JLabel.RIGHT);
         label.setFont(fLabel);
         return label;
@@ -196,43 +205,11 @@ public class GUIFormAssignation extends JFrame implements UI {
         formContainer.add(formPanel);
     }
 
-    private void setUpButtonBar() {
+    @Override
+    protected void setUpButtonBar() {
+        super.setUpButtonBar();
 
         Dimension buttonDim = new Dimension(150, 80);
-
-        //---- cancelButton ----
-        JButton cancelButton = new JButton();
-        cancelButton.setText("Cancel");
-        cancelButton.setFont(fButton);
-        cancelButton.setBackground(cCancelButton);
-        cancelButton.setForeground(Color.WHITE);
-        cancelButton.setPreferredSize(buttonDim);
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    cancelButtonStateChanged();
-                } catch (Exception e1) {
-                    new PanelProblemUser(e1.getMessage());
-                }
-            }
-        });
-
-
-        //---- helpButton ----
-        JButton helpButton = new JButton();
-        helpButton.setText("Help");
-        helpButton.setFont(fButton);
-        helpButton.setBackground(cHelpButton);
-        helpButton.setForeground(Color.WHITE);
-        helpButton.setPreferredSize(buttonDim);
-        helpButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                helpButtonActionPerformed();
-            }
-        });
-
 
         //---- okButton ----
         JButton okButton = new JButton();
@@ -245,7 +222,7 @@ public class GUIFormAssignation extends JFrame implements UI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    createButtonFormActionPerformed();
+                    okButtonActionPerformed(e);
                 } catch (Exception e1) {
                     new PanelProblemUser(e1.getMessage());
                 }
@@ -263,41 +240,13 @@ public class GUIFormAssignation extends JFrame implements UI {
 
     }
 
-    private void initComponents() {
+    @Override
+    protected void initComponents() {
+        super.initComponents();
 
-        this.setMinimumSize(minScreenSize);
-
-        JPanel dialogPanel = new JPanel();
-        BorderLayout dialogLayout = new BorderLayout();
-        dialogPanel.setLayout(dialogLayout);
-        dialogPanel.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
-
-
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        //======== this ========
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BorderLayout());
-
-
-        ImageIcon img = new ImageIcon("Resources//Icon.png");
-        this.setIconImage(img.getImage());
-
-        //======== contents ========
-
-        //----Title----
-        setupTitle();
-        dialogPanel.add(title, BorderLayout.PAGE_START);
         //----Form----
         setupForm();
         dialogPanel.add(formContainer, BorderLayout.CENTER);
-        //----Buttons----
-        setUpButtonBar();
-        dialogPanel.add(buttonBar, BorderLayout.PAGE_END);
-
-        contentPane.add(dialogPanel, BorderLayout.CENTER);
-        pack();
-        setLocationRelativeTo(getOwner());
     }
 
     @Override

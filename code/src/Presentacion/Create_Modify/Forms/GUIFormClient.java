@@ -6,6 +6,7 @@ import Negocio.Participante.TparticipanteInternacional;
 import Negocio.Participante.TparticipanteNacional;
 import Presentacion.Events.Event;
 import Presentacion.UI;
+import Presentacion.UIStructureFrame;
 import Presentacion.Utils.ActionHelp;
 import Presentacion.Utils.PanelProblemUser;
 
@@ -15,7 +16,7 @@ import java.util.Objects;
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class GUIFormClient extends JFrame implements UI {
+public class GUIFormClient extends UIStructureFrame implements UI {
 
     private int idClient;
 
@@ -25,14 +26,10 @@ public class GUIFormClient extends JFrame implements UI {
 
     private boolean mod;
 
-    private Dimension minScreenSize = new Dimension(1600, 1000);
-
-    private JLabel title;
     private JPanel formContainer;
     private JTextField nameField;
     private JTextField phoneField;
     private JTextField regionCountryField;
-    private JPanel buttonBar;
     private JComboBox<String> comboBoxCreate;
 
     private JLabel regionCountryLabel;
@@ -44,23 +41,23 @@ public class GUIFormClient extends JFrame implements UI {
     private Font fComboBox = new Font(Font.DIALOG, Font.PLAIN, 40);
 
     private Color cField = new Color(243,243,243);
-    private Color cHelpButton = new Color(66,35,146);
-    private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
     private Color cComboBoxActive = new Color(207, 216, 220);
     private Color cComboBoxInactive = new Color(187, 196, 200);
     private Color cComboBoxFont = new Color(84, 91, 94);
     private Color cComboBoxSelectedFont = new Color(52, 56, 58);
 
-    String helpMessage = "<html><h1>CLIENT INFO</1>Here you can <b>insert</b> " +
-            "<u>Client</u>'s data just by inserting them into the" +
-            " text areas, then click <b>'Next'</b> to continue or <b>'Cancel'</b> to go back." +
-            "In the first field you have to insert the name of the client, in the second one its telephone" +
-            " number and in the last one the specialization of this company." +
-            "</html>";
-
     // CONSTRUCTOR OPTION CREATE
     public GUIFormClient() {
+        super("");
+
+        this.helpMessage = "<html><h1>CLIENT INFO</1>Here you can <b>insert</b> " +
+                "<u>Client</u>'s data just by inserting them into the" +
+                " text areas, then click <b>'Next'</b> to continue or <b>'Cancel'</b> to go back." +
+                "In the first field you have to insert the name of the client, in the second one its telephone" +
+                " number and in the last one the specialization of this company." +
+                "</html>";
+
         mod = false;
         initComponents();
         viewVisibleLogic();
@@ -70,7 +67,15 @@ public class GUIFormClient extends JFrame implements UI {
 
     // CONSTRUCTOR OPTION MODIFY
     public GUIFormClient(Tparticipante client) {
+        super("");
         mod = true;
+
+        this.helpMessage = "<html><h1>CLIENT INFO</1>Here you can <b>insert</b> " +
+                "<u>Client</u>'s data just by inserting them into the" +
+                " text areas, then click <b>'Next'</b> to continue or <b>'Cancel'</b> to go back." +
+                "In the first field you have to insert the name of the client, in the second one its telephone" +
+                " number and in the last one the specialization of this company." +
+                "</html>";
 
         this.idClient = client.getId();
 
@@ -80,11 +85,9 @@ public class GUIFormClient extends JFrame implements UI {
         initComponents();
         viewVisibleLogic();
         this.setBounds(100,100, 800,800);
-        this.setVisible(true);
     }
 
-    private void nextButtonActionPerformed() throws Exception {
-
+   /*private void nextButtonActionPerformed() throws Exception {
         switch (String.valueOf(comboBoxCreate.getSelectedItem())) {
             case "National":
                 this.setVisible(false);
@@ -95,46 +98,7 @@ public class GUIFormClient extends JFrame implements UI {
                 Controller.getInstance().execute(Event.SHOW_PAIS_PABELLON, null);
                 break;
         }
-    }
-
-    private void createButtonFormActionPerformed() throws Exception {
-        setVisible(false);
-        Tparticipante client;
-        String name = nameField.getText();
-        String numPhone = phoneField.getText();
-        String regionCountry = regionCountryField.getText();
-
-        if(String.valueOf(comboBoxCreate.getSelectedItem()).equals("National"))
-            client = new TparticipanteNacional(name, Integer.parseInt(numPhone), true, regionCountry);
-        else client = new TparticipanteInternacional(name, Integer.parseInt(numPhone), true, regionCountry);
-
-        if (!mod)  Controller.getInstance().execute(Presentacion.Events.Event.INSERT_CLIENT, client);
-        else{
-            client.setId(idClient);
-            Controller.getInstance().execute(Event.MODIFY_CLIENT, client);
-        }
-    }
-
-    private void cancelButtonStateChanged() throws Exception {
-        this.setVisible(false);
-        if (!mod) Controller.getInstance().execute(Event.CREATE_HALF, null);
-        else Controller.getInstance().execute(Event.MODIFY_HALF, null);
-    }
-
-    private void helpButtonActionPerformed() {
-        new ActionHelp(helpMessage);
-    }
-
-    private void setupTitle(){
-        title = new JLabel();
-        if(mod)
-            title.setText("Modify Client");
-        else
-            title.setText("Create_Modify Client");
-        title.setFont(fTitle);
-        title.setHorizontalAlignment(JLabel.CENTER);
-        title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
-    }
+    }*/
 
     private JLabel createLabel(String text){
 
@@ -254,43 +218,11 @@ public class GUIFormClient extends JFrame implements UI {
         formContainer.add(formPanel);
     }
 
-    private void setUpButtonBar(){
+    @Override
+    protected void setUpButtonBar(){
+        super.setUpButtonBar();
 
         Dimension buttonDim = new Dimension(150, 80);
-
-        //---- cancelButton ----
-        JButton cancelButton = new JButton();
-        cancelButton.setText("Cancel");
-        cancelButton.setFont(fButton);
-        cancelButton.setBackground(cCancelButton);
-        cancelButton.setForeground(Color.WHITE);
-        cancelButton.setPreferredSize(buttonDim);
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    cancelButtonStateChanged();
-                } catch (Exception e1){
-                    new PanelProblemUser(e1.getMessage());
-                }
-            }
-        });
-
-
-        //---- helpButton ----
-        JButton helpButton = new JButton();
-        helpButton.setText("Help");
-        helpButton.setFont(fButton);
-        helpButton.setBackground(cHelpButton);
-        helpButton.setForeground(Color.WHITE);
-        helpButton.setPreferredSize(buttonDim);
-        helpButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                helpButtonActionPerformed();
-            }
-        });
-
 
         //---- okButton ----
         JButton okButton = new JButton();
@@ -303,60 +235,65 @@ public class GUIFormClient extends JFrame implements UI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    createButtonFormActionPerformed();
+                    okButtonActionPerformed(e);
                 } catch (Exception e1){
                     new PanelProblemUser(e1.getMessage());
                 }
             }
         });
 
-        buttonBar = new JPanel();
-        FlowLayout layout = new FlowLayout();
-        layout.setHgap(25);
-        buttonBar.setLayout(layout);
-        buttonBar.add(cancelButton);
-        buttonBar.add(helpButton);
-        buttonBar.add(Box.createHorizontalStrut(500));
         buttonBar.add(okButton);
+    }
 
+    @Override
+    protected void okButtonActionPerformed(ActionEvent e) throws Exception {
+        setVisible(false);
+        Tparticipante client;
+        String name = nameField.getText();
+        String numPhone = phoneField.getText();
+        String regionCountry = regionCountryField.getText();
 
+        if(String.valueOf(comboBoxCreate.getSelectedItem()).equals("National"))
+            client = new TparticipanteNacional(name, Integer.parseInt(numPhone), true, regionCountry);
+        else client = new TparticipanteInternacional(name, Integer.parseInt(numPhone), true, regionCountry);
+
+        if (!mod)  Controller.getInstance().execute(Presentacion.Events.Event.INSERT_CLIENT, client);
+        else{
+            client.setId(idClient);
+            Controller.getInstance().execute(Event.MODIFY_CLIENT, client);
+        }
+    }
+
+    @Override
+    protected void cancelButtonActionPerformed(ActionEvent e) throws Exception {
+        this.setVisible(false);
+        if (!mod) Controller.getInstance().execute(Event.CREATE_HALF, null);
+        else Controller.getInstance().execute(Event.MODIFY_HALF, null);
+    }
+
+    @Override
+    protected void setUpTitle() {
+        title = new JLabel();
+        if(mod)
+            title.setText("Modify Client");
+        else
+            title.setText("Create_Modify Client");
+        title.setFont(fTitle);
+        title.setHorizontalAlignment(JLabel.CENTER);
+        title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
+    }
+
+    @Override
+    protected void setUpCenter() {
 
     }
 
-    private void initComponents() {
+    @Override
+    protected void initComponents() {
+        super.initComponents();
 
-        this.setMinimumSize(minScreenSize);
-
-        ImageIcon img = new ImageIcon("Resources//Icon.png");
-        this.setIconImage(img.getImage());
-
-        JPanel dialogPanel = new JPanel();
-        BorderLayout dialogLayout = new BorderLayout();
-        dialogPanel.setLayout(dialogLayout);
-        dialogPanel.setBorder(BorderFactory.createEmptyBorder(20,50,20,50));
-
-
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        //======== this ========
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BorderLayout());
-
-        //======== contents ========
-
-        //----Title----
-        setupTitle();
-        dialogPanel.add(title, BorderLayout.PAGE_START);
-        //----Form----
         setupForm();
         dialogPanel.add(formContainer, BorderLayout.CENTER);
-        //----Buttons----
-        setUpButtonBar();
-        dialogPanel.add(buttonBar, BorderLayout.PAGE_END);
-
-        contentPane.add(dialogPanel, BorderLayout.CENTER);
-        pack();
-        setLocationRelativeTo(getOwner());
     }
 
     private void viewVisibleLogic(){

@@ -4,6 +4,7 @@ import Negocio.Feria.Tferia;
 import Controller.Controller;
 import Presentacion.Events.EventGUI;
 import Presentacion.UI;
+import Presentacion.UIStructureFrame;
 import Presentacion.Utils.ActionHelp;
 import Presentacion.Utils.Utilities;
 import Presentacion.Events.Event;
@@ -13,7 +14,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIFormFair extends JFrame implements UI {
+public class GUIFormFair extends UIStructureFrame implements UI {
 
     private int idFair;
 
@@ -24,15 +25,12 @@ public class GUIFormFair extends JFrame implements UI {
 
     private boolean mod;
 
-    private Dimension minScreenSize = new Dimension(1600, 1000);
-
     private JLabel title;
     private JPanel formContainer;
     private JTextField nameField;
     private JTextField descField;
     private JTextField iniDateField;
     private JTextField finDateField;
-    private JPanel buttonBar;
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
     private Font fLabel = new Font(Font.DIALOG, Font.PLAIN, 30);
@@ -40,21 +38,20 @@ public class GUIFormFair extends JFrame implements UI {
     private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
 
     private Color cField = new Color(243,243,243);
-    private Color cHelpButton = new Color(66,35,146);
-    private Color cCancelButton = new Color(146, 35, 59);
     private Color cOkButton = new Color(26, 184, 59);
 
-    String helpMessage = "<html><h1>FAIR INFO</1>Here you can <b>insert</b> <u>Fair</u>'s data just by inserting" +
-            " them into the text areas, then click <b>'Next'</b> " +
-            "to continue or <b>'Cancel'</b> to go back." +
-            "In the first field you have to insert the name of the fair," +
-            "in the second one description to give some information and define the theme of the fair," +
-            "in the third field you have to write the starting date " +
-            "and in the last one the end date." +
-            "</html>";
-
-
     public GUIFormFair() {
+        super("");
+
+        this.helpMessage = "<html><h1>FAIR INFO</1>Here you can <b>insert</b> <u>Fair</u>'s data just by inserting" +
+                " them into the text areas, then click <b>'Next'</b> " +
+                "to continue or <b>'Cancel'</b> to go back." +
+                "In the first field you have to insert the name of the fair," +
+                "in the second one description to give some information and define the theme of the fair," +
+                "in the third field you have to write the starting date " +
+                "and in the last one the end date." +
+                "</html>";
+
         this.mod = false;
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -63,6 +60,17 @@ public class GUIFormFair extends JFrame implements UI {
     }
 
     public GUIFormFair(Tferia fair) {
+        super("");
+
+        this.helpMessage = "<html><h1>FAIR INFO</1>Here you can <b>insert</b> <u>Fair</u>'s data just by inserting" +
+                " them into the text areas, then click <b>'Next'</b> " +
+                "to continue or <b>'Cancel'</b> to go back." +
+                "In the first field you have to insert the name of the fair," +
+                "in the second one description to give some information and define the theme of the fair," +
+                "in the third field you have to write the starting date " +
+                "and in the last one the end date." +
+                "</html>";
+
         this.mod = true;
 
         this.idFair = fair.getId();
@@ -76,41 +84,7 @@ public class GUIFormFair extends JFrame implements UI {
         this.setVisible(true);
     }
 
-    private void createButtonFormActionPerformed() throws Exception {
-        this.setVisible(false);
-        String name = nameField.getText();
-        String description = descField.getText();
-        String dateStart = iniDateField.getText();
-        String dateEnd = finDateField.getText();
-
-        if(!mod) Controller.getInstance().execute(Event.INSERT_FAIR, new Tferia(name, description, Utilities.parseStringToDate(dateStart), Utilities.parseStringToDate(dateEnd)));
-        else Controller.getInstance().execute(Event.MODIFY_FAIR, new Tferia(idFair ,name, description, Utilities.parseStringToDate(dateStart), Utilities.parseStringToDate(dateEnd), true));
-
-    }
-
-   private void cancelButtonStateChanged() throws Exception {
-        this.setVisible(false);
-        if (!mod) Controller.getInstance().execute(Event.CREATE_HALF, null);
-        else Controller.getInstance().execute(Event.MODIFY_HALF, null);
-    }
-
-    private void helpButtonActionPerformed() {
-        new ActionHelp(helpMessage);
-    }
-
-    private void setupTitle(){
-        title = new JLabel();
-        if(mod)
-            title.setText("Modify Fair");
-        else
-            title.setText("Create_Modify Fair");
-        title.setFont(fTitle);
-        title.setHorizontalAlignment(JLabel.CENTER);
-        title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
-    }
-
     private JLabel createLabel(String text){
-
         JLabel label = new JLabel(text, JLabel.RIGHT);
         label.setFont(fLabel);
         return label;
@@ -212,43 +186,11 @@ public class GUIFormFair extends JFrame implements UI {
         formContainer.add(formPanel);
     }
 
-    private void setUpButtonBar(){
+    @Override
+    protected void setUpButtonBar(){
+        super.setUpButtonBar();
 
         Dimension buttonDim = new Dimension(150, 80);
-
-        //---- cancelButton ----
-        JButton cancelButton = new JButton();
-        cancelButton.setText("Cancel");
-        cancelButton.setFont(fButton);
-        cancelButton.setBackground(cCancelButton);
-        cancelButton.setForeground(Color.WHITE);
-        cancelButton.setPreferredSize(buttonDim);
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    cancelButtonStateChanged();
-                }catch (Exception e1){
-                    new PanelProblemUser(e1.getMessage());
-                }
-            }
-        });
-
-
-        //---- helpButton ----
-        JButton helpButton = new JButton();
-        helpButton.setText("Help");
-        helpButton.setFont(fButton);
-        helpButton.setBackground(cHelpButton);
-        helpButton.setForeground(Color.WHITE);
-        helpButton.setPreferredSize(buttonDim);
-        helpButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                helpButtonActionPerformed();
-            }
-        });
-
 
         //---- okButton ----
         JButton okButton = new JButton();
@@ -261,60 +203,61 @@ public class GUIFormFair extends JFrame implements UI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    createButtonFormActionPerformed();
+                    okButtonActionPerformed(e);
                 } catch (Exception e1){
                     new PanelProblemUser(e1.getMessage());
                 }
             }
         });
 
-        buttonBar = new JPanel();
-        FlowLayout layout = new FlowLayout();
-        layout.setHgap(25);
-        buttonBar.setLayout(layout);
-        buttonBar.add(cancelButton);
-        buttonBar.add(helpButton);
-        buttonBar.add(Box.createHorizontalStrut(500));
         buttonBar.add(okButton);
+    }
 
+    @Override
+    protected void okButtonActionPerformed(ActionEvent e) throws Exception {
+        this.setVisible(false);
+        String name = nameField.getText();
+        String description = descField.getText();
+        String dateStart = iniDateField.getText();
+        String dateEnd = finDateField.getText();
 
+        if(!mod) Controller.getInstance().execute(Event.INSERT_FAIR, new Tferia(name, description, Utilities.parseStringToDate(dateStart), Utilities.parseStringToDate(dateEnd)));
+        else Controller.getInstance().execute(Event.MODIFY_FAIR, new Tferia(idFair ,name, description, Utilities.parseStringToDate(dateStart), Utilities.parseStringToDate(dateEnd), true));
+    }
+
+    @Override
+    protected void cancelButtonActionPerformed(ActionEvent e) throws Exception {
+        this.setVisible(false);
+        if (!mod) Controller.getInstance().execute(Event.CREATE_HALF, null);
+        else Controller.getInstance().execute(Event.MODIFY_HALF, null);
+    }
+
+    @Override
+    protected void setUpTitle() {
+        title = new JLabel();
+        if(mod)
+            title.setText("Modify Fair");
+        else
+            title.setText("Create_Modify Fair");
+        title.setFont(fTitle);
+        title.setHorizontalAlignment(JLabel.CENTER);
+        title.setBorder(BorderFactory.createEmptyBorder(0, 0, 70, 0));
+    }
+
+    @Override
+    protected void setUpCenter() {
 
     }
 
-    private void initComponents() {
+    @Override
+    protected void initComponents() {
+        super.initComponents();
 
         this.setMinimumSize(minScreenSize);
 
-        JPanel dialogPanel = new JPanel();
-        BorderLayout dialogLayout = new BorderLayout();
-        dialogPanel.setLayout(dialogLayout);
-        dialogPanel.setBorder(BorderFactory.createEmptyBorder(20,50,20,50));
-
-
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        //======== this ========
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BorderLayout());
-
-        ImageIcon img = new ImageIcon("Resources//Icon.png");
-        this.setIconImage(img.getImage());
-
-        //======== contents ========
-
-        //----Title----
-        setupTitle();
-        dialogPanel.add(title, BorderLayout.PAGE_START);
         //----Form----
         setupForm();
         dialogPanel.add(formContainer, BorderLayout.CENTER);
-        //----Buttons----
-        setUpButtonBar();
-        dialogPanel.add(buttonBar, BorderLayout.PAGE_END);
-
-        contentPane.add(dialogPanel, BorderLayout.CENTER);
-        pack();
-        setLocationRelativeTo(getOwner());
     }
 
     @Override

@@ -4,6 +4,7 @@ import Controller.Controller;
 import Presentacion.Events.Event;
 import Presentacion.Events.EventGUI;
 import Presentacion.UI;
+import Presentacion.UIStructureFrame;
 import Presentacion.Utils.ActionHelp;
 import Presentacion.Utils.PanelProblemUser;
 
@@ -12,22 +13,12 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class GUIHome extends JFrame implements UI {
-
-    private Dimension minScreenSize = new Dimension(1600, 1000);
-
-    private static JPanel centerPanel;
-    private JLabel title;
-    private JPanel buttonBar;
+public class GUIHome extends UIStructureFrame implements UI {
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.PLAIN, 60);
     private Font fBigButton = new Font(Font.MONOSPACED, Font.PLAIN, 30);
-    private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
-
 
     private Color cBigButton = new Color(49,49,49);
-    private Color cHelpButton = new Color(66,35,146);
-    private Color cExitButton = new Color(146, 35, 59);
 
     String helpMessage = "<html><h1>HOME PAGE HELP</h1>Here you have the possibility to <b>Create</b>," +
             " <b>Modify</b>, <b>Show</b> or <b>Delete</b> <u>Fairs</u> or other entities just" +
@@ -78,15 +69,24 @@ public class GUIHome extends JFrame implements UI {
         }
     }
 
-    private void cancelButtonActionPerformed() {
+
+    @Override
+    protected void okButtonActionPerformed(ActionEvent e) throws Exception {
+
+    }
+
+    @Override
+    protected void cancelButtonActionPerformed(ActionEvent e) {
         System.exit(0);
     }
 
-    private void helpButtonActionPerformed() {
+    @Override
+    protected void helpButtonActionPerformed(ActionEvent e) {
         new ActionHelp(helpMessage);
     }
 
-    private void setUpTitle(){
+    @Override
+    protected void setUpTitle(){
 
         title = new JLabel();
         title .setText("Ifesoft Software");
@@ -108,7 +108,8 @@ public class GUIHome extends JFrame implements UI {
         return bigButton;
     }
 
-    private void setUpCenter() {
+    @Override
+    protected void setUpCenter() {
 
          centerPanel = new JPanel();
          GridBagLayout centerLayout = new GridBagLayout();
@@ -165,100 +166,6 @@ public class GUIHome extends JFrame implements UI {
         centerConst.gridy = 1;
         centerPanel.add(buttonModifyHome, centerConst);
 
-    }
-
-    private void setUpButtonBar(){
-
-        Dimension buttonDim = new Dimension(150, 80);
-
-        //---- cancelButton ----
-        JButton exitButton = new JButton();
-        exitButton.setText("Cancel");
-        exitButton.setFont(fButton);
-        exitButton.setBackground(cExitButton);
-        exitButton.setForeground(Color.WHITE);
-        exitButton.setPreferredSize(buttonDim);
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cancelButtonActionPerformed();
-            }
-        });
-
-        //---- helpButton ----
-        JButton helpButton = new JButton();
-        helpButton.setText("Help");
-        helpButton.setFont(fButton);
-        helpButton.setBackground(cHelpButton);
-        helpButton.setForeground(Color.WHITE);
-        helpButton.setPreferredSize(buttonDim);
-        helpButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                helpButtonActionPerformed();
-            }
-        });
-
-        buttonBar = new JPanel();
-        FlowLayout layout = new FlowLayout(FlowLayout.LEFT);
-        layout.setHgap(25);
-        buttonBar.setLayout(layout);
-        buttonBar.add(Box.createHorizontalStrut(80));
-        buttonBar.add(exitButton);
-        buttonBar.add(helpButton);
-
-
-
-    }
-
-    private void initComponents() {
-
-        //======== this ========
-        Container contentPane = getContentPane();
-        contentPane.setLayout(new BorderLayout());
-
-        ImageIcon img = new ImageIcon("Resources//Icon.png");
-        this.setIconImage(img.getImage());
-
-        //======== dialogPanel ========
-
-        JPanel dialogPanel = new JPanel();
-        dialogPanel.setBorder(new LineBorder(Color.BLUE));
-        dialogPanel.setBorder(new EmptyBorder(50, 50, 80, 50));
-        this.setMinimumSize(minScreenSize);
-        this.setPreferredSize(minScreenSize);
-
-        // JFormDesigner evaluation mark
-        dialogPanel.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                        "", javax.swing.border.TitledBorder.CENTER,
-                        javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font(Font.DIALOG, java.awt.Font.BOLD, 12),
-                        java.awt.Color.red), dialogPanel.getBorder()));
-        dialogPanel.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent e) {
-                if ("border".equals(e.getPropertyName())) throw new RuntimeException();
-            }
-        });
-
-        dialogPanel.setLayout(new BorderLayout());
-
-        //======== Title ========
-        setUpTitle();
-        dialogPanel.add(title, BorderLayout.PAGE_START);
-
-        //======== contentPanel ========
-
-        setUpCenter();
-        dialogPanel.add(centerPanel, BorderLayout.CENTER);
-
-        //========= ButtonBar ========
-
-        setUpButtonBar();
-        dialogPanel.add(buttonBar, BorderLayout.PAGE_END);
-
-        contentPane.add(dialogPanel, BorderLayout.CENTER);
-        pack();
-        setLocationRelativeTo(getOwner());
     }
 
     @Override
