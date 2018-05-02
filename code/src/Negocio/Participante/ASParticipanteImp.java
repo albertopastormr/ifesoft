@@ -50,7 +50,7 @@ public class ASParticipanteImp implements ASParticipante {
                 if (read != null) {
                     Tparticipante nameOK = daoParticipante.readByName(participante.getName());
                     if (nameOK == null || nameOK.getName().equals(read.getName())) {
-                        if(participante.getActive() == false){
+                        if(!participante.getActive()){
                             participante.setActive(false);
                             return daoParticipante.update(participante);
                         }
