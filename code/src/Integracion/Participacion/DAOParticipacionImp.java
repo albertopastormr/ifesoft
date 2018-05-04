@@ -390,16 +390,6 @@ public class DAOParticipacionImp implements DAOParticipacion {
 			ps.close();
 
 			if (rs_id.next()) {
-				if (!tParticipacion.getActive()) { // Caso desactivado tAsignacion
-					// Desactivado de los stands y asignaciones relacionados con la participacion a desactivar
-					ps = connec.prepareStatement("UPDATE stand s JOIN asignacion a ON s.assignation_id = a.id SET s.active = ?, a.active = ? WHERE s.participation_id = ?");
-					ps.setBoolean(1, tParticipacion.getActive());
-					ps.setBoolean(2, tParticipacion.getActive());
-					ps.setInt(3, tParticipacion.getId());
-					ps.execute();
-					ps.close();
-					return rs_id.getInt("id");
-				}
 				return rs_id.getInt("id");
 			}
 			else

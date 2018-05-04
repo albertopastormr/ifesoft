@@ -177,16 +177,6 @@ public class DAOPabellonImp implements DAOPabellon {
 
 			if (rs.next()) {
 				id = rs.getInt("id");
-				if (!tPabellon.getActive()) {
-					// Desactivado de todas las asignaciones y stands relacionados con el pabellon ademas de las participaciones relacionadas con estos stands
-					ps = connec.prepareStatement("UPDATE (asignacion a JOIN stand s ON a.id = s.assignation_id) JOIN participacion p ON s.participation_id = p.id SET a.active = ?, s.active = ?, p.active = ? WHERE a.pavilion_id = ?");
-					ps.setBoolean(1, tPabellon.getActive());
-					ps.setBoolean(2, tPabellon.getActive());
-					ps.setBoolean(3, tPabellon.getActive());
-					ps.setInt(4, tPabellon.getId());
-					ps.execute();
-					ps.close();
-				}
 			}
 			else
 				return -1;

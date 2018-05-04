@@ -263,20 +263,6 @@ public class DAOStandImp implements DAOStand {
 
 			if (rs.next()) {
 				id = rs.getInt("id");
-				if (!tStand.getActive()) {
-					// Desactivado asignacion relacionada con stand
-					ps = connec.prepareStatement("UPDATE asignacion SET active = ? WHERE id = ?");
-					ps.setBoolean(1, tStand.getActive());
-					ps.setInt(2, tStand.getAssignation_id());
-					ps.execute();
-					ps.close();
-					// Desactivado participacion relacionada con stand
-					ps = connec.prepareStatement("UPDATE participacion SET active = ? WHERE id = ?");
-					ps.setBoolean(1, tStand.getActive());
-					ps.setInt(2, tStand.getParticipation_id());
-					ps.execute();
-					ps.close();
-				}
 			}
 		}
 		catch (SQLException e){

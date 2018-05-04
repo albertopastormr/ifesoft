@@ -344,16 +344,6 @@ public class DAOParticipanteImp implements DAOParticipante {
 
 				if (rs.next()) {
 					id = rs.getInt("id"); // ID a devolver
-
-					if (!tParticipante.getActive()) { // Si se trata de un drop(active==false), se realiza drop en cascada
-						ps = connec.prepareStatement("UPDATE (participacion p JOIN stand s ON p.id = s.participation_id) JOIN asignacion a ON s.assignation_id = a.id SET p.active = ?, s.active = ?, a.active = ? WHERE p.client_id = ?");
-						ps.setBoolean(1, tParticipante.getActive());
-						ps.setBoolean(2, tParticipante.getActive());
-						ps.setBoolean(3, tParticipante.getActive());
-						ps.setInt(4, tParticipante.getId());
-						ps.execute();
-						ps.close();
-					}
 				}
 				else
 					return -1;
@@ -378,16 +368,6 @@ public class DAOParticipanteImp implements DAOParticipante {
 
 				if (rs.next()) {
 					id = rs.getInt("id");
-
-					if (!tParticipante.getActive()) { // Si se trata de un drop(active==false), se realiza drop en cascada
-						ps = connec.prepareStatement("UPDATE (participacion p JOIN stand s ON p.id = s.participation_id) JOIN asignacion a ON s.assignation_id = a.id SET p.active = ?, s.active = ?, a.active = ? WHERE p.client_id = ?");
-						ps.setBoolean(1, tParticipante.getActive());
-						ps.setBoolean(2, tParticipante.getActive());
-						ps.setBoolean(3, tParticipante.getActive());
-						ps.setInt(4, tParticipante.getId());
-						ps.execute();
-						ps.close();
-					}
 				}
 				else
 					return -1;

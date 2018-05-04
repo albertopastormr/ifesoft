@@ -277,22 +277,6 @@ public class DAOFeriaImp implements DAOFeria{
 
 			if (rs.next()) {
 				id = rs.getInt("id");
-				if(!tFeria.getActive()){ 	 // Caso en el cual se desactiva una feria
-					// Desactivado de todos los stands y participaciones relacionadas con la feria a desactivar
-					ps = connec.prepareStatement("UPDATE stand s JOIN participacion p ON s.participation_id = p.id  SET s.active = ?, p.active = ? WHERE p.fair_id = ?");
-					ps.setBoolean(1, tFeria.getActive());
-					ps.setBoolean(2, tFeria.getActive());
-					ps.setInt(3, tFeria.getId());
-					ps.execute();
-					ps.close();
-					// Desactivado de todos los pabellones y asignaciones relacionadas con la feria a desactivar
-					ps = connec.prepareStatement("UPDATE pabellon p JOIN asignacion a ON p.id = a.pavilion_id  SET p.active = ?, a.active = ? WHERE a.fair_id = ?");
-					ps.setBoolean(1, tFeria.getActive());
-					ps.setBoolean(2, tFeria.getActive());
-					ps.setInt(3, tFeria.getId());
-					ps.execute();
-					ps.close();
-				}
 			}
 			else
 				throw new DAOException("Tferia " + tFeria.getName() + " does not exist (id not defined) in ifesoft database\n");
