@@ -14,6 +14,7 @@ import java.util.Collection;
 
 public class ASParticipacionImp implements ASParticipacion {
     public Integer create(Tparticipacion participacion) throws ASException {
+        int id;
         DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
         DAOParticipante daoParticipante = IFDAOParticipante.getInstance().generateDAOparticipante();
@@ -25,10 +26,10 @@ public class ASParticipacionImp implements ASParticipacion {
                 if (fRead != null && fParticipante != null) {
                     Tparticipacion read = daoParticipacion.readByFairIdClientId(participacion.getFair_id(), participacion.getClient_id());
                     if (read == null)
-                        return daoParticipacion.create(participacion);
-                    else{
-                        if(!read.getActive() && participacion.getActive())
-                            return daoParticipacion.update(participacion);
+                        id = daoParticipacion.create(participacion);
+                    else {
+                        if (!read.getActive() && participacion.getActive())
+                            id = daoParticipacion.update(participacion);
                         else
                             throw new ASException("ERROR: El participante " + participacion.getClient_id() + " ya participa en la feria " + participacion.getFair_id() + ".\n");
                     }
@@ -39,16 +40,18 @@ public class ASParticipacionImp implements ASParticipacion {
             }
         } else
             throw new ASException("ERROR: No se han introducido los datos del participacion o son erroneos.\n");
+        return id;
     }
 
     public Integer drop(Tparticipacion participacion) throws ASException {
+        int id;
         DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
         if (participacion != null) {
             try {
                 Tparticipacion read = daoParticipacion.readById(participacion.getId());
                 if (read != null) {
                     read.setActive(false);
-                    return daoParticipacion.update(read);
+                    id = daoParticipacion.update(read);
                 } else
                     throw new ASException("ERROR: La participacion " + participacion.getId() + " no existe.\n");
             } catch (Exception ex) {
@@ -56,9 +59,11 @@ public class ASParticipacionImp implements ASParticipacion {
             }
         } else
             throw new ASException("ERROR: No se han introducido los datos de la participacion.\n");
+        return id;
     }
 
     public Integer modify(Tparticipacion participacion) throws ASException {
+        int id;
         DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
 
         if (participacion != null && participacion.getId() != -1 && participacion.getFair_id() != -1 && participacion.getClient_id() != -1) {
@@ -66,14 +71,12 @@ public class ASParticipacionImp implements ASParticipacion {
                 Tparticipacion read = daoParticipacion.readById(participacion.getId());
                 if (read != null) {
                     if (participacion.getFair_id() == read.getFair_id() && participacion.getClient_id() == read.getClient_id()) {
-                        if(participacion.getActive() == false){
+                        if (!participacion.getActive()) {
                             participacion.setActive(false);
-                            return daoParticipacion.update(participacion);
-                        }
-                        else
-                            return daoParticipacion.update(participacion);
-                    }
-                    else
+                            id = daoParticipacion.update(participacion);
+                        } else
+                            id = daoParticipacion.update(participacion);
+                    } else
                         throw new ASException("ERROR: No pueden ser modificados el participante y/o feria de una participacion.\n");
                 } else
                     throw new ASException("ERROR: La participacion " + participacion.getId() + ") no existe.\n");
@@ -82,6 +85,7 @@ public class ASParticipacionImp implements ASParticipacion {
             }
         } else
             throw new ASException("ERROR: No se han introducido los datos de la participacion.\n");
+        return id;
     }
 
     public Collection<Tparticipacion> list() throws ASException {
@@ -96,12 +100,13 @@ public class ASParticipacionImp implements ASParticipacion {
     }
 
     public Tparticipacion show(Integer participation_id) throws ASException {
+        Tparticipacion part;
         DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
         if (participation_id != -1) {
             try {
                 Tparticipacion read = daoParticipacion.readById(participation_id);
                 if (read != null)
-                    return read;
+                    part = read;
                 else
                     throw new ASException("ERROR: La participacion " + participation_id + " no existe.\n");
             } catch (Exception ex) {
@@ -109,6 +114,7 @@ public class ASParticipacionImp implements ASParticipacion {
             }
         } else
             throw new ASException("ERROR: No se han introducido los datos de la participacion.\n");
+        return part;
     }
 
     public Collection<Tparticipacion> showByClientId(Integer client_id) throws ASException {

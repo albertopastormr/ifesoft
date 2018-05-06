@@ -52,12 +52,12 @@ public class ASStandImp implements ASStand {
         int id = -1;
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         if (stand != null) {
-            stand.setActive(false);
             try {
                 Tstand read = daoStand.readById(stand.getId());
-                if (read != null)
-                    id = daoStand.update(stand);
-                else
+                if (read != null) {
+                    read.setActive(false);
+                    id = daoStand.update(read);
+                } else
                     throw new ASException("ERROR: El stand " + stand.getId() + " no existe.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
@@ -84,10 +84,9 @@ public class ASStandImp implements ASStand {
 
                         if (tasignacionRead != null && tparticipacionRead != null) {
                             if (tasignacionRead.getUsed_m2() + stand.getTotal_m2() <= tasignacionRead.getTotal_m2()) {
-                                if(!stand.getActive()){
+                                if (!stand.getActive()) {
                                     id = daoStand.update(stand);
-                                }
-                                else {
+                                } else {
                                     id = daoStand.update(stand);
                                     tasignacionRead.setTotal_m2(tasignacionRead.getTotal_m2() + stand.getTotal_m2());
                                     daoAsignacion.update(tasignacionRead);
@@ -135,7 +134,6 @@ public class ASStandImp implements ASStand {
             throw new ASException("ERROR: No se han introducido los datos del stand.\n");
     }
 
-
     public Collection<Tstand> showByAssignation(Integer id) throws ASException {
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         if (id != -1) {
@@ -152,7 +150,6 @@ public class ASStandImp implements ASStand {
             throw new ASException("ERROR: No se han introducido los datos del stand.\n");
     }
 
-
     public Collection<Tstand> showByParticipation(Integer id) throws ASException {
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         if (id != -1) {
@@ -168,6 +165,5 @@ public class ASStandImp implements ASStand {
         } else
             throw new ASException("ERROR: No se han introducido los datos del stand.\n");
     }
-
 
 }
