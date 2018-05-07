@@ -64,6 +64,7 @@ public class ASPabellonImp implements ASPabellon {
                 Tpabellon read = daoPabellon.readById(pabellon.getId());
                 if (read != null) {
                     read.setActive(false);
+                    //----------------------------------------------------------------------------------------------
                     //Guardamos la lista de asignaciones implicadas en ese pabellon
                     listaAsignaciones = (ArrayList<Tasignacion>)daoAsignacion.readByPavilionId(read.getId());
                     //Numero de asignaciones que tenemos en el arraylist para poder iterar
@@ -90,6 +91,8 @@ public class ASPabellonImp implements ASPabellon {
                         tFeria.setActive(false);
                         daoFeria.update(tFeria);
                     }
+                    //HASTA AQUI DROP CASCADA PARTE A MIRAR
+                    //---------------------------------------------------------------------------------------------------
                     return daoPabellon.update(read);
                 } else
                     throw new ASException("ERROR: El pabellon " + pabellon.getId() + " no existe.\n");
