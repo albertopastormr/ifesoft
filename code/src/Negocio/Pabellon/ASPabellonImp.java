@@ -5,8 +5,21 @@ import Exceptions.DAOException;
 
 import java.sql.SQLException;
 
+import Integracion.Asignacion.DAOAsignacion;
+import Integracion.Feria.DAOFeria;
 import Integracion.Pabellon.DAOPabellon;
+import Integracion.Participacion.DAOParticipacion;
+import Integracion.Stand.DAOStand;
+import Negocio.Asignacion.IFDAOAsignacion;
+import Negocio.Asignacion.Tasignacion;
+import Negocio.Feria.IFDAOFeria;
+import Negocio.Feria.Tferia;
+import Negocio.Participacion.IFDAOParticipacion;
+import Negocio.Participacion.Tparticipacion;
+import Negocio.Stand.IFDAOStand;
+import Negocio.Stand.Tstand;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -38,11 +51,45 @@ public class ASPabellonImp implements ASPabellon {
 
     public Integer drop(Tpabellon pabellon) throws ASException {
         DAOPabellon daoPabellon = IFDAOPabellon.getInstance().generateDAOpabellon();
+        DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
+        DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
+        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
+        DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
+        ArrayList<Tasignacion> listaAsignaciones = new ArrayList<>();
+        ArrayList<Tstand> readStandList = new ArrayList<>();
+        int idParticipacion;
+
         if (pabellon != null && pabellon.getId() != -1) {
             try {
                 Tpabellon read = daoPabellon.readById(pabellon.getId());
                 if (read != null) {
                     read.setActive(false);
+                    //Guardamos la lista de asignaciones implicadas en ese pabellon
+                    listaAsignaciones = (ArrayList<Tasignacion>)daoAsignacion.readByPavilionId(read.getId());
+                    //Numero de asignaciones que tenemos en el arraylist para poder iterar
+                    for(int i = 0; i < listaAsignaciones.size(); i++){
+                         //Desactivacion de todas las asignaciones que se corresponden con ese pabellon
+                         Tasignacion tAsignacion = listaAsignaciones.get(i);
+                         Tasignacion tAsignacion2 = daoAsignacion.readById(tAsignacion.getId());
+                         tAsignacion2.setActive(false);
+                         daoAsignacion.update(tAsignacion2);
+                         //Desactivacion de stands referenciados en ese pabellon
+                        readStandList = (ArrayList<Tstand>)daoStand.readByAssignation(tAsignacion2.getId());
+                        for(int j = 0; j < readStandList.size(); j++){
+                            Tstand tStand = readStandList.get(j);
+                            Tstand tStand2 = daoStand.readById(tStand.getId());
+                            tStand2.setActive(false);
+                            daoStand.update(tStand2);
+                            //Para cada stand, borramos su participacion tambien.
+                            Tparticipacion tParticipacion = daoParticipacion.readById(tStand2.getParticipation_id());
+                            tParticipacion.setActive(false);
+                            daoParticipacion.update(tParticipacion);
+                        }
+                         //Desactivacion de la feria que tenga esa asignacion referenciada
+                        Tferia tFeria = daoFeria.readById(tAsignacion2.getFair_id());
+                        tFeria.setActive(false);
+                        daoFeria.update(tFeria);
+                    }
                     return daoPabellon.update(read);
                 } else
                     throw new ASException("ERROR: El pabellon " + pabellon.getId() + " no existe.\n");
