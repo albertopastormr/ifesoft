@@ -69,24 +69,24 @@ public class ASPabellonImp implements ASPabellon {
                     //Numero de asignaciones que tenemos en el arraylist para poder iterar
                     for(int i = 0; i < listaAsignaciones.size(); i++){
                          //Desactivacion de todas las asignaciones que se corresponden con ese pabellon
-                         Tasignacion tAsignacion = listaAsignaciones.get(i);
-                         Tasignacion tAsignacion2 = daoAsignacion.readById(tAsignacion.getId());
-                         tAsignacion2.setActive(false);
-                         daoAsignacion.update(tAsignacion2);
+                         Tasignacion tAsignacionAuxiliar = listaAsignaciones.get(i);
+                         Tasignacion tAsignacion = daoAsignacion.readById(tAsignacionAuxiliar.getId());
+                         tAsignacion.setActive(false);
+                         daoAsignacion.update(tAsignacion);
                          //Desactivacion de stands referenciados en ese pabellon
-                        readStandList = (ArrayList<Tstand>)daoStand.readByAssignation(tAsignacion2.getId());
+                        readStandList = (ArrayList<Tstand>)daoStand.readByAssignation(tAsignacion.getId());
                         for(int j = 0; j < readStandList.size(); j++){
-                            Tstand tStand = readStandList.get(j);
-                            Tstand tStand2 = daoStand.readById(tStand.getId());
-                            tStand2.setActive(false);
-                            daoStand.update(tStand2);
+                            Tstand tStandAuxiliar = readStandList.get(j);
+                            Tstand tStand = daoStand.readById(tStandAuxiliar.getId());
+                            tStand.setActive(false);
+                            daoStand.update(tStand);
                             //Para cada stand, borramos su participacion tambien.
-                            Tparticipacion tParticipacion = daoParticipacion.readById(tStand2.getParticipation_id());
+                            Tparticipacion tParticipacion = daoParticipacion.readById(tStand.getParticipation_id());
                             tParticipacion.setActive(false);
                             daoParticipacion.update(tParticipacion);
                         }
                          //Desactivacion de la feria que tenga esa asignacion referenciada
-                        Tferia tFeria = daoFeria.readById(tAsignacion2.getFair_id());
+                        Tferia tFeria = daoFeria.readById(tAsignacion.getFair_id());
                         tFeria.setActive(false);
                         daoFeria.update(tFeria);
                     }
