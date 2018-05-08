@@ -12,7 +12,7 @@ public class ASParticipanteImp implements ASParticipante {
     public Integer create(Tparticipante participante) throws ASException {
         int id;
         DAOParticipante daoParticipante = IFDAOParticipante.getInstance().generateDAOparticipante();
-        if (participante != null && participante.getName() != null && participante.getPhone() > -1) {
+        if (participante != null && participante.getName() != null && participante.getPhone() >= 0) {
             try {
                 Tparticipante read = daoParticipante.readByName(participante.getName());
                 if (read == null)
@@ -42,14 +42,14 @@ public class ASParticipanteImp implements ASParticipante {
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos del participante.\n");
+            throw new ASException("ERROR: El ID introducido no es valido.\n");
         return idr;
     }
 
     public Integer modify(Tparticipante participante) throws ASException {
         int id;
         DAOParticipante daoParticipante = IFDAOParticipante.getInstance().generateDAOparticipante();
-        if (participante != null && participante.getName() != null && participante.getId() != -1 && participante.getPhone() != -1) {
+        if (participante != null && participante.getName() != null && participante.getId() > 0 && participante.getPhone() >= 0) {
             try {
                 Tparticipante read = daoParticipante.readById(participante.getId());
                 if (read != null) {
@@ -68,7 +68,7 @@ public class ASParticipanteImp implements ASParticipante {
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos del participante.\n");
+            throw new ASException("ERROR: No se han introducido datos correctos.\n");
         return id;
     }
 
@@ -97,14 +97,14 @@ public class ASParticipanteImp implements ASParticipante {
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos del participante.\n");
+            throw new ASException("ERROR: No se ha introducido ningun nombre.\n");
         return part;
     }
 
     public Tparticipante showById(Integer id) throws ASException {
         Tparticipante part;
         DAOParticipante daoParticipante = IFDAOParticipante.getInstance().generateDAOparticipante();
-        if (id != -1) {
+        if (id > 0) {
             try {
                 Tparticipante read = daoParticipante.readById(id);
                 if (read != null)
@@ -115,7 +115,7 @@ public class ASParticipanteImp implements ASParticipante {
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos del participante.\n");
+            throw new ASException("ERROR: El ID introducido no es valido.\n");
         return part;
     }
 }

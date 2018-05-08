@@ -46,7 +46,7 @@ public class ASPabellonImp implements ASPabellon {
             }
         } else
         	// introduzco la excepcion de arriba aqui
-            throw new ASException("ERROR: No se han introducido los datos del pabellon o son incorrectos.\n");
+            throw new ASException("ERROR: No se han introducido datos correctos del pabellon\n");
     }
 
     public Integer drop(Tpabellon pabellon) throws ASException {
@@ -59,26 +59,23 @@ public class ASPabellonImp implements ASPabellon {
         ArrayList<Tstand> readStandList = new ArrayList<>();
         int idParticipacion;
 
-        if (pabellon != null && pabellon.getId() != -1) {
+        if (pabellon != null && pabellon.getId() > 0) {
             try {
                 Tpabellon read = daoPabellon.readById(pabellon.getId());
                 if (read != null) {
                     read.setActive(false);
-                    //----------------------------------------------------------------------------------------------
                     //Guardamos la lista de asignaciones implicadas en ese pabellon
                     listaAsignaciones = (ArrayList<Tasignacion>)daoAsignacion.readByPavilionId(read.getId());
                     //Numero de asignaciones que tenemos en el arraylist para poder iterar
                     for(int i = 0; i < listaAsignaciones.size(); i++){
                          //Desactivacion de todas las asignaciones que se corresponden con ese pabellon
-                         Tasignacion tAsignacionAuxiliar = listaAsignaciones.get(i);
-                         Tasignacion tAsignacion = daoAsignacion.readById(tAsignacionAuxiliar.getId());
+                         Tasignacion tAsignacion = listaAsignaciones.get(i);
                          tAsignacion.setActive(false);
                          daoAsignacion.update(tAsignacion);
                          //Desactivacion de stands referenciados en ese pabellon
                         readStandList = (ArrayList<Tstand>)daoStand.readByAssignation(tAsignacion.getId());
                         for(int j = 0; j < readStandList.size(); j++){
-                            Tstand tStandAuxiliar = readStandList.get(j);
-                            Tstand tStand = daoStand.readById(tStandAuxiliar.getId());
+                            Tstand tStand = readStandList.get(j);
                             tStand.setActive(false);
                             daoStand.update(tStand);
                             //Para cada stand, borramos su participacion tambien.
@@ -86,13 +83,7 @@ public class ASPabellonImp implements ASPabellon {
                             tParticipacion.setActive(false);
                             daoParticipacion.update(tParticipacion);
                         }
-                         //Desactivacion de la feria que tenga esa asignacion referenciada
-                        Tferia tFeria = daoFeria.readById(tAsignacion.getFair_id());
-                        tFeria.setActive(false);
-                        daoFeria.update(tFeria);
                     }
-                    //HASTA AQUI DROP CASCADA PARTE A MIRAR
-                    //---------------------------------------------------------------------------------------------------
                     return daoPabellon.update(read);
                 } else
                     throw new ASException("ERROR: El pabellon " + pabellon.getId() + " no existe.\n");
@@ -100,17 +91,17 @@ public class ASPabellonImp implements ASPabellon {
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos del pabellon.\n");
+            throw new ASException("ERROR: El ID del pabellon no es valido.\n");
     }
 
     public Integer modify(Tpabellon pabellon) throws ASException {
         DAOPabellon daoPabellon = IFDAOPabellon.getInstance().generateDAOpabellon();
-        if (pabellon != null && pabellon.getId() != -1) {
+        if (pabellon != null && pabellon.getId() > 0) {
             try {
                 Tpabellon read = daoPabellon.readById(pabellon.getId());
                 if (read != null) {
                     if (pabellon.getTotal_m2() / pabellon.getCapacity() >= 1) {
-                        if(pabellon.getActive() == false){
+                        if(!pabellon.getActive()){
                             pabellon.setActive(false);
                             return daoPabellon.update(pabellon);
                         }
@@ -124,7 +115,7 @@ public class ASPabellonImp implements ASPabellon {
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos del pabellon.\n");
+            throw new ASException("ERROR: El ID del pabellon no es valido.\n");
     }
 
     public Collection<Tpabellon> list() throws ASException {
@@ -140,7 +131,7 @@ public class ASPabellonImp implements ASPabellon {
 
     public Tpabellon showById(Integer id) throws ASException {
         DAOPabellon daoPabellon = IFDAOPabellon.getInstance().generateDAOpabellon();
-        if (id != -1) {
+        if (id > 0) {
             try {
                 Tpabellon read = daoPabellon.readById(id);
                 if (read != null)
@@ -151,6 +142,6 @@ public class ASPabellonImp implements ASPabellon {
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos del pabellon.\n");
+            throw new ASException("ERROR: El ID del pabellon no es valido.\n");
     }
 }

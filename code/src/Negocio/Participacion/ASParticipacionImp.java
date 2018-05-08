@@ -39,14 +39,14 @@ public class ASParticipacionImp implements ASParticipacion {
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos del participacion o son erroneos.\n");
+            throw new ASException("ERROR: Los datos introducidos no son correctos.\n");
         return id;
     }
 
     public Integer drop(Tparticipacion participacion) throws ASException {
         int id;
         DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
-        if (participacion != null) {
+        if (participacion != null && participacion.getId() > 0) {
             try {
                 Tparticipacion read = daoParticipacion.readById(participacion.getId());
                 if (read != null) {
@@ -58,7 +58,7 @@ public class ASParticipacionImp implements ASParticipacion {
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos de la participacion.\n");
+            throw new ASException("ERROR: El ID introducido no es valido.\n");
         return id;
     }
 
@@ -84,7 +84,7 @@ public class ASParticipacionImp implements ASParticipacion {
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos de la participacion.\n");
+            throw new ASException("ERROR: Los datos introducidos no son correctos.\n");
         return id;
     }
 
@@ -102,7 +102,7 @@ public class ASParticipacionImp implements ASParticipacion {
     public Tparticipacion show(Integer participation_id) throws ASException {
         Tparticipacion part;
         DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
-        if (participation_id != -1) {
+        if (participation_id > 0) {
             try {
                 Tparticipacion read = daoParticipacion.readById(participation_id);
                 if (read != null)
@@ -113,35 +113,35 @@ public class ASParticipacionImp implements ASParticipacion {
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos de la participacion.\n");
+            throw new ASException("ERROR: El ID introducido no es valido.\n");
         return part;
     }
 
     public Collection<Tparticipacion> showByClientId(Integer client_id) throws ASException {
         DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
         Collection<Tparticipacion> collection;
-        if (client_id != -1) {
+        if (client_id > 0) {
             try {
                 collection = daoParticipacion.readByClientId(client_id);
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se ha introducido el id del cliente por el que leer.\n");
+            throw new ASException("ERROR: El ID introducido no es correcto.\n");
         return collection;
     }
 
     public Collection<Tparticipacion> showByFairId(Integer fair_id) throws ASException {
         DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
         Collection<Tparticipacion> collection;
-        if (fair_id != -1) {
+        if (fair_id > 0) {
             try {
                 collection = daoParticipacion.readByFairId(fair_id);
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se ha introducido el id de la feria por el que leer.\n");
+            throw new ASException("ERROR: El ID introducido no es correcto.\n");
         return collection;
     }
 }

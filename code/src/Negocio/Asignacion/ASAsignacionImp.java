@@ -26,7 +26,7 @@ public class ASAsignacionImp implements ASAsignacion {
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
 
         //Comprobacion de que los datos del transfer asignacion son correctos
-        if (asignacion != null && asignacion.getFair_id() != -1 && asignacion.getPavilion_id() != -1 && asignacion.getUsed_m2() != -1 && asignacion.getTotal_m2() > 0) {
+        if (asignacion != null && asignacion.getFair_id() > 0 && asignacion.getPavilion_id() > 0 && asignacion.getUsed_m2() >= 0 && asignacion.getTotal_m2() >= 0) {
             try {
                 Tpabellon transferPavilion = daoPabellon.readById(asignacion.getPavilion_id()); //Leemos el pabellon por ID para obtener atributos de el
                 Tferia transferFair = daoFeria.readById(asignacion.getFair_id());
@@ -59,7 +59,7 @@ public class ASAsignacionImp implements ASAsignacion {
     public Integer drop(Tasignacion asignacion) throws ASException {
         int id;
         DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
-        if (asignacion != null) {
+        if (asignacion != null && asignacion.getId() > 0) {
             try {
                 Tasignacion transferAssignation = daoAsignacion.readById(asignacion.getId());
                 //Si es distinto de null quiere decir que tenemos una asignacion activa con ese id, por lo que podemos borrarla.
@@ -72,7 +72,7 @@ public class ASAsignacionImp implements ASAsignacion {
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos del asignacion.\n");
+            throw new ASException("ERROR: El ID introducido no es valido.\n");
         return id;
     }
 
@@ -80,7 +80,7 @@ public class ASAsignacionImp implements ASAsignacion {
         int id;
         DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
 
-        if (asignacion != null && asignacion.getId() != -1 && asignacion.getFair_id() != -1 && asignacion.getPavilion_id() != -1 && asignacion.getUsed_m2() >= 0 && asignacion.getTotal_m2() > 0) {
+        if (asignacion != null && asignacion.getId() > 0 && asignacion.getFair_id() > 0 && asignacion.getPavilion_id() > 0 && asignacion.getUsed_m2() >= 0 && asignacion.getTotal_m2() >= 0) {
             try {
                 Tasignacion transferAssignation = daoAsignacion.readById(asignacion.getId());
                 if (transferAssignation != null) {
@@ -98,7 +98,7 @@ public class ASAsignacionImp implements ASAsignacion {
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos del asignacion.\n");
+            throw new ASException("ERROR: Los datos introducidos no son correctos.\n");
         return id;
     }
 
@@ -129,7 +129,7 @@ public class ASAsignacionImp implements ASAsignacion {
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos del pabellon.\n");
+            throw new ASException("ERROR: El ID introducido no es valido.\n");
         return asig;
     }
 
@@ -149,7 +149,7 @@ public class ASAsignacionImp implements ASAsignacion {
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se ha introducido el id del pabellon a leer.\n");
+            throw new ASException("ERROR: El ID introducido no es valido.\n");
         return collection;
     }
 
@@ -170,7 +170,7 @@ public class ASAsignacionImp implements ASAsignacion {
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se ha introducido el id de la feria a leer.\n");
+            throw new ASException("ERROR: El ID introducido no es valido.\n");
         return collection;
     }
 }

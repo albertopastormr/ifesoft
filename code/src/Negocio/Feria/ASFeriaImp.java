@@ -35,13 +35,13 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos de la feria.\n");
+            throw new ASException("ERROR: No se han introducido los datos de la feria correctamente.\n");
         return id;
     }
 
     public Integer drop(Tferia feria) throws ASException {
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-        if (feria != null && feria.getId() != -1) {
+        if (feria != null && feria.getId() > 0) {
             try {
                 Tferia read = daoFeria.readById(feria.getId());
                 if (read != null) {
@@ -53,12 +53,12 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos de la feria.\n");
+            throw new ASException("ERROR: El ID no es valido.\n");
     }
 
     public Integer modify(Tferia feria) throws ASException {
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-        if (feria != null && feria.getName() != null && feria.getId() != -1) {
+        if (feria != null && feria.getName() != null && feria.getId() > 0) {
             try {
                 Tferia read = daoFeria.readById(feria.getId());
                 if (read != null) {
@@ -81,7 +81,7 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos de la feria.\n");
+            throw new ASException("ERROR: El ID no es valido.\n");
     }
 
     public Collection<Tferia> list() throws ASException {
@@ -133,12 +133,12 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos de la feria.\n");
+            throw new ASException("ERROR: No se ha introducido un nombre.\n");
     }
 
     public Tferia showById(Integer id) throws ASException {
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-        if (id != -1) {
+        if (id > 0) {
             try {
                 Tferia read = daoFeria.readById(id);
                 if (read != null)
@@ -149,6 +149,6 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos de la feria.\n");
+            throw new ASException("ERROR: El ID introducido no es valido.\n");
     }
 }

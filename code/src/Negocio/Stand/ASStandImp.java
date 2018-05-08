@@ -51,7 +51,7 @@ public class ASStandImp implements ASStand {
     public Integer drop(Tstand stand) throws ASException {
         int id = -1;
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        if (stand != null) {
+        if (stand != null && stand.getId() > 0) {
             try {
                 Tstand read = daoStand.readById(stand.getId());
                 if (read != null) {
@@ -63,7 +63,7 @@ public class ASStandImp implements ASStand {
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos del stand.\n");
+            throw new ASException("ERROR: El ID introducido no es valido.\n");
         return id;
     }
 
@@ -74,7 +74,7 @@ public class ASStandImp implements ASStand {
             try {
                 Tstand read = daoStand.readById(stand.getId());
                 if (read != null) {
-                    if (stand.getTotal_m2() >= 0 && stand.getAssignation_id() != -1 && stand.getParticipation_id() != -1 && stand.getCost() >= 0 && stand.getNum_at_fair() >= 0) {
+                    if (stand.getTotal_m2() >= 0 && stand.getAssignation_id() >= 0 && stand.getParticipation_id() >= 0 && stand.getCost() >= 0 && stand.getNum_at_fair() >= 0) {
                         // Lectura Asignacion referenciada
                         DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
                         Tasignacion tasignacionRead = daoAsignacion.readById(stand.getAssignation_id());
@@ -96,7 +96,7 @@ public class ASStandImp implements ASStand {
                         } else
                             throw new ASException("ERROR: Asignacion y Participacion referenciadas no existen en la base de datos\n");
                     } else
-                        throw new ASException("ERROR: No se han introducido los datos del stand.\n");
+                        throw new ASException("ERROR: Los datos introducidos no son correctos.\n");
                 } else
                     throw new ASException("ERROR: El stand " + stand.getId() + " no existe.\n");
             } catch (Exception ex) {
@@ -120,7 +120,7 @@ public class ASStandImp implements ASStand {
 
     public Tstand showById(Integer id) throws ASException {
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        if (id != -1) {
+        if (id > 0) {
             try {
                 Tstand read = daoStand.readById(id);
                 if (read != null)
@@ -131,12 +131,12 @@ public class ASStandImp implements ASStand {
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos del stand.\n");
+            throw new ASException("ERROR: El ID introducido no es valido.\n");
     }
 
     public Collection<Tstand> showByAssignation(Integer id) throws ASException {
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        if (id != -1) {
+        if (id > 0) {
             try {
                 Collection<Tstand> read = daoStand.readByAssignation(id);
                 if (read != null)
@@ -147,12 +147,12 @@ public class ASStandImp implements ASStand {
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos del stand.\n");
+            throw new ASException("ERROR: El ID introducido no es valido.\n");
     }
 
     public Collection<Tstand> showByParticipation(Integer id) throws ASException {
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        if (id != -1) {
+        if (id > 0) {
             try {
                 Collection<Tstand> read = daoStand.readByAssignation(id);
                 if (read != null)
@@ -163,7 +163,7 @@ public class ASStandImp implements ASStand {
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos del stand.\n");
+            throw new ASException("ERROR: El ID introducido no es valido.\n");
     }
 
 }
