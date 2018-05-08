@@ -10,12 +10,14 @@ import Negocio.Asignacion.ASAsignacion;
 import Negocio.Asignacion.IFDAOAsignacion;
 import Negocio.Asignacion.Tasignacion;
 import Negocio.Feria.Tferia;
+import Negocio.Stand.IFDAOStand;
 import Negocio.Stand.Tstand;
 import Negocio.Asignacion.Tasignacion;
 import Negocio.Pabellon.Tpabellon;
 import Negocio.Pabellon.IFDAOPabellon;
 import Negocio.Feria.IFDAOFeria;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class ASAsignacionImp implements ASAsignacion {
@@ -56,15 +58,26 @@ public class ASAsignacionImp implements ASAsignacion {
         return id;
     }
 
+    //Al realizar borrado en cascada borramos asignacion y a su vez los stands asociados a esa asignacion
     public Integer drop(Tasignacion asignacion) throws ASException {
         int id;
+        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
+        ArrayList<Tstand> readStandList = new ArrayList<>();
+
         if (asignacion != null && asignacion.getId() > 0) {
             try {
                 Tasignacion transferAssignation = daoAsignacion.readById(asignacion.getId());
                 //Si es distinto de null quiere decir que tenemos una asignacion activa con ese id, por lo que podemos borrarla.
                 if (transferAssignation != null && transferAssignation.getActive()) {
                     transferAssignation.setActive(false);
+                    readStandList = (ArrayList<Tstand>)daoStand.readByAssignation(asignacion.getId());
+                    //Borramos para una asignacion en concreto, todos sus stands
+                    for(int j = 0; j < readStandList.size(); j++) {
+                        Tstand tStand = readStandList.get(j);
+                        tStand.setActive(false);
+                        daoStand.update(tStand);
+                    }
                     id = daoAsignacion.update(transferAssignation);
                 } else
                     throw new ASException("ERROR: La asignacion " + asignacion.getId() + "  no existe.\n");

@@ -2,9 +2,19 @@ package Negocio.Feria;
 
 import Exceptions.ASException;
 import Exceptions.DAOException;
+import Integracion.Asignacion.DAOAsignacion;
 import Integracion.Feria.DAOFeria;
+import Integracion.Participacion.DAOParticipacion;
+import Integracion.Stand.DAOStand;
+import Negocio.Asignacion.IFDAOAsignacion;
+import Negocio.Asignacion.Tasignacion;
+import Negocio.Participacion.IFDAOParticipacion;
+import Negocio.Participacion.Tparticipacion;
+import Negocio.Stand.IFDAOStand;
+import Negocio.Stand.Tstand;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -41,11 +51,35 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
 
     public Integer drop(Tferia feria) throws ASException {
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
+        DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
+        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
+        DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
+        ArrayList<Tasignacion> listaAsignaciones = new ArrayList<>();
+        ArrayList<Tstand> readStandList = new ArrayList<>();
+
         if (feria != null && feria.getId() > 0) {
             try {
                 Tferia read = daoFeria.readById(feria.getId());
                 if (read != null) {
+                    listaAsignaciones = (ArrayList<Tasignacion>) daoAsignacion.readByFairId(read.getId());
+                    for (int i = 0; i < listaAsignaciones.size(); i++) {
+                        Tasignacion tAsignation = listaAsignaciones.get(i);
+                        tAsignation.setActive(false);
+                        daoAsignacion.update(tAsignation);
+                        readStandList = (ArrayList<Tstand>) daoStand.readByAssignation(tAsignation.getId());
+                        for (int j = 0; j < readStandList.size(); j++) {
+                            Tstand tStand = readStandList.get(j);
+                            //Desactivamos ese stand
+                            tStand.setActive(false);
+                            daoStand.update(tStand);
+                            Tparticipacion tParticipation = daoParticipacion.readById(tStand.getParticipation_id());
+                            tParticipation.setActive(false);
+                            daoParticipacion.update(tParticipation);
+                        }
+                    }
+
                     read.setActive(false);
+
                     return daoFeria.update(read);
                 } else
                     throw new ASException("ERROR: La feria " + feria.getId() + " no existe.\n");

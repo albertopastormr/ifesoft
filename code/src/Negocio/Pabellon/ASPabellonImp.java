@@ -57,7 +57,6 @@ public class ASPabellonImp implements ASPabellon {
         DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
         ArrayList<Tasignacion> listaAsignaciones = new ArrayList<>();
         ArrayList<Tstand> readStandList = new ArrayList<>();
-        int idParticipacion;
 
         if (pabellon != null && pabellon.getId() > 0) {
             try {

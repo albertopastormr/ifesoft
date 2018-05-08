@@ -5,11 +5,14 @@ import Integracion.Feria.DAOFeria;
 import Integracion.Participacion.DAOParticipacion;
 import Integracion.Participante.DAOParticipante;
 import Negocio.Feria.IFDAOFeria;
+import Integracion.Stand.DAOStand;
 import Negocio.Feria.Tferia;
-import Negocio.Participacion.IFDAOParticipacion;
 import Negocio.Participante.IFDAOParticipante;
+import Negocio.Stand.IFDAOStand;
 import Negocio.Participante.Tparticipante;
+import Negocio.Stand.Tstand;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class ASParticipacionImp implements ASParticipacion {
@@ -46,11 +49,21 @@ public class ASParticipacionImp implements ASParticipacion {
     public Integer drop(Tparticipacion participacion) throws ASException {
         int id;
         DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
+        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
+        ArrayList<Tstand> readStandList = new ArrayList<>();
+
         if (participacion != null && participacion.getId() > 0) {
             try {
                 Tparticipacion read = daoParticipacion.readById(participacion.getId());
                 if (read != null) {
                     read.setActive(false);
+                    readStandList = (ArrayList<Tstand>)daoStand.readByParticipation(participacion.getId());
+                    //Borramos para una asignacion en concreto, todos sus stands
+                    for(int j = 0; j < readStandList.size(); j++) {
+                        Tstand tStand = readStandList.get(j);
+                        tStand.setActive(false);
+                        daoStand.update(tStand);
+                    }
                     id = daoParticipacion.update(read);
                 } else
                     throw new ASException("ERROR: La participacion " + participacion.getId() + " no existe.\n");

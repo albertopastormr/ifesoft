@@ -2,10 +2,20 @@ package Negocio.Participante;
 
 import Exceptions.ASException;
 import Exceptions.DAOException;
+import Integracion.Asignacion.DAOAsignacion;
+import Integracion.Participacion.DAOParticipacion;
 import Integracion.Participante.DAOParticipante;
+import Integracion.Stand.DAOStand;
+import Negocio.Asignacion.IFDAOAsignacion;
+import Negocio.Asignacion.Tasignacion;
+import Negocio.Participacion.IFDAOParticipacion;
+import Negocio.Participacion.Tparticipacion;
 import Negocio.Participante.ASParticipante;
 import Negocio.Participante.IFDAOParticipante;
+import Negocio.Stand.IFDAOStand;
+import Negocio.Stand.Tstand;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class ASParticipanteImp implements ASParticipante {
@@ -28,6 +38,16 @@ public class ASParticipanteImp implements ASParticipante {
     }
 
     public Integer drop(Integer id) throws ASException {
+        DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
+        DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
+        DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
+
+
+        ArrayList<Tparticipacion> listaParticipaciones = new ArrayList<>();
+        ArrayList<Tstand> readStandList = new ArrayList<>();
+
+
+
         int idr;
         DAOParticipante daoParticipante = IFDAOParticipante.getInstance().generateDAOparticipante();
         if (id > -1) {
@@ -35,6 +55,25 @@ public class ASParticipanteImp implements ASParticipante {
                 Tparticipante read = daoParticipante.readById(id);
                 if (read != null) {
                     read.setActive(false);
+                    listaParticipaciones = (ArrayList<Tparticipacion>)daoParticipacion.readByClientId(read.getId());
+                    //Numero de asignaciones que tenemos en el arraylist para poder iterar
+                    for(int i = 0; i < listaParticipaciones.size(); i++){
+                        //Desactivacion de todas las asignaciones que se corresponden con esa participacion
+                        Tparticipacion tParticipation = listaParticipaciones.get(i);
+                        tParticipation.setActive(false);
+                        daoParticipacion.update(tParticipation);
+                        //Desactivacion de stands referenciados en esa participacion
+                        readStandList = (ArrayList<Tstand>)daoStand.readByAssignation(tParticipation.getId());
+                        for(int j = 0; j < readStandList.size(); j++){
+                            Tstand tStand = readStandList.get(j);
+                            tStand.setActive(false);
+                            daoStand.update(tStand);
+                            //Para cada stand, borramos su asignacion tambien.
+                            Tasignacion tAsignacion = daoAsignacion.readById(tStand.getParticipation_id());
+                            tAsignacion.setActive(false);
+                            daoAsignacion.update(tAsignacion);
+                        }
+                    }
                     idr = daoParticipante.update(read);
                 } else
                     throw new ASException("ERROR: El participante " + id + " no existe.\n");
