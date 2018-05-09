@@ -41,7 +41,7 @@ public class ASAsignacionImp implements ASAsignacion {
                         if (asignacion.getUsed_m2() >= 0 && asignacion.getTotal_m2() >= asignacion.getUsed_m2() && asignacion.getTotal_m2() <= transferPavilion.getTotal_m2())
                             id = daoAsignacion.create(asignacion);
                         else
-                            throw new ASException("ERROR: Los datos de la asignacion no son correctos.\n");
+                            throw new ASException("ERROR: Los datos de la asignacion no son correctos. (m2 Incorrectos)\n");
                     } else {
                         if (!transferAssignation.getActive() && asignacion.getActive())
                             id = daoAsignacion.update(asignacion);
