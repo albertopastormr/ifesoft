@@ -233,8 +233,8 @@ public class GUIFormStand extends UIStructureFrame {
         int m_used = Integer.parseInt(metresField.getText());
         int number = Integer.parseInt(numberField.getText());
 
-        if (!mod) Controller.getInstance().execute(Event.INSERT_STAND, new Tstand( idAssignation, idParticipation, cost, m_used, number, true));
-        else Controller.getInstance().execute(Event.MODIFY_STAND, new Tstand(idStand, idAssignation, idParticipation, cost, m_used, number, true));
+        if (!mod) Controller.getInstance().execute(Event.INSERT_STAND, new Tstand( idAssignation, idParticipation, number, cost, m_used, true));
+        else Controller.getInstance().execute(Event.MODIFY_STAND, new Tstand(idStand, idAssignation, idParticipation, number, cost, m_used,true));
     }
 
     @Override

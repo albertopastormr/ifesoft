@@ -1,6 +1,5 @@
 TAREAS CODIGO
 - Quitar factoria de home??
-- Clase UIStructureFrame implements UI por update
 - Separar en dos pasos los valores que se meten en los executes. new TfERIA -> Tferia fer = new...
 
 TAREAS DISENIO
@@ -9,3 +8,16 @@ TAREAS DISENIO
 
 DUDAS
 - Donde llamar a new Home si no existe el FactoriaHome.
+
+
+
+------------------
+PRUEBAS
+
+CREATE:
+- Feria: PROBADO
+- Pabellon: PROBADO
+- Cliente: PROBADO
+- Asignacion: PROBADO
+- Participacion: PROBADO
+- Stand:
