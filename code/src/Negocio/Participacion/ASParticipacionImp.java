@@ -22,7 +22,7 @@ public class ASParticipacionImp implements ASParticipacion {
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
         DAOParticipante daoParticipante = IFDAOParticipante.getInstance().generateDAOparticipante();
 
-        if (participacion != null && participacion.getFair_id() != -1 && participacion.getClient_id() != -1) {
+        if (participacion != null && participacion.getFair_id() >  0 && participacion.getClient_id() > 0) {
             try {
                 Tferia fRead = daoFeria.readById(participacion.getFair_id());
                 Tparticipante fParticipante = daoParticipante.readById(participacion.getClient_id());
