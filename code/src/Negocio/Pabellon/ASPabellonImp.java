@@ -99,7 +99,7 @@ public class ASPabellonImp implements ASPabellon {
             try {
                 Tpabellon read = daoPabellon.readById(pabellon.getId());
                 if (read != null) {
-                    if (pabellon.getTotal_m2() / pabellon.getCapacity() >= 1) {
+                    if (pabellon.getCapacity()  > 0 && pabellon.getTotal_m2() >= pabellon.getCapacity()) {
                         if(!pabellon.getActive()){
                             pabellon.setActive(false);
                             return daoPabellon.update(pabellon);
@@ -107,7 +107,7 @@ public class ASPabellonImp implements ASPabellon {
                         else
                             return daoPabellon.update(pabellon);
                     } else
-                        throw new ASException("ERROR: La capacidad del pabellon es demasiado alta respecto a los metros de este.\n");
+                        throw new ASException("ERROR: La capacidad del pabellon no es correcta.\n");
                 } else
                     throw new ASException("ERROR: El pabellon " + pabellon.getId() + " no existe.\n");
             } catch (Exception ex) {

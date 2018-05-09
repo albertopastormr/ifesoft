@@ -12,7 +12,17 @@ CAMBIOS SRS:
 PENDIENTE:
 . Visualizar feria: Mostrar pabellones
 
-
 PREGUNTAR A ANTONIO DROP CASCADA--> SI BORRAMOS PARTICIPACION, SE BORRAN STANDS Y ALGO MAS?
                                     SI BORRAMOS ASIGNACION, SE BORRAN STANDS Y ALGO MAS?
                                     CONSULTAR SI ESTA BIEN FERIA EN CASCADA, PABELLON, Y PARTICIPANTE
+
+Resultados de pruebas caja negra:
+. List client no muestra ids
+. List * campos editables
+. Modify * muestran dialogo con texto 'null'
+. Falta operacion List para Stand
+. Show falta campo activo
+. List Pabellon muestra campo vacio en Capacidad
+. Agregar formato de fechas en List By Dates Feria
+. List Asignacion no funcional
+. Show Asignacion no muestra metros asignados verdaderos
