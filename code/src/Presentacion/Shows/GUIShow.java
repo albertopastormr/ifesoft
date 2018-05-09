@@ -2,7 +2,6 @@ package Presentacion.Shows;
 
 import Negocio.Feria.Tferia;
 import Controller.Controller;
-import Presentacion.UI;
 import Presentacion.UIStructureFrame;
 import Presentacion.Utils.Utilities;
 import Presentacion.Events.Event;
@@ -14,7 +13,7 @@ import java.util.Objects;
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class GUIShow extends UIStructureFrame implements UI {
+public class GUIShow extends UIStructureFrame {
 
     private JLabel labelSubID;
     private JLabel labelSubIDdateStart;
@@ -47,14 +46,15 @@ public class GUIShow extends UIStructureFrame implements UI {
     private boolean isHalfEntityList;
     private boolean isStand;
 
-    String helpMessage = "<html><h1>SHOW PAGE HELP</h1>Here you have the possibility to" +
-            "<b>See</b> <u>Fairs</u> or other entities just" +
-            " by choosing one with the comboBox. <br>You can choose between showing just a specific one" +
-            " finding it by its ID or a list.</html>" +
-            "";
 
     public GUIShow() {
         super("Show");
+
+        this.helpMessage = "<html><h1>SHOW PAGE HELP</h1>Here you have the possibility to" +
+                "<b>See</b> <u>Fairs</u> or other entities just" +
+                " by choosing one with the comboBox. <br>You can choose between showing just a specific one" +
+                " finding it by its ID or a list.</html>" +
+                "";
 
         this.isHalfEntity = false;
         this.isHalfEntityList = false;
@@ -367,6 +367,8 @@ public class GUIShow extends UIStructureFrame implements UI {
             public void actionPerformed(ActionEvent e) {
                 try {
                     okButtonActionPerformed(e);
+                }catch (NumberFormatException e2){
+                    new PanelProblemUser("Inserte caracteres validos.");
                 } catch (Exception e1){
                     new PanelProblemUser(e1.getMessage());
                 }

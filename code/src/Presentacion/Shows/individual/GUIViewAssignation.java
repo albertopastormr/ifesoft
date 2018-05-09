@@ -1,14 +1,15 @@
 package Presentacion.Shows.individual;
 
+import Controller.Controller;
 import Negocio.Asignacion.Tasignacion;
-import Presentacion.UI;
+import Presentacion.Events.Event;
 import Presentacion.UIStructureFrame;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIViewAssignation extends UIStructureFrame implements UI {
+public class GUIViewAssignation extends UIStructureFrame {
 
     private int id;
     private int idFair;
@@ -48,7 +49,8 @@ public class GUIViewAssignation extends UIStructureFrame implements UI {
 
     @Override
     protected void cancelButtonActionPerformed(ActionEvent e) throws Exception {
-
+        this.setVisible(false);
+        Controller.getInstance().execute(Event.SHOW_HALF, null);
     }
 
     @Override

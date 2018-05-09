@@ -1,14 +1,15 @@
 package Presentacion.Shows.individual;
 
+import Controller.Controller;
 import Negocio.Participacion.Tparticipacion;
-import Presentacion.UI;
+import Presentacion.Events.Event;
 import Presentacion.UIStructureFrame;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIViewParticipation extends UIStructureFrame implements UI {
+public class GUIViewParticipation extends UIStructureFrame {
 
     private int id;
     private int idFair;
@@ -44,7 +45,8 @@ public class GUIViewParticipation extends UIStructureFrame implements UI {
 
     @Override
     protected void cancelButtonActionPerformed(ActionEvent e) throws Exception {
-
+        this.setVisible(false);
+        Controller.getInstance().execute(Event.SHOW_HALF, null);
     }
 
     @Override

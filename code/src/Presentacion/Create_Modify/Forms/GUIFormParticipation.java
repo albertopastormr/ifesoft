@@ -3,7 +3,6 @@ package Presentacion.Create_Modify.Forms;
 import Negocio.Participacion.Tparticipacion;
 import Controller.Controller;
 import Presentacion.Events.Event;
-import Presentacion.UI;
 import Presentacion.UIStructureFrame;
 import Presentacion.Utils.PanelProblemUser;
 
@@ -11,7 +10,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIFormParticipation extends UIStructureFrame implements UI{
+public class GUIFormParticipation extends UIStructureFrame{
 
     private int idParticipation;
     private String metres;
@@ -177,8 +176,10 @@ public class GUIFormParticipation extends UIStructureFrame implements UI{
             public void actionPerformed(ActionEvent e) {
                 try {
                     okButtonActionPerformed(e);
-                } catch (Exception e1){
-                    new PanelProblemUser(e1.getMessage());
+                }catch (NumberFormatException e1){
+                    new PanelProblemUser("Inserte caracteres validos.");
+                } catch (Exception e2){
+                    new PanelProblemUser(e2.getMessage());
                 }
             }
         });

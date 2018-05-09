@@ -3,7 +3,6 @@ package Presentacion.Shows.List;
 import Controller.Controller;
 import Negocio.Participante.Tparticipante;
 import Presentacion.Events.Event;
-import Presentacion.UI;
 import Presentacion.UIStructureFrame;
 
 import javax.swing.*;
@@ -15,7 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Collection;
 
-public class GUIListClient extends UIStructureFrame implements UI {
+public class GUIListClient extends UIStructureFrame {
 
     private String[] columnNames = {"NAME","PHONE NUMBER"};
     private Object[][] data;
@@ -39,7 +38,7 @@ public class GUIListClient extends UIStructureFrame implements UI {
     @Override
     protected void cancelButtonActionPerformed(ActionEvent e) throws Exception {
         this.setVisible(false);
-        Controller.getInstance().execute(Event.HOME, null);
+        Controller.getInstance().execute(Event.SHOW_HALF, null);
     }
 
     @Override

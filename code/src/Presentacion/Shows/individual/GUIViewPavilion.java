@@ -1,14 +1,15 @@
 package Presentacion.Shows.individual;
 
+import Controller.Controller;
 import Negocio.Pabellon.Tpabellon;
-import Presentacion.UI;
+import Presentacion.Events.Event;
 import Presentacion.UIStructureFrame;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIViewPavilion extends UIStructureFrame implements UI {
+public class GUIViewPavilion extends UIStructureFrame {
 
     private String capacity;
     private String m2tot;
@@ -43,7 +44,8 @@ public class GUIViewPavilion extends UIStructureFrame implements UI {
 
     @Override
     protected void cancelButtonActionPerformed(ActionEvent e) throws Exception {
-
+        this.setVisible(false);
+        Controller.getInstance().execute(Event.SHOW_HALF, null);
     }
 
     @Override

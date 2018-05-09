@@ -1,7 +1,8 @@
 package Presentacion.Shows.individual;
 
+import Controller.Controller;
 import Negocio.Feria.Tferia;
-import Presentacion.UI;
+import Presentacion.Events.Event;
 import Presentacion.UIStructureFrame;
 import Presentacion.Utils.Utilities;
 
@@ -9,7 +10,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIViewFair extends UIStructureFrame implements UI {
+public class GUIViewFair extends UIStructureFrame {
 
     private String id;
     private String name;
@@ -48,7 +49,8 @@ public class GUIViewFair extends UIStructureFrame implements UI {
 
     @Override
     protected void cancelButtonActionPerformed(ActionEvent e) throws Exception {
-
+        this.setVisible(false);
+        Controller.getInstance().execute(Event.SHOW_HALF, null);
     }
 
     @Override

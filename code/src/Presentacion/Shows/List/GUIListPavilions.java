@@ -3,20 +3,15 @@ package Presentacion.Shows.List;
 import Negocio.Pabellon.Tpabellon;
 import Controller.Controller;
 import Presentacion.Events.Event;
-import Presentacion.UI;
 import Presentacion.UIStructureFrame;
-import Presentacion.Utils.PanelProblemUser;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Collection;
 
-public class GUIListPavilions extends UIStructureFrame implements UI {
+public class GUIListPavilions extends UIStructureFrame{
 
     private String[] columnNames = {"NUMBER","TOTAL M2","UTIL M2","CAPACITY"};
     private Object[][] data;
@@ -40,7 +35,7 @@ public class GUIListPavilions extends UIStructureFrame implements UI {
     @Override
     protected void cancelButtonActionPerformed(ActionEvent e) throws Exception {
         this.setVisible(false);
-        Controller.getInstance().execute(Event.HOME, null);
+        Controller.getInstance().execute(Event.SHOW_HALF, null);
     }
 
     @Override

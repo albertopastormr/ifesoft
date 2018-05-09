@@ -2,7 +2,6 @@ package Presentacion.Create_Modify.Modify;
 
 import Controller.Controller;
 import Presentacion.Events.Event;
-import Presentacion.UI;
 import Presentacion.UIStructureFrame;
 import Presentacion.Utils.PanelProblemUser;
 
@@ -11,7 +10,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class GUIModify extends UIStructureFrame implements UI {
+public class GUIModify extends UIStructureFrame {
 
     private JComboBox<String> comboBoxMod;
     private JTextField textID;
@@ -165,6 +164,8 @@ public class GUIModify extends UIStructureFrame implements UI {
             public void actionPerformed(ActionEvent e) {
                 try {
                     okButtonActionPerformed(e);
+                }catch (NumberFormatException e2){
+                    new PanelProblemUser("Inserte caracteres validos.");
                 } catch (Exception e1){
                     new PanelProblemUser(e1.getMessage());
                 }

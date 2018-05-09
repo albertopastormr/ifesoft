@@ -3,20 +3,15 @@ package Presentacion.Shows.List;
 import Negocio.Asignacion.Tasignacion;
 import Controller.Controller;
 import Presentacion.Events.Event;
-import Presentacion.UI;
 import Presentacion.UIStructureFrame;
-import Presentacion.Utils.PanelProblemUser;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Collection;
 
-public class GUIListAssignation extends UIStructureFrame implements UI {
+public class GUIListAssignation extends UIStructureFrame {
 
     private String[] columnNames = {"ID ASSIGNATION" ,"ID FAIR","ID PAVILION", "USED M2", "TOTAL M2"};
     private Object[][] data;
@@ -39,7 +34,7 @@ public class GUIListAssignation extends UIStructureFrame implements UI {
 
     public void cancelButtonActionPerformed(ActionEvent e) throws Exception {
         this.setVisible(false);
-        Controller.getInstance().execute(Event.HOME, null);
+        Controller.getInstance().execute(Event.SHOW_HALF, null);
     }
 
     protected void helpButtonActionPerformed(ActionEvent e) {

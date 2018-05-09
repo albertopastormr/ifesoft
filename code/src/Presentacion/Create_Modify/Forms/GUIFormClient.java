@@ -7,7 +7,6 @@ import Negocio.Participante.TparticipanteNacional;
 import Presentacion.Events.Event;
 import Presentacion.UI;
 import Presentacion.UIStructureFrame;
-import Presentacion.Utils.ActionHelp;
 import Presentacion.Utils.PanelProblemUser;
 
 import java.awt.*;
@@ -16,7 +15,7 @@ import java.util.Objects;
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class GUIFormClient extends UIStructureFrame implements UI {
+public class GUIFormClient extends UIStructureFrame {
 
     private int idClient;
 
@@ -236,8 +235,10 @@ public class GUIFormClient extends UIStructureFrame implements UI {
             public void actionPerformed(ActionEvent e) {
                 try {
                     okButtonActionPerformed(e);
-                } catch (Exception e1){
-                    new PanelProblemUser(e1.getMessage());
+                }catch (NumberFormatException e1){
+                    new PanelProblemUser("Inserte caracteres validos.");
+                } catch (Exception e2){
+                    new PanelProblemUser(e2.getMessage());
                 }
             }
         });
@@ -313,8 +314,8 @@ public class GUIFormClient extends UIStructureFrame implements UI {
 
     @Override
     public void update(int event, Object data) {
-        //JOptionPane.showMessageDialog(null, "The Client has been created successfully");
-        //JOptionPane.showMessageDialog(null, "A problem in the creation process occurred, insert Client's data another time please", "Error",
-        //                            JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "The Client has been created successfully");
+        JOptionPane.showMessageDialog(null, "A problem in the creation process occurred, insert Client's data another time please", "Error",
+                                  JOptionPane.ERROR_MESSAGE);
     }
 }

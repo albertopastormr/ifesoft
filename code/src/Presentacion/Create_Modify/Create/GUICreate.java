@@ -13,7 +13,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class GUICreate extends UIStructureFrame implements UI {
+public class GUICreate extends UIStructureFrame {
 
     private JComboBox<String> comboBoxCreate;
 
@@ -140,8 +140,10 @@ public class GUICreate extends UIStructureFrame implements UI {
             public void actionPerformed(ActionEvent e) {
                 try {
                     okButtonActionPerformed(e);
-                } catch (Exception e1){
-                    new PanelProblemUser(e1.getMessage());
+                } catch (NumberFormatException e1){
+                    new PanelProblemUser("Inserte caracteres validos.");
+                } catch (Exception e2){
+                    new PanelProblemUser(e2.getMessage());
                 }
             }
         });

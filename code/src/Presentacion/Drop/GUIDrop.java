@@ -8,7 +8,6 @@ import Negocio.Participante.Tparticipante;
 import Negocio.Stand.Tstand;
 import Controller.Controller;
 import Presentacion.Events.Event;
-import Presentacion.UI;
 import Presentacion.UIStructureFrame;
 import Presentacion.Utils.PanelProblemUser;
 
@@ -18,7 +17,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class GUIDrop extends UIStructureFrame implements UI {
+public class GUIDrop extends UIStructureFrame {
 
     private JDialog sureFrame;
     private boolean chosen = false;
@@ -139,6 +138,8 @@ public class GUIDrop extends UIStructureFrame implements UI {
                 public void actionPerformed(ActionEvent e) {
                     try {
                         closeOkFrame(e);
+                    }catch (NumberFormatException e2){
+                        new PanelProblemUser("Inserte caracteres validos.");
                     } catch (Exception e1){
                         new PanelProblemUser(e1.getMessage());
                     }

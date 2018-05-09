@@ -3,23 +3,18 @@ package Presentacion.Shows.List;
 import Controller.Controller;
 import Negocio.Feria.Tferia;
 import Presentacion.Events.Event;
-import Presentacion.UI;
 import Presentacion.UIStructureFrame;
-import Presentacion.Utils.PanelProblemUser;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.*;
 
-public class GUIListFairs extends UIStructureFrame implements UI {
+public class GUIListFairs extends UIStructureFrame {
 
     private String[] columnNames = {"ID FAIR","NAME","DESCRIPTION","DATE START","DATE END"};
     private Object[][] data;
@@ -43,7 +38,7 @@ public class GUIListFairs extends UIStructureFrame implements UI {
     @Override
     protected void cancelButtonActionPerformed(ActionEvent e) throws Exception {
         this.setVisible(false);
-        Controller.getInstance().execute(Event.HOME, null);
+        Controller.getInstance().execute(Event.SHOW_HALF, null);
     }
 
     @Override

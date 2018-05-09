@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIFormAssignation extends UIStructureFrame implements UI {
+public class GUIFormAssignation extends UIStructureFrame {
 
     private boolean mod;
 
@@ -21,12 +21,10 @@ public class GUIFormAssignation extends UIStructureFrame implements UI {
     private String idPavilion;
     private String metres;
 
-    private JLabel title;
     private JPanel formContainer;
     private JTextField idFairField;
     private JTextField idPavilionField;
     private JTextField metresTotalField;
-    private JPanel buttonBar;
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
     private Font fLabel = new Font(Font.DIALOG, Font.PLAIN, 30);
@@ -223,6 +221,8 @@ public class GUIFormAssignation extends UIStructureFrame implements UI {
             public void actionPerformed(ActionEvent e) {
                 try {
                     okButtonActionPerformed(e);
+                }catch (NumberFormatException e1){
+                    new PanelProblemUser("Inserte caracteres validos.");
                 } catch (Exception e1) {
                     new PanelProblemUser(e1.getMessage());
                 }

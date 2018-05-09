@@ -3,7 +3,6 @@ package Presentacion.Create_Modify.Forms;
 import Negocio.Pabellon.Tpabellon;
 import Controller.Controller;
 import Presentacion.Events.Event;
-import Presentacion.UI;
 import Presentacion.UIStructureFrame;
 import Presentacion.Utils.ActionHelp;
 import Presentacion.Utils.PanelProblemUser;
@@ -11,9 +10,8 @@ import Presentacion.Utils.PanelProblemUser;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.plaf.ColorUIResource;
 
-public class GUIFormPavilion extends UIStructureFrame implements UI {
+public class GUIFormPavilion extends UIStructureFrame {
 
     private int idPavilion;
     private String capacity;
@@ -175,6 +173,8 @@ public class GUIFormPavilion extends UIStructureFrame implements UI {
             public void actionPerformed(ActionEvent e) {
                 try {
                     okButtonActionPerformed(e);
+                }catch (NumberFormatException e2){
+                    new PanelProblemUser("Inserte caracteres validos.");
                 } catch (Exception e1){
                     new PanelProblemUser(e1.getMessage());
                 }

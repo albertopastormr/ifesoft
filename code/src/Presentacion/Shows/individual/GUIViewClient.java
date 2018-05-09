@@ -1,6 +1,8 @@
 package Presentacion.Shows.individual;
 
+import Controller.Controller;
 import Negocio.Participante.Tparticipante;
+import Presentacion.Events.Event;
 import Presentacion.UI;
 import Presentacion.UIStructureFrame;
 
@@ -8,7 +10,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class GUIViewClient extends UIStructureFrame implements UI {
+public class GUIViewClient extends UIStructureFrame {
 
     private String name;
     private String phone;
@@ -46,7 +48,8 @@ public class GUIViewClient extends UIStructureFrame implements UI {
 
     @Override
     protected void cancelButtonActionPerformed(ActionEvent e) throws Exception {
-
+        this.setVisible(false);
+        Controller.getInstance().execute(Event.SHOW_HALF, null);
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public abstract class UIStructureFrame extends JFrame {
+public abstract class UIStructureFrame extends JFrame implements UI {
 
     protected String helpMessage;
 
@@ -73,17 +73,17 @@ public abstract class UIStructureFrame extends JFrame {
 
         //======== Title ========
         this.setUpTitle();
-        dialogPanel.add(this.title, BorderLayout.PAGE_START);
+        if(this.title != null) dialogPanel.add(this.title, BorderLayout.PAGE_START);
 
         //======== contentPanel ========
 
         setUpCenter();
-        dialogPanel.add(centerPanel, BorderLayout.CENTER);
+        if(centerPanel != null) dialogPanel.add(centerPanel, BorderLayout.CENTER);
 
         //========= ButtonBar ========
 
         setUpButtonBar();
-        dialogPanel.add(buttonBar, BorderLayout.PAGE_END);
+        if(buttonBar != null) dialogPanel.add(buttonBar, BorderLayout.PAGE_END);
 
         contentPane.add(dialogPanel, BorderLayout.CENTER);
         this.setVisible(true);
