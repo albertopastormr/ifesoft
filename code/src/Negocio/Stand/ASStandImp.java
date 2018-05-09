@@ -21,7 +21,7 @@ public class ASStandImp implements ASStand {
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         if (stand != null) {
             try {
-                if (stand.getTotal_m2() >= 0 && stand.getAssignation_id() != -1 && stand.getParticipation_id() != -1 && stand.getCost() >= 0 && stand.getNum_at_fair() >= 0) {
+                if (stand.getTotal_m2() >= 1 && stand.getAssignation_id() > 0 && stand.getParticipation_id() > 0 && stand.getCost() >= 0 && stand.getNum_at_fair() >= 0) {
                     // Lectura Asignacion referenciada
                     DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
                     Tasignacion tasignacionRead = daoAsignacion.readById(stand.getAssignation_id());
