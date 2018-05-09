@@ -77,10 +77,6 @@ public class ASPabellonImp implements ASPabellon {
                             Tstand tStand = readStandList.get(j);
                             tStand.setActive(false);
                             daoStand.update(tStand);
-                            //Para cada stand, borramos su participacion tambien.
-                            Tparticipacion tParticipacion = daoParticipacion.readById(tStand.getParticipation_id());
-                            tParticipacion.setActive(false);
-                            daoParticipacion.update(tParticipacion);
                         }
                     }
                     return daoPabellon.update(read);

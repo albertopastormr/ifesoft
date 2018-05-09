@@ -26,3 +26,4 @@ Resultados de pruebas caja negra:
 . Agregar formato de fechas en List By Dates Feria
 . List Asignacion no funcional
 . Show Asignacion no muestra metros asignados verdaderos
+. List stand por asignacion o participacion
