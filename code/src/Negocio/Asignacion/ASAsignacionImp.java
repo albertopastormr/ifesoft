@@ -54,7 +54,7 @@ public class ASAsignacionImp implements ASAsignacion {
                 throw new ASException(ex.getMessage());
             }
         } else
-            throw new ASException("ERROR: No se han introducido los datos del asignacion.\n");
+            throw new ASException("ERROR: No se han introducido los datos del asignacion o los datos de la asignacion no son correctos\n");
         return id;
     }
 
