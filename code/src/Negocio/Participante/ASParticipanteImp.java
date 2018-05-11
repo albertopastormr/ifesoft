@@ -68,10 +68,6 @@ public class ASParticipanteImp implements ASParticipante {
                             Tstand tStand = readStandList.get(j);
                             tStand.setActive(false);
                             daoStand.update(tStand);
-                            //Para cada stand, borramos su asignacion tambien.
-                            Tasignacion tAsignacion = daoAsignacion.readById(tStand.getParticipation_id());
-                            tAsignacion.setActive(false);
-                            daoAsignacion.update(tAsignacion);
                         }
                     }
                     idr = daoParticipante.update(read);

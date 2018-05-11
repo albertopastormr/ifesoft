@@ -164,7 +164,7 @@ public class DAOStandImp implements DAOStand {
 		try { // Tratamiento db
 			PreparedStatement ps;
 
-			ps = connec.prepareStatement("SELECT * FROM participacion WHERE active = true AND participation_id = ?");
+			ps = connec.prepareStatement("SELECT * FROM stand WHERE active = true AND participation_id = ?");
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 
