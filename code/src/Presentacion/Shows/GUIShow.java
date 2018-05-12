@@ -114,11 +114,11 @@ public class GUIShow extends UIStructureFrame {
         comboBoxViews.setMinimumSize(new Dimension(200, 50));
         comboBoxViews.setMaximumSize(new Dimension(800, 50));
 
+        comboBoxViews.addItem("Pavilion");
+        comboBoxViews.addItem("Fair");
         comboBoxViews.addItem("Assignation");
         comboBoxViews.addItem("Client");
-        comboBoxViews.addItem("Fair");
         comboBoxViews.addItem("Participation");
-        comboBoxViews.addItem("Pavilion");
         comboBoxViews.addItem("Stand");
 
         comboBoxViews.setBorder(BorderFactory.createEmptyBorder(0,0, 20, 0));

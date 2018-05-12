@@ -14,8 +14,8 @@ public class GUIViewParticipation extends UIStructureFrame {
     private int id;
     private int idFair;
     private int idClient;
+    private boolean active;
 
-    private JLabel title;
     private JPanel formContainer;
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
@@ -32,6 +32,7 @@ public class GUIViewParticipation extends UIStructureFrame {
         id = participation.getId();
         idFair = participation.getFair_id();
         idClient = participation.getClient_id();
+        active = participation.getActive();
 
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -99,6 +100,7 @@ public class GUIViewParticipation extends UIStructureFrame {
         JLabel idLabel = createLabel("Participation ID:");
         JLabel idFairLabel = createLabel("Fair ID:");
         JLabel idPavilionLabel = createLabel("Client ID:");
+        JLabel activeLabel = createLabel("Active:");
 
 
         formCon.insets = new Insets(20, 0, 20, 0);
@@ -114,6 +116,9 @@ public class GUIViewParticipation extends UIStructureFrame {
         formCon.gridx = 0;
         formCon.gridy = 2;
         formPanel.add(idPavilionLabel, formCon);
+        formCon.gridx = 0;
+        formCon.gridy = 3;
+        formPanel.add(activeLabel, formCon);
 
 
         JLabel idField = createLabel(id + "");
@@ -131,6 +136,11 @@ public class GUIViewParticipation extends UIStructureFrame {
         idPavilionField.setPreferredSize(prefDim);
         idPavilionField.setMaximumSize(maxDim);
 
+        JLabel activeField = createLabel(active + "");
+        activeField.setMinimumSize(minDim);
+        activeField.setPreferredSize(prefDim);
+        activeField.setMaximumSize(maxDim);
+
         formCon.anchor = GridBagConstraints.WEST;
 
         formCon.insets = new Insets(20,10,20,0);
@@ -145,6 +155,9 @@ public class GUIViewParticipation extends UIStructureFrame {
         formCon.gridx = 1;
         formCon.gridy = 2;
         formPanel.add(idPavilionField, formCon);
+        formCon.gridx = 1;
+        formCon.gridy = 3;
+        formPanel.add(activeField, formCon);
         formContainer.add(formPanel);
     }
 

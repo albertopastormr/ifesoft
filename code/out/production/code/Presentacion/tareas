@@ -23,7 +23,12 @@ CREATE:
 - Stand: PROBADO
 
 VIEW:
-
+- Assignation List:     / Assignation Inv: PROBADO
+- Client List: PROBADO   / Client Inv: PROBADO
+- Fair List:            / Fair Inv: PROBADO
+- Participation list:   / Participation Inv: PROBADO
+- Pavilion List:        / Pavilion Inv: PROBADO
+- Stand List:        / Stand Inv: PROBADO
 
 DROP:
 

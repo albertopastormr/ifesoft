@@ -14,8 +14,7 @@ public class GUIViewPavilion extends UIStructureFrame {
     private String capacity;
     private String m2tot;
     private String id;
-
-    private JLabel title;
+    private boolean active;
     private JPanel formContainer;
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
@@ -31,6 +30,7 @@ public class GUIViewPavilion extends UIStructureFrame {
         capacity = tpabellon.getCapacity() +"";
         m2tot = tpabellon.getTotal_m2() +"";
         id = tpabellon.getId() +"";
+        active = tpabellon.getActive();
 
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -96,6 +96,7 @@ public class GUIViewPavilion extends UIStructureFrame {
 
         JLabel aforoLabel = createLabel("Capacity:");
         JLabel m2totLabel = createLabel("Total square-metres:");
+        JLabel activeLabel = createLabel("Active");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
@@ -106,6 +107,9 @@ public class GUIViewPavilion extends UIStructureFrame {
         formCon.gridx = 0;
         formCon.gridy = 1;
         formPanel.add(m2totLabel, formCon);
+        formCon.gridx = 0;
+        formCon.gridy = 2;
+        formPanel.add(activeLabel, formCon);
 
         JLabel aforoField = createLabel(capacity);
         aforoField.setMinimumSize(minDim);
@@ -117,6 +121,10 @@ public class GUIViewPavilion extends UIStructureFrame {
         m2totField.setPreferredSize(prefDim);
         m2totField.setMaximumSize(maxDim);
 
+        JLabel activeField = createLabel(String.valueOf(active));
+        activeField.setMinimumSize(minDim);
+        activeField.setPreferredSize(prefDim);
+        activeField.setMaximumSize(maxDim);
 
         formCon.anchor = GridBagConstraints.WEST;
 
@@ -128,6 +136,9 @@ public class GUIViewPavilion extends UIStructureFrame {
         formCon.gridx = 1;
         formCon.gridy = 1;
         formPanel.add(m2totField, formCon);
+        formCon.gridx = 1;
+        formCon.gridy = 2;
+        formPanel.add(activeField, formCon);
         formContainer.add(formPanel);
     }
 

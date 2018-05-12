@@ -79,7 +79,7 @@ public class GUIListPavilions extends UIStructureFrame{
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment( JLabel.CENTER );
 
-
+        table.setEnabled(false);
 
         table.setDefaultRenderer(Object.class, centerRenderer);
         table.setFont(fTable);

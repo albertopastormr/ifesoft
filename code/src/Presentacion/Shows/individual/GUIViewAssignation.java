@@ -16,8 +16,8 @@ public class GUIViewAssignation extends UIStructureFrame {
     private int idPavilion;
     private int usedMetres;
     private int totalMetres;
+    private boolean activo;
 
-    private JLabel title;
     private JPanel formContainer;
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
@@ -36,6 +36,7 @@ public class GUIViewAssignation extends UIStructureFrame {
         idPavilion = assignation.getPavilion_id();
         usedMetres = assignation.getUsed_m2();
         totalMetres = assignation.getTotal_m2();
+        activo = assignation.getActive();
 
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -83,13 +84,11 @@ public class GUIViewAssignation extends UIStructureFrame {
         GridBagLayout formLayout = new GridBagLayout();
         formPanel.setLayout(formLayout);
 
-
         //---- Labels ----
 
         Dimension minDim = new Dimension(500, 50);
         Dimension prefDim = new Dimension(600, 50);
         Dimension maxDim = new Dimension(700, 50);
-
 
         GridBagConstraints formCon = new GridBagConstraints();
 
@@ -98,13 +97,12 @@ public class GUIViewAssignation extends UIStructureFrame {
         formCon.weighty = 0.5;
         formCon.anchor = GridBagConstraints.EAST;
 
-
-
         JLabel idLabel = createLabel("Assignation ID:");
         JLabel idFairLabel = createLabel("Fair ID:");
         JLabel idPavilionLabel = createLabel("Pavilion ID:");
         JLabel usedMetresLabel = createLabel("Used m\262:");
         JLabel totalMetresLabel = createLabel("Total m\262:");
+        JLabel activelabel = createLabel("Active m\262:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
@@ -124,7 +122,9 @@ public class GUIViewAssignation extends UIStructureFrame {
         formCon.gridx = 0;
         formCon.gridy = 4;
         formPanel.add(totalMetresLabel, formCon);
-
+        formCon.gridx = 0;
+        formCon.gridy = 5;
+        formPanel.add(activelabel, formCon);
 
         JLabel idField = createLabel(id + "");
         idField.setMinimumSize(minDim);
@@ -151,10 +151,14 @@ public class GUIViewAssignation extends UIStructureFrame {
         totaleMetresField.setPreferredSize(prefDim);
         totaleMetresField.setMaximumSize(maxDim);
 
+        JLabel activeField = createLabel(activo + "");
+        activeField.setMinimumSize(minDim);
+        activeField.setPreferredSize(prefDim);
+        activeField.setMaximumSize(maxDim);
+
         formCon.anchor = GridBagConstraints.WEST;
 
         formCon.insets = new Insets(20,10,20,0);
-
 
         formCon.gridx = 1;
         formCon.gridy = 0;
@@ -171,6 +175,9 @@ public class GUIViewAssignation extends UIStructureFrame {
         formCon.gridx = 1;
         formCon.gridy = 4;
         formPanel.add(totaleMetresField, formCon);
+        formCon.gridx = 1;
+        formCon.gridy = 5;
+        formPanel.add(activeField, formCon);
         formContainer.add(formPanel);
     }
 

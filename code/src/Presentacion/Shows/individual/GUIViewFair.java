@@ -17,6 +17,7 @@ public class GUIViewFair extends UIStructureFrame {
     private String description;
     private String iniDate;
     private String finDate;
+    private boolean active;
 
     private JPanel formContainer;
 
@@ -31,11 +32,12 @@ public class GUIViewFair extends UIStructureFrame {
                 "</html>" +
                 "";
 
-        id = "" + tferia.getId();
-        name = tferia.getName();
-        description = tferia.getDescription();
-        iniDate = Utilities.parseDateToString(tferia.getIniDate());
-        finDate = Utilities.parseDateToString(tferia.getEndDate());
+        this.id = "" + tferia.getId();
+        this.name = tferia.getName();
+        this.description = tferia.getDescription();
+        this.iniDate = Utilities.parseDateToString(tferia.getIniDate());
+        this.finDate = Utilities.parseDateToString(tferia.getEndDate());
+        this.active = tferia.getActive();
 
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -103,6 +105,7 @@ public class GUIViewFair extends UIStructureFrame {
         JLabel descLabel = createLabel("Description:");
         JLabel iniDateLabel = createLabel("Start Date:");
         JLabel finDateLabel = createLabel("End Date:");
+        JLabel activeLabel = createLabel("Active");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
@@ -119,6 +122,9 @@ public class GUIViewFair extends UIStructureFrame {
         formCon.gridx = 0;
         formCon.gridy = 3;
         formPanel.add(finDateLabel, formCon);
+        formCon.gridx = 0;
+        formCon.gridy = 4;
+        formPanel.add(activeLabel, formCon);
 
         JLabel nameField = createLabel(name);
         nameField.setMinimumSize(minDim);
@@ -146,6 +152,11 @@ public class GUIViewFair extends UIStructureFrame {
         finDateField.setPreferredSize(prefDim);
         finDateField.setMaximumSize(maxDim);
 
+        JLabel activeField = createLabel(String.valueOf(active));
+        activeField.setMinimumSize(minDim);
+        activeField.setPreferredSize(prefDim);
+        activeField.setMaximumSize(maxDim);
+
         formCon.anchor = GridBagConstraints.WEST;
 
         formCon.insets = new Insets(20,10,20,0);
@@ -162,6 +173,9 @@ public class GUIViewFair extends UIStructureFrame {
         formCon.gridx = 1;
         formCon.gridy = 3;
         formPanel.add(finDateField, formCon);
+        formCon.gridx = 1;
+        formCon.gridy = 4;
+        formPanel.add(activeField, formCon);
         formContainer.add(formPanel);
     }
 

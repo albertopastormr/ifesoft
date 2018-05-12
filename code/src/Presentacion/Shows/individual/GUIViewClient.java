@@ -8,16 +8,18 @@ import Presentacion.UIStructureFrame;
 
 import java.awt.*;
 import java.awt.event.*;
+import javax.print.DocFlavor;
 import javax.swing.*;
 
 public class GUIViewClient extends UIStructureFrame {
 
+    private String id;
     private String name;
     private String phone;
+    private boolean active;
     //private String specialization;
-    private String id;
 
-    private JLabel title;
+
     private JPanel formContainer;
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
@@ -33,7 +35,9 @@ public class GUIViewClient extends UIStructureFrame {
 
         id = tclient.getId() + "";
         name = tclient.getName();
-        phone =tclient.getPhone() + "";
+        phone = tclient.getPhone() + "";
+        active = tclient.getActive();
+
         //specialization =tclient.getSpec() + "";
 
         initComponents();
@@ -101,6 +105,7 @@ public class GUIViewClient extends UIStructureFrame {
 
         JLabel nameLabel = createLabel("Name:");
         JLabel phoneLabel = createLabel("Phone:");
+        JLabel activeLabel = createLabel("Active:");
         //JLabel specializationLabel = createLabel("Specialization");
 
         formCon.insets = new Insets(20, 0, 20, 0);
@@ -113,11 +118,9 @@ public class GUIViewClient extends UIStructureFrame {
         formCon.gridx = 0;
         formCon.gridy = 1;
         formPanel.add(phoneLabel, formCon);
-        /*
         formCon.gridx = 0;
         formCon.gridy = 2;
-        formPanel.add(specializationLabel, formCon);
-        */
+        formPanel.add(activeLabel, formCon);
 
 
         JLabel nameField = createLabel(name);
@@ -130,12 +133,10 @@ public class GUIViewClient extends UIStructureFrame {
         phoneField.setPreferredSize(prefDim);
         phoneField.setMaximumSize(new Dimension(maxDim.width, maxDim.height + 100));
 
-        /*
-        JLabel specializationField = createLabel(specialization);
-        specializationField.setMinimumSize(minDim);
-        specializationField.setPreferredSize(prefDim);
-        specializationField.setMaximumSize(maxDim);
-        */
+        JLabel activeField = createLabel(String.valueOf(active));
+        activeField.setMinimumSize(minDim);
+        activeField.setPreferredSize(prefDim);
+        activeField.setMaximumSize(maxDim);
 
         formCon.anchor = GridBagConstraints.WEST;
 
@@ -148,10 +149,9 @@ public class GUIViewClient extends UIStructureFrame {
         formCon.gridx = 1;
         formCon.gridy = 1;
         formPanel.add(phoneField, formCon);
-        /*
         formCon.gridx = 1;
         formCon.gridy = 2;
-        formPanel.add(specializationField, formCon);*/
+        formPanel.add(activeField, formCon);
         formContainer.add(formPanel);
     }
 

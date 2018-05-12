@@ -4,6 +4,7 @@ import Controller.Controller;
 import Negocio.Feria.Tferia;
 import Presentacion.Events.Event;
 import Presentacion.UIStructureFrame;
+import Presentacion.Utils.Utilities;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -53,8 +54,8 @@ public class GUIListFairs extends UIStructureFrame {
             this.data[i][0] = tferia.getId();
             this.data[i][1] = tferia.getName();
             this.data[i][2] = tferia.getDescription();
-            this.data[i][3] = tferia.getIniDate();
-            this.data[i][4] = tferia.getEndDate();
+            this.data[i][3] = Utilities.parseDateToString(tferia.getIniDate());
+            this.data[i][4] = Utilities.parseDateToString(tferia.getEndDate());
             i++;
         }
 
@@ -87,6 +88,7 @@ public class GUIListFairs extends UIStructureFrame {
             return component;
         }};
 
+        table.setEnabled(false);
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment( JLabel.CENTER );

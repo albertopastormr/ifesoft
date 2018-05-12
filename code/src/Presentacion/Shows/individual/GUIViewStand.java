@@ -17,6 +17,7 @@ public class GUIViewStand extends UIStructureFrame {
     private String id;
     private String assignation;
     private String participation;
+    private boolean active;
 
     private JPanel formContainer;
 
@@ -36,6 +37,7 @@ public class GUIViewStand extends UIStructureFrame {
         id = "" + tstand.getId();
         assignation = "" + tstand.getAssignation_id();
         participation = "" + tstand.getParticipation_id();
+        active = tstand.getActive();
 
         initComponents();
         this.setBounds(100,100, 800,800);
@@ -103,7 +105,8 @@ public class GUIViewStand extends UIStructureFrame {
         JLabel numberLabel = createLabel("Number:");
         JLabel costLabel = createLabel("Cost:");
         JLabel assignationLabel = createLabel("Assignation:");
-        JLabel participationLabel = createLabel("Participation");
+        JLabel participationLabel = createLabel("Participation:");
+        JLabel activeLabel = createLabel("Active:");
 
 
         formCon.insets = new Insets(20, 0, 20, 0);
@@ -124,6 +127,9 @@ public class GUIViewStand extends UIStructureFrame {
         formCon.gridx = 0;
         formCon.gridy = 4;
         formPanel.add(metresLabel, formCon);
+        formCon.gridx = 0;
+        formCon.gridy = 5;
+        formPanel.add(activeLabel, formCon);
 
         JLabel assignationField = createLabel(assignation);
         assignationField.setMinimumSize(minDim);
@@ -150,6 +156,11 @@ public class GUIViewStand extends UIStructureFrame {
         costField.setPreferredSize(prefDim);
         costField.setMaximumSize(maxDim);
 
+        JLabel activeField = createLabel(String.valueOf(active));
+        activeField.setMinimumSize(minDim);
+        activeField.setPreferredSize(prefDim);
+        activeField.setMaximumSize(maxDim);
+
         formCon.anchor = GridBagConstraints.EAST;
 
         formCon.insets = new Insets(20,10,20,0);
@@ -169,6 +180,9 @@ public class GUIViewStand extends UIStructureFrame {
         formCon.gridx = 1;
         formCon.gridy = 4;
         formPanel.add(costField, formCon);
+        formCon.gridx = 1;
+        formCon.gridy = 5;
+        formPanel.add(activeField, formCon);
         formContainer.add(formPanel);
     }
 

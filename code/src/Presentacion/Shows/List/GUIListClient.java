@@ -16,7 +16,7 @@ import java.util.Collection;
 
 public class GUIListClient extends UIStructureFrame {
 
-    private String[] columnNames = {"NAME","PHONE NUMBER"};
+    private String[] columnNames = {"ID","NAME","PHONE NUMBER"};
     private Object[][] data;
 
     private Collection<Tparticipante> client;
@@ -50,8 +50,9 @@ public class GUIListClient extends UIStructureFrame {
         int i = 0;
 
         for (Tparticipante client: transfer){
-            this.data[i][0] = client.getName();
-            this.data[i][1] = client.getPhone();
+            this.data[i][0] = client.getId();
+            this.data[i][1] = client.getName();
+            this.data[i][2] = client.getPhone();
             i++;
         }
 
@@ -76,12 +77,10 @@ public class GUIListClient extends UIStructureFrame {
         changeTransferToCollection(client);
 
         JTable table = new JTable(data, columnNames);
-
+        table.setEnabled(false);
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment( JLabel.CENTER );
-
-
 
         table.setDefaultRenderer(Object.class, centerRenderer);
         table.setFont(fTable);
@@ -109,7 +108,7 @@ public class GUIListClient extends UIStructureFrame {
         table.setRowSelectionAllowed(false);
 
         JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setPreferredSize(new Dimension(292, 500));
+        scrollPane.setPreferredSize(new Dimension(600, 500));
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         centerPanel.add(scrollPane);
     }

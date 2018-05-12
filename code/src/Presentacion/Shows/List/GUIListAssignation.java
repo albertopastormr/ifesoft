@@ -71,6 +71,7 @@ public class GUIListAssignation extends UIStructureFrame {
         changeTransferToCollection(assignation);
 
         JTable table = new JTable(data, columnNames);
+        table.setEnabled(false);
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment( JLabel.CENTER );
