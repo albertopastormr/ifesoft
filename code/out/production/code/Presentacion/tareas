@@ -23,13 +23,25 @@ CREATE:
 - Stand: PROBADO
 
 VIEW:
-- Assignation List:     / Assignation Inv: PROBADO
-- Client List: PROBADO   / Client Inv: PROBADO
-- Fair List:            / Fair Inv: PROBADO
-- Participation list:   / Participation Inv: PROBADO
-- Pavilion List:        / Pavilion Inv: PROBADO
-- Stand List:        / Stand Inv: PROBADO
+Assignation List: "Bien menos ID de asignacion que se muestra mal" / Assignation Inv: PROBADO
+- Client List: PROBADO / Client Inv: PROBADO
+- Fair List: PROBADO / Fair Inv: PROBADO
+- Participation list: PROBADO / Participation Inv: PROBADO
+Pavilion List: "No le llegan los CAPACITY BIEN" / Pavilion Inv: PROBADO
+- Stand List: PROBADO / Stand Inv: PROBADO
 
 DROP:
+- Feria: PROBADO
+- Pabellon: PROBADO
+- Cliente: PROBADO
+- Asignacion: PROBADO
+- Participacion: PROBADO
+- Stand: PROBADO
 
 MODIFY:
+- Feria: PROBADO
+- Pabellon: PROBADO
+Cliente: PROBADO "Modificar nacionalidad me da error desde negocio" Y CORROMPE BASE DE DATOS de cliente
+- Asignacion: PROBADO
+- Participacion: "ME llega un mensaje que no me deja desde negocio"
+- Stand: PROBADO

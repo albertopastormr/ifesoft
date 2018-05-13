@@ -177,6 +177,8 @@ public class GUIModify extends UIStructureFrame {
 
     @Override
     public void update(int event, Object data) {
-
+        if(data != null) JOptionPane.showMessageDialog(null,"The module has been modified successfully");
+        else JOptionPane.showMessageDialog(null, "A problem in the modify process occurred, insert module's data another time please", "Error",
+                JOptionPane.ERROR_MESSAGE);
     }
 }

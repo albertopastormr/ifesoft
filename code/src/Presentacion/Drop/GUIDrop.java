@@ -284,6 +284,8 @@ public class GUIDrop extends UIStructureFrame {
 
     @Override
     public void update(int event, Object data) {
-
+        if(data != null) JOptionPane.showMessageDialog(null,"The module has been dropped successfully");
+        else JOptionPane.showMessageDialog(null, "A problem in the drop process occurred, insert module's data another time please", "Error",
+                JOptionPane.ERROR_MESSAGE);
     }
 }

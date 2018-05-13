@@ -229,7 +229,7 @@ public class GUIFormStand extends UIStructureFrame {
         setVisible(false);
         int idAssignation = Integer.parseInt(idAssignationField.getText());
         int idParticipation = Integer.parseInt(idParticipationField.getText());
-        int cost = Integer.parseInt(costField.getText());
+        float cost = Float.parseFloat(costField.getText());
         int m_used = Integer.parseInt(metresField.getText());
         int number = Integer.parseInt(numberField.getText());
 

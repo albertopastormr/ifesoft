@@ -16,6 +16,8 @@ PREGUNTAR A ANTONIO DROP CASCADA--> SI BORRAMOS PARTICIPACION, SE BORRAN STANDS 
                                     SI BORRAMOS ASIGNACION, SE BORRAN STANDS Y ALGO MAS?
                                     CONSULTAR SI ESTA BIEN FERIA EN CASCADA, PABELLON, Y PARTICIPANTE
 
+Como se gestionan entonces los mensajes correctos? Por Excepcion o por res???
+
 Resultados de pruebas caja negra:
 . Modify * muestran dialogo con texto 'null' ????  ---- NI IDEA DE QUE SE REFIERE ----
 . Falta operacion List para Stand

@@ -13,9 +13,6 @@ public class IFDropImp extends IFDrop {
         switch (event){
             case Event.DROP_HALF:
                 return new GUIDrop();
-
-
-
             default:
                 return new GUIHome();
 

@@ -16,14 +16,11 @@ PREGUNTAR A ANTONIO DROP CASCADA--> SI BORRAMOS PARTICIPACION, SE BORRAN STANDS 
                                     SI BORRAMOS ASIGNACION, SE BORRAN STANDS Y ALGO MAS?
                                     CONSULTAR SI ESTA BIEN FERIA EN CASCADA, PABELLON, Y PARTICIPANTE
 
+Como se gestionan entonces los mensajes correctos? Por Excepcion o por res???
+
 Resultados de pruebas caja negra:
-. List client no muestra ids
-. List * campos editables
-. Modify * muestran dialogo con texto 'null'
+. Modify * muestran dialogo con texto 'null' ????  ---- NI IDEA DE QUE SE REFIERE ----
 . Falta operacion List para Stand
-. Show falta campo activo
-. List Pabellon muestra campo vacio en Capacidad
-. Agregar formato de fechas en List By Dates Feria
-. List Asignacion no funcional
+. List Pabellon muestra campo vacio en Capacidad ---- A presentacion le llega vacio ya desde negocio.
 . Show Asignacion no muestra metros asignados verdaderos
-. List stand por asignacion o participacion
+. List stand por participacion no funciona.
