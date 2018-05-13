@@ -18,14 +18,19 @@ public class GUIShow extends UIStructureFrame {
     private JLabel labelSubID;
     private JLabel labelSubIDdateStart;
     private JLabel labelSubIDdateEnd;
+    private JLabel labelAllList;
+
     private JComboBox<String> comboBoxViews;
     private JRadioButton radioButtonLeft;
     private JRadioButton radioButtonRight;
     private JRadioButton radioButtonOptional;
+    private JRadioButton radioButtonList;
+
     private JTextField textID;
     private JTextField textDateStart;
     private JTextField textDateEnd;
     private JPanel radioButtonPanel;
+
     private ButtonGroup radioButtons;
 
     private Font fComboBox = new Font(Font.DIALOG, Font.PLAIN, 40);
@@ -45,7 +50,7 @@ public class GUIShow extends UIStructureFrame {
     private boolean isHalfEntity;
     private boolean isHalfEntityList;
     private boolean isStand;
-
+    private boolean isListAll;
 
     public GUIShow() {
         super("Show");
@@ -59,6 +64,7 @@ public class GUIShow extends UIStructureFrame {
         this.isHalfEntity = false;
         this.isHalfEntityList = false;
         this.isStand = false;
+        this.isListAll = false;
 
         initComponents();
         viewVisibleLogic();
@@ -153,6 +159,8 @@ public class GUIShow extends UIStructureFrame {
             }
         });
 
+
+
         //---- radioButtonOptional ----
         radioButtonOptional = new JRadioButton();
         radioButtonOptional.setText("List by dates");
@@ -167,16 +175,31 @@ public class GUIShow extends UIStructureFrame {
             }
         });
 
+        //---- radioButtonOptional ----
+        radioButtonList = new JRadioButton();
+        radioButtonList.setText("List");
+        radioButtonList.setFont(fRadioButton);
+        radioButtonList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                changeVisibleList();
+            }
+        });
+
+        radioButtonList.setVisible(false);
+
         radioButtonOptional.setVisible(false);
 
         radioButtons = new ButtonGroup();
         radioButtons.add(radioButtonLeft);
         radioButtons.add(radioButtonRight);
         radioButtons.add(radioButtonOptional);
+        radioButtons.add(radioButtonList);
 
         radioButtonPanel.add(radioButtonLeft);
         radioButtonPanel.add(radioButtonRight);
         radioButtonPanel.add(radioButtonOptional);
+        radioButtonPanel.add(radioButtonList);
 
         radioButtonPanel.setVisible(true);
         centerPanel.add(radioButtonPanel);
@@ -263,6 +286,11 @@ public class GUIShow extends UIStructureFrame {
         centerPanel.add(panelDateEnd);
     }
 
+    private void changeVisibleList() {
+        radioButtonList.setVisible(true);
+        this.isListAll = true;
+    }
+
     private void changeVisibleOptional() {
         textID.setVisible(false);
         labelSubID.setVisible(false);
@@ -331,19 +359,22 @@ public class GUIShow extends UIStructureFrame {
                 this.setVisible(false);
                 if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_ASSIGNATION_INDIVIDUAL,Integer.parseInt(textID.getText()));
                 else if(radioButtonOptional.isSelected()) Controller.getInstance().execute(Event.SHOW_ASSIGNATION_PAVILION, Integer.parseInt(textID.getText()));
-                else Controller.getInstance().execute(Event.SHOW_ASSIGANTION_FAIR, Integer.parseInt(textID.getText()));
+                else if(!isListAll) Controller.getInstance().execute(Event.SHOW_ASSIGANTION_FAIR, Integer.parseInt(textID.getText()));
+                else Controller.getInstance().execute(Event.SHOW_ASSIGANTION_LIST ,null);
                 break;
             case "Participation":
                 this.setVisible(false);
                 if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_PARTICIPATION_INDIVIDUAL ,Integer.parseInt(textID.getText()));
                 else if(radioButtonOptional.isSelected()) Controller.getInstance().execute(Event.SHOW_PARTICIPATION_FAIR, Integer.parseInt(textID.getText()));
-                else Controller.getInstance().execute(Event.SHOW_PARTICIPATION_CLIENT, Integer.parseInt(textID.getText()));
+                else if(!isListAll) Controller.getInstance().execute(Event.SHOW_PARTICIPATION_CLIENT, Integer.parseInt(textID.getText()));
+                else Controller.getInstance().execute(Event.SHOW_PARTICIPATION_LIST ,null);
                 break;
             case "Stand":
                 this.setVisible(false);
                 if(radioButtonLeft.isSelected()) Controller.getInstance().execute(Event.SHOW_STAND_INDIVIDUAL ,Integer.parseInt(textID.getText()));
                 else if(radioButtonOptional.isSelected()) Controller.getInstance().execute(Event.SHOW_STAND_ASSIGNATION, Integer.parseInt(textID.getText()));
-                else Controller.getInstance().execute(Event.SHOW_STAND_PARTICIPATION ,Integer.parseInt(textID.getText()));
+                else if(!isListAll) Controller.getInstance().execute(Event.SHOW_STAND_PARTICIPATION ,Integer.parseInt(textID.getText()));
+                else Controller.getInstance().execute(Event.SHOW_STAND_LIST ,null);
                 break;
 
         }
@@ -404,6 +435,7 @@ public class GUIShow extends UIStructureFrame {
                 radioButtonOptional.setVisible(true);
                 radioButtonRight.setText("List by Assignation");
                 radioButtonOptional.setText("List by Participation");
+                radioButtonList.setVisible(true);
                 this.isStand = true;
                 break;
             case "Client":
@@ -411,6 +443,7 @@ public class GUIShow extends UIStructureFrame {
                 break;
             case "Assignation":
                 radioButtonPanel.setVisible(true);
+                radioButtonList.setVisible(true);
                 radioButtonRight.setText("List by pavilion id");
                 radioButtonOptional.setText("List by fair id");
                 radioButtonOptional.setVisible(true);
@@ -420,6 +453,7 @@ public class GUIShow extends UIStructureFrame {
                 radioButtonPanel.setVisible(true);
                 radioButtonRight.setText("List by client id");
                 radioButtonOptional.setText("List by fair id");
+                radioButtonList.setVisible(true);
                 radioButtonOptional.setVisible(true);
                 this.isStand = true;
                 break;
@@ -435,6 +469,7 @@ public class GUIShow extends UIStructureFrame {
         textDateEnd.setVisible(false);
         radioButtonPanel.setVisible(false);
         radioButtonOptional.setVisible(false);
+        radioButtonList.setVisible(false);
         radioButtons.clearSelection();
 
         radioButtonLeft.setText("Individual");
@@ -445,6 +480,7 @@ public class GUIShow extends UIStructureFrame {
         this.isStand = false;
         this.isHalfEntityList = false;
         this.isHalfEntity = false;
+        this.isListAll = false;
     }
 
     @Override

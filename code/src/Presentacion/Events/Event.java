@@ -89,4 +89,6 @@ public class Event {
     public static final int SHOW_PARTICIPATION_INDIVIDUAL = 9191928;
     public static final int SHOW_STAND_ASSIGNATION = 1231463;
     public static final int SHOW_STAND_PARTICIPATION = 736363;
+    public static final int SHOW_ASSIGANTION_LIST = 8327493;
+    public static final int SHOW_PARTICIPATION_LIST = 3477432;
 }

@@ -385,6 +385,11 @@ public class ControllerImp extends Controller {
                     IFViewList.getInstance().generateSpecificView(event ,asAssignation.showByIdPavilion((Integer)data));
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
+            case Event.SHOW_ASSIGANTION_LIST:
+                try {
+                    IFViewList.getInstance().generateSpecificView(event ,asAssignation.list());
+                } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
+                break;
             case Event.SHOW_PARTICIPATION_FAIR:
                 try {
                     IFViewList.getInstance().generateSpecificView(event ,asParticipation.showByFairId((Integer) data));
@@ -395,6 +400,11 @@ public class ControllerImp extends Controller {
                     IFViewList.getInstance().generateSpecificView(event ,asParticipation.showByClientId((Integer)data));
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
+            case Event.SHOW_PARTICIPATION_LIST:
+                try {
+                    IFViewList.getInstance().generateSpecificView(event ,asParticipation.list());
+                } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
+                break;
             case Event.SHOW_STAND_ASSIGNATION:
                 try {
                     IFViewList.getInstance().generateSpecificView(event ,asStand.showByAssignation((Integer) data));
@@ -403,6 +413,11 @@ public class ControllerImp extends Controller {
             case Event.SHOW_STAND_PARTICIPATION:
                 try {
                     IFViewList.getInstance().generateSpecificView(event ,asStand.showByParticipation((Integer)data));
+                } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
+                break;
+            case Event.SHOW_STAND_LIST:
+                try {
+                    IFViewList.getInstance().generateSpecificView(event ,asStand.list());
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
         }

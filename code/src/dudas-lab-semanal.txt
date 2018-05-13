@@ -20,7 +20,6 @@ Como se gestionan entonces los mensajes correctos? Por Excepcion o por res???
 
 Resultados de pruebas caja negra:
 . Modify * muestran dialogo con texto 'null' ????  ---- NI IDEA DE QUE SE REFIERE ----
-. Falta operacion List para Stand
 . List Pabellon muestra campo vacio en Capacidad ---- A presentacion le llega vacio ya desde negocio.
 . Show Asignacion no muestra metros asignados verdaderos
 . List stand por participacion no funciona.

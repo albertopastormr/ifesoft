@@ -52,9 +52,13 @@ public class IFViewListImp extends IFViewList {
                 return new GUIListAssignation((Collection<Tasignacion>) data);
             case Event.SHOW_ASSIGANTION_FAIR:
                 return new GUIListAssignation((Collection<Tasignacion>) data);
+            case Event.SHOW_ASSIGANTION_LIST:
+                return new GUIListAssignation((Collection<Tasignacion>) data);
             case Event.SHOW_PARTICIPATION_CLIENT:
                 return new GUIListParticipation((Collection<Tparticipacion>) data);
             case Event.SHOW_PARTICIPATION_FAIR:
+                return new GUIListParticipation((Collection<Tparticipacion>) data);
+            case Event.SHOW_PARTICIPATION_LIST:
                 return new GUIListParticipation((Collection<Tparticipacion>) data);
             case Event.SHOW_STAND_LIST:
                 return new GUIListStand((Collection<Tstand>) data);
