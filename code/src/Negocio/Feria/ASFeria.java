@@ -9,7 +9,7 @@ import java.util.Collection;
 public interface ASFeria {
     Integer create(Tferia feria) throws ASException;
 
-    Integer drop(Tferia feria) throws ASException;
+    Integer drop(Integer id) throws ASException;
 
     Integer modify(Tferia feria) throws ASException;
 

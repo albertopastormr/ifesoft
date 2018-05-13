@@ -10,7 +10,7 @@ import java.util.Collection;
 public interface ASParticipacion {
     Integer create(Tparticipacion participacion) throws ASException;
 
-    Integer drop(Tparticipacion participacion) throws ASException;
+    Integer drop(Integer id) throws ASException;
 
     Integer modify(Tparticipacion participacion) throws ASException;
 

@@ -8,7 +8,7 @@ import java.util.Collection;
 public interface ASStand {
     Integer create(Tstand stand) throws ASException, DAOException;
 
-    Integer drop(Tstand stand) throws ASException, DAOException;
+    Integer drop(Integer id) throws ASException, DAOException;
 
     Integer modify(Tstand stand) throws ASException, DAOException;
 

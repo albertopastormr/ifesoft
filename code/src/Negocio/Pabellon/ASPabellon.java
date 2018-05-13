@@ -8,7 +8,7 @@ import java.util.Collection;
 public interface ASPabellon {
     Integer create(Tpabellon pabellon) throws ASException;
 
-    Integer drop(Tpabellon pabellon) throws ASException;
+    Integer drop(Integer id) throws ASException;
 
     Integer modify(Tpabellon pabellon) throws ASException;
 

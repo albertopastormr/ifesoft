@@ -6,13 +6,9 @@ import Integracion.Asignacion.DAOAsignacion;
 import Integracion.Pabellon.DAOPabellon;
 import Integracion.Feria.DAOFeria;
 import Integracion.Stand.DAOStand;
-import Negocio.Asignacion.ASAsignacion;
-import Negocio.Asignacion.IFDAOAsignacion;
-import Negocio.Asignacion.Tasignacion;
 import Negocio.Feria.Tferia;
 import Negocio.Stand.IFDAOStand;
 import Negocio.Stand.Tstand;
-import Negocio.Asignacion.Tasignacion;
 import Negocio.Pabellon.Tpabellon;
 import Negocio.Pabellon.IFDAOPabellon;
 import Negocio.Feria.IFDAOFeria;
@@ -38,14 +34,15 @@ public class ASAsignacionImp implements ASAsignacion {
                     if (transferAssignation == null) {
                         //Si los metros cuadrados usados son > 0, los metros cuadrados contratados > m2 usados Y los m2 contratados son < m2 totales
                         //del pabellon  entonces podemos crear la asignación
-                        if (asignacion.getUsed_m2() >= 0 && asignacion.getTotal_m2() >= asignacion.getUsed_m2() && asignacion.getTotal_m2() <= transferPavilion.getTotal_m2())
+                        if (asignacion.getUsed_m2() >= 0 && asignacion.getTotal_m2() >= asignacion.getUsed_m2() && asignacion.getTotal_m2() <= transferPavilion.getTotal_m2() && transferFair.getActive() && transferPavilion.getActive())
                             id = daoAsignacion.create(asignacion);
                         else
-                            throw new ASException("ERROR: Los datos de la asignacion no son correctos. (m2 Incorrectos)\n");
+                            throw new ASException("ERROR: Los datos de la asignacion no son correctos. (m2 Incorrectos o pabellon desactivado)\n");
                     } else {
-                        if (!transferAssignation.getActive() && asignacion.getActive())
-                            id = daoAsignacion.update(asignacion);
-                        else
+                        if (!transferAssignation.getActive() && asignacion.getActive() && transferPavilion.getActive() && transferFair.getActive()) {
+                            transferAssignation.setActive(true);
+                            id = daoAsignacion.update(transferAssignation);
+                        } else
                             throw new ASException("ERROR: La asignacion Feria(" + asignacion.getFair_id() + ") Pabellon(" + asignacion.getPavilion_id() + ") ya existe.\n");
                     }
                 } else
@@ -59,50 +56,55 @@ public class ASAsignacionImp implements ASAsignacion {
     }
 
     //Al realizar borrado en cascada borramos asignacion y a su vez los stands asociados a esa asignacion
-    public Integer drop(Tasignacion asignacion) throws ASException {
-        int id;
+    public Integer drop(Integer id) throws ASException {
+        int idr;
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
-        ArrayList<Tstand> readStandList = new ArrayList<>();
+        ArrayList<Tstand> readStandList;
 
-        if (asignacion != null && asignacion.getId() > 0) {
+        if (id > 0) {
             try {
-                Tasignacion transferAssignation = daoAsignacion.readById(asignacion.getId());
+                Tasignacion transferAssignation = daoAsignacion.readById(id);
                 //Si es distinto de null quiere decir que tenemos una asignacion activa con ese id, por lo que podemos borrarla.
                 if (transferAssignation != null && transferAssignation.getActive()) {
                     transferAssignation.setActive(false);
-                    readStandList = (ArrayList<Tstand>)daoStand.readByAssignation(asignacion.getId());
+                    readStandList = (ArrayList<Tstand>) daoStand.readByAssignation(id);
                     //Borramos para una asignacion en concreto, todos sus stands
-                    for(int j = 0; j < readStandList.size(); j++) {
+                    for (int j = 0; j < readStandList.size(); j++) {
                         Tstand tStand = readStandList.get(j);
                         tStand.setActive(false);
                         daoStand.update(tStand);
                     }
-                    id = daoAsignacion.update(transferAssignation);
+                    idr = daoAsignacion.update(transferAssignation);
                 } else
-                    throw new ASException("ERROR: La asignacion " + asignacion.getId() + "  no existe.\n");
+                    throw new ASException("ERROR: La asignacion " + id + "  no existe.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }
         } else
             throw new ASException("ERROR: El ID introducido no es valido.\n");
-        return id;
+        return idr;
     }
 
     public Integer modify(Tasignacion asignacion) throws ASException {
         int id;
         DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
+        DAOPabellon daoPabellon = IFDAOPabellon.getInstance().generateDAOpabellon();
+        DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
 
         if (asignacion != null && asignacion.getId() > 0 && asignacion.getFair_id() > 0 && asignacion.getPavilion_id() > 0 && asignacion.getUsed_m2() >= 0 && asignacion.getTotal_m2() >= 0) {
             try {
                 Tasignacion transferAssignation = daoAsignacion.readById(asignacion.getId());
                 if (transferAssignation != null) {
                     if (asignacion.getFair_id() == transferAssignation.getFair_id() && asignacion.getPavilion_id() == transferAssignation.getPavilion_id()) {
-                        if (!asignacion.getActive()) {
-                            asignacion.setActive(false);
-                            id = daoAsignacion.update(asignacion);
-                        } else
-                            id = daoAsignacion.update(asignacion);
+                        Tferia feria = daoFeria.readById(transferAssignation.getFair_id());
+                        Tpabellon pabellon = daoPabellon.readById(transferAssignation.getPavilion_id());
+                        if (!asignacion.getActive() && transferAssignation.getActive())
+                            asignacion.setActive(true);
+                        if(asignacion.getActive() && !transferAssignation.getActive())
+                            if(!feria.getActive() || !pabellon.getActive())
+                                asignacion.setActive(false);
+                        id = daoAsignacion.update(asignacion);
                     } else
                         throw new ASException("ERROR: No se pueden modificar el pabellon y/o feria de una asignacion.\n");
                 } else
@@ -128,16 +130,16 @@ public class ASAsignacionImp implements ASAsignacion {
 
     //Tomado como show by id asignation
     //public Tasignacion show(Integer fair_id, Integer pavilion_id, Integer stand_id) throws ASException {
-    public Tasignacion show(Integer asignation_id) throws ASException {
+    public Tasignacion show(Integer assignation_id) throws ASException {
         Tasignacion asig;
         DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
-        if (asignation_id > 0) {
+        if (assignation_id > 0) {
             try {
-                Tasignacion transferAssignation = daoAsignacion.readById(asignation_id);
+                Tasignacion transferAssignation = daoAsignacion.readById(assignation_id);
                 if (transferAssignation != null) //si la asignacion leida existe en la bbdd
                     asig = transferAssignation;
                 else
-                    throw new ASException("ERROR: La asignacion " + asignation_id + " no existe.\n");
+                    throw new ASException("ERROR: La asignacion " + assignation_id + " no existe.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }

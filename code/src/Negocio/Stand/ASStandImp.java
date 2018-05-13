@@ -1,6 +1,5 @@
 package Negocio.Stand;
 
-
 import Exceptions.ASException;
 import Integracion.Asignacion.DAOAsignacion;
 import Integracion.Participacion.DAOParticipacion;
@@ -9,15 +8,12 @@ import Negocio.Asignacion.IFDAOAsignacion;
 import Negocio.Asignacion.Tasignacion;
 import Negocio.Participacion.IFDAOParticipacion;
 import Negocio.Participacion.Tparticipacion;
-import Negocio.Stand.ASStand;
-import Negocio.Stand.IFDAOStand;
-import Negocio.Stand.Tstand;
 
 import java.util.Collection;
 
 public class ASStandImp implements ASStand {
     public Integer create(Tstand stand) throws ASException {
-        int id = -1;
+        int id;
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         if (stand != null) {
             try {
@@ -31,9 +27,13 @@ public class ASStandImp implements ASStand {
 
                     if (tasignacionRead != null && tparticipacionRead != null) {
                         if (tasignacionRead.getUsed_m2() + stand.getTotal_m2() <= tasignacionRead.getTotal_m2()) {
+                            if (!tasignacionRead.getActive() || !tparticipacionRead.getActive())
+                                stand.setActive(false);
                             id = daoStand.create(stand);
-                            tasignacionRead.setTotal_m2(tasignacionRead.getTotal_m2() + stand.getTotal_m2());
-                            daoAsignacion.update(tasignacionRead);
+                            if (stand.getActive()) {
+                                tasignacionRead.setTotal_m2(tasignacionRead.getTotal_m2() + stand.getTotal_m2());
+                                daoAsignacion.update(tasignacionRead);
+                            }
                         } else
                             throw new ASException("ERROR: Los m2 solicitados superan el limite de la asignacion contratada para la feria " + tasignacionRead.getFair_id() + " en el pabellon " + tasignacionRead.getPavilion_id() + "\n");
                     } else
@@ -48,27 +48,31 @@ public class ASStandImp implements ASStand {
         return id;
     }
 
-    public Integer drop(Tstand stand) throws ASException {
-        int id = -1;
+    public Integer drop(Integer id) throws ASException {
+        int idr;
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        if (stand != null && stand.getId() > 0) {
+        DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
+        if (id > 0) {
             try {
-                Tstand read = daoStand.readById(stand.getId());
+                Tstand read = daoStand.readById(id);
                 if (read != null) {
                     read.setActive(false);
-                    id = daoStand.update(read);
+                    idr = daoStand.update(read);
+                    Tasignacion asig = daoAsignacion.readById(read.getAssignation_id());
+                    asig.setUsed_m2(asig.getUsed_m2() - read.getTotal_m2());
+                    daoAsignacion.update(asig);
                 } else
-                    throw new ASException("ERROR: El stand " + stand.getId() + " no existe.\n");
+                    throw new ASException("ERROR: El stand " + id + " no existe.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }
         } else
             throw new ASException("ERROR: El ID introducido no es valido.\n");
-        return id;
+        return idr;
     }
 
     public Integer modify(Tstand stand) throws ASException {
-        int id = -1;
+        int id;
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         if (stand != null) {
             try {
@@ -83,16 +87,35 @@ public class ASStandImp implements ASStand {
                         Tparticipacion tparticipacionRead = daoParticipacion.readById(stand.getParticipation_id());
 
                         if (tasignacionRead != null && tparticipacionRead != null) {
-                            if (tasignacionRead.getUsed_m2() + stand.getTotal_m2() <= tasignacionRead.getTotal_m2()) {
-                                if (!stand.getActive()) {
-                                    id = daoStand.update(stand);
-                                } else {
-                                    id = daoStand.update(stand);
-                                    tasignacionRead.setTotal_m2(tasignacionRead.getTotal_m2() + stand.getTotal_m2());
-                                    daoAsignacion.update(tasignacionRead);
-                                }
-                            } else
-                                throw new ASException("ERROR: Los m2 solicitados superan el limite de la asignacion contrada para la feria " + tasignacionRead.getFair_id() + " en el pabellon " + tasignacionRead.getPavilion_id() + "\n");
+                            if (read.getActive()) {
+                                if (tasignacionRead.getUsed_m2() + stand.getTotal_m2() - read.getTotal_m2() <= tasignacionRead.getTotal_m2()) {
+                                    if (!stand.getActive()) {
+                                        id = daoStand.update(stand);
+                                        tasignacionRead.setUsed_m2(tasignacionRead.getTotal_m2() - read.getTotal_m2());
+                                        daoAsignacion.update(tasignacionRead);
+                                    } else {
+                                        id = daoStand.update(stand);
+                                        tasignacionRead.setUsed_m2(tasignacionRead.getTotal_m2() + stand.getTotal_m2() - read.getTotal_m2());
+                                        daoAsignacion.update(tasignacionRead);
+                                    }
+                                } else
+                                    throw new ASException("ERROR: Los m2 solicitados superan el limite de la asignacion contrada para la feria " + tasignacionRead.getFair_id() + " en el pabellon " + tasignacionRead.getPavilion_id() + "\n");
+                            } else {
+                                if (tasignacionRead.getUsed_m2() + stand.getTotal_m2() <= tasignacionRead.getTotal_m2()) {
+                                    if (!stand.getActive()) {
+                                        id = daoStand.update(stand);
+                                    } else {
+                                        if (tasignacionRead.getActive() && tparticipacionRead.getActive()) {
+                                            id = daoStand.update(stand);
+                                            tasignacionRead.setUsed_m2(tasignacionRead.getTotal_m2() + stand.getTotal_m2());
+                                            daoAsignacion.update(tasignacionRead);
+                                        } else
+                                            throw new ASException("La participacion y/o la asignacion a la que pertenece el stand " + stand.getId() + " esta(n) desactivada(s).\n");
+                                    }
+                                } else
+                                    throw new ASException("ERROR: Los m2 solicitados superan el limite de la asignacion contrada para la feria " + tasignacionRead.getFair_id() + " en el pabellon " + tasignacionRead.getPavilion_id() + "\n");
+
+                            }
                         } else
                             throw new ASException("ERROR: Asignacion y Participacion referenciadas no existen en la base de datos\n");
                     } else
@@ -119,12 +142,13 @@ public class ASStandImp implements ASStand {
     }
 
     public Tstand showById(Integer id) throws ASException {
+        Tstand stand;
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         if (id > 0) {
             try {
                 Tstand read = daoStand.readById(id);
                 if (read != null)
-                    return read;
+                    stand = read;
                 else
                     throw new ASException("ERROR: El stand " + id + " no existe.\n");
             } catch (Exception ex) {
@@ -132,15 +156,17 @@ public class ASStandImp implements ASStand {
             }
         } else
             throw new ASException("ERROR: El ID introducido no es valido.\n");
+        return stand;
     }
 
     public Collection<Tstand> showByAssignation(Integer id) throws ASException {
+        Collection<Tstand> stands;
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         if (id > 0) {
             try {
                 Collection<Tstand> read = daoStand.readByAssignation(id);
                 if (read != null)
-                    return read;
+                    stands = read;
                 else
                     throw new ASException("ERROR: No existe una asignacion" + id + ".\n");
             } catch (Exception ex) {
@@ -148,15 +174,17 @@ public class ASStandImp implements ASStand {
             }
         } else
             throw new ASException("ERROR: El ID introducido no es valido.\n");
+        return stands;
     }
 
     public Collection<Tstand> showByParticipation(Integer id) throws ASException {
+        Collection<Tstand> stands;
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         if (id > 0) {
             try {
                 Collection<Tstand> read = daoStand.readByAssignation(id);
                 if (read != null)
-                    return read;
+                    stands = read;
                 else
                     throw new ASException("ERROR: No existe una participacion " + id + ".\n");
             } catch (Exception ex) {
@@ -164,6 +192,7 @@ public class ASStandImp implements ASStand {
             }
         } else
             throw new ASException("ERROR: El ID introducido no es valido.\n");
+        return stands;
     }
 
 }

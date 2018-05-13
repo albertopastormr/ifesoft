@@ -1,7 +1,6 @@
 package Negocio.Feria;
 
 import Exceptions.ASException;
-import Exceptions.DAOException;
 import Integracion.Asignacion.DAOAsignacion;
 import Integracion.Feria.DAOFeria;
 import Integracion.Participacion.DAOParticipacion;
@@ -13,7 +12,6 @@ import Negocio.Participacion.Tparticipacion;
 import Negocio.Stand.IFDAOStand;
 import Negocio.Stand.Tstand;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -49,24 +47,26 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
         return id;
     }
 
-    public Integer drop(Tferia feria) throws ASException {
+    public Integer drop(Integer id) throws ASException {
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
         DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
-        ArrayList<Tasignacion> listaAsignaciones = new ArrayList<>();
-        ArrayList<Tstand> readStandList = new ArrayList<>();
+        ArrayList<Tasignacion> listaAsignaciones;
+        ArrayList<Tstand> readStandList;
 
-        if (feria != null && feria.getId() > 0) {
+        int idr;
+
+        if (id > 0) {
             try {
-                Tferia read = daoFeria.readById(feria.getId());
+                Tferia read = daoFeria.readById(id);
                 if (read != null) {
                     listaAsignaciones = (ArrayList<Tasignacion>) daoAsignacion.readByFairId(read.getId());
                     for (int i = 0; i < listaAsignaciones.size(); i++) {
-                        Tasignacion tAsignation = listaAsignaciones.get(i);
-                        tAsignation.setActive(false);
-                        daoAsignacion.update(tAsignation);
-                        readStandList = (ArrayList<Tstand>) daoStand.readByAssignation(tAsignation.getId());
+                        Tasignacion tAssignation = listaAsignaciones.get(i);
+                        tAssignation.setActive(false);
+                        daoAsignacion.update(tAssignation);
+                        readStandList = (ArrayList<Tstand>) daoStand.readByAssignation(tAssignation.getId());
                         for (int j = 0; j < readStandList.size(); j++) {
                             Tstand tStand = readStandList.get(j);
                             //Desactivamos ese stand
@@ -80,17 +80,19 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
 
                     read.setActive(false);
 
-                    return daoFeria.update(read);
+                    idr = daoFeria.update(read);
                 } else
-                    throw new ASException("ERROR: La feria " + feria.getId() + " no existe.\n");
+                    throw new ASException("ERROR: La feria " + id + " no existe.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }
         } else
             throw new ASException("ERROR: El ID no es valido.\n");
+        return idr;
     }
 
     public Integer modify(Tferia feria) throws ASException {
+        int id;
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
         if (feria != null && feria.getName() != null && feria.getId() > 0) {
             try {
@@ -100,7 +102,9 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
                     if ((nameOK == null) || nameOK.getName().equals(read.getName())) {
                         Date currentDate = new Date();
                         if (feria.getIniDate().after(currentDate) && feria.getEndDate().after(feria.getIniDate())) {
-                            return daoFeria.update(feria);
+                            if(!feria.getActive() && read.getActive())
+                                feria.setActive(true);
+                            id = daoFeria.update(feria);
                         } else
                             throw new ASException("ERROR: El intervalo de fechas no es correcto.\n");
                     } else
@@ -112,6 +116,7 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
             }
         } else
             throw new ASException("ERROR: El ID no es valido.\n");
+        return id;
     }
 
     public Collection<Tferia> list() throws ASException {
@@ -151,12 +156,13 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
     }
 
     public Tferia showByName(String name) throws ASException {
+        Tferia feria;
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
         if (name != null) {
             try {
                 Tferia read = daoFeria.readByName(name);
                 if (read != null)
-                    return read;
+                    feria = read;
                 else
                     throw new ASException("ERROR: La feria " + name + " no existe.\n");
             } catch (Exception ex) {
@@ -164,15 +170,17 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
             }
         } else
             throw new ASException("ERROR: No se ha introducido un nombre.\n");
+        return feria;
     }
 
     public Tferia showById(Integer id) throws ASException {
+        Tferia feria;
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
         if (id > 0) {
             try {
                 Tferia read = daoFeria.readById(id);
                 if (read != null)
-                    return read;
+                    feria = read;
                 else
                     throw new ASException("ERROR: La feria " + id + " no existe.\n");
             } catch (Exception ex) {
@@ -180,5 +188,6 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
             }
         } else
             throw new ASException("ERROR: El ID introducido no es valido.\n");
+        return feria;
     }
 }

@@ -11,7 +11,7 @@ import java.util.Collection;
 public interface ASAsignacion {
     Integer create(Tasignacion asignacion) throws ASException;
 
-    Integer drop(Tasignacion asignacion) throws ASException;
+    Integer drop(Integer id) throws ASException;
 
     Integer modify(Tasignacion asignacion) throws ASException;
 

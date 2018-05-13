@@ -22,18 +22,22 @@ public class ASParticipacionImp implements ASParticipacion {
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
         DAOParticipante daoParticipante = IFDAOParticipante.getInstance().generateDAOparticipante();
 
-        if (participacion != null && participacion.getFair_id() >  0 && participacion.getClient_id() > 0) {
+        if (participacion != null && participacion.getFair_id() > 0 && participacion.getClient_id() > 0) {
             try {
                 Tferia fRead = daoFeria.readById(participacion.getFair_id());
                 Tparticipante fParticipante = daoParticipante.readById(participacion.getClient_id());
                 if (fRead != null && fParticipante != null) {
                     Tparticipacion read = daoParticipacion.readByFairIdClientId(participacion.getFair_id(), participacion.getClient_id());
-                    if (read == null)
-                        id = daoParticipacion.create(participacion);
-                    else {
-                        if (!read.getActive() && participacion.getActive())
-                            id = daoParticipacion.update(participacion);
+                    if (read == null) {
+                        if (fRead.getActive() && fParticipante.getActive())
+                            id = daoParticipacion.create(participacion);
                         else
+                            throw new ASException("La feria o el participante no estan activos.\n");
+                    } else {
+                        if (!read.getActive() && participacion.getActive() && fRead.getActive() && fParticipante.getActive()) {
+                            read.setActive(true);
+                            id = daoParticipacion.update(read);
+                        } else
                             throw new ASException("ERROR: El participante " + participacion.getClient_id() + " ya participa en la feria " + participacion.getFair_id() + ".\n");
                     }
                 } else
@@ -46,38 +50,40 @@ public class ASParticipacionImp implements ASParticipacion {
         return id;
     }
 
-    public Integer drop(Tparticipacion participacion) throws ASException {
-        int id;
+    public Integer drop(Integer id) throws ASException {
+        int idr;
         DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
-        ArrayList<Tstand> readStandList = new ArrayList<>();
+        ArrayList<Tstand> readStandList;
 
-        if (participacion != null && participacion.getId() > 0) {
+        if (id > 0) {
             try {
-                Tparticipacion read = daoParticipacion.readById(participacion.getId());
+                Tparticipacion read = daoParticipacion.readById(id);
                 if (read != null) {
                     read.setActive(false);
-                    readStandList = (ArrayList<Tstand>)daoStand.readByParticipation(participacion.getId());
+                    readStandList = (ArrayList<Tstand>) daoStand.readByParticipation(id);
                     //Borramos para una asignacion en concreto, todos sus stands
-                    for(int j = 0; j < readStandList.size(); j++) {
+                    for (int j = 0; j < readStandList.size(); j++) {
                         Tstand tStand = readStandList.get(j);
                         tStand.setActive(false);
                         daoStand.update(tStand);
                     }
-                    id = daoParticipacion.update(read);
+                    idr = daoParticipacion.update(read);
                 } else
-                    throw new ASException("ERROR: La participacion " + participacion.getId() + " no existe.\n");
+                    throw new ASException("ERROR: La participacion " + id + " no existe.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }
         } else
             throw new ASException("ERROR: El ID introducido no es valido.\n");
-        return id;
+        return idr;
     }
 
     public Integer modify(Tparticipacion participacion) throws ASException {
         int id;
         DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
+        DAOParticipante daoParticipante = IFDAOParticipante.getInstance().generateDAOparticipante();
+        DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
 
         if (participacion != null && participacion.getId() != -1 && participacion.getFair_id() != -1 && participacion.getClient_id() != -1) {
             try {
@@ -85,10 +91,18 @@ public class ASParticipacionImp implements ASParticipacion {
                 if (read != null) {
                     if (participacion.getFair_id() == read.getFair_id() && participacion.getClient_id() == read.getClient_id()) {
                         if (!participacion.getActive()) {
-                            participacion.setActive(false);
+                            if (read.getActive())
+                                participacion.setActive(true);
                             id = daoParticipacion.update(participacion);
-                        } else
+                        } else {
+                            if (!read.getActive()) {
+                                Tferia feria = daoFeria.readById(participacion.getFair_id());
+                                Tparticipante participante = daoParticipante.readById(participacion.getClient_id());
+                                if (!feria.getActive() || !participante.getActive())
+                                    participacion.setActive(false);
+                            }
                             id = daoParticipacion.update(participacion);
+                        }
                     } else
                         throw new ASException("ERROR: No pueden ser modificados el participante y/o feria de una participacion.\n");
                 } else
