@@ -222,7 +222,7 @@ public class GUIFormAssignation extends UIStructureFrame {
                 try {
                     okButtonActionPerformed(e);
                 }catch (NumberFormatException e1){
-                    new PanelProblemUser("Inserte caracteres validos.");
+                    new PanelProblemUser("Enter valid characters.");
                 } catch (Exception e1) {
                     new PanelProblemUser(e1.getMessage());
                 }
@@ -251,8 +251,8 @@ public class GUIFormAssignation extends UIStructureFrame {
 
     @Override
     public void update(int event, Object data) {
-        //JOptionPane.showMessageDialog(null,"The Assignation has been created successfully");
-        //JOptionPane.showMessageDialog(null, "A problem in the creation process occurred, insert Assignation's data another time please", "Error",
-        //                            JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null,"The Assignation has been created successfully");
+        JOptionPane.showMessageDialog(null, "A problem in the creation process occurred, insert Assignation's data another time please", "Error",
+                                    JOptionPane.ERROR_MESSAGE);
     }
 }

@@ -18,7 +18,7 @@ public class GUIViewPavilion extends UIStructureFrame {
     private JPanel formContainer;
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.BOLD, 80);
-    private Font fLabel = new Font(Font.DIALOG, Font.PLAIN, 30);
+    private Font fLabel = new Font(Font.MONOSPACED, Font.PLAIN, 30);
 
     public GUIViewPavilion(Tpabellon tpabellon) {
         super("");

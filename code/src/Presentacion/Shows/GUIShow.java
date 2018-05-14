@@ -33,12 +33,12 @@ public class GUIShow extends UIStructureFrame {
 
     private ButtonGroup radioButtons;
 
-    private Font fComboBox = new Font(Font.DIALOG, Font.PLAIN, 40);
+    private Font fComboBox = new Font(Font.MONOSPACED, Font.PLAIN, 40);
     private Font fTitle  = new Font(Font.MONOSPACED, Font.BOLD, 80);
-    private Font fRadioButton = new Font(Font.DIALOG, Font.PLAIN, 35);
-    private Font fButton  = new Font(Font.DIALOG, Font.PLAIN, 30);
-    private Font fLabelSubId = new Font(Font.DIALOG, Font.PLAIN, 30);
-    private Font fTextField = new Font(Font.DIALOG, Font.PLAIN, 30);
+    private Font fRadioButton = new Font(Font.MONOSPACED, Font.PLAIN, 35);
+    private Font fButton  = new Font(Font.MONOSPACED, Font.PLAIN, 30);
+    private Font fLabelSubId = new Font(Font.MONOSPACED, Font.PLAIN, 30);
+    private Font fTextField = new Font(Font.MONOSPACED, Font.PLAIN, 30);
 
     private Color cOkButton = new Color(26, 184, 59);
     private Color cComboBoxActive = new Color(207, 216, 220);
@@ -399,7 +399,7 @@ public class GUIShow extends UIStructureFrame {
                 try {
                     okButtonActionPerformed(e);
                 }catch (NumberFormatException e2){
-                    new PanelProblemUser("Inserte caracteres validos.");
+                    new PanelProblemUser("Enter valid characters.");
                 } catch (Exception e1){
                     new PanelProblemUser(e1.getMessage());
                 }

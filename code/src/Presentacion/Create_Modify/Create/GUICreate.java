@@ -141,7 +141,7 @@ public class GUICreate extends UIStructureFrame {
                 try {
                     okButtonActionPerformed(e);
                 } catch (NumberFormatException e1){
-                    new PanelProblemUser("Inserte caracteres validos.");
+                    new PanelProblemUser("Enter valid characters.");
                 } catch (Exception e2){
                     new PanelProblemUser(e2.getMessage());
                 }

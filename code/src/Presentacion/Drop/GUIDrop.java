@@ -139,7 +139,7 @@ public class GUIDrop extends UIStructureFrame {
                     try {
                         closeOkFrame(e);
                     }catch (NumberFormatException e2){
-                        new PanelProblemUser("Inserte caracteres validos.");
+                        new PanelProblemUser("Enter valid characters.");
                     } catch (Exception e1){
                         new PanelProblemUser(e1.getMessage());
                     }

@@ -17,6 +17,9 @@ public class GUIHome extends UIStructureFrame implements UI {
 
     private Font fTitle = new Font(Font.MONOSPACED, Font.PLAIN, 60);
     private Font fBigButton = new Font(Font.MONOSPACED, Font.PLAIN, 30);
+    Dimension ss = Toolkit.getDefaultToolkit ().getScreenSize ();
+    Dimension frameSize = new Dimension ( 500, 300 );
+
 
     private Color cBigButton = new Color(49,49,49);
 
@@ -29,7 +32,9 @@ public class GUIHome extends UIStructureFrame implements UI {
         super("IFESOFT");
         initComponents();
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setBounds(100,100, minScreenSize.width, minScreenSize.height);
+        this.setBounds(ss.width / 2 - frameSize.width / 2,
+                ss.height / 2 - frameSize.height / 2,
+                frameSize.width, frameSize.height ); //100,100, minScreenSize.width, minScreenSize.height
         this.setVisible(true);
     }
 

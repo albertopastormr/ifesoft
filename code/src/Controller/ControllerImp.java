@@ -26,6 +26,8 @@ import Presentacion.Utils.ActionHelp;
 import Presentacion.Events.Event;
 import Presentacion.Events.EventGUI;
 
+import javax.swing.*;
+
 public class ControllerImp extends Controller {
 
     private ASFeria asFair;
@@ -34,6 +36,7 @@ public class ControllerImp extends Controller {
     private ASStand asStand;
     private ASParticipante asClient;
     private ASParticipacion asParticipation;
+    private JTextField textID;
 
     public ControllerImp(){
         this.asFair = IFASFeria.getInstance().generateASferia();
@@ -278,42 +281,42 @@ public class ControllerImp extends Controller {
 
             case Event.DROP_FAIR:
                 try {
-                    int res = asFair.drop((Tferia)data);
+                    int res = asFair.drop(Integer.parseInt(textID.getText()));
                     if (res>0) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_FAIR_OK, res);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_FAIR_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.DROP_PAVILION:
                 try {
-                    int res = asPavilion.drop((Tpabellon) data);
+                    int res = asPavilion.drop(Integer.parseInt(textID.getText()));
                     if (res>0) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_PAVILION_OK, res);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_PAVILION_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.DROP_CLIENT:
                 try {
-                    int res = asClient.drop(((Tparticipante)data).getId());
+                    int res = asClient.drop(Integer.parseInt(textID.getText()));
                     if (res>0) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_CLIENT_OK, res);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_CLIENT_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.DROP_ASSIGNATION:
                 try {
-                    int res = asAssignation.drop((Tasignacion)data);
+                    int res = asAssignation.drop(Integer.parseInt(textID.getText()));
                     if (res>0) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_ASSIGNATION_OK, res);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_ASSIGNATION_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.DROP_PARTICIPATION:
                 try {
-                    int res = asParticipation.drop((Tparticipacion)data);
+                    int res = asParticipation.drop(Integer.parseInt(textID.getText()));
                     if (res>0) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_PARTICIPATION_OK, res);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_PAVILION_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.DROP_STAND:
                 try {
-                    int res = asStand.drop((Tstand)data);
+                    int res = asStand.drop(Integer.parseInt(textID.getText()));
                     if (res>0) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_STAND_OK, res);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_STAND_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
