@@ -13,7 +13,7 @@ import java.util.Collection;
 
 public class GUIListPavilions extends UIStructureFrame{
 
-    private String[] columnNames = {"NUMBER","TOTAL M2","CAPACITY"};
+    private String[] columnNames = {"ID","TOTAL M2","CAPACITY", "ACTIVE"};
     private Object[][] data;
 
     private Collection<Tpabellon> tPavilions;
@@ -50,6 +50,7 @@ public class GUIListPavilions extends UIStructureFrame{
             this.data[i][0] = tpavilion.getId();
             this.data[i][1] = tpavilion.getTotal_m2();
             this.data[i][2] = tpavilion.getCapacity();
+            this.data[i][3] = tpavilion.getActive();
             i++;
         }
 
@@ -115,7 +116,7 @@ public class GUIListPavilions extends UIStructureFrame{
     @Override
     public void update(int event, Object data) {
         if(data != null) JOptionPane.showMessageDialog(null,"Here is the list of Pavilions you were looking for");
-        else JOptionPane.showMessageDialog(null, "A problem in the 'list' process occurred, insert data another time please", "Error",
+        else JOptionPane.showMessageDialog(null, "A problem in the 'list' process occurred, insert data again, please", "Error",
                 JOptionPane.ERROR_MESSAGE);
     }
 }

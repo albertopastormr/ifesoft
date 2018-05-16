@@ -17,7 +17,7 @@ import java.util.*;
 
 public class GUIListFairs extends UIStructureFrame {
 
-    private String[] columnNames = {"ID FAIR","NAME","DESCRIPTION","DATE START","DATE END"};
+    private String[] columnNames = {"ID FAIR","NAME","DESCRIPTION","DATE START","DATE END","ACTIVE"};
     private Object[][] data;
 
     private Collection<Tferia> fair;
@@ -56,6 +56,7 @@ public class GUIListFairs extends UIStructureFrame {
             this.data[i][2] = tferia.getDescription();
             this.data[i][3] = Utilities.parseDateToString(tferia.getIniDate());
             this.data[i][4] = Utilities.parseDateToString(tferia.getEndDate());
+            this.data[i][5] = tferia.getActive();
             i++;
         }
 
@@ -120,7 +121,7 @@ public class GUIListFairs extends UIStructureFrame {
         table.setRowSelectionAllowed(false);
 
         JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setPreferredSize(new Dimension(1042, 500));
+        scrollPane.setPreferredSize(new Dimension(this.columnNames.length*200, 500));
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         centerPanel.add(scrollPane);
     }

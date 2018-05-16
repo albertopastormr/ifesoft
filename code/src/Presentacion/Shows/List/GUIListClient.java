@@ -2,6 +2,8 @@ package Presentacion.Shows.List;
 
 import Controller.Controller;
 import Negocio.Participante.Tparticipante;
+import Negocio.Participante.TparticipanteInternacional;
+import Negocio.Participante.TparticipanteNacional;
 import Presentacion.Events.Event;
 import Presentacion.UIStructureFrame;
 
@@ -16,7 +18,7 @@ import java.util.Collection;
 
 public class GUIListClient extends UIStructureFrame {
 
-    private String[] columnNames = {"ID","NAME","PHONE NUMBER"};
+    private String[] columnNames = {"ID","NAME","PHONE NUMBER","ACTIVE", "COUNTRY/REGION", "TYPE"};
     private Object[][] data;
 
     private Collection<Tparticipante> client;
@@ -53,6 +55,15 @@ public class GUIListClient extends UIStructureFrame {
             this.data[i][0] = client.getId();
             this.data[i][1] = client.getName();
             this.data[i][2] = client.getPhone();
+            this.data[i][3] = client.getActive();
+            if( client instanceof TparticipanteNacional) {
+                this.data[i][4] = ((TparticipanteNacional) client).getRegion();
+                this.data[i][5] = "Nacional";
+            }
+            else if ( client instanceof TparticipanteInternacional) {
+                this.data[i][4] = ((TparticipanteInternacional) client).getCountry();
+                this.data[i][5] = "Internacional";
+            }
             i++;
         }
 
@@ -100,7 +111,7 @@ public class GUIListClient extends UIStructureFrame {
             }
             Component comp = renderer.getTableCellRendererComponent(table, col.getHeaderValue(), false,
                     false, 0, 0);
-            width = comp.getPreferredSize().width + 12;
+            width = comp.getPreferredSize().width + 52;
             col.setPreferredWidth(width);
         }
         table.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -108,7 +119,7 @@ public class GUIListClient extends UIStructureFrame {
         table.setRowSelectionAllowed(false);
 
         JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setPreferredSize(new Dimension(600, 500));
+        scrollPane.setPreferredSize(new Dimension(this.columnNames.length*300, 500));
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         centerPanel.add(scrollPane);
     }

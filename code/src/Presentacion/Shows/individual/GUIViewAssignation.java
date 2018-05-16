@@ -100,9 +100,9 @@ public class GUIViewAssignation extends UIStructureFrame {
         JLabel idLabel = createLabel("Assignation ID:");
         JLabel idFairLabel = createLabel("Fair ID:");
         JLabel idPavilionLabel = createLabel("Pavilion ID:");
-        JLabel usedMetresLabel = createLabel("Used m\262:");
-        JLabel totalMetresLabel = createLabel("Total m\262:");
-        JLabel activelabel = createLabel("Active m\262:");
+        JLabel usedMetresLabel = createLabel("Used square metres:");
+        JLabel totalMetresLabel = createLabel("Total square metres:");
+        JLabel activelabel = createLabel("Active:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;

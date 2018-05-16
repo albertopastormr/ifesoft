@@ -96,20 +96,29 @@ public class GUIViewPavilion extends UIStructureFrame {
 
         JLabel aforoLabel = createLabel("Capacity:");
         JLabel m2totLabel = createLabel("Total square-metres:");
-        JLabel activeLabel = createLabel("Active");
+        JLabel activeLabel = createLabel("Active:");
+        JLabel idLabel = createLabel("Pavilion id:");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
 
         formCon.gridx = 0;
         formCon.gridy = 0;
-        formPanel.add(aforoLabel, formCon);
+        formPanel.add(idLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 1;
-        formPanel.add(m2totLabel, formCon);
+        formPanel.add(aforoLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 2;
+        formPanel.add(m2totLabel, formCon);
+        formCon.gridx = 0;
+        formCon.gridy = 3;
         formPanel.add(activeLabel, formCon);
+
+        JLabel idField = createLabel(id);
+        idField.setMinimumSize(minDim);
+        idField.setPreferredSize(prefDim);
+        idField.setMaximumSize(maxDim);
 
         JLabel aforoField = createLabel(capacity);
         aforoField.setMinimumSize(minDim);
@@ -132,12 +141,15 @@ public class GUIViewPavilion extends UIStructureFrame {
 
         formCon.gridx = 1;
         formCon.gridy = 0;
-        formPanel.add(aforoField, formCon);
+        formPanel.add(idField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 1;
-        formPanel.add(m2totField, formCon);
+        formPanel.add(aforoField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 2;
+        formPanel.add(m2totField, formCon);
+        formCon.gridx = 1;
+        formCon.gridy = 3;
         formPanel.add(activeField, formCon);
         formContainer.add(formPanel);
     }

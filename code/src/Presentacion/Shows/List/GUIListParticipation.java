@@ -111,7 +111,7 @@ public class GUIListParticipation extends UIStructureFrame{
         table.setRowSelectionAllowed(false);
 
         JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setPreferredSize(new Dimension(768, 500));
+        scrollPane.setPreferredSize(new Dimension(this.columnNames.length*200, 500));
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         centerPanel.add(scrollPane);
     }

@@ -11,8 +11,3 @@ CAMBIOS SRS:
 
 PENDIENTE:
 . Visualizar feria: Mostrar pabellones
-
-Como se gestionan entonces los mensajes correctos? Por Excepcion o por res???
-
-Resultados de pruebas caja negra:
-. List stand por participacion no funciona.

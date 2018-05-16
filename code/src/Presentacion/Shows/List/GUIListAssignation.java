@@ -13,7 +13,7 @@ import java.util.Collection;
 
 public class GUIListAssignation extends UIStructureFrame {
 
-    private String[] columnNames = {"ID ASSIGNATION" ,"ID FAIR","ID PAVILION", "USED M2", "TOTAL M2"};
+    private String[] columnNames = {"ID ASSIGNATION" ,"ID FAIR","ID PAVILION", "USED M2", "TOTAL M2", "ACTIVE"};
     private Object[][] data;
 
     private Collection<Tasignacion> assignation;
@@ -50,6 +50,7 @@ public class GUIListAssignation extends UIStructureFrame {
             this.data[i][2] = assignation.getPavilion_id();
             this.data[i][3] = assignation.getUsed_m2();
             this.data[i][4] = assignation.getTotal_m2();
+            this.data[i][5] = assignation.getActive();
             i++;
         }
 
@@ -102,7 +103,7 @@ public class GUIListAssignation extends UIStructureFrame {
         table.setRowSelectionAllowed(false);
 
         JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setPreferredSize(new Dimension(701, 500));
+        scrollPane.setPreferredSize(new Dimension(this.columnNames.length*200, 500));
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         centerPanel.add(scrollPane);
     }

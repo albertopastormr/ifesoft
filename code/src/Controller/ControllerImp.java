@@ -27,6 +27,7 @@ import Presentacion.Events.Event;
 import Presentacion.Events.EventGUI;
 
 import javax.swing.*;
+import java.util.Collection;
 
 public class ControllerImp extends Controller {
 
@@ -328,48 +329,47 @@ public class ControllerImp extends Controller {
             case Event.SHOW_FAIR_INDIVIDUAL:
                 try {
                     Tferia tfair = asFair.showById((Integer)data);
-                    IFViewList.getInstance().generateSpecificView(event , asFair.showById((Integer)data));
-                    if (tfair!=null) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_SHOW_INDIVIDUAL_FAIR_OK, tfair);
+                    if (tfair!=null) IFViewList.getInstance().generateSpecificView(event , tfair);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_SHOW_INDIVIDUAL_FAIR_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_PAVILION_INDIVIDUAL:
                 try {
                     Tpabellon tpavilion = asPavilion.showById((Integer)data);
-                    IFViewList.getInstance().generateSpecificView(event , asPavilion.showById((Integer)data));
-                    if (tpavilion!=null) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_SHOW_INDIVIDUAL_PAVILION_OK, tpavilion);
+                    if (tpavilion!=null)
+                    	IFViewList.getInstance().generateSpecificView(event , tpavilion);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_SHOW_INDIVIDUAL_PAVILION_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_CLIENT_INDIVIDUAL:
                 try {
                     Tparticipante tclient = asClient.showById((Integer)data);
-                    IFViewList.getInstance().generateSpecificView(event ,asClient.showById((Integer) data));
-                    if (tclient!=null) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_SHOW_INDIVIDUAL_CLIENT_OK, tclient);
+                    if (tclient!=null)
+						IFViewList.getInstance().generateSpecificView(event , tclient);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_SHOW_INDIVIDUAL_CLIENT_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_ASSIGNATION_INDIVIDUAL:
                 try {
-                    Tasignacion tassignation = asAssignation.showById((Integer)data); //showID?
-                    IFViewList.getInstance().generateSpecificView(event ,asAssignation.show((Integer) data));
-                    if (tassignation!=null) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_SHOW_INDIVIDUAL_ASSIGNATION_OK, tassignation);
+                    Tasignacion tassignation = asAssignation.show((Integer)data);
+                    if (tassignation!=null)
+						IFViewList.getInstance().generateSpecificView(event , tassignation);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_SHOW_INDIVIDUAL_ASSIGNATION_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_PARTICIPATION_INDIVIDUAL:
                 try {
-                    Tparticipacion tparticipation = asParticipation.showById((Integer)data);
-                    IFViewList.getInstance().generateSpecificView(event ,asParticipation.show((Integer) data));
-                    if (tparticipation!=null) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_SHOW_INDIVIDUAL_PARTICIPATION_OK, tparticipation);
-                    else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_SHOW_INDIVIDUAL_PARTICIPATION_FAIL, null);
+                    Tparticipacion tparticipation = asParticipation.show((Integer)data);
+                    if (tparticipation!=null)
+						IFViewList.getInstance().generateSpecificView(event ,tparticipation);
+					else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_SHOW_INDIVIDUAL_PARTICIPATION_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_STAND_INDIVIDUAL:
                 try {
                     Tstand tstand = asStand.showById((Integer)data);
-                    IFViewList.getInstance().generateSpecificView(event , asStand.showById((Integer) data));
-                    if (tstand!=null) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_SHOW_INDIVIDUAL_STAND_OK, tstand);
+                    if (tstand!=null)
+						IFViewList.getInstance().generateSpecificView(event , tstand);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_SHOW_INDIVIDUAL_STAND_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
@@ -378,95 +378,106 @@ public class ControllerImp extends Controller {
 
             case Event.SHOW_FAIR_LIST:
                 try {
-                    Tferia tfair = asFair.showById((Integer)data);
-                    IFViewList.getInstance().generateSpecificView(event ,asFair.list());
-                    if (tfair!=null) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_LIST_FAIR_OK, tfair);
-                    else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_LIST_FAIR_FAIL, null);
+                    Collection<Tferia> collec_tferia = asFair.list();
+                    if (collec_tferia !=null)
+						IFViewList.getInstance().generateSpecificView(event , collec_tferia);
+                    else
+                    	IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_LIST_FAIR_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
-            case Event.SHOW_FAIR_LIST_DATES: //y aqui?
+            case Event.SHOW_FAIR_LIST_DATES:
                 try {
-
-                    IFViewList.getInstance().generateSpecificView(event ,asFair.listDates((Tferia) data));
+                	Collection<Tferia> collec_tferia = asFair.listDates((Tferia) data);
+                	if(collec_tferia != null)
+                		IFViewList.getInstance().generateSpecificView(event ,collec_tferia);
+                	else
+						IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_LIST_FAIR_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_PAVILION_LIST:
                 try {
-                    Tpabellon tpavilion = asPavilion.showById((Integer)data);
-                    IFViewList.getInstance().generateSpecificView(event ,asPavilion.list());
-                    if (tpavilion!=null) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_LIST_PAVILION_OK, tpavilion);
+                    Collection<Tpabellon> collec_tpabellon = asPavilion.list();
+                    if (collec_tpabellon!=null)
+						IFViewList.getInstance().generateSpecificView(event , collec_tpabellon);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_LIST_PAVILION_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_CLIENT_LIST:
                 try {
-                    Tparticipante tclient = asClient.showById((Integer)data);
-                    IFViewList.getInstance().generateSpecificView(event ,asClient.list());
-                    if (tclient!=null) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_LIST_CLIENT_OK, tclient);
+                    Collection<Tparticipante> collec_tparticipante = asClient.list();
+                    if (collec_tparticipante!=null)
+						IFViewList.getInstance().generateSpecificView(event , collec_tparticipante);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_LIST_CLIENT_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_ASSIGANTION_FAIR:
                 try {
-                    Tasignacion tassignation = asAssignation.showById((Integer)data);
-                    IFViewList.getInstance().generateSpecificView(event ,asAssignation.showByIdFair((Integer)data));
-                    if (tassignation!=null) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_LIST_ASSIGNATION_OK, tassignation);
+                    Collection<Tasignacion> collec_tasignacion = asAssignation.showByIdFair((Integer)data);
+                    if (collec_tasignacion!=null) IFViewList.getInstance().generateSpecificView(event , collec_tasignacion);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_LIST_ASSIGNATION_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
-            case Event.SHOW_ASSIGNATION_PAVILION: //igual que el otro?
+            case Event.SHOW_ASSIGNATION_PAVILION:
                 try {
-                    Tasignacion tassignation = asAssignation.showById((Integer)data);
-                    IFViewList.getInstance().generateSpecificView(event ,asAssignation.showByIdPavilion((Integer)data));
-                    if (tassignation!=null) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_LIST_ASSIGNATION_OK, tassignation);
+                    Collection<Tasignacion> collec_tasignacion = asAssignation.showByIdPavilion((Integer)data);
+                    if (collec_tasignacion!=null)
+						IFViewList.getInstance().generateSpecificView(event ,collec_tasignacion);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_LIST_ASSIGNATION_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
-            case Event.SHOW_ASSIGANTION_LIST: //estos?
+            case Event.SHOW_ASSIGANTION_LIST:
                 try {
-                    Tasignacion tassignation = asAssignation.showById((Integer)data);
-                    IFViewList.getInstance().generateSpecificView(event ,asAssignation.list());
-                    if (tassignation!=null) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_LIST_ASSIGNATION_OK, tassignation);
+					Collection<Tasignacion> collec_tasignacion = asAssignation.list();
+                    if (collec_tasignacion!=null)
+						IFViewList.getInstance().generateSpecificView(event ,collec_tasignacion);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_LIST_ASSIGNATION_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_PARTICIPATION_FAIR:
                 try {
-                    Tparticipacion tparticipation = asParticipation.showById((Integer)data);
-                    IFViewList.getInstance().generateSpecificView(event ,asParticipation.showByFairId((Integer) data));
-                    if (tparticipation!=null) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_LIST_PARTICIPATION_OK, tparticipation);
+                    Collection<Tparticipacion> collec_tparticipacion = asParticipation.showByFairId((Integer) data);
+                    if (collec_tparticipacion!=null)
+						IFViewList.getInstance().generateSpecificView(event ,collec_tparticipacion);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_LIST_PARTICIPATION_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_PARTICIPATION_CLIENT:
                 try {
-                    Tparticipacion tparticipation = asParticipation.showById((Integer)data);
-                    IFViewList.getInstance().generateSpecificView(event ,asParticipation.showByClientId((Integer)data));
-                    if (tparticipation!=null) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_LIST_PARTICIPATION_OK, tparticipation);
+					Collection<Tparticipacion> collec_tparticipacion = asParticipation.showByClientId((Integer) data);
+                    if (collec_tparticipacion!=null)
+                    	IFViewList.getInstance().generateSpecificView(event ,collec_tparticipacion);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_LIST_PARTICIPATION_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_PARTICIPATION_LIST:
                 try {
-                    Tparticipacion tparticipation = asParticipation.showById((Integer)data);
-                    IFViewList.getInstance().generateSpecificView(event ,asParticipation.list());
-                    if (tparticipation!=null) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_LIST_PARTICIPATION_OK, tparticipation);
+					Collection<Tparticipacion> collec_tparticipacion = asParticipation.list();
+                    if (collec_tparticipacion!=null) IFViewList.getInstance().generateSpecificView(event ,collec_tparticipacion);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_LIST_PARTICIPATION_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
-            case Event.SHOW_STAND_ASSIGNATION: //???
+            case Event.SHOW_STAND_ASSIGNATION:
                 try {
-                    IFViewList.getInstance().generateSpecificView(event ,asStand.showByAssignation((Integer) data));
+                	Collection<Tstand> collec_tstand = asStand.showByAssignation((Integer) data);
+                	if(collec_tstand != null)
+						IFViewList.getInstance().generateSpecificView(event ,collec_tstand);
+					else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_LIST_STAND_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_STAND_PARTICIPATION:
                 try {
-                    IFViewList.getInstance().generateSpecificView(event ,asStand.showByParticipation((Integer)data));
+					Collection<Tstand> collec_tstand = asStand.showByAssignation((Integer) data);
+					if(collec_tstand != null)
+                    	IFViewList.getInstance().generateSpecificView(event ,collec_tstand);
+					else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_LIST_STAND_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.SHOW_STAND_LIST:
                 try {
-                    IFViewList.getInstance().generateSpecificView(event ,asStand.list());
+					Collection<Tstand> collec_tstand = asStand.list();
+					if(collec_tstand != null)
+                    	IFViewList.getInstance().generateSpecificView(event ,collec_tstand);
+					else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_LIST_STAND_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
         }

@@ -16,7 +16,7 @@ import java.util.Collection;
 
 public class GUIListStand extends UIStructureFrame {
 
-    private String[] columnNames = {"ID STAND","COST","NUMBER AT FEAR","M2"};
+    private String[] columnNames = {"ID STAND", "ID ASSIGNATION", "ID PARTICIPATION","COST","NUMBER AT FAIR","TOTAL M2","ACTIVE"};
     private Object[][] data;
 
     private Collection<Tstand> stand;
@@ -51,9 +51,12 @@ public class GUIListStand extends UIStructureFrame {
 
         for (Tstand tstand: transfer){
             this.data[i][0] = tstand.getId();
-            this.data[i][1] = tstand.getCost();
-            this.data[i][2] = tstand.getNum_at_fair();
-            this.data[i][3] = tstand.getTotal_m2();
+            this.data[i][1] = tstand.getAssignation_id();
+            this.data[i][2] = tstand.getParticipation_id();
+            this.data[i][3] = tstand.getCost();
+            this.data[i][4] = tstand.getNum_at_fair();
+            this.data[i][5] = tstand.getTotal_m2();
+            this.data[i][6] = tstand.getActive();
             i++;
         }
 
@@ -111,7 +114,7 @@ public class GUIListStand extends UIStructureFrame {
         table.setRowSelectionAllowed(false);
 
         JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setPreferredSize(new Dimension(600, 500));
+        scrollPane.setPreferredSize(new Dimension(this.columnNames.length*200, 500));
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         centerPanel.add(scrollPane);
     }
@@ -119,7 +122,7 @@ public class GUIListStand extends UIStructureFrame {
     @Override
     public void update(int event, Object data) {
         if(data != null) JOptionPane.showMessageDialog(null,"Here is the list of Stands you were looking for");
-        else JOptionPane.showMessageDialog(null, "A problem in the 'list' process occurred, insert data another time please", "Error",
+        else JOptionPane.showMessageDialog(null, "A problem in the 'list' process occurred, insert data again, please", "Error",
                 JOptionPane.ERROR_MESSAGE);
     }
 }

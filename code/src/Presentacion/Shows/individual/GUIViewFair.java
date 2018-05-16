@@ -105,26 +105,35 @@ public class GUIViewFair extends UIStructureFrame {
         JLabel descLabel = createLabel("Description:");
         JLabel iniDateLabel = createLabel("Start Date:");
         JLabel finDateLabel = createLabel("End Date:");
-        JLabel activeLabel = createLabel("Active");
+        JLabel activeLabel = createLabel("Active:");
+        JLabel idLabel = createLabel("ID");
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
 
         formCon.gridx = 0;
         formCon.gridy = 0;
-        formPanel.add(nameLabel, formCon);
+        formPanel.add(idLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 1;
-        formPanel.add(descLabel, formCon);
+        formPanel.add(nameLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 2;
-        formPanel.add(iniDateLabel, formCon);
+        formPanel.add(descLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 3;
-        formPanel.add(finDateLabel, formCon);
+        formPanel.add(iniDateLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 4;
+        formPanel.add(finDateLabel, formCon);
+        formCon.gridx = 0;
+        formCon.gridy = 5;
         formPanel.add(activeLabel, formCon);
+
+        JLabel idField = createLabel(id);
+        idField.setMinimumSize(minDim);
+        idField.setPreferredSize(prefDim);
+        idField.setMaximumSize(maxDim);
 
         JLabel nameField = createLabel(name);
         nameField.setMinimumSize(minDim);
@@ -163,18 +172,21 @@ public class GUIViewFair extends UIStructureFrame {
 
         formCon.gridx = 1;
         formCon.gridy = 0;
-        formPanel.add(nameField, formCon);
+        formPanel.add(idField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 1;
-        formPanel.add(descField, formCon);
+        formPanel.add(nameField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 2;
-        formPanel.add(iniDateField, formCon);
+        formPanel.add(descField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 3;
-        formPanel.add(finDateField, formCon);
+        formPanel.add(iniDateField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 4;
+        formPanel.add(finDateField, formCon);
+        formCon.gridx = 1;
+        formCon.gridy = 5;
         formPanel.add(activeField, formCon);
         formContainer.add(formPanel);
     }

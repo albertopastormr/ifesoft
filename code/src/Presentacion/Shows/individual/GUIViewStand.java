@@ -101,11 +101,11 @@ public class GUIViewStand extends UIStructureFrame {
         formCon.weighty = 0.5;
         formCon.anchor = GridBagConstraints.EAST;
 
-        JLabel metresLabel = createLabel("Metres:");
-        JLabel numberLabel = createLabel("Number:");
+        JLabel metresLabel = createLabel("Total square metres:");
+        JLabel numberLabel = createLabel("Number at fair:");
         JLabel costLabel = createLabel("Cost:");
-        JLabel assignationLabel = createLabel("Assignation:");
-        JLabel participationLabel = createLabel("Participation:");
+        JLabel assignationLabel = createLabel("Assignation id:");
+        JLabel participationLabel = createLabel("Participation id:");
         JLabel activeLabel = createLabel("Active:");
 
 

@@ -2,6 +2,8 @@ package Presentacion.Shows.individual;
 
 import Controller.Controller;
 import Negocio.Participante.Tparticipante;
+import Negocio.Participante.TparticipanteInternacional;
+import Negocio.Participante.TparticipanteNacional;
 import Presentacion.Events.Event;
 import Presentacion.UI;
 import Presentacion.UIStructureFrame;
@@ -17,7 +19,10 @@ public class GUIViewClient extends UIStructureFrame {
     private String name;
     private String phone;
     private boolean active;
-    //private String specialization;
+    private String specialization;
+    private spec_t type;
+
+    private enum spec_t{NACIONAL, INTERNACIONAL}
 
 
     private JPanel formContainer;
@@ -37,8 +42,14 @@ public class GUIViewClient extends UIStructureFrame {
         name = tclient.getName();
         phone = tclient.getPhone() + "";
         active = tclient.getActive();
-
-        //specialization =tclient.getSpec() + "";
+        if( tclient instanceof TparticipanteNacional){
+            specialization = ((TparticipanteNacional) tclient).getRegion();
+            type = spec_t.NACIONAL;
+        }
+        else if ( tclient instanceof TparticipanteInternacional){
+            specialization = ((TparticipanteInternacional) tclient).getCountry();
+            type = spec_t.INTERNACIONAL;
+        }
 
         initComponents();
 
@@ -103,10 +114,19 @@ public class GUIViewClient extends UIStructureFrame {
 
 
 
+        JLabel idLabel = createLabel("ID:");
         JLabel nameLabel = createLabel("Name:");
         JLabel phoneLabel = createLabel("Phone:");
         JLabel activeLabel = createLabel("Active:");
-        //JLabel specializationLabel = createLabel("Specialization");
+        JLabel specLabel = null;
+        switch (type){
+            case NACIONAL:{
+                specLabel = createLabel("Region:");
+            } break;
+            case INTERNACIONAL:{
+                specLabel = createLabel("Country:");
+            }
+        }
 
         formCon.insets = new Insets(20, 0, 20, 0);
         formCon.anchor = GridBagConstraints.WEST;
@@ -114,14 +134,25 @@ public class GUIViewClient extends UIStructureFrame {
 
         formCon.gridx = 0;
         formCon.gridy = 0;
-        formPanel.add(nameLabel, formCon);
+        formPanel.add(idLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 1;
-        formPanel.add(phoneLabel, formCon);
+        formPanel.add(nameLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 2;
+        formPanel.add(phoneLabel, formCon);
+        formCon.gridx = 0;
+        formCon.gridy = 3;
         formPanel.add(activeLabel, formCon);
+        formCon.gridx = 0;
+        formCon.gridy = 4;
+        formPanel.add(specLabel, formCon);
 
+
+        JLabel idField = createLabel(id);
+        idLabel.setMinimumSize(minDim);
+        idLabel.setPreferredSize(prefDim);
+        idLabel.setMaximumSize(maxDim);
 
         JLabel nameField = createLabel(name);
         nameField.setMinimumSize(minDim);
@@ -138,6 +169,11 @@ public class GUIViewClient extends UIStructureFrame {
         activeField.setPreferredSize(prefDim);
         activeField.setMaximumSize(maxDim);
 
+        JLabel specField = createLabel(specialization);
+        activeField.setMinimumSize(minDim);
+        activeField.setPreferredSize(prefDim);
+        activeField.setMaximumSize(maxDim);
+
         formCon.anchor = GridBagConstraints.WEST;
 
         formCon.insets = new Insets(20,10,20,0);
@@ -145,13 +181,19 @@ public class GUIViewClient extends UIStructureFrame {
 
         formCon.gridx = 1;
         formCon.gridy = 0;
-        formPanel.add(nameField, formCon);
+        formPanel.add(idField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 1;
-        formPanel.add(phoneField, formCon);
+        formPanel.add(nameField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 2;
+        formPanel.add(phoneField, formCon);
+        formCon.gridx = 1;
+        formCon.gridy = 3;
         formPanel.add(activeField, formCon);
+        formCon.gridx = 1;
+        formCon.gridy = 4;
+        formPanel.add(specField, formCon);
         formContainer.add(formPanel);
     }
 
