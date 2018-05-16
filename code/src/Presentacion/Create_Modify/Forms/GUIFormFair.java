@@ -52,7 +52,7 @@ public class GUIFormFair extends UIStructureFrame {
 
         this.mod = false;
         initComponents();
-        this.setBounds(100,100, 800,800);
+
         this.setVisible(true);
 
     }
@@ -78,7 +78,7 @@ public class GUIFormFair extends UIStructureFrame {
         this.finDate = Utilities.parseDateToString(fair.getEndDate());
 
         initComponents();
-        this.setBounds(100,100, 800,800);
+
         this.setVisible(true);
     }
 

@@ -48,7 +48,7 @@ public class GUIFormPavilion extends UIStructureFrame {
 
         mod = false;
         initComponents();
-        this.setBounds(100,100, 800,800);
+
         this.setVisible(true);
     }
 
@@ -72,7 +72,7 @@ public class GUIFormPavilion extends UIStructureFrame {
         m2tot = "" + pavilion.getTotal_m2();
 
         initComponents();
-        this.setBounds(100,100, 800,800);
+
         this.setVisible(true);
     }
 

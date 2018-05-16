@@ -51,7 +51,7 @@ public class GUIFormStand extends UIStructureFrame {
 
         mod = false;
         initComponents();
-        this.setBounds(100,100, 800,800);
+
         this.setVisible(true);
     }
 
@@ -76,7 +76,7 @@ public class GUIFormStand extends UIStructureFrame {
         this.cost = "" + tstand.getCost();
 
         initComponents();
-        this.setBounds(100,100, 800,800);
+
         this.setVisible(true);
     }
 

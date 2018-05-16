@@ -39,7 +39,7 @@ public class GUIViewAssignation extends UIStructureFrame {
         activo = assignation.getActive();
 
         initComponents();
-        this.setBounds(100,100, 800,800);
+
         this.setVisible(true);
     }
 

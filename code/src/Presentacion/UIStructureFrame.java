@@ -46,6 +46,7 @@ public abstract class UIStructureFrame extends JFrame implements UI {
     protected void initComponents(){
         //======== this ========
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setBounds(100,100, 800,800);
         Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 

@@ -1,10 +1,12 @@
 package Presentacion.Utils;
 
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
+import java.awt.*;
 
 public class ActionHelp extends JOptionPane {
 
-    String message;
+    private String message;
 
     public ActionHelp(String message) {
         super();
@@ -13,15 +15,20 @@ public class ActionHelp extends JOptionPane {
     }
 
     public static String strHelpBasic() {
-        return "\nPara mas informacion pulsa el boton de ayuda.";
+        return "\nFor more information press Help button.";
     }
 
     private void iniGUI() {
+
+        JLabel label = new JLabel(message);
+        label.setFont(new Font(Font.DIALOG, Font.PLAIN, 20));
         JOptionPane optionPane = new JOptionPane();
         optionPane.setMessage(message);
-        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-        JDialog dialog = optionPane.createDialog(null, "Help");
-        dialog.setVisible(true);
+        showMessageDialog(null,label,"Help",JOptionPane.PLAIN_MESSAGE);
+        UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font(Font.DIALOG,Font.PLAIN,20)));
+        UIManager.put("OptionPane.okButtonText", "OK");
+
+
     }
 
     public int getMaxCharactersPerLineCount() {
