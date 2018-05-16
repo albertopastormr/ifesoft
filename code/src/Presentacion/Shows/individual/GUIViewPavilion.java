@@ -152,6 +152,8 @@ public class GUIViewPavilion extends UIStructureFrame {
 
     @Override
     public void update(int event, Object data) {
-
+        if(data != null) JOptionPane.showMessageDialog(null,"Here you can see the Pavilion's data");
+        else JOptionPane.showMessageDialog(null, "A problem in the 'show' process occurred, insert Pavilion's data another time please", "Error",
+                JOptionPane.ERROR_MESSAGE);
     }
 }

@@ -117,6 +117,8 @@ public class GUIListParticipation extends UIStructureFrame{
 
     @Override
     public void update(int event, Object data) {
-
+        if(data != null) JOptionPane.showMessageDialog(null,"Here is the list of Participations you were looking for");
+        else JOptionPane.showMessageDialog(null, "A problem in the 'list' process occurred, insert data another time please", "Error",
+                JOptionPane.ERROR_MESSAGE);
     }
 }
