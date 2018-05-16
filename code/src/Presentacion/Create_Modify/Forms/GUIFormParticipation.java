@@ -49,7 +49,7 @@ public class GUIFormParticipation extends UIStructureFrame{
 
         mod = false;
         initComponents();
-        this.setBounds(100,100, 800,800);
+
         this.setVisible(true);
     }
 
@@ -74,7 +74,7 @@ public class GUIFormParticipation extends UIStructureFrame{
         idClient = (String.valueOf(participation.getClient_id()));
 
         initComponents();
-        this.setBounds(100,100, 800,800);
+
         this.setVisible(true);
     }
 

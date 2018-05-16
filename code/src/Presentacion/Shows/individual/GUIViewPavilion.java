@@ -33,7 +33,7 @@ public class GUIViewPavilion extends UIStructureFrame {
         active = tpabellon.getActive();
 
         initComponents();
-        this.setBounds(100,100, 800,800);
+
         this.setVisible(true);
     }
 

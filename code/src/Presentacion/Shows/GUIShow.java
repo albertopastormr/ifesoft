@@ -68,7 +68,7 @@ public class GUIShow extends UIStructureFrame {
 
         initComponents();
         viewVisibleLogic();
-        this.setBounds(100,100, 800,800);
+
         this.setVisible(true);
     }
 

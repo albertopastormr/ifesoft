@@ -40,7 +40,7 @@ public class GUIViewStand extends UIStructureFrame {
         active = tstand.getActive();
 
         initComponents();
-        this.setBounds(100,100, 800,800);
+
         this.setVisible(true);
     }
 

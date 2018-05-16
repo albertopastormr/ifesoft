@@ -60,7 +60,7 @@ public class GUIFormClient extends UIStructureFrame {
         mod = false;
         initComponents();
         viewVisibleLogic();
-        this.setBounds(100,100, 800,800);
+
         this.setVisible(true);
     }
 
@@ -83,7 +83,7 @@ public class GUIFormClient extends UIStructureFrame {
 
         initComponents();
         viewVisibleLogic();
-        this.setBounds(100,100, 800,800);
+
     }
 
    /*private void nextButtonActionPerformed() throws Exception {
