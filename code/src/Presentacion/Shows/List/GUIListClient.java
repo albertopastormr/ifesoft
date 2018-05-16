@@ -111,7 +111,7 @@ public class GUIListClient extends UIStructureFrame {
             }
             Component comp = renderer.getTableCellRendererComponent(table, col.getHeaderValue(), false,
                     false, 0, 0);
-            width = comp.getPreferredSize().width + 52;
+            width = comp.getPreferredSize().width + 82;
             col.setPreferredWidth(width);
         }
         table.setBorder(BorderFactory.createLineBorder(Color.BLACK));

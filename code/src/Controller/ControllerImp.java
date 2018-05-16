@@ -282,42 +282,42 @@ public class ControllerImp extends Controller {
 
             case Event.DROP_FAIR:
                 try {
-                    int res = asFair.drop(Integer.parseInt(textID.getText()));
+                    int res = asFair.drop((Integer) data);
                     if (res>0) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_FAIR_OK, res);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_FAIR_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.DROP_PAVILION:
                 try {
-                    int res = asPavilion.drop(Integer.parseInt(textID.getText()));
+                    int res = asPavilion.drop((Integer) data);
                     if (res>0) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_PAVILION_OK, res);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_PAVILION_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.DROP_CLIENT:
                 try {
-                    int res = asClient.drop(Integer.parseInt(textID.getText()));
+                    int res = asClient.drop((Integer) data);
                     if (res>0) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_CLIENT_OK, res);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_CLIENT_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.DROP_ASSIGNATION:
                 try {
-                    int res = asAssignation.drop(Integer.parseInt(textID.getText()));
+                    int res = asAssignation.drop((Integer) data);
                     if (res>0) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_ASSIGNATION_OK, res);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_ASSIGNATION_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.DROP_PARTICIPATION:
                 try {
-                    int res = asParticipation.drop(Integer.parseInt(textID.getText()));
+                    int res = asParticipation.drop((Integer) data);
                     if (res>0) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_PARTICIPATION_OK, res);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_PAVILION_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }
                 break;
             case Event.DROP_STAND:
                 try {
-                    int res = asStand.drop(Integer.parseInt(textID.getText()));
+                    int res = asStand.drop((Integer) data);
                     if (res>0) IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_STAND_OK, res);
                     else IFDrop.getInstance().generateSpecificView(event, data).update(EventGUI.UPDATE_DROP_STAND_FAIL, null);
                 } catch (Exception e) { throw new Exception(e.getMessage()+ ActionHelp.strHelpBasic()); }

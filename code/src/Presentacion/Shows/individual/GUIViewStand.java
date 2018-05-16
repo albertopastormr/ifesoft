@@ -101,6 +101,7 @@ public class GUIViewStand extends UIStructureFrame {
         formCon.weighty = 0.5;
         formCon.anchor = GridBagConstraints.EAST;
 
+        JLabel idLabel = createLabel("ID:");
         JLabel metresLabel = createLabel("Total square metres:");
         JLabel numberLabel = createLabel("Number at fair:");
         JLabel costLabel = createLabel("Cost:");
@@ -114,22 +115,30 @@ public class GUIViewStand extends UIStructureFrame {
 
         formCon.gridx = 0;
         formCon.gridy = 0;
-        formPanel.add(assignationLabel, formCon);
+        formPanel.add(idLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 1;
-        formPanel.add(participationLabel, formCon);
+        formPanel.add(assignationLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 2;
-        formPanel.add(numberLabel, formCon);
+        formPanel.add(participationLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 3;
-        formPanel.add(costLabel, formCon);
+        formPanel.add(numberLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 4;
-        formPanel.add(metresLabel, formCon);
+        formPanel.add(costLabel, formCon);
         formCon.gridx = 0;
         formCon.gridy = 5;
+        formPanel.add(metresLabel, formCon);
+        formCon.gridx = 0;
+        formCon.gridy = 6;
         formPanel.add(activeLabel, formCon);
+
+        JLabel idField = createLabel(id);
+        idField.setMinimumSize(minDim);
+        idField.setPreferredSize(prefDim);
+        idField.setMaximumSize(maxDim);
 
         JLabel assignationField = createLabel(assignation);
         assignationField.setMinimumSize(minDim);
@@ -167,21 +176,24 @@ public class GUIViewStand extends UIStructureFrame {
 
         formCon.gridx = 1;
         formCon.gridy = 0;
-        formPanel.add(assignationField, formCon);
+        formPanel.add(idField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 1;
-        formPanel.add(participationField, formCon);
+        formPanel.add(assignationField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 2;
-        formPanel.add(metresField, formCon);
+        formPanel.add(participationField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 3;
-        formPanel.add(numberField, formCon);
+        formPanel.add(metresField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 4;
-        formPanel.add(costField, formCon);
+        formPanel.add(numberField, formCon);
         formCon.gridx = 1;
         formCon.gridy = 5;
+        formPanel.add(costField, formCon);
+        formCon.gridx = 1;
+        formCon.gridy = 6;
         formPanel.add(activeField, formCon);
         formContainer.add(formPanel);
     }

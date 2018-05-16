@@ -63,27 +63,27 @@ public class GUIDrop extends UIStructureFrame {
             switch (String.valueOf(comboBoxDrop.getSelectedItem())) {
                 case "Fair":
                     this.setVisible(false);
-                    Controller.getInstance().execute(Event.DROP_FAIR, new Tferia( Integer.parseInt(textID.getText()), null, null,null, null, null));
+                    Controller.getInstance().execute(Event.DROP_FAIR, Integer.parseInt(textID.getText()));
                     break;
                 case "Pavilion":
                     this.setVisible(false);
-                    Controller.getInstance().execute(Event.DROP_PAVILION, new Tpabellon(Integer.parseInt(textID.getText()), -1, -1, null));
+                    Controller.getInstance().execute(Event.DROP_PAVILION, Integer.parseInt(textID.getText()));
                     break;
                 case "Client":
                     this.setVisible(false);
-                    Controller.getInstance().execute(Event.DROP_CLIENT, new Tparticipante(Integer.parseInt(textID.getText()), null, -1, null));
+                    Controller.getInstance().execute(Event.DROP_CLIENT, Integer.parseInt(textID.getText()));
                     break;
                 case "Assignation":
                     this.setVisible(false);
-                    Controller.getInstance().execute(Event.DROP_ASSIGNATION, new Tasignacion(Integer.parseInt(textID.getText()), -1,-1, -1, -1, null));
+                    Controller.getInstance().execute(Event.DROP_ASSIGNATION, Integer.parseInt(textID.getText()));
                     break;
                 case "Participation":
                     this.setVisible(false);
-                    Controller.getInstance().execute(Event.DROP_PARTICIPATION, new Tparticipacion(Integer.parseInt(textID.getText()), -1, -1, null));
+                    Controller.getInstance().execute(Event.DROP_PARTICIPATION, Integer.parseInt(textID.getText()));
                     break;
                 case "Stand":
                     this.setVisible(false);
-                    Controller.getInstance().execute(Event.DROP_STAND, new Tstand(Integer.parseInt(textID.getText()), -1, -1, -1, -1,-1, null));
+                    Controller.getInstance().execute(Event.DROP_STAND, Integer.parseInt(textID.getText()));
                     break;
 
              }
