@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.util.Collection;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -21,7 +22,7 @@ public class ASParticipanteImpTest {
 
     ///intenta crear una participante existente
 
-    @Test(expected = ASException.class)//Se pasa el test si se lanza la excepcion
+    @Test(expected = ASException.class)
     //Metodo donde probamos que no se puede crear una participante ya existente en la bbdd
     public void createParticipanteExistente() throws Exception {
         ASParticipanteImp asParticipante = new ASParticipanteImp();
@@ -34,7 +35,12 @@ public class ASParticipanteImpTest {
 
         Tparticipante participante2 = new TparticipanteNacional("IBM", 666666666, true,"Madrid");
         asParticipante.create(participante2); //A partir de aqui le estamos diciendo al test que si intentamos crear participante2 y se lanza una excepcion se 
-        //Pasa el test
+
+        Tparticipante updated_part =  asParticipante.showById(participante2.getId());
+
+        assertEquals(updated_part.getName(), participante2.getName());
+        assertEquals(updated_part.getPhone(), participante2.getPhone());
+        assertEquals(updated_part.getActive(), participante2.getActive());
     }
 
     //Metodo donde probamos que no se puede crear una participante cuando le pasamos algun datos incorrecto, es decir, a null o incompleto

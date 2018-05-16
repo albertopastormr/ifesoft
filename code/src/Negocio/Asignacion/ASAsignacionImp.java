@@ -40,8 +40,8 @@ public class ASAsignacionImp implements ASAsignacion {
                             throw new ASException("ERROR: Los datos de la asignacion no son correctos. (m2 Incorrectos o pabellon desactivado)\n");
                     } else {
                         if (!transferAssignation.getActive() && asignacion.getActive() && transferPavilion.getActive() && transferFair.getActive()) {
-                            transferAssignation.setActive(true);
-                            id = daoAsignacion.update(transferAssignation);
+                            asignacion.setId(transferAssignation.getId());
+                            id = daoAsignacion.update(asignacion);
                         } else
                             throw new ASException("ERROR: La asignacion Feria(" + asignacion.getFair_id() + ") Pabellon(" + asignacion.getPavilion_id() + ") ya existe.\n");
                     }

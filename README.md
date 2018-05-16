@@ -12,15 +12,15 @@ After that, run the following command:
 
 ifesoft is the name of the database.
 
-Create new user:
+Create a new user:
 
 `CREATE USER 'manager'@'localhost' IDENTIFIED BY 'manager_if';`
 
-Put permits:
+Set privileges for the user created:
 
 `GRANT ALL PRIVILEGES ON * . * TO 'manager'@'localhost';`
 
-Go to bin directory:
+Go to /bin directory:
 
 `{INSTALLATION PATH}/bin`
 
@@ -28,7 +28,7 @@ If you are in MariaDb terminal: (keys) Ctrl + C
 
 `mysql -u manager -p ifesoft < {PATH}/ifesoft-create-db.sql`
 
-Insert the password and you end.
+Insert the password `manager-if`.
 
 this imports an existing database with a valid structure for ifesoft.
 ## Authors

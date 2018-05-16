@@ -109,7 +109,7 @@ public class ASFeriaImpTest {
 		ASFeriaImp asFeria = new ASFeriaImp();
 
 		Tferia feria = new Tferia(-1, "IBM", null, null , null, true); //Generamos un transfer
-		asFeria.drop(feria); //Creamos una feria con los datos intoducidos en el transfer anterior
+		asFeria.drop(feria.getId()); //Creamos una feria con los datos intoducidos en el transfer anterior
 		
 	}
 	//Intentamos borrar una feria con un id que no se encuentra en la bbdd
@@ -121,7 +121,7 @@ public class ASFeriaImpTest {
 
 		
 		Tferia feria = new Tferia(223344, "IBM", "The feria IBM", null , null, true);
-		asFeria.drop(feria);
+		asFeria.drop(feria.getId());
 		
 	}
 	//Borramos una feria correctamente, existente en la bbdd
@@ -134,7 +134,7 @@ public class ASFeriaImpTest {
 
 		Tferia feria = new Tferia(1, "IBM", "The feria IBM", dateIni , dateEnd, false);
 		asFeria.create(feria); //Creamos una feria IBM
-		assertTrue(asFeria.drop(feria) > 0); //Si se ha podido borrar la feria correctamente, nos devuelve el id de la feria borrada logicamente
+		assertTrue(asFeria.drop(feria.getId()) > 0); //Si se ha podido borrar la feria correctamente, nos devuelve el id de la feria borrada logicamente
 											//Y ademas el test sale correcto
 		
 	}

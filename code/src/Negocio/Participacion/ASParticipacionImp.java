@@ -35,8 +35,8 @@ public class ASParticipacionImp implements ASParticipacion {
                             throw new ASException("La feria o el participante no estan activos.\n");
                     } else {
                         if (!read.getActive() && participacion.getActive() && fRead.getActive() && fParticipante.getActive()) {
-                            read.setActive(true);
-                            id = daoParticipacion.update(read);
+                            participacion.setId(read.getId());
+                            id = daoParticipacion.update(participacion);
                         } else
                             throw new ASException("ERROR: El participante " + participacion.getClient_id() + " ya participa en la feria " + participacion.getFair_id() + ".\n");
                     }

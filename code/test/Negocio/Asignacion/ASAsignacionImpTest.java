@@ -133,17 +133,16 @@ public class ASAsignacionImpTest {
         ASAsignacionImp asAsignation = new ASAsignacionImp();
 
         Tasignacion transferAsignation = new Tasignacion(asignationId, 223344, 223344, 40000, 3000, true);
-        asAsignation.drop(transferAsignation);
+        asAsignation.drop(transferAsignation.getId());
     }
 
     @Test(expected = ASException.class)
     //Metodo donde queremos borrar una asignacion nula
-    public void dropAsignationNull() throws ASException, SQLException, DAOException{
+    public void dropAsignationNoId() throws ASException, SQLException, DAOException{
 
         ASAsignacionImp asAsignation = new ASAsignacionImp();
 
-        Tasignacion transferAsignation = null;
-        asAsignation.drop(transferAsignation);
+        asAsignation.drop(-1);
     }
 
     @Test(expected = ASException.class) //Metodo donde queremos borrar una asignacion que supuestamente esta borrada ya
@@ -153,8 +152,8 @@ public class ASAsignacionImpTest {
         asignationId = asAsignation.create(tasignacionTest1); //Creamos la asignacion primero con sus datos y nos pondra el booleano a true
         Tasignacion tasignacion = new Tasignacion(asignationId, 1, 1, 1, 1,true);
 
-        asAsignation.drop(tasignacion);
-        asAsignation.drop(tasignacion); //Aqui deberia saltar la excepcion ya que ya esta a false el booleano, y no podemos borrar dos veces lo mismo
+        asAsignation.drop(tasignacion.getId());
+        asAsignation.drop(tasignacion.getId()); //Aqui deberia saltar la excepcion ya que ya esta a false el booleano, y no podemos borrar dos veces lo mismo
     }
 
     @Test
@@ -165,7 +164,7 @@ public class ASAsignacionImpTest {
         asignationId = asAsignation.create(tasignacionTest1); //Creamos la asignacion
         Tasignacion tasignacion = new Tasignacion(asignationId, 1, 1, 1, 1,true);
 
-        assertTrue(asAsignation.drop(tasignacion) > 0); //si es mayor que 0 se borra correctamente
+        assertTrue(asAsignation.drop(tasignacion.getId()) > 0); //si es mayor que 0 se borra correctamente
     }
     //----------------------------------------------------------------------------------------------------------------------------------
 
