@@ -22,8 +22,12 @@ public class ASParticipanteImp implements ASParticipante {
                 if (read == null)
                     id = daoParticipante.create(participante);
                 else {
-                    read.setActive(true);
-                    id = daoParticipante.update(read);
+                    if(!read.getActive() && participante.getActive() && read.getName().equals(participante.getName())){
+                        participante.setId(read.getId());
+                        id = daoParticipante.update(participante);
+                    }
+                    else
+                        throw new ASException("ERROR: Ya existe un participante con este nombre.\n");
                 }
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());

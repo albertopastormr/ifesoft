@@ -25,9 +25,9 @@ public class ASPabellonImp implements ASPabellon {
                     else
                         throw new ASException("ERROR: La capacidad del pabellon es demasiado alta respecto a los metros de este.\n");
                 } else {
-                    if (!read.getActive()) {
-                        read.setActive(true);
-                        id = daoPabellon.update(read);
+                    if (!read.getActive() && pabellon.getActive()) {
+                        pabellon.setId(read.getId());
+                        id = daoPabellon.update(pabellon);
                     } else
                         throw new ASException("ERROR: El pabellon " + pabellon.getId() + " ya existe.\n");
                 }

@@ -134,7 +134,7 @@ public class ASStandImpTest {
         ASStandImp asStand = new ASStandImp();
 
         Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), 223344, 223344, 223344, 200, 20, false);
-        asStand.drop(tStand);
+        asStand.drop(tStand.getId());
     }
 
     //Borramos un stand correctamente
@@ -150,7 +150,7 @@ public class ASStandImpTest {
         Tstand tStand2 = new Tstand(idStand, idAsignacion1, idParticipacion1, 223344, 200, 20, true);
 
 
-        assertTrue(asStand.drop(tStand2) > 0);
+        assertTrue(asStand.drop(tStand2.getId()) > 0);
     }
 
     //------------------------------------------------------------------------------------------------------------------------
