@@ -36,7 +36,7 @@ public class GUICreate extends UIStructureFrame {
                 "</html>";
 
         initComponents();
-        this.setBounds(100,100, 800,800);
+
         this.setVisible(true);
     }
 

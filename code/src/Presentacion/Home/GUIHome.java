@@ -31,10 +31,9 @@ public class GUIHome extends UIStructureFrame implements UI {
     public GUIHome() {
         super("IFESOFT");
         initComponents();
+        this.cancelButton.setText("Exit");
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setBounds(ss.width / 2 - frameSize.width / 2,
-                ss.height / 2 - frameSize.height / 2,
-                frameSize.width, frameSize.height ); //100,100, minScreenSize.width, minScreenSize.height
+
         this.setVisible(true);
     }
 

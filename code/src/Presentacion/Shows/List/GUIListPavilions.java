@@ -13,7 +13,7 @@ import java.util.Collection;
 
 public class GUIListPavilions extends UIStructureFrame{
 
-    private String[] columnNames = {"NUMBER","TOTAL M2","UTIL M2","CAPACITY"};
+    private String[] columnNames = {"NUMBER","TOTAL M2","CAPACITY"};
     private Object[][] data;
 
     private Collection<Tpabellon> tPavilions;

@@ -11,22 +11,3 @@ CAMBIOS SRS:
 
 PENDIENTE:
 . Visualizar feria: Mostrar pabellones
-
-PREGUNTAR A ANTONIO DROP CASCADA--> SI BORRAMOS PARTICIPACION, SE BORRAN STANDS Y ALGO MAS?
-                                    SI BORRAMOS ASIGNACION, SE BORRAN STANDS Y ALGO MAS?
-                                    CONSULTAR SI ESTA BIEN FERIA EN CASCADA, PABELLON, Y PARTICIPANTE
-
-Como se gestionan entonces los mensajes correctos? Por Excepcion o por res???
-
-Resultados de pruebas caja negra:
-. Modify * muestran dialogo con texto 'null' ????  ---- NI IDEA DE QUE SE REFIERE ----
-. List Pabellon muestra campo vacio en Capacidad ---- A presentacion le llega vacio ya desde negocio.
-. Show Asignacion no muestra metros asignados verdaderos
-. List stand por participacion no funciona.
-
-Otras dudas:
-
-Feria:
-- Al modificar las fechas de una feria puede ser que los pabellones asignados esten asignados a otra feria
-Stand:
-- Reactivacion stand en create.

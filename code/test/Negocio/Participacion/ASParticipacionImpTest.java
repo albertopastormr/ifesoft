@@ -102,7 +102,7 @@ public class ASParticipacionImpTest {
         ASParticipacionImp asParticipacion = new ASParticipacionImp();
 
         Tparticipacion participacion = new Tparticipacion(-1, idFeria2, idParticipanteNacional, true);
-        int id2 = asParticipacion.drop(participacion);
+        int id2 = asParticipacion.drop(participacion.getId());
     }
 
     @Test(expected = ASException.class)//Se pasa el test si se lanza la excepcion
@@ -110,7 +110,7 @@ public class ASParticipacionImpTest {
         ASParticipacionImp asParticipacion = new ASParticipacionImp();
 
         Tparticipacion participacion = new Tparticipacion(23456, idFeria2, idParticipanteInternacional, true);
-        int id1 = asParticipacion.drop(participacion);
+        int id1 = asParticipacion.drop(participacion.getId());
     }
 
     @Test
@@ -118,7 +118,7 @@ public class ASParticipacionImpTest {
         ASParticipacionImp asParticipacion = new ASParticipacionImp();
 
         int id1 = asParticipacion.create(participacion1);
-        int id2 = asParticipacion.drop(participacion1);
+        int id2 = asParticipacion.drop(participacion1.getId());
         assert (id1 > 0 && id2 > 0);
         assert !asParticipacion.show(id2).getActive();
     }

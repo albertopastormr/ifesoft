@@ -16,7 +16,7 @@ import java.util.Collection;
 
 public class GUIListParticipation extends UIStructureFrame{
 
-    private String[] columnNames = {"ID PARTICIPATION","ID FAIR","ID CLIENT"};
+    private String[] columnNames = {"ID PARTICIPATION","ID FAIR","ID CLIENT", "ACTIVE"};
     private Object[][] data;
 
     private Collection<Tparticipacion> participation;
@@ -53,6 +53,7 @@ public class GUIListParticipation extends UIStructureFrame{
             this.data[i][0] = tParticipation.getId();
             this.data[i][1] = tParticipation.getFair_id();
             this.data[i][2] = tParticipation.getClient_id();
+            this.data[i][3] = tParticipation.getActive();
             i++;
         }
 
@@ -110,7 +111,7 @@ public class GUIListParticipation extends UIStructureFrame{
         table.setRowSelectionAllowed(false);
 
         JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setPreferredSize(new Dimension(468, 500));
+        scrollPane.setPreferredSize(new Dimension(768, 500));
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         centerPanel.add(scrollPane);
     }

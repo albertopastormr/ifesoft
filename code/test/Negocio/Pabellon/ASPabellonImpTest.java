@@ -60,7 +60,7 @@ public class ASPabellonImpTest {
         ASPabellonImp asPabellon = new ASPabellonImp();
 
         Tpabellon pabellon = new Tpabellon(100, 200, 200, true);
-        int id2 = asPabellon.drop(pabellon);
+        int id2 = asPabellon.drop(pabellon.getId());
     }
 
     @Test(expected = ASException.class)//Se pasa el test si se lanza la excepcion
@@ -68,7 +68,7 @@ public class ASPabellonImpTest {
         ASPabellonImp asPabellon = new ASPabellonImp();
 
         Tpabellon pabellon = new Tpabellon(23456, 200, 200, true);
-        int id1 = asPabellon.drop(pabellon);
+        int id1 = asPabellon.drop(pabellon.getId());
     }
 
     @Test
@@ -78,7 +78,7 @@ public class ASPabellonImpTest {
         Tpabellon pabellon = new Tpabellon(100, 200, 200, false);
         int id1 = asPabellon.create(pabellon);
         pabellon.setId(id1);
-        int id2 = asPabellon.drop(pabellon);
+        int id2 = asPabellon.drop(pabellon.getId());
         assert (id2 == id1);
     }
     //-------------------------------------------------------------------------------------------------------------
