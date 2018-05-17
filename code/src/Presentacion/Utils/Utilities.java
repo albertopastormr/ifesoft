@@ -14,7 +14,7 @@ public class Utilities {
         try {
             date = formatter.parse(dateStr);
         } catch (ParseException e) {
-            throw new Exception("FALLO EN LA FECHA: Inserta una fecha valida con el formato DD-MM-YYYY.\nPara mas informacion pulsa el boton de ayuda.");
+            throw new Exception("Wrong date format: Please enter a date with the format DD-MM-YYYY.\nPress the Help Button for more informations.");
         }
         return date;
     }
