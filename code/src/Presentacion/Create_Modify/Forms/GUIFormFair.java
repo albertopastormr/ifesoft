@@ -66,7 +66,7 @@ public class GUIFormFair extends UIStructureFrame {
                 "In the first field you have to insert the name of the fair," +
                 "in the second one description to give some information and define the theme of the fair," +
                 "in the third field you have to write the starting date " +
-                "and in the last one the end date." +
+                "and in the last one the end date. Both dates have to be entered in the 'dd-mm-yyyy' format." +
                 "</html>";
 
         this.mod = true;
