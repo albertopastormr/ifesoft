@@ -66,7 +66,7 @@ public class ASAsignacionImp implements ASAsignacion {
             try {
                 Tasignacion transferAssignation = daoAsignacion.readById(id);
                 //Si es distinto de null quiere decir que tenemos una asignacion activa con ese id, por lo que podemos borrarla.
-                if (transferAssignation != null && transferAssignation.getActive()) {
+                if (transferAssignation != null) {
                     transferAssignation.setActive(false);
                     readStandList = (ArrayList<Tstand>) daoStand.readByAssignation(id);
                     //Borramos para una asignacion en concreto, todos sus stands
