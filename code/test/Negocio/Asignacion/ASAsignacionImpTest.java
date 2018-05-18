@@ -145,7 +145,7 @@ public class ASAsignacionImpTest {
         asAsignation.drop(-1);
     }
 
-    @Test(expected = ASException.class) //Metodo donde queremos borrar una asignacion que supuestamente esta borrada ya
+    @Test //Metodo donde queremos borrar una asignacion que supuestamente esta borrada ya
     public void dropAsignationWithActiveFalse() throws ASException, SQLException, DAOException{
         int asignationId = -1;
         ASAsignacionImp asAsignation = new ASAsignacionImp();
@@ -153,7 +153,7 @@ public class ASAsignacionImpTest {
         Tasignacion tasignacion = new Tasignacion(asignationId, 1, 1, 1, 1,true);
 
         asAsignation.drop(tasignacion.getId());
-        asAsignation.drop(tasignacion.getId()); //Aqui deberia saltar la excepcion ya que ya esta a false el booleano, y no podemos borrar dos veces lo mismo
+        asAsignation.drop(tasignacion.getId());
     }
 
     @Test
