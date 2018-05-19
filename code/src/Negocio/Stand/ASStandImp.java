@@ -1,6 +1,7 @@
 package Negocio.Stand;
 
 import Exceptions.ASException;
+import Exceptions.DAOException;
 import Integracion.Asignacion.DAOAsignacion;
 import Integracion.Participacion.DAOParticipacion;
 import Integracion.Stand.DAOStand;
@@ -12,12 +13,13 @@ import Negocio.Participacion.Tparticipacion;
 import java.util.Collection;
 
 public class ASStandImp implements ASStand {
-    public Integer create(Tstand stand) throws ASException {
+    public Integer create(Tstand stand) throws ASException, DAOException {
         int id;
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         if (stand != null) {
             try {
                 if (stand.getTotal_m2() >= 1 && stand.getAssignation_id() > 0 && stand.getParticipation_id() > 0 && stand.getCost() >= 0 && stand.getNum_at_fair() >= 0) {
+
                     // Lectura Asignacion referenciada
                     DAOAsignacion daoAsignacion = IFDAOAsignacion.getInstance().generateDAOasignacion();
                     Tasignacion tasignacionRead = daoAsignacion.readById(stand.getAssignation_id());
@@ -187,7 +189,7 @@ public class ASStandImp implements ASStand {
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         if (id > 0) {
             try {
-                Collection<Tstand> read = daoStand.readByAssignation(id);
+                Collection<Tstand> read = daoStand.readByParticipation(id);
                 if (read != null)
                     stands = read;
                 else
