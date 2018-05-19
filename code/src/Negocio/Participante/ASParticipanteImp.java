@@ -50,23 +50,28 @@ public class ASParticipanteImp implements ASParticipante {
             try {
                 Tparticipante read = daoParticipante.readById(id);
                 if (read != null) {
-                    read.setActive(false);
-                    listaParticipaciones = (ArrayList<Tparticipacion>) daoParticipacion.readByClientId(read.getId());
-                    //Numero de asignaciones que tenemos en el arraylist para poder iterar
-                    for (int i = 0; i < listaParticipaciones.size(); i++) {
-                        //Desactivacion de todas las asignaciones que se corresponden con esa participacion
-                        Tparticipacion tParticipation = listaParticipaciones.get(i);
-                        tParticipation.setActive(false);
-                        daoParticipacion.update(tParticipation);
-                        //Desactivacion de stands referenciados en esa participacion
-                        readStandList = (ArrayList<Tstand>) daoStand.readByAssignation(tParticipation.getId());
-                        for (int j = 0; j < readStandList.size(); j++) {
-                            Tstand tStand = readStandList.get(j);
-                            tStand.setActive(false);
-                            daoStand.update(tStand);
+                    if(read.getActive() == true) {
+                        read.setActive(false);
+                        listaParticipaciones = (ArrayList<Tparticipacion>) daoParticipacion.readByClientId(read.getId());
+                        //Numero de asignaciones que tenemos en el arraylist para poder iterar
+                        for (int i = 0; i < listaParticipaciones.size(); i++) {
+                            //Desactivacion de todas las participaciones que se corresponden con esa participacion
+                            Tparticipacion tParticipation = listaParticipaciones.get(i);
+                            tParticipation.setActive(false);
+                            daoParticipacion.update(tParticipation);
+                            //Desactivacion de stands referenciados en esa participacion
+                            readStandList = (ArrayList<Tstand>) daoStand.readByAssignation(tParticipation.getId());
+                            for (int j = 0; j < readStandList.size(); j++) {
+                                Tstand tStand = readStandList.get(j);
+                                tStand.setActive(false);
+                                daoStand.update(tStand);
+                            }
                         }
+                        idr = daoParticipante.update(read);
                     }
-                    idr = daoParticipante.update(read);
+                    else{
+                        throw new ASException("ERROR: El participante " + id + " no esta activo .\n");
+                    }
                 } else
                     throw new ASException("ERROR: El participante " + id + " no existe.\n");
             } catch (Exception ex) {

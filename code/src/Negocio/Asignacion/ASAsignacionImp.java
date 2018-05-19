@@ -65,17 +65,22 @@ public class ASAsignacionImp implements ASAsignacion {
         if (id > 0) {
             try {
                 Tasignacion transferAssignation = daoAsignacion.readById(id);
-                //Si es distinto de null quiere decir que tenemos una asignacion activa con ese id, por lo que podemos borrarla.
+                //Si es distinto de null quiere decir que tenemos una asignacion  con ese id, por lo que podemos borrarla.
                 if (transferAssignation != null) {
-                    transferAssignation.setActive(false);
-                    readStandList = (ArrayList<Tstand>) daoStand.readByAssignation(id);
-                    //Borramos para una asignacion en concreto, todos sus stands
-                    for (int j = 0; j < readStandList.size(); j++) {
-                        Tstand tStand = readStandList.get(j);
-                        tStand.setActive(false);
-                        daoStand.update(tStand);
+                    if(transferAssignation.getActive() == true) {
+                        transferAssignation.setActive(false);
+                        readStandList = (ArrayList<Tstand>) daoStand.readByAssignation(id);
+                        //Borramos para una asignacion en concreto, todos sus stands
+                        for (int j = 0; j < readStandList.size(); j++) {
+                            Tstand tStand = readStandList.get(j);
+                            tStand.setActive(false);
+                            daoStand.update(tStand);
+                        }
+                        idr = daoAsignacion.update(transferAssignation);
                     }
-                    idr = daoAsignacion.update(transferAssignation);
+                    else
+                        throw new ASException("ERROR: La asignacion " + id + " ya esta desactivada.\n");
+
                 } else
                     throw new ASException("ERROR: La asignacion " + id + "  no existe.\n");
             } catch (Exception ex) {

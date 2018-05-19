@@ -60,15 +60,20 @@ public class ASParticipacionImp implements ASParticipacion {
             try {
                 Tparticipacion read = daoParticipacion.readById(id);
                 if (read != null) {
-                    read.setActive(false);
-                    readStandList = (ArrayList<Tstand>) daoStand.readByParticipation(id);
-                    //Borramos para una asignacion en concreto, todos sus stands
-                    for (int j = 0; j < readStandList.size(); j++) {
-                        Tstand tStand = readStandList.get(j);
-                        tStand.setActive(false);
-                        daoStand.update(tStand);
+                    if(read.getActive() == true) {
+                        read.setActive(false);
+                        readStandList = (ArrayList<Tstand>) daoStand.readByParticipation(id);
+                        //Borramos para una asignacion en concreto, todos sus stands
+                        for (int j = 0; j < readStandList.size(); j++) {
+                            Tstand tStand = readStandList.get(j);
+                            tStand.setActive(false);
+                            daoStand.update(tStand);
+                        }
+                        idr = daoParticipacion.update(read);
                     }
-                    idr = daoParticipacion.update(read);
+                    else
+                        throw new ASException("ERROR: La participacion " + id + " ya esta desactivada.\n");
+
                 } else
                     throw new ASException("ERROR: La participacion " + id + " no existe.\n");
             } catch (Exception ex) {

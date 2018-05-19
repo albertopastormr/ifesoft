@@ -56,11 +56,16 @@ public class ASStandImp implements ASStand {
             try {
                 Tstand read = daoStand.readById(id);
                 if (read != null) {
-                    read.setActive(false);
-                    idr = daoStand.update(read);
-                    Tasignacion asig = daoAsignacion.readById(read.getAssignation_id());
-                    asig.setUsed_m2(asig.getUsed_m2() - read.getTotal_m2());
-                    daoAsignacion.update(asig);
+                    if(read.getActive() == true) {
+                        read.setActive(false);
+                        idr = daoStand.update(read);
+                        Tasignacion asig = daoAsignacion.readById(read.getAssignation_id());
+                        asig.setUsed_m2(asig.getUsed_m2() - read.getTotal_m2());
+                        daoAsignacion.update(asig);
+                    }
+                    else
+                        throw new ASException("ERROR: El stand " + id + " ya esta desactivado.\n");
+
                 } else
                     throw new ASException("ERROR: El stand " + id + " no existe.\n");
             } catch (Exception ex) {
