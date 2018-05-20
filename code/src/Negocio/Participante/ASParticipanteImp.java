@@ -22,11 +22,10 @@ public class ASParticipanteImp implements ASParticipante {
                 if (read == null)
                     id = daoParticipante.create(participante);
                 else {
-                    if(!read.getActive() && participante.getActive() && read.getName().equals(participante.getName())){
+                    if (!read.getActive() && participante.getActive() && read.getName().equals(participante.getName())) {
                         participante.setId(read.getId());
                         id = daoParticipante.update(participante);
-                    }
-                    else
+                    } else
                         throw new ASException("ERROR: Ya existe un participante con este nombre.\n");
                 }
             } catch (Exception ex) {
@@ -46,34 +45,29 @@ public class ASParticipanteImp implements ASParticipante {
         ArrayList<Tstand> readStandList;
 
         int idr;
-        if (id > -1) {
+        if (id > 0) {
             try {
                 Tparticipante read = daoParticipante.readById(id);
-                if (read != null) {
-                    if(read.getActive() == true) {
-                        read.setActive(false);
-                        listaParticipaciones = (ArrayList<Tparticipacion>) daoParticipacion.readByClientId(read.getId());
-                        //Numero de asignaciones que tenemos en el arraylist para poder iterar
-                        for (int i = 0; i < listaParticipaciones.size(); i++) {
-                            //Desactivacion de todas las participaciones que se corresponden con esa participacion
-                            Tparticipacion tParticipation = listaParticipaciones.get(i);
-                            tParticipation.setActive(false);
-                            daoParticipacion.update(tParticipation);
-                            //Desactivacion de stands referenciados en esa participacion
-                            readStandList = (ArrayList<Tstand>) daoStand.readByAssignation(tParticipation.getId());
-                            for (int j = 0; j < readStandList.size(); j++) {
-                                Tstand tStand = readStandList.get(j);
-                                tStand.setActive(false);
-                                daoStand.update(tStand);
-                            }
+                if (read != null && read.getActive()) {
+                    read.setActive(false);
+                    listaParticipaciones = (ArrayList<Tparticipacion>) daoParticipacion.readByClientId(read.getId());
+                    //Numero de asignaciones que tenemos en el arraylist para poder iterar
+                    for (int i = 0; i < listaParticipaciones.size(); i++) {
+                        //Desactivacion de todas las participaciones que se corresponden con esa participacion
+                        Tparticipacion tParticipation = listaParticipaciones.get(i);
+                        tParticipation.setActive(false);
+                        daoParticipacion.update(tParticipation);
+                        //Desactivacion de stands referenciados en esa participacion
+                        readStandList = (ArrayList<Tstand>) daoStand.readByAssignation(tParticipation.getId());
+                        for (int j = 0; j < readStandList.size(); j++) {
+                            Tstand tStand = readStandList.get(j);
+                            tStand.setActive(false);
+                            daoStand.update(tStand);
                         }
-                        idr = daoParticipante.update(read);
                     }
-                    else{
-                        throw new ASException("ERROR: El participante " + id + " no esta activo .\n");
-                    }
+                    idr = daoParticipante.update(read);
                 } else
-                    throw new ASException("ERROR: El participante " + id + " no existe.\n");
+                    throw new ASException("ERROR: El participante " + id + " no existe o ya esta desactivado.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }

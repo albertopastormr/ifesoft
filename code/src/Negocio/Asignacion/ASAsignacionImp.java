@@ -66,23 +66,18 @@ public class ASAsignacionImp implements ASAsignacion {
             try {
                 Tasignacion transferAssignation = daoAsignacion.readById(id);
                 //Si es distinto de null quiere decir que tenemos una asignacion  con ese id, por lo que podemos borrarla.
-                if (transferAssignation != null) {
-                    if(transferAssignation.getActive() == true) {
-                        transferAssignation.setActive(false);
-                        readStandList = (ArrayList<Tstand>) daoStand.readByAssignation(id);
-                        //Borramos para una asignacion en concreto, todos sus stands
-                        for (int j = 0; j < readStandList.size(); j++) {
-                            Tstand tStand = readStandList.get(j);
-                            tStand.setActive(false);
-                            daoStand.update(tStand);
-                        }
-                        idr = daoAsignacion.update(transferAssignation);
+                if (transferAssignation != null && transferAssignation.getActive()) {
+                    transferAssignation.setActive(false);
+                    readStandList = (ArrayList<Tstand>) daoStand.readByAssignation(id);
+                    //Borramos para una asignacion en concreto, todos sus stands
+                    for (int j = 0; j < readStandList.size(); j++) {
+                        Tstand tStand = readStandList.get(j);
+                        tStand.setActive(false);
+                        daoStand.update(tStand);
                     }
-                    else
-                        throw new ASException("ERROR: La asignacion " + id + " ya esta desactivada.\n");
-
+                    idr = daoAsignacion.update(transferAssignation);
                 } else
-                    throw new ASException("ERROR: La asignacion " + id + "  no existe.\n");
+                    throw new ASException("ERROR: La asignacion " + id + "  no existe o ya esta desactivada.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }
@@ -106,8 +101,8 @@ public class ASAsignacionImp implements ASAsignacion {
                         Tpabellon pabellon = daoPabellon.readById(transferAssignation.getPavilion_id());
                         if (!asignacion.getActive() && transferAssignation.getActive())
                             asignacion.setActive(true);
-                        if(asignacion.getActive() && !transferAssignation.getActive())
-                            if(!feria.getActive() || !pabellon.getActive())
+                        if (asignacion.getActive() && !transferAssignation.getActive())
+                            if (!feria.getActive() || !pabellon.getActive())
                                 asignacion.setActive(false);
                         id = daoAsignacion.update(asignacion);
                     } else

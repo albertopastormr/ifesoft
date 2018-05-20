@@ -1,7 +1,6 @@
 package Negocio.Stand;
 
 import Exceptions.ASException;
-import Exceptions.DAOException;
 import Integracion.Asignacion.DAOAsignacion;
 import Integracion.Participacion.DAOParticipacion;
 import Integracion.Stand.DAOStand;
@@ -13,7 +12,7 @@ import Negocio.Participacion.Tparticipacion;
 import java.util.Collection;
 
 public class ASStandImp implements ASStand {
-    public Integer create(Tstand stand) throws ASException, DAOException {
+    public Integer create(Tstand stand) throws ASException {
         int id;
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         if (stand != null) {
@@ -57,19 +56,14 @@ public class ASStandImp implements ASStand {
         if (id > 0) {
             try {
                 Tstand read = daoStand.readById(id);
-                if (read != null) {
-                    if(read.getActive() == true) {
-                        read.setActive(false);
-                        idr = daoStand.update(read);
-                        Tasignacion asig = daoAsignacion.readById(read.getAssignation_id());
-                        asig.setUsed_m2(asig.getUsed_m2() - read.getTotal_m2());
-                        daoAsignacion.update(asig);
-                    }
-                    else
-                        throw new ASException("ERROR: El stand " + id + " ya esta desactivado.\n");
-
+                if (read != null && read.getActive()) {
+                    read.setActive(false);
+                    idr = daoStand.update(read);
+                    Tasignacion asig = daoAsignacion.readById(read.getAssignation_id());
+                    asig.setUsed_m2(asig.getUsed_m2() - read.getTotal_m2());
+                    daoAsignacion.update(asig);
                 } else
-                    throw new ASException("ERROR: El stand " + id + " no existe.\n");
+                    throw new ASException("ERROR: El stand " + id + " no existe o ya esta desactivado.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }

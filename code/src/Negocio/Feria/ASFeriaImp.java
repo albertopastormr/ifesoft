@@ -60,34 +60,29 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
         if (id > 0) {
             try {
                 Tferia read = daoFeria.readById(id);
-                if (read != null) {
-                    if(read.getActive() == true) {
-                        listaAsignaciones = (ArrayList<Tasignacion>) daoAsignacion.readByFairId(read.getId());
-                        for (int i = 0; i < listaAsignaciones.size(); i++) {
-                            Tasignacion tAssignation = listaAsignaciones.get(i);
-                            tAssignation.setActive(false);
-                            daoAsignacion.update(tAssignation);
-                            readStandList = (ArrayList<Tstand>) daoStand.readByAssignation(tAssignation.getId());
-                            for (int j = 0; j < readStandList.size(); j++) {
-                                Tstand tStand = readStandList.get(j);
-                                //Desactivamos ese stand
-                                tStand.setActive(false);
-                                daoStand.update(tStand);
-                                Tparticipacion tParticipation = daoParticipacion.readById(tStand.getParticipation_id());
-                                tParticipation.setActive(false);
-                                daoParticipacion.update(tParticipation);
-                            }
+                if (read != null && read.getActive()) {
+                    listaAsignaciones = (ArrayList<Tasignacion>) daoAsignacion.readByFairId(read.getId());
+                    for (int i = 0; i < listaAsignaciones.size(); i++) {
+                        Tasignacion tAssignation = listaAsignaciones.get(i);
+                        tAssignation.setActive(false);
+                        daoAsignacion.update(tAssignation);
+                        readStandList = (ArrayList<Tstand>) daoStand.readByAssignation(tAssignation.getId());
+                        for (int j = 0; j < readStandList.size(); j++) {
+                            Tstand tStand = readStandList.get(j);
+                            //Desactivamos ese stand
+                            tStand.setActive(false);
+                            daoStand.update(tStand);
+                            Tparticipacion tParticipation = daoParticipacion.readById(tStand.getParticipation_id());
+                            tParticipation.setActive(false);
+                            daoParticipacion.update(tParticipation);
                         }
-
-                        read.setActive(false);
-
-                        idr = daoFeria.update(read);
                     }
-                    else
-                        throw new ASException("ERROR: La feria " + id + " ya esta desactivada.\n");
 
+                    read.setActive(false);
+
+                    idr = daoFeria.update(read);
                 } else
-                    throw new ASException("ERROR: La feria " + id + " no existe.\n");
+                    throw new ASException("ERROR: La feria " + id + " no existe o ya esta desactivada.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }
@@ -107,7 +102,7 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
                     if ((nameOK == null) || nameOK.getName().equals(read.getName())) {
                         Date currentDate = new Date();
                         if (feria.getIniDate().after(currentDate) && feria.getEndDate().after(feria.getIniDate())) {
-                            if(!feria.getActive() && read.getActive())
+                            if (!feria.getActive() && read.getActive())
                                 feria.setActive(true);
                             id = daoFeria.update(feria);
                         } else

@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="53e8c5a8-4440-481b-ba25-326542ca70e5" name="Default" comment="">
+    <list default="true" id="b2e9b320-5b20-40e9-9da9-9a24290a6f68" name="Default" comment="Negocio terminado">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/Negocio/Asignacion/ASAsignacionImpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/Negocio/Asignacion/ASAsignacionImpTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Negocio/Asignacion/ASAsignacionImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Negocio/Asignacion/ASAsignacionImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Negocio/Feria/ASFeriaImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Negocio/Feria/ASFeriaImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Negocio/Pabellon/ASPabellonImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Negocio/Pabellon/ASPabellonImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Negocio/Participacion/ASParticipacionImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Negocio/Participacion/ASParticipacionImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Negocio/Participante/ASParticipanteImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Negocio/Participante/ASParticipanteImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Negocio/Stand/ASStandImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Negocio/Stand/ASStandImp.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,12 +19,60 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="ASAsignacionImp.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Negocio/Asignacion/ASAsignacionImp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1122">
+              <caret line="79" column="107" selection-start-line="79" selection-start-column="107" selection-end-line="79" selection-end-column="107" />
+              <folding>
+                <element signature="method#show#0;class#ASAsignacionImp#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ASFeriaImp.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Negocio/Feria/ASFeriaImp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1190">
+              <caret line="84" column="101" selection-start-line="84" selection-start-column="101" selection-end-line="84" selection-end-column="101" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ASPabellonImp.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Negocio/Pabellon/ASPabellonImp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1088">
+              <caret line="74" column="110" lean-forward="true" selection-start-line="74" selection-start-column="110" selection-end-line="74" selection-end-column="110" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ASParticipacionImp.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Negocio/Participacion/ASParticipacionImp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="986">
+              <caret line="71" column="22" lean-forward="true" selection-start-line="71" selection-start-column="22" selection-end-line="71" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="ASParticipanteImp.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Negocio/Participante/ASParticipanteImp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="876">
-              <caret line="147" column="48" lean-forward="true" selection-start-line="147" selection-start-column="48" selection-end-line="147" selection-end-column="48" />
+            <state relative-caret-position="1003">
+              <caret line="69" column="114" lean-forward="true" selection-start-line="69" selection-start-column="114" selection-end-line="69" selection-end-column="114" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ASStandImp.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Negocio/Stand/ASStandImp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="935">
+              <caret line="64" column="18" selection-start-line="64" selection-start-column="18" selection-end-line="64" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -52,11 +105,11 @@
         <option value="$PROJECT_DIR$/src/Presentacion/Drop/GUIDrop.java" />
         <option value="$PROJECT_DIR$/src/Controller/ControllerImp.java" />
         <option value="$PROJECT_DIR$/test/Negocio/Asignacion/ASAsignacionImpTest.java" />
-        <option value="$PROJECT_DIR$/src/Negocio/Participante/ASParticipanteImp.java" />
-        <option value="$PROJECT_DIR$/src/Negocio/Feria/ASFeriaImp.java" />
         <option value="$PROJECT_DIR$/src/Negocio/Asignacion/ASAsignacionImp.java" />
+        <option value="$PROJECT_DIR$/src/Negocio/Feria/ASFeriaImp.java" />
         <option value="$PROJECT_DIR$/src/Negocio/Pabellon/ASPabellonImp.java" />
         <option value="$PROJECT_DIR$/src/Negocio/Participacion/ASParticipacionImp.java" />
+        <option value="$PROJECT_DIR$/src/Negocio/Participante/ASParticipanteImp.java" />
         <option value="$PROJECT_DIR$/src/Negocio/Stand/ASStandImp.java" />
       </list>
     </option>
@@ -72,6 +125,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Course" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -97,17 +152,11 @@
               <item name="Negocio" type="462c0819:PsiDirectoryNode" />
               <item name="Stand" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="code" type="b2602c69:ProjectViewProjectNode" />
-              <item name="code" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -203,13 +252,6 @@
       </option>
       <patterns />
     </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -299,35 +341,39 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
+    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="bottom" id="TODO" order="10" />
-      <window_info anchor="bottom" id="Messages" order="1" weight="0.32884902" />
       <window_info anchor="right" id="Palette&#9;" order="0" />
-      <window_info anchor="bottom" id="Event Log" order="0" side_tool="true" />
-      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="6" visible="true" weight="0.06576981" />
-      <window_info anchor="bottom" id="Version Control" order="2" />
-      <window_info anchor="bottom" id="Terminal" order="3" weight="0.24045347" />
+      <window_info anchor="bottom" id="Event Log" order="0" side_tool="true" weight="0.32943678" />
+      <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="6" weight="0.32995227" />
+      <window_info anchor="bottom" id="Version Control" order="2" weight="0.32943678" />
+      <window_info anchor="bottom" id="Terminal" order="3" />
       <window_info id="Designer" order="1" />
-      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.14934114" />
-      <window_info anchor="right" id="Database" />
+      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.13229166" />
+      <window_info anchor="right" id="Database" order="5" />
       <window_info id="Structure" order="5" side_tool="true" weight="0.25" />
       <window_info id="UI Designer" order="2" />
-      <window_info anchor="bottom" id="Debug" order="7" weight="0.26073986" />
+      <window_info anchor="bottom" id="Debug" order="7" weight="0.39976135" />
       <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="7" weight="0.25" />
       <window_info anchor="right" id="Capture Analysis" order="2" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info anchor="right" id="Commander" order="5" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="6" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="10" />
+      <window_info anchor="bottom" id="Messages" order="1" weight="0.32884902" />
       <window_info id="Image Layers" order="6" />
-      <window_info id="Capture Tool" order="0" />
+      <window_info anchor="right" id="Palette&#9;" order="0" />
       <window_info anchor="bottom" id="Message" order="4" />
+      <window_info anchor="bottom" id="Event Log" order="0" side_tool="true" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
+      <window_info id="Capture Tool" order="0" />
       <window_info anchor="bottom" id="Find" order="5" />
       <window_info anchor="right" id="Maven Projects" order="1" />
     </layout>
@@ -337,7 +383,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="9" />
+      <option name="time" value="11" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -642,27 +688,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Negocio/Asignacion/ASAsignacionImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="76" column="52" lean-forward="true" selection-start-line="76" selection-start-column="52" selection-end-line="76" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Negocio/Pabellon/ASPabellonImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="73" column="55" lean-forward="true" selection-start-line="73" selection-start-column="55" selection-end-line="73" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Negocio/Participacion/ASParticipacionImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="71" column="60" lean-forward="true" selection-start-line="71" selection-start-column="60" selection-end-line="71" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Negocio/Stand/Tstand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -677,24 +702,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Negocio/Asignacion/ASAsignacionImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1122">
+          <caret line="79" column="107" selection-start-line="79" selection-start-column="107" selection-end-line="79" selection-end-column="107" />
+          <folding>
+            <element signature="method#show#0;class#ASAsignacionImp#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Negocio/Feria/ASFeriaImp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="24" column="67" lean-forward="true" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="67" />
+        <state relative-caret-position="1190">
+          <caret line="84" column="101" selection-start-line="84" selection-start-column="101" selection-end-line="84" selection-end-column="101" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Negocio/Participacion/ASParticipacionImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="986">
+          <caret line="71" column="22" lean-forward="true" selection-start-line="71" selection-start-column="22" selection-end-line="71" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Negocio/Pabellon/ASPabellonImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1088">
+          <caret line="74" column="110" lean-forward="true" selection-start-line="74" selection-start-column="110" selection-end-line="74" selection-end-column="110" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Negocio/Stand/ASStandImp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1717">
-          <caret line="111" column="61" lean-forward="true" selection-start-line="111" selection-start-column="61" selection-end-line="111" selection-end-column="61" />
+        <state relative-caret-position="935">
+          <caret line="64" column="18" selection-start-line="64" selection-start-column="18" selection-end-line="64" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Negocio/Participante/ASParticipanteImp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="876">
-          <caret line="147" column="48" lean-forward="true" selection-start-line="147" selection-start-column="48" selection-end-line="147" selection-end-column="48" />
+        <state relative-caret-position="1003">
+          <caret line="69" column="114" lean-forward="true" selection-start-line="69" selection-start-column="114" selection-end-line="69" selection-end-column="114" />
         </state>
       </provider>
     </entry>

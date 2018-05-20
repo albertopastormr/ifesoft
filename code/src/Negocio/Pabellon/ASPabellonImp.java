@@ -16,7 +16,7 @@ public class ASPabellonImp implements ASPabellon {
     public Integer create(Tpabellon pabellon) throws ASException {
         int id;
         DAOPabellon daoPabellon = IFDAOPabellon.getInstance().generateDAOpabellon();
-        if (pabellon != null && pabellon.getTotal_m2() >= 0 && pabellon.getCapacity() >= 0) {
+        if (pabellon != null && pabellon.getTotal_m2() >= 0 && pabellon.getCapacity() > 0) {
             try {
                 Tpabellon read = daoPabellon.readById(pabellon.getId());
                 if (read == null) {
@@ -52,32 +52,27 @@ public class ASPabellonImp implements ASPabellon {
         if (id > 0) {
             try {
                 Tpabellon read = daoPabellon.readById(id);
-                if (read != null) {
-                    if(read.getActive() == true) {
-                        read.setActive(false);
-                        //Guardamos la lista de asignaciones implicadas en ese pabellon
-                        listaAsignaciones = (ArrayList<Tasignacion>) daoAsignacion.readByPavilionId(read.getId());
-                        //Numero de asignaciones que tenemos en el arraylist para poder iterar
-                        for (int i = 0; i < listaAsignaciones.size(); i++) {
-                            //Desactivacion de todas las asignaciones que se corresponden con ese pabellon
-                            Tasignacion tAsignacion = listaAsignaciones.get(i);
-                            tAsignacion.setActive(false);
-                            daoAsignacion.update(tAsignacion);
-                            //Desactivacion de stands referenciados en ese pabellon
-                            readStandList = (ArrayList<Tstand>) daoStand.readByAssignation(tAsignacion.getId());
-                            for (int j = 0; j < readStandList.size(); j++) {
-                                Tstand tStand = readStandList.get(j);
-                                tStand.setActive(false);
-                                daoStand.update(tStand);
-                            }
+                if (read != null && read.getActive()) {
+                    read.setActive(false);
+                    //Guardamos la lista de asignaciones implicadas en ese pabellon
+                    listaAsignaciones = (ArrayList<Tasignacion>) daoAsignacion.readByPavilionId(read.getId());
+                    //Numero de asignaciones que tenemos en el arraylist para poder iterar
+                    for (int i = 0; i < listaAsignaciones.size(); i++) {
+                        //Desactivacion de todas las asignaciones que se corresponden con ese pabellon
+                        Tasignacion tAsignacion = listaAsignaciones.get(i);
+                        tAsignacion.setActive(false);
+                        daoAsignacion.update(tAsignacion);
+                        //Desactivacion de stands referenciados en ese pabellon
+                        readStandList = (ArrayList<Tstand>) daoStand.readByAssignation(tAsignacion.getId());
+                        for (int j = 0; j < readStandList.size(); j++) {
+                            Tstand tStand = readStandList.get(j);
+                            tStand.setActive(false);
+                            daoStand.update(tStand);
                         }
-                        idr = daoPabellon.update(read);
                     }
-                    else
-                        throw new ASException("ERROR: El pabellon " + id + " ya esta desactivado.\n");
-
+                    idr = daoPabellon.update(read);
                 } else
-                    throw new ASException("ERROR: El pabellon " + id + " no existe.\n");
+                    throw new ASException("ERROR: El pabellon " + id + " no existe o ya esta desactivado.\n");
             } catch (Exception ex) {
                 throw new ASException(ex.getMessage());
             }
