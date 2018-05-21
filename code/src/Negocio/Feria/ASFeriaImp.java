@@ -144,8 +144,11 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
             end.setMonth(11);
             end.setDate(31);
         } else {
-            ini = feria.getIniDate();
-            end = feria.getEndDate();
+            if (feria.getIniDate().before(feria.getEndDate())) {
+                ini = feria.getIniDate();
+                end = feria.getEndDate();
+            } else
+                throw new ASException("La fecha de inicio es posterior a la de fin.\n");
         }
         try {
             collection = daoFeria.readByDates(ini, end);
