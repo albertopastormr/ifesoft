@@ -1,7 +1,4 @@
 
-DUDAS PARA LAB:
-- Revisar disenos
-
 CAMBIOS SRS:
 - Listar todas las ferias agregado
 - Listar todos los participantes agregado

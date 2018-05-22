@@ -75,7 +75,7 @@ public class ASPabellonImpTest {
     public void dropPabellonOK() throws Exception {
         ASPabellonImp asPabellon = new ASPabellonImp();
 
-        Tpabellon pabellon = new Tpabellon(100, 200, 200, false);
+        Tpabellon pabellon = new Tpabellon(100, 200, 200, true);
         int id1 = asPabellon.create(pabellon);
         pabellon.setId(id1);
         int id2 = asPabellon.drop(pabellon.getId());

@@ -106,7 +106,7 @@ public class ASParticipanteImpTest {
     public void dropParticipante() throws Exception {
         ASParticipanteImp asParticipante = new ASParticipanteImp();
 
-        Tparticipante participante = new TparticipanteNacional(1, "IBM", 666666666, false,"Andalucia");
+        Tparticipante participante = new TparticipanteNacional(1, "IBM", 666666666, true,"Andalucia");
         asParticipante.create(participante); //Creamos una participante IBM
         assertTrue(asParticipante.drop(1) > 0); //Si se ha podido borrar la participante correctamente, nos devuelve el id de la participante borrada logicamente
         //Y ademas el test sale correcto

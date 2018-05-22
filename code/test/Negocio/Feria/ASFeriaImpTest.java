@@ -132,7 +132,7 @@ public class ASFeriaImpTest {
 		Date dateIni = new Date((4016-1900), 1, 12);
 		Date dateEnd = new Date((4016-1900), 1, 18);
 
-		Tferia feria = new Tferia(1, "IBM", "The feria IBM", dateIni , dateEnd, false);
+		Tferia feria = new Tferia(1, "IBM", "The feria IBM", dateIni , dateEnd, true);
 		asFeria.create(feria); //Creamos una feria IBM
 		assertTrue(asFeria.drop(feria.getId()) > 0); //Si se ha podido borrar la feria correctamente, nos devuelve el id de la feria borrada logicamente
 											//Y ademas el test sale correcto
