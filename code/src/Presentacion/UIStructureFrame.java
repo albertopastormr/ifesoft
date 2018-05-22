@@ -19,7 +19,7 @@ public abstract class UIStructureFrame extends JFrame implements UI {
     protected Color cHelpButton = new Color(66,35,146);
     protected Color cCancelButton = new Color(146, 35, 59);
 
-    protected Dimension minScreenSize = new Dimension(1600, 1000);
+    protected Dimension minScreenSize = new Dimension(1920, 1080);
 
     protected JPanel centerPanel;
     protected JLabel title;

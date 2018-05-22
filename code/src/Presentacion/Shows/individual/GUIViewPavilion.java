@@ -81,9 +81,9 @@ public class GUIViewPavilion extends UIStructureFrame {
 
         //---- Labels ----
 
-        Dimension minDim = new Dimension(500, 50);
-        Dimension prefDim = new Dimension(600, 50);
-        Dimension maxDim = new Dimension(700, 50);
+        Dimension minDim = new Dimension(700, 50);
+        Dimension prefDim = new Dimension(900, 50);
+        Dimension maxDim = new Dimension(1000, 50);
 
 
         GridBagConstraints formCon = new GridBagConstraints();
