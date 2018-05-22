@@ -8,6 +8,7 @@ import Negocio.Participante.Tparticipante;
 import Negocio.Stand.Tstand;
 import Controller.Controller;
 import Presentacion.Events.Event;
+import Presentacion.Events.EventGUI;
 import Presentacion.UIStructureFrame;
 import Presentacion.Utils.PanelProblemUser;
 
@@ -284,8 +285,48 @@ public class GUIDrop extends UIStructureFrame {
 
     @Override
     public void update(int event, Object data) {
-        if(data != null) JOptionPane.showMessageDialog(null,"The module has been dropped successfully");
-        else JOptionPane.showMessageDialog(null, "A problem in the drop process occurred, insert module's data another time please", "Error",
-                JOptionPane.ERROR_MESSAGE);
+        switch (event) {
+            case EventGUI.UPDATE_DROP_FAIR_OK:
+                JOptionPane.showMessageDialog(null, "La Feria con id: " + data + " ha sido borrada correctamente.");
+                break;
+            case EventGUI.UPDATE_DROP_FAIR_FAIL:
+                JOptionPane.showMessageDialog(null, "La Feria con id: " + data + " no ha podido ser borrada correctamente.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_DROP_PAVILION_OK:
+                    JOptionPane.showMessageDialog(null, "El Pabellon con id: " + data + " ha sido borrado correctamente.");
+                    break;
+            case EventGUI.UPDATE_DROP_PAVILION_FAIL:
+                JOptionPane.showMessageDialog(null, "El Pabellon con id: " + data + " no ha podido ser borrada correctamente.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_DROP_CLIENT_OK:
+                JOptionPane.showMessageDialog(null, "El Participante con id: " + data + " ha sido borrado correctamente.");
+                break;
+            case EventGUI.UPDATE_DROP_CLIENT_FAIL:
+                JOptionPane.showMessageDialog(null, "El Participante con id: " + data + " no ha podido ser borrado correctamente.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_DROP_ASSIGNATION_OK:
+                JOptionPane.showMessageDialog(null, "La Asignacion con id: " + data + " ha sido borrada correctamente.");
+                break;
+            case EventGUI.UPDATE_DROP_ASSIGNATION_FAIL:
+                JOptionPane.showMessageDialog(null, "La Asignacion con id: " + data + " no ha podido ser borrada correctamente.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_DROP_PARTICIPATION_OK:
+                JOptionPane.showMessageDialog(null, "La Participacion con id: " + data + " ha sido borrada correctamente.");
+                break;
+            case EventGUI.UPDATE_DROP_PARTICIPATION_FAIL:
+                JOptionPane.showMessageDialog(null, "La Participacion con id: " + data + " no ha podido ser borrada correctamente.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            case EventGUI.UPDATE_DROP_STAND_OK:
+                JOptionPane.showMessageDialog(null, "El Stand con id: " + data + " ha sido borrado correctamente.");
+                break;
+            case EventGUI.UPDATE_DROP_STAND_FAIL:
+                JOptionPane.showMessageDialog(null, "El Stand con id: " + data + " no ha podido ser borrado correctamente.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                break;
+        }
     }
 }

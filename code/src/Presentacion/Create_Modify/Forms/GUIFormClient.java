@@ -61,6 +61,9 @@ public class GUIFormClient extends UIStructureFrame {
         initComponents();
         viewVisibleLogic();
 
+        comboBoxCreate.setEnabled(true);
+        regionCountryField.setEnabled(true);
+
         this.setVisible(true);
     }
 
@@ -76,6 +79,7 @@ public class GUIFormClient extends UIStructureFrame {
                 " number and in the last one the specialization of this company." +
                 "</html>";
 
+
         this.idClient = client.getId();
 
         name = client.getName();
@@ -84,6 +88,8 @@ public class GUIFormClient extends UIStructureFrame {
         initComponents();
         viewVisibleLogic();
 
+        comboBoxCreate.setEnabled(false);
+        regionCountryField.setEnabled(false);
     }
 
    /*private void nextButtonActionPerformed() throws Exception {

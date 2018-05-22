@@ -2,6 +2,7 @@ package Presentacion.Create_Modify.Create;
 
 import Controller.Controller;
 import Presentacion.Events.Event;
+import Presentacion.Events.EventGUI;
 import Presentacion.UI;
 import Presentacion.UIStructureFrame;
 import Presentacion.Utils.ActionHelp;
@@ -154,6 +155,44 @@ public class GUICreate extends UIStructureFrame {
 
     @Override
     public void update(int event, Object data) {
-
+        switch (event) {
+            case EventGUI.UPDATE_CREATE_FAIR_OK:
+                JOptionPane.showMessageDialog(null, "La Feria con id: " + data + " ha sido creado correctamente.");
+                break;
+            case EventGUI.UPDATE_CREATE_FAIR_FAIL:
+                JOptionPane.showMessageDialog(null, "La Feria con id: " + data + " no ha podido ser creada correctamente.", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_CREATE_PAVILION_OK:
+                JOptionPane.showMessageDialog(null, "El Pabellon con id: " + data + " ha sido creado correctamente.");
+                break;
+            case EventGUI.UPDATE_CREATE_PAVILION_FAIL:
+                JOptionPane.showMessageDialog(null, "El Pabellon con id: " + data + " no ha podido ser creada correctamente.", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_CREATE_CLIENT_OK:
+                JOptionPane.showMessageDialog(null, "El participante con id: " + data + " ha sido creado correctamente.");
+                break;
+            case EventGUI.UPDATE_CREATE_CLIENT_FAIL:
+                JOptionPane.showMessageDialog(null, "El participante con id: " + data + " no ha podido ser creada correctamente.", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_CREATE_ASSIGNATION_OK:
+                JOptionPane.showMessageDialog(null, "La asignacion con id: " + data + " ha sido creado correctamente.");
+                break;
+            case EventGUI.UPDATE_CREATE_ASSIGNATION_FAIL:
+                JOptionPane.showMessageDialog(null, "La asignacion con id: " + data + " no ha podido ser creada correctamente.", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_CREATE_PARTICIPATION_OK:
+                JOptionPane.showMessageDialog(null, "La participacion con id: " + data + " ha sido creado correctamente.");
+                break;
+            case EventGUI.UPDATE_CREATE_PARTICIPATION_FAIL:
+                JOptionPane.showMessageDialog(null, "La participacion con id: " + data + " no ha podido ser creada correctamente.", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_CREATE_STAND_OK:
+                JOptionPane.showMessageDialog(null, "El stand con id: " + data + " ha sido creado correctamente.");
+                break;
+            case EventGUI.UPDATE_CREATE_STAND_FAIL:
+                JOptionPane.showMessageDialog(null, "El stand con id: " + data + " no ha podido ser creada correctamente.", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                break;
+        }
     }
 }

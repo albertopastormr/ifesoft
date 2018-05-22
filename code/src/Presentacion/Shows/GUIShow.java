@@ -2,6 +2,7 @@ package Presentacion.Shows;
 
 import Negocio.Feria.Tferia;
 import Controller.Controller;
+import Presentacion.Events.EventGUI;
 import Presentacion.UIStructureFrame;
 import Presentacion.Utils.Utilities;
 import Presentacion.Events.Event;
@@ -485,8 +486,58 @@ public class GUIShow extends UIStructureFrame {
 
     @Override
     public void update(int event, Object data) {
-        if(data != null) JOptionPane.showMessageDialog(null,"Here you can see the module");
-        else JOptionPane.showMessageDialog(null, "A problem in the show process occurred, insert module's data another time please", "Error",
-                JOptionPane.ERROR_MESSAGE);
+        switch (event) {
+            case EventGUI.UPDATE_SHOW_INDIVIDUAL_FAIR_OK:
+                JOptionPane.showMessageDialog(null, "La Feria con id: " + data + " ha sido creado correctamente.");
+                break;
+            case EventGUI.UPDATE_SHOW_INDIVIDUAL_FAIR_FAIL:
+                JOptionPane.showMessageDialog(null, "La Feria con id: " + data + " no ha podido ser creada correctamente.", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_LIST_FAIR_FAIL:
+                JOptionPane.showMessageDialog(null, "Las Ferias no han podido ser listadas correctamente.", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_SHOW_INDIVIDUAL_PAVILION_OK:
+                JOptionPane.showMessageDialog(null, "El Pabellon con id: " + data + " ha sido creado correctamente.");
+                break;
+            case EventGUI.UPDATE_SHOW_INDIVIDUAL_PAVILION_FAIL:
+                JOptionPane.showMessageDialog(null, "El Pabellon con id: " + data + " no ha podido ser creada correctamente.", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_LIST_PAVILION_FAIL:
+                JOptionPane.showMessageDialog(null, "Las Ferias no han podido ser listadas correctamente.", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_SHOW_INDIVIDUAL_CLIENT_OK:
+                JOptionPane.showMessageDialog(null, "El participante con id: " + data + " ha sido creado correctamente.");
+                break;
+            case EventGUI.UPDATE_SHOW_INDIVIDUAL_CLIENT_FAIL:
+                JOptionPane.showMessageDialog(null, "El participante con id: " + data + " no ha podido ser creada correctamente.", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_LIST_CLIENT_FAIL:
+                JOptionPane.showMessageDialog(null, "Las Ferias no han podido ser listadas correctamente.", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_SHOW_INDIVIDUAL_ASSIGNATION_OK:
+                JOptionPane.showMessageDialog(null, "La asignacion con id: " + data + " ha sido creado correctamente.");
+                break;
+            case EventGUI.UPDATE_SHOW_INDIVIDUAL_ASSIGNATION_FAIL:
+                JOptionPane.showMessageDialog(null, "La asignacion con id: " + data + " no ha podido ser creada correctamente.", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_LIST_ASSIGNATION_FAIL:
+                JOptionPane.showMessageDialog(null, "Las Ferias no han podido ser listadas correctamente.", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_SHOW_INDIVIDUAL_PARTICIPATION_OK:
+                JOptionPane.showMessageDialog(null, "La participacion con id: " + data + " ha sido creado correctamente.");
+                break;
+            case EventGUI.UPDATE_SHOW_INDIVIDUAL_PARTICIPATION_FAIL:
+                JOptionPane.showMessageDialog(null, "La participacion con id: " + data + " no ha podido ser creada correctamente.", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_LIST_PARTICIPATION_FAIL:
+                JOptionPane.showMessageDialog(null, "Las Ferias no han podido ser listadas correctamente.", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_SHOW_INDIVIDUAL_STAND_OK:
+                JOptionPane.showMessageDialog(null, "El stand con id: " + data + " ha sido creado correctamente.");
+                break;
+            case EventGUI.UPDATE_SHOW_INDIVIDUAL_STAND_FAIL:
+                JOptionPane.showMessageDialog(null, "El stand con id: " + data + " no ha podido ser creada correctamente.", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+        }
     }
 }

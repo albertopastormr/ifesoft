@@ -64,5 +64,7 @@ public class EventGUI {
     public static final int UPDATE_LIST_ASSIGNATION_FAIL = 118;
     public static final int UPDATE_LIST_CLIENT_OK = 119;
     public static final int UPDATE_LIST_CLIENT_FAIL = 120;
-
+    public static final int UPDATE_DROP_PARTICIPATION_FAIL = 121;
+    public static final int UPDATE_CREATE_FAIR_FAIL = 122;
+    public static final int UPDATE_DROP_PARTICIPACION_FAIL = 123;
 }

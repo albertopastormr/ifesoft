@@ -2,6 +2,7 @@ package Presentacion.Create_Modify.Modify;
 
 import Controller.Controller;
 import Presentacion.Events.Event;
+import Presentacion.Events.EventGUI;
 import Presentacion.UIStructureFrame;
 import Presentacion.Utils.PanelProblemUser;
 
@@ -177,8 +178,49 @@ public class GUIModify extends UIStructureFrame {
 
     @Override
     public void update(int event, Object data) {
-        if(data != null) JOptionPane.showMessageDialog(null,"The module has been modified successfully");
-        else JOptionPane.showMessageDialog(null, "A problem in the modify process occurred, insert module's data another time please", "Error",
-                JOptionPane.ERROR_MESSAGE);
+        switch (event) {
+            case EventGUI.UPDATE_FERIA_OK:
+                JOptionPane.showMessageDialog(null, "La Feria con id: " + data + " ha sido modificada correctamente.");
+                break;
+            case EventGUI.UPDATE_FERIA_FAIL:
+                JOptionPane.showMessageDialog(null, "La Feria con id: " + data + " no ha podido ser modificada correctamente.", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_PAVILION_OK:
+                JOptionPane.showMessageDialog(null, "El Pabellon con id: " + data + " ha sido modificado correctamente.");
+                break;
+            case EventGUI.UPDATE_PAVILION_FAIL:
+                JOptionPane.showMessageDialog(null, "El Pabellon con id: " + data + " no ha podido ser modificado correctamente.", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_CLIENT_OK:
+                JOptionPane.showMessageDialog(null, "El participante con id: " + data + " ha sido modificado correctamente.");
+                break;
+            case EventGUI.UPDATE_CLIENT_FAIL:
+                JOptionPane.showMessageDialog(null, "El participante con id: " + data + " no ha podido ser modificado correctamente.", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_ASSIGNATION_OK:
+                JOptionPane.showMessageDialog(null, "La asignacion con id: " + data + " ha sido modificada correctamente.");
+                break;
+            case EventGUI.UPDATE_ASSIGNATION_FAIL:
+                JOptionPane.showMessageDialog(null, "La asignacion con id: " + data + " no ha podido ser modificada correctamente.", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_PARTICIPATION_OK:
+                JOptionPane.showMessageDialog(null, "La participacion con id: " + data + " ha sido modificada correctamente.");
+                break;
+            case EventGUI.UPDATE_PARTICIPATION_FAIL:
+                JOptionPane.showMessageDialog(null, "La participacion con id: " + data + " no ha podido ser modificada correctamente.", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                break;
+            case EventGUI.UPDATE_STAND_OK:
+                JOptionPane.showMessageDialog(null, "El stand con id: " + data + " ha sido modificado correctamente.");
+                break;
+            case EventGUI.UPDATE_STAND_FAIL:
+                JOptionPane.showMessageDialog(null, "El stand con id: " + data + " no ha podido ser modificado correctamente.", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                break;
+        }
     }
 }

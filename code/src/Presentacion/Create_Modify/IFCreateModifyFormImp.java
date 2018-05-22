@@ -24,6 +24,33 @@ public class IFCreateModifyFormImp extends IFCreateModifyForm {
             case Event.MODIFY_HALF:
                 return new GUIModify();
 
+
+            case Event.INSERT_FAIR:
+                return new GUICreate();
+            case Event.INSERT_PAVILION:
+                return new GUICreate();
+            case Event.INSERT_CLIENT:
+                return new GUICreate();
+            case Event.INSERT_ASSIGNATION:
+                return new GUICreate();
+            case Event.INSERT_PARTICIPATION:
+                return new GUICreate();
+            case Event.INSERT_STAND:
+                return new GUICreate();
+
+            case Event.MODIFY_FAIR:
+                return new GUIModify();
+            case Event.MODIFY_PAVILION:
+                return new GUIModify();
+            case Event.MODIFY_CLIENT:
+                return new GUIModify();
+            case Event.MODIFY_ASSIGNATION:
+                return new GUIModify();
+            case Event.MODIFY_PARTICIPATION:
+                return new GUIModify();
+            case Event.MODIFY_STAND:
+                return new GUIModify();
+
             /** -------- INSERT FORMS -------- */
 
             case Event.INSERT_FORM_FAIR:
