@@ -53,6 +53,7 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
         DAOStand daoStand = IFDAOStand.getInstance().generateDAOstand();
         DAOParticipacion daoParticipacion = IFDAOParticipacion.getInstance().generateDAOparticipacion();
         ArrayList<Tasignacion> listaAsignaciones;
+        ArrayList<Tparticipacion> listaParticipaciones;
         ArrayList<Tstand> readStandList;
 
         int idr;
@@ -72,9 +73,19 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
                             //Desactivamos ese stand
                             tStand.setActive(false);
                             daoStand.update(tStand);
-                            Tparticipacion tParticipation = daoParticipacion.readById(tStand.getParticipation_id());
-                            tParticipation.setActive(false);
-                            daoParticipacion.update(tParticipation);
+                        }
+                    }
+                    listaParticipaciones = (ArrayList<Tparticipacion>) daoParticipacion.readByFairId(read.getId());
+                    for(int i = 0; i < listaParticipaciones.size(); ++i){
+                        Tparticipacion tparticipacion = listaParticipaciones.get(i);
+                        tparticipacion.setActive(false);
+                        daoParticipacion.update(tparticipacion);
+                        readStandList = (ArrayList<Tstand>) daoStand.readByParticipation(tparticipacion.getId());
+                        for (int j = 0; j < readStandList.size(); j++) {
+                            Tstand tStand = readStandList.get(j);
+                            //Desactivamos ese stand
+                            tStand.setActive(false);
+                            daoStand.update(tStand);
                         }
                     }
 

@@ -145,7 +145,7 @@ public class ASAsignacionImpTest {
         asAsignation.drop(-1);
     }
 
-    @Test //Metodo donde queremos borrar una asignacion que supuestamente esta borrada ya
+    @Test(expected = ASException.class) //Metodo donde queremos borrar una asignacion que supuestamente esta borrada ya
     public void dropAsignationWithActiveFalse() throws ASException, SQLException, DAOException{
         int asignationId = -1;
         ASAsignacionImp asAsignation = new ASAsignacionImp();

@@ -144,7 +144,7 @@ public class ASStandImpTest {
         ASStandImp asStand = new ASStandImp();
 
         //Ahora intentamos crear un stand a partir de un id asignacion valido y un id de participacion  valido.
-        Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), idAsignacion1, idParticipacion1, 223344, 200, 20, false);
+        Tstand tStand = new Tstand(ASStandImpTest.tstandTest1.getId(), idAsignacion1, idParticipacion1, 223344, 200, 20, true);
         idStand = asStand.create(tStand);
 
         Tstand tStand2 = new Tstand(idStand, idAsignacion1, idParticipacion1, 223344, 200, 20, true);

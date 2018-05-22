@@ -427,6 +427,7 @@ public class GUIShow extends UIStructureFrame {
             case "Fair":
                 radioButtonPanel.setVisible(true);
                 radioButtonOptional.setVisible(true);
+                radioButtonOptional.setText("List by dates");
                 break;
             case "Pavilion":
                 radioButtonPanel.setVisible(true);
@@ -434,8 +435,8 @@ public class GUIShow extends UIStructureFrame {
             case "Stand":
                 radioButtonPanel.setVisible(true);
                 radioButtonOptional.setVisible(true);
-                radioButtonRight.setText("List by Assignation");
-                radioButtonOptional.setText("List by Participation");
+                radioButtonRight.setText("List by Assignation Id");
+                radioButtonOptional.setText("List by Participation Id");
                 radioButtonList.setVisible(true);
                 this.isStand = true;
                 break;
@@ -445,15 +446,15 @@ public class GUIShow extends UIStructureFrame {
             case "Assignation":
                 radioButtonPanel.setVisible(true);
                 radioButtonList.setVisible(true);
-                radioButtonRight.setText("List by pavilion id");
-                radioButtonOptional.setText("List by fair id");
+                radioButtonRight.setText("List by Pavilion Id");
+                radioButtonOptional.setText("List by Fair Id");
                 radioButtonOptional.setVisible(true);
                 this.isStand = true;
                 break;
             case "Participation":
                 radioButtonPanel.setVisible(true);
-                radioButtonRight.setText("List by client id");
-                radioButtonOptional.setText("List by fair id");
+                radioButtonRight.setText("List by Client Id");
+                radioButtonOptional.setText("List by Fair Id");
                 radioButtonList.setVisible(true);
                 radioButtonOptional.setVisible(true);
                 this.isStand = true;
