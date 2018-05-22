@@ -20,7 +20,7 @@ public class ASFeriaImp implements ASFeria { // Try-Catch solo si hay que captur
     public Integer create(Tferia feria) throws ASException {
         int id;
         DAOFeria daoFeria = IFDAOFeria.getInstance().generateDAOferia();
-        if (feria != null && feria.getName() != null && feria.getDescription() != null && feria.getIniDate() != null && feria.getEndDate() != null) {
+        if (feria != null && feria.getName() != null && !feria.getName().equals("") && feria.getDescription() != null && feria.getIniDate() != null && feria.getEndDate() != null) {
             try {
                 Tferia read = daoFeria.readByName(feria.getName());
                 if (read == null) {

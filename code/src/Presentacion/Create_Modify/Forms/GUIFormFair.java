@@ -46,9 +46,11 @@ public class GUIFormFair extends UIStructureFrame {
                 "to continue or <b>'Cancel'</b> to go back." +
                 "In the first field you have to insert the name of the fair," +
                 "in the second one description to give some information and define the theme of the fair," +
-                "in the third field you have to write the starting date " +
-                "and in the last one the end date." +
+                "in the third field you have to write the starting date(DD-MM-YYYY) " +
+                "and in the last one the end date(DD-MM-YYYY)." +
                 "</html>";
+        this.iniDate = "DD-MM-YYYY";
+        this.finDate = "DD-MM-YYYY";
 
         this.mod = false;
         initComponents();
