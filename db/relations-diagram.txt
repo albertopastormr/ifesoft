@@ -1,0 +1,13 @@
+IFESOFT relations diagram
+
+pk= primary key
+fk= foreign key
+
+participante(id(pk), name, phone, active, type)
+part_internacional(id(pk, fk(participante)), country)
+part_nacional(id(pk, fk(participante(id))), region)
+feria(id(pk), name, description, initDate, endDate, active)
+pabellon(id(pk), capacity, total_m2, active)
+asignacion(id(pk), fair_id(fk(feria(id))), pavilion_id(fk(pavilion(id))), total_m2, used_m2, active)
+participacion(id(pk), fair_id(fk(feria(id))), client_id(fk(participante(id))), active)
+stand(id(pk), assignation_id(fk(asignacion(id))), participation_id(fk(participacion(id))), num_at_fair, cost, used_m2, active)
