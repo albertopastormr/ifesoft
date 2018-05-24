@@ -32,7 +32,7 @@ public class ASStandImp implements ASStand {
                                 stand.setActive(false);
                             id = daoStand.create(stand);
                             if (stand.getActive()) {
-                                tasignacionRead.setTotal_m2(tasignacionRead.getTotal_m2() + stand.getTotal_m2());
+                                tasignacionRead.setUsed_m2(tasignacionRead.getUsed_m2() + stand.getTotal_m2());
                                 daoAsignacion.update(tasignacionRead);
                             }
                         } else
