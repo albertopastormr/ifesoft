@@ -1,8 +1,4 @@
-package Negocio.Asignacion;
-
-import Integracion.Asignacion.DAOAsignacion;
-import Integracion.Feria.DAOFeria;
-import Negocio.Feria.IFDAOFeriaImp;
+package Integracion.Asignacion;
 
 public abstract class IFDAOAsignacion {
     private static IFDAOAsignacion instance;

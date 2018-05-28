@@ -2,6 +2,7 @@ package Negocio.Participante;
 
 import Exceptions.ASException;
 import Integracion.Participante.DAOParticipante;
+import Integracion.Participante.IFDAOParticipante;
 import org.junit.Before;
 import org.junit.Test;
 

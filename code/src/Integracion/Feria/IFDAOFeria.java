@@ -1,6 +1,4 @@
-package Negocio.Feria;
-
-import Integracion.Feria.DAOFeria;
+package Integracion.Feria;
 
 public abstract class IFDAOFeria {
     private static IFDAOFeria instance;

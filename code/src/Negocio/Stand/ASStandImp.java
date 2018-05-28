@@ -4,9 +4,10 @@ import Exceptions.ASException;
 import Integracion.Asignacion.DAOAsignacion;
 import Integracion.Participacion.DAOParticipacion;
 import Integracion.Stand.DAOStand;
-import Negocio.Asignacion.IFDAOAsignacion;
+import Integracion.Asignacion.IFDAOAsignacion;
+import Integracion.Stand.IFDAOStand;
 import Negocio.Asignacion.Tasignacion;
-import Negocio.Participacion.IFDAOParticipacion;
+import Integracion.Participacion.IFDAOParticipacion;
 import Negocio.Participacion.Tparticipacion;
 
 import java.util.Collection;

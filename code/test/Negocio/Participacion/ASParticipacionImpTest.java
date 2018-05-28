@@ -2,9 +2,11 @@ package Negocio.Participacion;
 
 import Integracion.Feria.DAOFeria;
 import Integracion.Participacion.DAOParticipacion;
+import Integracion.Participacion.IFDAOParticipacion;
 import Integracion.Participante.DAOParticipante;
+import Integracion.Participante.IFDAOParticipante;
 import Negocio.Feria.ASFeriaImp;
-import Negocio.Feria.IFDAOFeria;
+import Integracion.Feria.IFDAOFeria;
 import Negocio.Feria.Tferia;
 import Negocio.Participante.*;
 

@@ -2,6 +2,7 @@ package Negocio.Pabellon;
 
 import Exceptions.ASException;
 import Integracion.Pabellon.DAOPabellon;
+import Integracion.Pabellon.IFDAOPabellon;
 import org.junit.Before;
 import org.junit.Test;
 

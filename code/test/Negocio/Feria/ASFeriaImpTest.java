@@ -3,8 +3,7 @@ package Negocio.Feria;
 
 import Exceptions.ASException;
 import Exceptions.DAOException;
-import Integracion.Pabellon.DAOPabellon;
-import Negocio.Pabellon.IFDAOPabellon;
+import Integracion.Feria.IFDAOFeria;
 import org.junit.Before;
 import org.junit.Test;
 import Integracion.Feria.DAOFeria;

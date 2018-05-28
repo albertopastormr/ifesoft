@@ -3,10 +3,11 @@ package Negocio.Participante;
 import Exceptions.ASException;
 import Integracion.Participacion.DAOParticipacion;
 import Integracion.Participante.DAOParticipante;
+import Integracion.Participante.IFDAOParticipante;
 import Integracion.Stand.DAOStand;
-import Negocio.Participacion.IFDAOParticipacion;
+import Integracion.Participacion.IFDAOParticipacion;
 import Negocio.Participacion.Tparticipacion;
-import Negocio.Stand.IFDAOStand;
+import Integracion.Stand.IFDAOStand;
 import Negocio.Stand.Tstand;
 
 import java.util.ArrayList;

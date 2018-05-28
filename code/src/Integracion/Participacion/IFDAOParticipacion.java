@@ -1,8 +1,4 @@
-package Negocio.Participacion;
-
-import Integracion.Feria.DAOFeria;
-import Integracion.Participacion.DAOParticipacion;
-import Negocio.Feria.IFDAOFeriaImp;
+package Integracion.Participacion;
 
 public abstract class IFDAOParticipacion {
     private static IFDAOParticipacion instance;

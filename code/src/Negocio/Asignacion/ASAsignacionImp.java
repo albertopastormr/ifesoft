@@ -3,15 +3,16 @@ package Negocio.Asignacion;
 
 import Exceptions.ASException;
 import Integracion.Asignacion.DAOAsignacion;
+import Integracion.Asignacion.IFDAOAsignacion;
 import Integracion.Pabellon.DAOPabellon;
 import Integracion.Feria.DAOFeria;
 import Integracion.Stand.DAOStand;
 import Negocio.Feria.Tferia;
-import Negocio.Stand.IFDAOStand;
+import Integracion.Stand.IFDAOStand;
 import Negocio.Stand.Tstand;
 import Negocio.Pabellon.Tpabellon;
-import Negocio.Pabellon.IFDAOPabellon;
-import Negocio.Feria.IFDAOFeria;
+import Integracion.Pabellon.IFDAOPabellon;
+import Integracion.Feria.IFDAOFeria;
 
 import java.util.ArrayList;
 import java.util.Collection;

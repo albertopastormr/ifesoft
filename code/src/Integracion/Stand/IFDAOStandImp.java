@@ -1,8 +1,4 @@
-package Negocio.Stand;
-
-import Integracion.Stand.DAOStand;
-import Integracion.Stand.DAOStandImp;
-import Negocio.Stand.IFDAOStand;
+package Integracion.Stand;
 
 public class IFDAOStandImp extends IFDAOStand {
     public DAOStand generateDAOstand(){

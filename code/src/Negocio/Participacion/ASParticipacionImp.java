@@ -3,12 +3,13 @@ package Negocio.Participacion;
 import Exceptions.ASException;
 import Integracion.Feria.DAOFeria;
 import Integracion.Participacion.DAOParticipacion;
+import Integracion.Participacion.IFDAOParticipacion;
 import Integracion.Participante.DAOParticipante;
-import Negocio.Feria.IFDAOFeria;
+import Integracion.Feria.IFDAOFeria;
 import Integracion.Stand.DAOStand;
 import Negocio.Feria.Tferia;
-import Negocio.Participante.IFDAOParticipante;
-import Negocio.Stand.IFDAOStand;
+import Integracion.Participante.IFDAOParticipante;
+import Integracion.Stand.IFDAOStand;
 import Negocio.Participante.Tparticipante;
 import Negocio.Stand.Tstand;
 

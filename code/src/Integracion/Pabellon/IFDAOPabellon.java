@@ -1,8 +1,4 @@
-package Negocio.Pabellon;
-
-import Integracion.Feria.DAOFeria;
-import Integracion.Pabellon.DAOPabellon;
-import Negocio.Feria.IFDAOFeriaImp;
+package Integracion.Pabellon;
 
 public abstract class IFDAOPabellon {
     private static IFDAOPabellon instance;

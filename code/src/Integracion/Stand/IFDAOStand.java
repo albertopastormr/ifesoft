@@ -1,8 +1,4 @@
-package Negocio.Stand;
-
-import Integracion.Feria.DAOFeria;
-import Integracion.Stand.DAOStand;
-import Negocio.Feria.IFDAOFeriaImp;
+package Integracion.Stand;
 
 public abstract class IFDAOStand {
     private static IFDAOStand instance;
