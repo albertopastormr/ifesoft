@@ -1,5 +1,5 @@
 # ifesoft
-## What is ifesoft?
+## About
 Ifesoft is an enterprise congress and meetings desktop java organizer made for the subject Software Engineer of Software Engineer Bachelor's Degree at Universidad Complutense Madrid.
 The documentation has been written in spanish because of a language constraint in the assignment for the subject as some classes at the code.
 ## How to use it
@@ -31,6 +31,7 @@ If you are in MariaDb terminal: (keys) Ctrl + C
 Insert the password `manager-if`.
 
 this imports an existing database with a valid structure for ifesoft.
+
 ## Authors
 The development team consists in a class-group of seven students:
   - [Alberto Pastor Moreno](https://github.com/albertopastormr/) @albertopastormr
