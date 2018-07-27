@@ -36,8 +36,9 @@ this imports an existing database with a valid structure for ifesoft.
 The development team consists in a class-group of seven students:
   - [Alberto Pastor Moreno](https://github.com/albertopastormr/) @albertopastormr
   - [Iván Fernandez Mena](https://github.com/ivanfermena) @ivanf3rmena
-  - Rubén García
-  - Pablo López 
+  - [Rubén García](https://github.com/RubenGarciaMateos) @RubenGarciaMateos
+  - [Pablo López](https://github.com/pablolop002) @pablolop002 
   - Arthur Amon
-  - Gerardo Parra
-  - Marco Adinolfi
+  - [Gerardo Parra](https://github.com/gprossignoli) @gprossignoli
+  - [Marco Adinolfi](https://github.com/MarcoAdinolfi) @MarcoAdinolfi
+ 
