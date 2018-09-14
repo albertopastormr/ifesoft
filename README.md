@@ -38,7 +38,6 @@ The development team consists in a class-group of seven students:
   - [Iván Fernandez Mena](https://github.com/ivanfermena) @ivanf3rmena
   - [Rubén García](https://github.com/RubenGarciaMateos) @RubenGarciaMateos
   - [Pablo López](https://github.com/pablolop002) @pablolop002 
-  - Arthur Amon
   - [Gerardo Parra](https://github.com/gprossignoli) @gprossignoli
   - [Marco Adinolfi](https://github.com/MarcoAdinolfi) @MarcoAdinolfi
  
